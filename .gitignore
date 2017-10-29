@@ -1,0 +1,9 @@
+.env
+npm-debug.log
+/node_modules/*
+/.git/*
+/tmp/*
+/logs/*
+/dist/*
+/public/*.map
+/public/*.map
