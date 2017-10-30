@@ -5,9 +5,9 @@ webpackJsonp([0],[
 
 "use strict";
 /* unused harmony export M */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return log; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return spn; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return log; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return spn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return str; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_spin__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_spin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__utils_spin__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -789,23 +789,23 @@ var pspid = 'AppAction';
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   selectedContent: function selectedContent(selected, title) {
-    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', selected, title);
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', selected, title);
     Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'content/select', selected: selected, title: title });
   },
   fetchConfig: function fetchConfig() {
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchConfig().then(function (config) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'config/fetch/appid', config: config });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: config/fetch/appid');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', 'Config:', config);
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '>', 'Response: config/fetch/appid');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', 'Config:', config);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
     });
   },
   writeConfig: function writeConfig(obj) {
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeConfig(obj).then(function (config) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'config/write/appid', config: config });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: config/write/appid');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', 'Config:', config);
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '>', 'Response: config/write/appid');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', 'Config:', config);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
     });
   }
 });
@@ -824,32 +824,35 @@ var pspid = 'AppAction';
 
 
 
-__WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].config('console', 'basic', 'ALL', 'note-renderer');
-__WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* spn */].config('app');
+
+__WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].config('console', 'basic', 'ALL', 'note-renderer');
+__WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* spn */].config('app');
 
 var pspid = 'eBAPIClient';
 
 //const v1 = 'http://svcs.ebay.com/services/search/FindingService/v1'
-//const v2 = 'http://open.api.ebay.com/shopping';
+//const v2 = 'https://api.ebay.com/ws/api.dll';
 //const s1 = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
-//const s2 = 'http://open.api.sandbox.ebay.com/shopping';
+//const s2 = 'https://api.sandbox.ebay.com/ws/api.dll';
 //const appid = 'Develope-WatchNot-PRD-05d7a0307-e288d29c';
+//const appid = 'Develope-WatchNot-SBX-5f0ecce30-f5331d00';
+//const token = 'AgAAAA**AQAAAA**aAAAAA**jqT1WQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AAkouiDpGFoA6dj6x9nY+seQ**m/ADAA**AAMAAA**2b2SR6yRJyXpL8F99OVUZi/5Quje4X7fgVu8nn2J9GMww28GbOagFFBxcZEIJQAQZsZlsvuYtyqbow0IwnDcXOHYhqroKYtLxb0xl+DBD5nK7PGys8VYKW3+HhIOy4lzGGhpMpaik8fOSTaa6zKJVHJIaD4pJYbI86ws6WfEYTEUQwR7txElKfTEyW1ni53oezHEK4WTdT19vUPSagpkt+Yrge2xNrwiKDgCxYk5n34vSyHpQWIjMc0bT1R2hY4HVLY5HPhv3SSS3zz0hlpR0hNUFyD5YP0uIZ3rwOk+8Pght1uZh2xpS/r3mwecv9UkJy8Xi8QAbUc8JFXCuHdOnjmELkBLyMbaT8zP5o/rw8vjf4UvAQlFLCBxo+aWiBhtoUxI8TKf+fzr99hGwubnqz9Qb4Q74WAwv2XMH05prc1c4c5pct/gTpFD0V8LxDIJ7Jwtny0wijznlqTRUO/3su31r4fgsi37x1/w4JsC9y5yLfc80UKsihCyZOni5/jqXpat3soema7eufk9IZNmalzObyukrVIU1Pc4AeQur0z1jNaaDngxd8+u7DV76DlKarmyN1BTBzANMVXlOeoLH6pFxJ2vVNBnfAtSNgIBbEPczAbQ1ULTIGwf9FIj6iUNl+AH197F8x9TuVOZlePbAprYya0OLMgMyWFnDz/8i9nAY5zVPTqFQO60Ozmeqql044quPBUFLSop7j6AvgwtZoRsEg7SlJtUq+EB3fMR0JJI938eJD3knyhvwCFW1ZCn';
 
 var eBay = new Object();
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   request: function request(action, response) {
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].info(pspid + '>', 'Request:', action);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].info(pspid + '>', 'Request:', action);
     switch (action) {
       case 'config/fetch':
         return new Promise(function (resolve) {
-          var memory = window.localStorage || window.UserDataStorage && new __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* str */].UserDataStorage() || new __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* str */].CookieStorage();
+          var memory = window.localStorage || window.UserDataStorage && new __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["d" /* str */].UserDataStorage() || new __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["d" /* str */].CookieStorage();
           eBay = JSON.parse(memory.getItem("eBay_config"));
           resolve(eBay);
         });
       case 'config/write':
         return new Promise(function (resolve) {
-          var memory = window.localStorage || window.UserDataStorage && new __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* str */].UserDataStorage() || new __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* str */].CookieStorage();
+          var memory = window.localStorage || window.UserDataStorage && new __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["d" /* str */].UserDataStorage() || new __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["d" /* str */].CookieStorage();
           memory.setItem("eBay_config", JSON.stringify(response));
           resolve(response);
         });
@@ -871,12 +874,23 @@ var eBay = new Object();
             resolve(obj);
           });
         });
+      case 'fetchItemDetails':
+        return new Promise(function (resolve) {
+          __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["default"].postData2(eBay.tradingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
       default:
         return new Promise(function (resolve) {
-          __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].warn(pspid + '> Unknown request !!');
+          __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].warn(pspid + '> Unknown request !!');
           resolve(response);
         });
     }
+  },
+  fetchItemDetails: function fetchItemDetails(options) {
+    return this.request('fetchItemDetails', optDetails({
+      token: eBay.token, operation: 'GetItem'
+    }, options));
   },
   fetchConfig: function fetchConfig() {
     return this.request('config/fetch');
@@ -893,9 +907,9 @@ var eBay = new Object();
     }, options));
   },
   fetchItems: function fetchItems(options, page) {
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* spn */].spin();
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'page:', page);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* spn */].spin();
     return this.getItems(options, page).then(this.resItems).then(this.setItems)
     //.then(R.tap(this.traceLog.bind(this)))
     .catch(this.errorLog.bind(this));
@@ -904,9 +918,9 @@ var eBay = new Object();
     var _this = this;
 
     var pages = options.pages;
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'pages:', pages);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* spn */].spin();
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'pages:', pages);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* spn */].spin();
     var mapIndexed = R.addIndex(R.map);
     return this.getItems(options, 1).then(this.resItems).then(R.curry(this.forItems.bind(this))(options)).then(R.map(this.resItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
       return _this.renderItem(obj, idx + 1);
@@ -951,9 +965,9 @@ var eBay = new Object();
     }, options));
   },
   fetchCompleteItems: function fetchCompleteItems(options, page) {
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* spn */].spin();
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'page:', page);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* spn */].spin();
     return this.getCompleteItems(options, page).then(this.resCompleteItems).then(this.setItems)
     //.then(R.tap(this.traceLog.bind(this)))
     .catch(this.errorLog.bind(this));
@@ -962,9 +976,9 @@ var eBay = new Object();
     var _this2 = this;
 
     var pages = options.pages;
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'pages:', pages);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* spn */].spin();
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'pages:', pages);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* spn */].spin();
     var mapIndexed = R.addIndex(R.map);
     return this.getCompleteItems(options, 1).then(this.resCompleteItems).then(R.curry(this.forCompleteItems.bind(this))(options)).then(R.map(this.resCompleteItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
       return _this2.renderItem(obj, idx + 1);
@@ -994,9 +1008,9 @@ var eBay = new Object();
     }, options));
   },
   fetchProductsItems: function fetchProductsItems(options, page) {
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* spn */].spin();
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'page:', page);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* spn */].spin();
     return this.getProductsItems(options, page).then(this.resProductsItems).then(this.setItems)
     //.then(R.tap(this.traceLog.bind(this)))
     .catch(this.errorLog.bind(this));
@@ -1005,9 +1019,9 @@ var eBay = new Object();
     var _this3 = this;
 
     var pages = options.pages;
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'pages:', pages);
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* spn */].spin();
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'pages:', pages);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["c" /* spn */].spin();
     var mapIndexed = R.addIndex(R.map);
     return this.getProductsItems(options, 1).then(this.resProductsItems).then(R.curry(this.forProductsItems.bind(this))(options)).then(R.map(this.resProductsItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
       return _this3.renderItem(obj, idx + 1);
@@ -1030,6 +1044,78 @@ var eBay = new Object();
   },
   setItems: function setItems(obj) {
     return obj && obj.ack[0] === 'Success' ? obj.searchResult[0].item : null;
+  },
+  optDetails: function optDetails(o, p) {
+    var _o = o;
+    var _p = p ? p : {};
+    var options = new Object();
+    options['GLOBAL-ID'] = 'EBAY-US';
+    options['MESSAGE-ENCODING'] = 'UTF-8';
+    options['OPERATION-NAME'] = _o.operation;
+    options['REQUEST-DATA-FORMAT'] = 'NV';
+    options['RESPONSE-DATA-FORMAT'] = 'JSON';
+    options['REST-PAYLOAD'] = '';
+    options['SECURITY-APPNAME'] = _o.appid;
+    options['SERVICE-VERSION'] = '1.13.0';
+    options['outputSelector'] = 'SellerInfo';
+    options['paginationInput.entriesPerPage'] = 20;
+    options['paginationInput.pageNumber'] = _o.page;
+
+    if (_p.searchString) {
+      options['keywords'] = _p.searchString;
+    } else {
+      options['keywords'] = '';
+    }
+
+    var n = 0;
+    if (_p.seller && _p.seller.length) {
+      options['itemFilter(' + n + ').name'] = 'Seller';
+      _p.seller.forEach(function (slr, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = slr;
+      });
+      n++;
+    }
+
+    if (_p.highestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MaxPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.highestPrice;
+      n++;
+    }
+
+    if (_p.lowestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MinPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.lowestPrice;
+      n++;
+    }
+
+    if (_p.condition && _p.condition.length) {
+      options['itemFilter(' + n + ').name'] = 'Condition';
+      _p.condition.forEach(function (cdn, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = cdn;
+      });
+      n++;
+    }
+
+    if (_p.soldItemOnly === true) {
+      options['itemFilter(' + n + ').name'] = 'SoldItemOnly';
+      options['itemFilter(' + n + ').value(0)'] = 'true';
+      n++;
+    }
+
+    if (__WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.isValidDate(_p.startDate)) {
+      options['itemFilter(' + n + ').name'] = 'EndTimeFrom';
+      options['itemFilter(' + n + ').value(0)'] = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.setTimeStamp(_p.startDate);
+      n++;
+    }
+
+    if (__WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.isValidDate(_p.endDate)) {
+      options['itemFilter(' + n + ').name'] = 'EndTimeTo';
+      options['itemFilter(' + n + ').value(0)'] = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.setTimeStamp(_p.endDate);
+      n++;
+    }
+
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'Request:', options);
+    return options;
   },
   optProducts: function optProducts(o, p) {
     var _o = o;
@@ -1084,7 +1170,7 @@ var eBay = new Object();
       n++;
     }
 
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'Request:', options);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'Request:', options);
     return options;
   },
   optItems: function optItems(o, p) {
@@ -1156,14 +1242,14 @@ var eBay = new Object();
       n++;
     }
 
-    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'Request:', options);
+    __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'Request:', options);
     return options;
   },
   traceLog: function traceLog(obj) {
-    return __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'Trace log:', obj);
+    return __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'Trace log:', obj);
   },
   errorLog: function errorLog(err) {
-    return __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].error(pspid + '>', 'Error occurred:', err);
+    return __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].error(pspid + '>', 'Error occurred:', err);
   },
   renderStatus: function renderStatus(status) {
     switch (status) {
@@ -3007,15 +3093,16 @@ var AppStore = function (_ReduceStore) {
           selected: '',
           title: '',
           appid: '',
+          token: '',
           findingApi: '',
-          shoppingApi: ''
+          tradingApi: ''
         }
       };
     }
   }, {
     key: 'reduce',
     value: function reduce(state, action) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Request: ' + action.type);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '> Request: ' + action.type);
       switch (action.type) {
         case 'content/select':
           return Object.assign({}, state, { selected: action.selected, title: action.title });
@@ -3788,7 +3875,7 @@ var AppSidebar = function (_React$Component) {
             'span',
             { className: 'nav-group-item' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'icon icon-key' }),
-            'Application Keys'
+            'Application keyset'
           )
         )
       );
@@ -3839,8 +3926,8 @@ var AppForm = function (_React$Component) {
   _createClass(AppForm, [{
     key: 'handleChangeSave',
     value: function handleChangeSave(e) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeSave');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.config);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeSave');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.config);
       e.preventDefault();
       __WEBPACK_IMPORTED_MODULE_1__actions_AppAction__["a" /* default */].writeConfig(this.state);
     }
@@ -3880,6 +3967,20 @@ var AppForm = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
+              'User Token'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
+              className: 'form-control',
+              placeholder: 'Token',
+              value: this.state.token,
+              onChange: this.handleChangeText.bind(this, 'token') })
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'form-group' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              null,
               'Finding API URL'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text',
@@ -3894,20 +3995,21 @@ var AppForm = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
-              'Shopping API URL'
+              'Trading API URL'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text',
               className: 'form-control',
               placeholder: 'URL',
-              value: this.state.shoppingApi,
-              onChange: this.handleChangeText.bind(this, 'shoppingApi') })
+              value: this.state.tradingApi,
+              onChange: this.handleChangeText.bind(this, 'tradingApi') })
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'form-actions' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'button',
-              { type: 'submit', className: 'btn btn-large btn-form btn-primary',
+              { type: 'submit',
+                className: 'btn btn-large btn-form btn-primary',
                 onClick: this.handleChangeSave.bind(this) },
               'Save'
             )
@@ -4044,7 +4146,7 @@ var NoteStore = function (_ReduceStore) {
   }, {
     key: 'reduce',
     value: function reduce(state, action) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Request: ' + action.type);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '> Request: ' + action.type);
       switch (action.type) {
         case 'item/fetch/note':
           return Object.assign({}, state, { items: action.items, options: action.options,
@@ -4173,7 +4275,7 @@ var NoteSidebar = function (_React$Component) {
 
       var options = this.props.options;
       this.showSaveDialog(function (filename) {
-        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
+        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Save file:', filename);
         __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].writeItems(options).then(function (items) {
           return _this2.saveItems(filename, items);
         })
@@ -4184,7 +4286,7 @@ var NoteSidebar = function (_React$Component) {
   }, {
     key: 'saveItems',
     value: function saveItems(filename, items) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace('' + pspid, filename, items);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace('' + pspid, filename, items);
       return new Promise(function (resolve) {
         __WEBPACK_IMPORTED_MODULE_5_fs___default.a.writeFile(filename, items.join('\n'), function (err) {
           if (err) reject(err.message);
@@ -4209,37 +4311,37 @@ var NoteSidebar = function (_React$Component) {
   }, {
     key: 'handleChangeHome',
     value: function handleChangeHome() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeHome');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeHome');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].increment(this.props.options, 0);
     }
   }, {
     key: 'handleIncrement',
     value: function handleIncrement() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleIncrement');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleIncrement');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].increment(this.props.options, this.props.page);
     }
   }, {
     key: 'handleDecrement',
     value: function handleDecrement() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '> Request: handleDecrement');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '> Request: handleDecrement');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].decrement(this.props.options, this.props.page);
     }
   }, {
     key: 'handleChangeSearch',
     value: function handleChangeSearch(e) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeSearch');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.state);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeSearch');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.state);
       e.preventDefault();
       __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].increment(this.state, 0);
     }
   }, {
     key: 'handleChangeReset',
     value: function handleChangeReset() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeReset');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.state);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeReset');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.state);
       this.setState({
         highestPrice: '',
         lowestPrice: '',
@@ -4654,25 +4756,25 @@ var pspid = 'NoteAction';
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   increment: function increment(options, page) {
-    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', options);
     page = ++page > 0 ? page : 1;
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchItems(options, page).then(function (items) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/note', items: items, options: options, page: page });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/fetch/note');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '>', 'Response: item/fetch/note');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
     });
   },
   decrement: function decrement(options, page) {
     page = --page > 0 ? page : 1;
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchItems(options, page).then(function (items) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/note', items: items, options: options, page: page });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Response: item/fetch/note');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '> Response: item/fetch/note');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
     });
   },
   writeItems: function writeItems(options) {
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeItems(options).then(function (items) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
       return items;
     });
   }
@@ -4890,7 +4992,7 @@ var NoteTable = function (_React$Component) {
   }, {
     key: 'filterItems',
     value: function filterItems(objs, options) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', options);
       return objs.filter(function (obj) {
         var item = obj;
         if (options != null) {
@@ -5107,7 +5209,7 @@ var CompleteStore = function (_ReduceStore) {
   }, {
     key: 'reduce',
     value: function reduce(state, action) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Request: ' + action.type);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '> Request: ' + action.type);
       switch (action.type) {
         case 'item/fetch/complete':
           return Object.assign({}, state, { items: action.items, options: action.options,
@@ -5237,7 +5339,7 @@ var CompleteSidebar = function (_React$Component) {
 
       var options = this.props.options;
       this.showSaveDialog(function (filename) {
-        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
+        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Save file:', filename);
         __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].writeCompleteItems(options).then(function (items) {
           return _this2.saveItems(filename, items);
         })
@@ -5248,7 +5350,7 @@ var CompleteSidebar = function (_React$Component) {
   }, {
     key: 'saveItems',
     value: function saveItems(filename, items) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace('' + pspid, filename, items);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace('' + pspid, filename, items);
       return new Promise(function (resolve) {
         __WEBPACK_IMPORTED_MODULE_5_fs___default.a.writeFile(filename, items.join('\n'), function (err) {
           if (err) reject(err.message);
@@ -5273,37 +5375,37 @@ var CompleteSidebar = function (_React$Component) {
   }, {
     key: 'handleChangeHome',
     value: function handleChangeHome() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeHome');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeHome');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].increment(this.props.options, 0);
     }
   }, {
     key: 'handleIncrement',
     value: function handleIncrement() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleIncrement');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleIncrement');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].increment(this.props.options, this.props.page);
     }
   }, {
     key: 'handleDecrement',
     value: function handleDecrement() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '> Request: handleDecrement');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '> Request: handleDecrement');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].decrement(this.props.options, this.props.page);
     }
   }, {
     key: 'handleChangeSearch',
     value: function handleChangeSearch(e) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeSearch');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.state);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeSearch');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.state);
       e.preventDefault();
       __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].increment(this.state, 0);
     }
   }, {
     key: 'handleChangeReset',
     value: function handleChangeReset() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeReset');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.state);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeReset');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.state);
       this.setState({
         highestPrice: '',
         lowestPrice: '',
@@ -5741,25 +5843,25 @@ var pspid = 'CompleteAction';
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   increment: function increment(options, page) {
-    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', options);
     page = ++page > 0 ? page : 1;
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchCompleteItems(options, page).then(function (items) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/complete', items: items, options: options, page: page });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/fetch/complete');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '>', 'Response: item/fetch/complete');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
     });
   },
   decrement: function decrement(options, page) {
     page = --page > 0 ? page : 1;
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchCompleteItems(options, page).then(function (items) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/complete', items: items, options: options, page: page });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Response: item/fetch/complete');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '> Response: item/fetch/complete');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
     });
   },
   writeCompleteItems: function writeCompleteItems(options) {
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeCompleteItems(options).then(function (items) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
       return items;
     });
   }
@@ -5977,7 +6079,7 @@ var CompleteTable = function (_React$Component) {
   }, {
     key: 'filterItems',
     value: function filterItems(objs, options) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', options);
       return objs.filter(function (obj) {
         var item = obj;
         if (options != null) {
@@ -6192,7 +6294,7 @@ var ProductsStore = function (_ReduceStore) {
   }, {
     key: 'reduce',
     value: function reduce(state, action) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Request: ' + action.type);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '> Request: ' + action.type);
       switch (action.type) {
         case 'item/fetch/products':
           return Object.assign({}, state, { items: action.items, options: action.options,
@@ -6321,7 +6423,7 @@ var ProductsSidebar = function (_React$Component) {
 
       var options = this.props.options;
       this.showSaveDialog(function (filename) {
-        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
+        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Save file:', filename);
         __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].writeProductsItems(options).then(function (items) {
           return _this2.saveItems(filename, items);
         })
@@ -6332,7 +6434,7 @@ var ProductsSidebar = function (_React$Component) {
   }, {
     key: 'saveItems',
     value: function saveItems(filename, items) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace('' + pspid, filename, items);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace('' + pspid, filename, items);
       return new Promise(function (resolve) {
         __WEBPACK_IMPORTED_MODULE_5_fs___default.a.writeFile(filename, items.join('\n'), function (err) {
           if (err) reject(err.message);
@@ -6357,37 +6459,37 @@ var ProductsSidebar = function (_React$Component) {
   }, {
     key: 'handleChangeHome',
     value: function handleChangeHome() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeHome');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeHome');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].increment(this.props.options, 0);
     }
   }, {
     key: 'handleIncrement',
     value: function handleIncrement() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleIncrement');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleIncrement');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].increment(this.props.options, this.props.page);
     }
   }, {
     key: 'handleDecrement',
     value: function handleDecrement() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '> Request: handleDecrement');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.props.options);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '> Request: handleDecrement');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.props.options);
       __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].decrement(this.props.options, this.props.page);
     }
   }, {
     key: 'handleChangeSearch',
     value: function handleChangeSearch(e) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeSearch');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.state);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeSearch');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.state);
       e.preventDefault();
       __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].increment(this.state, 0);
     }
   }, {
     key: 'handleChangeReset',
     value: function handleChangeReset() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request: handleChangeReset');
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', this.state);
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].info(pspid + '>', 'Request: handleChangeReset');
+      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* log */].trace(pspid + '>', this.state);
       this.setState({
         highestPrice: '',
         lowestPrice: '',
@@ -6808,25 +6910,25 @@ var pspid = 'ProductsAction';
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   increment: function increment(options, page) {
-    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', options);
     page = ++page > 0 ? page : 1;
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchProductsItems(options, page).then(function (items) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/products', items: items, options: options, page: page });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/fetch/products');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '>', 'Response: item/fetch/products');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
     });
   },
   decrement: function decrement(options, page) {
     page = --page > 0 ? page : 1;
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchProductsItems(options, page).then(function (items) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/products', items: items, options: options, page: page });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Response: item/fetch/products');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].info(pspid + '> Response: item/fetch/products');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
     });
   },
   writeProductsItems: function writeProductsItems(options) {
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeProductsItems(options).then(function (items) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["c" /* spn */].stop();
       return items;
     });
   }
@@ -7044,7 +7146,7 @@ var ProductsTable = function (_React$Component) {
   }, {
     key: 'filterItems',
     value: function filterItems(objs, options) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* log */].trace(pspid + '>', options);
       return objs.filter(function (obj) {
         var item = obj;
         if (options != null) {
@@ -7360,7 +7462,7 @@ var GlobalFooter = function (_React$Component) {
     key: 'handleClickClose',
     value: function handleClickClose() {
       this.showMessageBox(function (response) {
-        __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["a" /* log */].trace(pspid + '>', 'Click button:', response);
+        __WEBPACK_IMPORTED_MODULE_1__utils_webutils__["b" /* log */].trace(pspid + '>', 'Click button:', response);
         var win = remote.getCurrentWindow();
         if (!response) win.close();
       });

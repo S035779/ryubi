@@ -16,7 +16,7 @@ export default class AppSidebar extends React.Component {
       <h5 className="nav-group-title">My account</h5>
       <span className="nav-group-item">
         <span className="icon icon-key"></span>
-        Application Keys
+        Application keyset
       </span>
     </nav>
     </div>;

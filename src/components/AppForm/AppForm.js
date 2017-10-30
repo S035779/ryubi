@@ -36,6 +36,15 @@ export default class AppForm extends React.Component {
           this.handleChangeText.bind(this, 'appid')} />
       </div>
       <div className="form-group">
+      <label>User Token</label>
+      <textarea
+        className="form-control"
+        placeholder="Token"
+        value={this.state.token}
+        onChange={
+          this.handleChangeText.bind(this, 'token')} />
+      </div>
+      <div className="form-group">
       <label>Finding API URL</label>
       <input type="text"
         className="form-control"
@@ -45,16 +54,17 @@ export default class AppForm extends React.Component {
           this.handleChangeText.bind(this, 'findingApi')} />
       </div>
       <div className="form-group">
-      <label>Shopping API URL</label>
+      <label>Trading API URL</label>
       <input type="text"
         className="form-control"
         placeholder="URL"
-        value={this.state.shoppingApi}
+        value={this.state.tradingApi}
         onChange={
-          this.handleChangeText.bind(this, 'shoppingApi')} />
+          this.handleChangeText.bind(this, 'tradingApi')} />
       </div>
       <div className="form-actions">
-      <button type="submit" className="btn btn-large btn-form btn-primary"
+      <button type="submit" 
+        className="btn btn-large btn-form btn-primary"
         onClick={this.handleChangeSave.bind(this)}>Save
       </button>
       </div>

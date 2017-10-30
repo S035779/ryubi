@@ -13,8 +13,9 @@ class AppStore extends ReduceStore {
         selected: ''
         , title: ''
         , appid: ''
+        , token: ''
         , findingApi: ''
-        , shoppingApi: ''
+        , tradingApi: ''
       }
     };
   }

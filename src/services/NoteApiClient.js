@@ -1,5 +1,6 @@
 import {parse, end} from 'iso8601-duration';
 import { M, log, spn, str } from '../../utils/webutils';
+import xhr from '../../utils/webutils';
 import std from '../../utils/stdutils';
 
 log.config('console', 'basic', 'ALL', 'note-renderer');
@@ -8,10 +9,12 @@ spn.config('app');
 const pspid = `eBAPIClient`;
 
 //const v1 = 'http://svcs.ebay.com/services/search/FindingService/v1'
-//const v2 = 'http://open.api.ebay.com/shopping';
+//const v2 = 'https://api.ebay.com/ws/api.dll';
 //const s1 = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
-//const s2 = 'http://open.api.sandbox.ebay.com/shopping';
+//const s2 = 'https://api.sandbox.ebay.com/ws/api.dll';
 //const appid = 'Develope-WatchNot-PRD-05d7a0307-e288d29c';
+//const appid = 'Develope-WatchNot-SBX-5f0ecce30-f5331d00';
+//const token = 'AgAAAA**AQAAAA**aAAAAA**jqT1WQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AAkouiDpGFoA6dj6x9nY+seQ**m/ADAA**AAMAAA**2b2SR6yRJyXpL8F99OVUZi/5Quje4X7fgVu8nn2J9GMww28GbOagFFBxcZEIJQAQZsZlsvuYtyqbow0IwnDcXOHYhqroKYtLxb0xl+DBD5nK7PGys8VYKW3+HhIOy4lzGGhpMpaik8fOSTaa6zKJVHJIaD4pJYbI86ws6WfEYTEUQwR7txElKfTEyW1ni53oezHEK4WTdT19vUPSagpkt+Yrge2xNrwiKDgCxYk5n34vSyHpQWIjMc0bT1R2hY4HVLY5HPhv3SSS3zz0hlpR0hNUFyD5YP0uIZ3rwOk+8Pght1uZh2xpS/r3mwecv9UkJy8Xi8QAbUc8JFXCuHdOnjmELkBLyMbaT8zP5o/rw8vjf4UvAQlFLCBxo+aWiBhtoUxI8TKf+fzr99hGwubnqz9Qb4Q74WAwv2XMH05prc1c4c5pct/gTpFD0V8LxDIJ7Jwtny0wijznlqTRUO/3su31r4fgsi37x1/w4JsC9y5yLfc80UKsihCyZOni5/jqXpat3soema7eufk9IZNmalzObyukrVIU1Pc4AeQur0z1jNaaDngxd8+u7DV76DlKarmyN1BTBzANMVXlOeoLH6pFxJ2vVNBnfAtSNgIBbEPczAbQ1ULTIGwf9FIj6iUNl+AH197F8x9TuVOZlePbAprYya0OLMgMyWFnDz/8i9nAY5zVPTqFQO60Ozmeqql044quPBUFLSop7j6AvgwtZoRsEg7SlJtUq+EB3fMR0JJI938eJD3knyhvwCFW1ZCn';
 
 let eBay = new Object();
 
@@ -53,12 +56,25 @@ export default {
             resolve(obj);
           });
         });
+      case 'fetchItemDetails':
+        return new Promise(resolve => {
+          xhr.postData2(eBay.tradingApi, response, obj => {
+            resolve(obj);
+          });
+        });
       default:
         return new Promise(resolve => {
           log.warn(`${pspid}> Unknown request !!`);
           resolve(response);
         });
     }
+  },
+
+  fetchItemDetails(options) {
+    return this.request('fetchItemDetails'
+      , optDetails({
+        token: eBay.token, operation: 'GetItem'
+      }, options));
   },
   
   fetchConfig() {
@@ -269,6 +285,78 @@ export default {
   setItems(obj) {
     return  obj && obj.ack[0] === 'Success'
       ? obj.searchResult[0].item : null;
+  },
+
+  optDetails(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const options = new Object();
+    options['GLOBAL-ID'] = 'EBAY-US';
+    options['MESSAGE-ENCODING'] = 'UTF-8';
+    options['OPERATION-NAME'] = _o.operation;
+    options['REQUEST-DATA-FORMAT'] = 'NV';
+    options['RESPONSE-DATA-FORMAT'] = 'JSON';
+    options['REST-PAYLOAD'] = '';
+    options['SECURITY-APPNAME'] = _o.appid;
+    options['SERVICE-VERSION'] = '1.13.0';
+    options['outputSelector'] = 'SellerInfo';
+    options['paginationInput.entriesPerPage'] = 20;
+    options['paginationInput.pageNumber'] = _o.page;
+
+    if(_p.searchString) {
+      options['keywords'] = _p.searchString;
+    } else {
+      options['keywords'] = '';
+    }
+
+    let n = 0;
+    if(_p.seller && _p.seller.length) {
+      options['itemFilter(' +n+ ').name'] = 'Seller';
+      _p.seller.forEach((slr, idx) =>
+        options['itemFilter(' +n+ ').value(' +idx+ ')'] = slr);
+      n++;
+    }
+
+    if(_p.highestPrice) {
+      options['itemFilter(' +n+ ').name'] = 'MaxPrice';
+      options['itemFilter(' +n+ ').value(0)']
+        = _p.highestPrice;
+      n++;
+    }
+
+    if(_p.lowestPrice) {
+      options['itemFilter(' +n+ ').name'] = 'MinPrice';
+      options['itemFilter(' +n+ ').value(0)'] = _p.lowestPrice;
+      n++;
+    }
+    
+    if(_p.condition && _p.condition.length) {
+      options['itemFilter(' +n+ ').name'] = 'Condition';
+      _p.condition.forEach((cdn, idx) => 
+        options['itemFilter(' +n+ ').value(' +idx+ ')'] = cdn);
+      n++;
+    }
+
+    if(_p.soldItemOnly === true) {
+      options['itemFilter(' +n+ ').name'] = 'SoldItemOnly';
+      options['itemFilter(' +n+ ').value(0)'] = 'true';
+      n++;
+    }
+    
+    if(std.isValidDate(_p.startDate)) {
+      options['itemFilter(' +n+ ').name'] = 'EndTimeFrom';
+      options['itemFilter(' +n+ ').value(0)'] =  std.setTimeStamp(_p.startDate);
+      n++;
+    }
+
+    if(std.isValidDate(_p.endDate)) {
+      options['itemFilter(' +n+ ').name'] = 'EndTimeTo';
+      options['itemFilter(' +n+ ').value(0)'] = std.setTimeStamp(_p.endDate);
+      n++;
+    }
+    
+    log.trace(`${pspid}>`, 'Request:', options);
+    return options;
   },
 
   optProducts(o, p) {
