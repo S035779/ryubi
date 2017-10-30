@@ -5,17 +5,17 @@
  * @returns {string}
  */
 var encodeFormData = function(data) {
-    if (!data) return ""
-    var pairs = [];
-    for(var name in data) {
-        if (!data.hasOwnProperty(name)) continue;
-        if (typeof data[name] === "function") continue;
-        var value = data[name].toString();
-        name = encodeURIComponent(name.replace(" ", "+"));
-        value = encodeURIComponent(value.replace(" ", "+"));
-        pairs.push(name + "=" + value);
-    }
-    return pairs.join('&');
+  if (!data) return ""
+  var pairs = [];
+  for(var name in data) {
+    if (!data.hasOwnProperty(name)) continue;
+    if (typeof data[name] === "function") continue;
+    var value = data[name].toString();
+    name = encodeURIComponent(name.replace(" ", "+"));
+    value = encodeURIComponent(value.replace(" ", "+"));
+    pairs.push(name + "=" + value);
+  }
+  return pairs.join('&');
 };
 
 /**
@@ -26,24 +26,22 @@ var encodeFormData = function(data) {
  * @param callback {function}
  */
 var get = function(url, data, callback) {
-    var request = new XMLHttpRequest();
-    request.open("GET", url +
-                 "?" + encodeFormData(data));
-    request.onreadystatechange = function() {
-        if (request.readyState === 4 && request.status === 200) {
-            var type = request.getResponseHeader("Content-Type");
-            if (type.indexOf("xml") !== -1
-              && request.responseXML) {
-                callback(request.responseXML);
-            } else
-            if (type === "application/json; charset=utf-8") {
-                callback(JSON.parse(request.responseText));
-            } else {
-                callback(request.responseText);
-            }
-        }
-    };
-    request.send(null);
+  var request = new XMLHttpRequest();
+  request.open("GET", url + "?" + encodeFormData(data));
+  request.onreadystatechange = function() {
+    if (request.readyState === 4 && request.status === 200) {
+      var type = request.getResponseHeader("Content-Type");
+      if (type.indexOf("xml") !== -1
+        && request.responseXML) {
+        callback(request.responseXML);
+      } else if (type === "application/json; charset=utf-8") {
+        callback(JSON.parse(request.responseText));
+      } else {
+        callback(request.responseText);
+      }
+    }
+  };
+  request.send(null);
 };
 module.exports.get = get;
 
@@ -55,14 +53,13 @@ module.exports.get = get;
  * @param callback {function}
  */
 var getData = function(url, data, callback) {
-    var request = new XMLHttpRequest();
-    request.open("GET", url +
-                 "?" + encodeFormData(data));
-    request.onreadystatechange = function() {
-        if (request.readyState === 4
-          && callback) callback(request);
-    };
-    request.send(null);
+  var request = new XMLHttpRequest();
+  request.open("GET", url + "?" + encodeFormData(data));
+  request.onreadystatechange = function() {
+    if (request.readyState === 4
+      && callback) callback(request);
+  };
+  request.send(null);
 };
 module.exports.getData = getData;
 
@@ -74,15 +71,15 @@ module.exports.getData = getData;
  * @param callback {function}
  */
 var postData = function(url, data, callback) {
-    var request = new XMLHttpRequest();
-    request.open("POST", url);
-    request.onreadystatechange = function() {
-        if (request.readyState === 4 && callback)
-            callback(request);
-    };
-    request.setRequestHeader("Content-Type",
-                            "application/x-www-form-urlencoded");
-    request.send(encodeFormData(data));
+  var request = new XMLHttpRequest();
+  request.open("POST", url);
+  request.onreadystatechange = function() {
+    if (request.readyState === 4 && callback)
+        callback(request);
+  };
+  request.setRequestHeader("Content-Type"
+    , "application/x-www-form-urlencoded");
+  request.send(encodeFormData(data));
 };
 module.exports.postData = postData;
 
@@ -90,19 +87,23 @@ module.exports.postData = postData;
  * postData2
  *
  * @param url {string}
+ * @param head {object}
  * @param data {object}
  * @param callback {function}
  */
 var postData2 = function(url, data, callback) {
-    var request = new XMLHttpRequest();
-    request.open("POST", url);
-    request.onreadystatechange = function() {
-        if (request.readyState === 4 && callback)
-            callback(request);
-    };
-    request.setRequestHeader("Content-Type",
-                            "application/x-www-form-urlencoded");
-    request.send(encodeFormData(data));
+  var request = new XMLHttpRequest();
+  request.open("POST", url);
+  request.onreadystatechange = function() {
+    if (request.readyState === 4 && callback)
+        callback(request);
+  };
+  request.setRequestHeader("Content-Type"
+    , "text/plain; charset=UTF-8");
+  for(var key in data.head) {
+    request.setRequestHeader(key, data.head[key]);
+  }
+  request.send(data.body);
 };
 module.exports.postData2 = postData2;
 
@@ -114,13 +115,13 @@ module.exports.postData2 = postData2;
  * @param callback {function}
  */
 var postJSON = function(url, data, callback) {
-    var request = new XMLHttpRequest();
-    request.open("POST", url);
-    request.onreadystatechange = function() {
-        if (request.readyState === 4 && callback)
-            callback(request);
-    };
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(JSON.stringify(data));
+  var request = new XMLHttpRequest();
+  request.open("POST", url);
+  request.onreadystatechange = function() {
+    if (request.readyState === 4 && callback)
+        callback(request);
+  };
+  request.setRequestHeader("Content-Type", "application/json");
+  request.send(JSON.stringify(data));
 };
 module.exports.postJSON = postJSON;

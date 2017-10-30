@@ -1,3 +1,4 @@
+import builder from 'xmlbuilder';
 import {parse, end} from 'iso8601-duration';
 import { M, log, spn, str } from '../../utils/webutils';
 import xhr from '../../utils/webutils';
@@ -72,11 +73,10 @@ export default {
 
   fetchItemDetails(options) {
     return this.request('fetchItemDetails'
-      , optDetails({
-        token: eBay.token, operation: 'GetItem'
-      }, options));
+      , this.optDetails({ operation: 'GetItem'
+        , token: eBay.token }, options));
   },
-  
+
   fetchConfig() {
     return this.request('config/fetch');
   },
@@ -256,8 +256,10 @@ export default {
       .then(R.map(this.resProductsItems.bind(this)))
       .then(R.map(this.setItems.bind(this)))
       .then(R.flatten)
-      .then(R.filter(R.curry(this.filterItem.bind(this))(options)))
-      .then(mapIndexed((obj, idx) => this.renderItem(obj, idx + 1)))
+      .then(
+        R.filter(R.curry(this.filterItem.bind(this))(options)))
+      .then(
+        mapIndexed((obj, idx) => this.renderItem(obj, idx + 1)))
       .then(this.addHeader.bind(this))
       .then(R.map(this.toCSV.bind(this)))
       //.then(R.tap(this.traceLog.bind(this)))
@@ -290,73 +292,25 @@ export default {
   optDetails(o, p) {
     const _o = o;
     const _p = p ? p : {};
-    const options = new Object();
-    options['GLOBAL-ID'] = 'EBAY-US';
-    options['MESSAGE-ENCODING'] = 'UTF-8';
-    options['OPERATION-NAME'] = _o.operation;
-    options['REQUEST-DATA-FORMAT'] = 'NV';
-    options['RESPONSE-DATA-FORMAT'] = 'JSON';
-    options['REST-PAYLOAD'] = '';
-    options['SECURITY-APPNAME'] = _o.appid;
-    options['SERVICE-VERSION'] = '1.13.0';
-    options['outputSelector'] = 'SellerInfo';
-    options['paginationInput.entriesPerPage'] = 20;
-    options['paginationInput.pageNumber'] = _o.page;
+    const head = new Object();
+    const body = new Object();
+    head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
+    head['X-EBAY-API-CALL-NAME'] = o.operation;
+    head['X-EBAY-API-SITEID'] = 0;
+    body['RequesterCredentials'] = { 'eBayAuthToken': _o.token };
+    body['ErrorLanguage'] = 'en_US';
+    body['WarningLevel'] = 'High';
+    body['ItemID'] = _p.itemID;
+    body['DetailLevel'] = 'ReturnAll';
+    log.trace(`${pspid}>`, 'Request:', head, body);
+    return { head, body: this.toXML(_o.operation, body) };
+  },
 
-    if(_p.searchString) {
-      options['keywords'] = _p.searchString;
-    } else {
-      options['keywords'] = '';
-    }
-
-    let n = 0;
-    if(_p.seller && _p.seller.length) {
-      options['itemFilter(' +n+ ').name'] = 'Seller';
-      _p.seller.forEach((slr, idx) =>
-        options['itemFilter(' +n+ ').value(' +idx+ ')'] = slr);
-      n++;
-    }
-
-    if(_p.highestPrice) {
-      options['itemFilter(' +n+ ').name'] = 'MaxPrice';
-      options['itemFilter(' +n+ ').value(0)']
-        = _p.highestPrice;
-      n++;
-    }
-
-    if(_p.lowestPrice) {
-      options['itemFilter(' +n+ ').name'] = 'MinPrice';
-      options['itemFilter(' +n+ ').value(0)'] = _p.lowestPrice;
-      n++;
-    }
-    
-    if(_p.condition && _p.condition.length) {
-      options['itemFilter(' +n+ ').name'] = 'Condition';
-      _p.condition.forEach((cdn, idx) => 
-        options['itemFilter(' +n+ ').value(' +idx+ ')'] = cdn);
-      n++;
-    }
-
-    if(_p.soldItemOnly === true) {
-      options['itemFilter(' +n+ ').name'] = 'SoldItemOnly';
-      options['itemFilter(' +n+ ').value(0)'] = 'true';
-      n++;
-    }
-    
-    if(std.isValidDate(_p.startDate)) {
-      options['itemFilter(' +n+ ').name'] = 'EndTimeFrom';
-      options['itemFilter(' +n+ ').value(0)'] =  std.setTimeStamp(_p.startDate);
-      n++;
-    }
-
-    if(std.isValidDate(_p.endDate)) {
-      options['itemFilter(' +n+ ').name'] = 'EndTimeTo';
-      options['itemFilter(' +n+ ').value(0)'] = std.setTimeStamp(_p.endDate);
-      n++;
-    }
-    
-    log.trace(`${pspid}>`, 'Request:', options);
-    return options;
+  toXML(req, obj) {
+    obj['@xmlns'] = 'urn:ebay:apis:eBLBaseComponents';
+    let xml = new Object();
+    xml[req] = obj;
+    return builder.create(xml, { encoding: 'utf-8' }).end();
   },
 
   optProducts(o, p) {
