@@ -95,8 +95,18 @@ var postData2 = function(url, data, callback) {
   var request = new XMLHttpRequest();
   request.open("POST", url);
   request.onreadystatechange = function() {
-    if (request.readyState === 4 && callback)
-        callback(request);
+    if (request.readyState === 4 && request.status === 200) {
+      var type = request.getResponseHeader("Content-Type");
+      if (type.indexOf("xml") !== -1
+        && request.responseXML) {
+        console.log(request.responseXML);
+        callback(request.responseXML);
+      } else if (type === "application/json; charset=utf-8") {
+        callback(JSON.parse(request.responseText));
+      } else {
+        callback(request.responseText);
+      }
+    }
   };
   request.setRequestHeader("Content-Type"
     , "text/plain; charset=UTF-8");

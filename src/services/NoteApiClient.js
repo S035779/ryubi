@@ -1,7 +1,8 @@
 import builder from 'xmlbuilder';
+import xml from 'xml2js';
 import {parse, end} from 'iso8601-duration';
 import { M, log, spn, str } from '../../utils/webutils';
-import xhr from '../../utils/webutils';
+import xhr from '../../utils/xhrutils';
 import std from '../../utils/stdutils';
 
 log.config('console', 'basic', 'ALL', 'note-renderer');
@@ -54,10 +55,10 @@ export default {
       case 'findItemsByProduct':
         return new Promise(resolve => {
           JSONP.request(eBay.findingApi, response, obj => {
-            resolve(obj);
+            toObj(obj, resolve);
           });
         });
-      case 'fetchItemDetails':
+      case 'findItemDetails':
         return new Promise(resolve => {
           xhr.postData2(eBay.tradingApi, response, obj => {
             resolve(obj);
@@ -71,32 +72,38 @@ export default {
     }
   },
 
-  fetchItemDetails(options) {
-    return this.request('fetchItemDetails'
-      , this.optDetails({ operation: 'GetItem'
-        , token: eBay.token }, options));
-  },
-
-  fetchConfig() {
-    return this.request('config/fetch');
-  },
-
-  writeConfig(config) {
-    return this.request('config/write', config);
-  },
-
   putItems(items) {
     return this.request('writeItemsByKeywords', items);
   },
   
-  getItems(options, page) {
-    return this.request('findItemsByKeywords'
-      , this.optItems({
-        appid: eBay.appid, page, operation: 'findItemsByKeywords'
-      }, options));
+  putCompleteItems(items) {
+    return this.request('writeCompletedItems', items);
   },
   
+  putProductsItems(items) {
+    return this.request('writeItemsByProduct', items);
+  },
+  
+  fetchConfig() {
+    return this.request('config/fetch');
+  },
+
   fetchItems(options, page) {
+    log.trace(`${pspid}>`,'options:', options);
+    log.trace(`${pspid}>`,'page:', page);
+    spn.spin();
+    return this.getItems(options, page)
+      .then(this.resItems)
+      .then(this.setItems)
+      .then(this.forDetail.bind(this))
+      .then(R.tap(this.traceLog.bind(this)))
+      .then(R.map(this.resDetail.bind(this)))
+      .then(R.map(this.setDetail.bind(this)))
+      .then(R.flatten)
+      .catch(this.errorLog.bind(this));
+  },
+
+  fetchDetail(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
     spn.spin();
@@ -107,6 +114,56 @@ export default {
       .catch(this.errorLog.bind(this));
   },
   
+  fetchCompleteItems(options, page) {
+    log.trace(`${pspid}>`,'options:', options);
+    log.trace(`${pspid}>`,'page:', page);
+    spn.spin();
+    return this.getCompleteItems(options, page)
+      .then(this.resCompleteItems)
+      .then(this.setItems)
+      //.then(R.tap(this.traceLog.bind(this)))
+      .catch(this.errorLog.bind(this));
+  },
+  
+  fetchProductsItems(options, page) {
+    log.trace(`${pspid}>`,'options:', options);
+    log.trace(`${pspid}>`,'page:', page);
+    spn.spin();
+    return this.getProductsItems(options, page)
+      .then(this.resProductsItems)
+      .then(this.setItems)
+      //.then(R.tap(this.traceLog.bind(this)))
+      .catch(this.errorLog.bind(this));
+  },
+  
+  forDetail(objs) {
+    const newDetail = objs.map(obj => {
+      return this.getDetail({ itemId: obj.itemId[0] });
+    });
+    return Promise.all(newDetail);
+  },
+
+  setDetail(obj) {
+    return  obj && obj.Ack[0] === 'Success'
+      ? obj.Item : null;
+  },
+
+  resDetail(obj) {
+    return obj.hasOwnProperty('GetItemResponse') 
+      ? obj.GetItemResponse : null;
+  },
+  
+  getDetail(options) {
+    return this.request('findItemDetails'
+      , this.optDetail({
+        token: eBay.token, operation: 'GetItem' 
+      }, options));
+  },
+
+  writeConfig(config) {
+    return this.request('config/write', config);
+  },
+
   writeItems(options) {
     const pages = options.pages;
     log.trace(`${pspid}>`,'options:', options);
@@ -121,69 +178,12 @@ export default {
       .then(R.flatten)
       .then(R.filter(R.curry(this.filterItem.bind(this))(options)))
       .then(mapIndexed((obj, idx) => this.renderItem(obj, idx + 1)))
-      .then(this.addHeader.bind(this))
+      .then(this.setCSVHeader.bind(this))
       .then(R.map(this.toCSV.bind(this)))
       //.then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
 
-  addHeader(obj) {
-    let arr = new Array();
-    for(let prop in obj[0]) {
-      arr.push(prop);
-    }
-    obj.unshift(arr);
-    return obj;
-  },
-  
-  toCSV(obj) {
-    let arr = new Array();
-    for(let prop in obj) {
-      arr.push(obj[prop]);
-    }
-    return arr.join();
-  },
-  
-  forItems(options, res) {
-    const pages = options.pages;
-    const page =
-      Number(res.paginationOutput[0].totalPages[0]) < pages
-      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
-    const newItems = [];
-    
-    for(let idx=1; idx <= page; idx++) {
-      newItems.push(this.getItems(options, idx));
-    }
-    return Promise.all(newItems);
-  },
-  
-  resItems(obj) {
-    return obj.hasOwnProperty('findItemsByKeywordsResponse') 
-      ? obj.findItemsByKeywordsResponse[0] : null;
-  },
-  
-  putCompleteItems(items) {
-    return this.request('writeCompletedItems', items);
-  },
-  
-  getCompleteItems(options, page) {
-    return this.request('findCompletedItems'
-      , this.optItems({
-        appid: eBay.appid, page, operation: 'findCompletedItems'
-      }, options));
-  },
-  
-  fetchCompleteItems(options, page) {
-    log.trace(`${pspid}>`,'options:', options);
-    log.trace(`${pspid}>`,'page:', page);
-    spn.spin();
-    return this.getCompleteItems(options, page)
-      .then(this.resCompleteItems)
-      .then(this.setItems)
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
-  },
-  
   writeCompleteItems(options) {
     const pages = options.pages;
     log.trace(`${pspid}>`,'options:', options);
@@ -198,48 +198,8 @@ export default {
       .then(R.flatten)
       .then(R.filter(R.curry(this.filterItem.bind(this))(options)))
       .then(mapIndexed((obj, idx) => this.renderItem(obj, idx + 1)))
-      .then(this.addHeader.bind(this))
+      .then(this.setCSVHeader.bind(this))
       .then(R.map(this.toCSV.bind(this)))
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
-  },
-  
-  forCompleteItems(options, res) {
-    const pages = options.pages;
-    const page =
-      Number(res.paginationOutput[0].totalPages[0]) < pages
-      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
-    const newItems = [];
-    
-    for(let idx=1; idx <= page; idx++) {
-      newItems.push(this.getCompleteItems(options, idx));
-    }
-    return Promise.all(newItems);
-  },
-  
-  resCompleteItems(obj) {
-    return obj.hasOwnProperty('findCompletedItemsResponse') 
-      ? obj.findCompletedItemsResponse[0] : null;
-  },
-  
-  putProductsItems(items) {
-    return this.request('writeItemsByProduct', items);
-  },
-  
-  getProductsItems(options, page) {
-    return this.request('findItemsByProduct'
-      , this.optProducts({
-        appid: eBay.appid, page, operation: 'findItemsByProduct'
-      }, options));
-  },
-  
-  fetchProductsItems(options, page) {
-    log.trace(`${pspid}>`,'options:', options);
-    log.trace(`${pspid}>`,'page:', page);
-    spn.spin();
-    return this.getProductsItems(options, page)
-      .then(this.resProductsItems)
-      .then(this.setItems)
       //.then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
@@ -260,10 +220,55 @@ export default {
         R.filter(R.curry(this.filterItem.bind(this))(options)))
       .then(
         mapIndexed((obj, idx) => this.renderItem(obj, idx + 1)))
-      .then(this.addHeader.bind(this))
+      .then(this.setCSVHeader.bind(this))
       .then(R.map(this.toCSV.bind(this)))
       //.then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
+  },
+  
+  getItems(options, page) {
+    return this.request('findItemsByKeywords'
+      , this.optItems({
+        appid: eBay.appid, page, operation: 'findItemsByKeywords'
+      }, options));
+  },
+  
+  getCompleteItems(options, page) {
+    return this.request('findCompletedItems'
+      , this.optItems({
+        appid: eBay.appid, page, operation: 'findCompletedItems'
+      }, options));
+  },
+  
+  getProductsItems(options, page) {
+    return this.request('findItemsByProduct'
+      , this.optProducts({
+        appid: eBay.appid, page, operation: 'findItemsByProduct'
+      }, options));
+  },
+  
+  forItems(options, res) {
+    const pages = options.pages;
+    const page =
+      Number(res.paginationOutput[0].totalPages[0]) < pages
+      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    const newItems = [];
+    for(let idx=1; idx <= page; idx++) {
+      newItems.push(this.getItems(options, idx));
+    }
+    return Promise.all(newItems);
+  },
+  
+  forCompleteItems(options, res) {
+    const pages = options.pages;
+    const page =
+      Number(res.paginationOutput[0].totalPages[0]) < pages
+      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    const newItems = [];
+    for(let idx=1; idx <= page; idx++) {
+      newItems.push(this.getCompleteItems(options, idx));
+    }
+    return Promise.all(newItems);
   },
   
   forProductsItems(options, res) {
@@ -272,11 +277,20 @@ export default {
       Number(res.paginationOutput[0].totalPages[0]) < pages
       ? Number(res.paginationOutput[0].totalPages[0]) : pages;
     const newItems = [];
-    
     for(let idx=1; idx <= page; idx++) {
       newItems.push(this.getProductsItems(options, idx));
     }
     return Promise.all(newItems);
+  },
+  
+  resItems(obj) {
+    return obj.hasOwnProperty('findItemsByKeywordsResponse') 
+      ? obj.findItemsByKeywordsResponse[0] : null;
+  },
+  
+  resCompleteItems(obj) {
+    return obj.hasOwnProperty('findCompletedItemsResponse') 
+      ? obj.findCompletedItemsResponse[0] : null;
   },
   
   resProductsItems(obj) {
@@ -289,28 +303,40 @@ export default {
       ? obj.searchResult[0].item : null;
   },
 
-  optDetails(o, p) {
-    const _o = o;
-    const _p = p ? p : {};
-    const head = new Object();
-    const body = new Object();
-    head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
-    head['X-EBAY-API-CALL-NAME'] = o.operation;
-    head['X-EBAY-API-SITEID'] = 0;
-    body['RequesterCredentials'] = { 'eBayAuthToken': _o.token };
-    body['ErrorLanguage'] = 'en_US';
-    body['WarningLevel'] = 'High';
-    body['ItemID'] = _p.itemID;
-    body['DetailLevel'] = 'ReturnAll';
-    log.trace(`${pspid}>`, 'Request:', head, body);
-    return { head, body: this.toXML(_o.operation, body) };
+  setCSVHeader(obj) {
+    let arr = new Array();
+    for(let prop in obj[0]) {
+      arr.push(prop);
+    }
+    obj.unshift(arr);
+    return obj;
   },
-
+  
+  toCSV(obj) {
+    let arr = new Array();
+    for(let prop in obj) {
+      arr.push(obj[prop]);
+    }
+    return arr.join();
+  },
+  
   toXML(req, obj) {
     obj['@xmlns'] = 'urn:ebay:apis:eBLBaseComponents';
     let xml = new Object();
     xml[req] = obj;
     return builder.create(xml, { encoding: 'utf-8' }).end();
+  },
+
+  toObj(str, cbk) {
+    xml.parseString(str, {
+      attrkey:          'root'
+      , charkey:        'sub'
+      , trim:           true
+      , explicitArray:  false }
+    , (err, res) => {
+      if(err) log.error(err);
+      cbk(res)
+    });
   },
 
   optProducts(o, p) {
@@ -441,12 +467,21 @@ export default {
     return options;
   },
 
-  traceLog(obj) {
-    return log.trace(`${pspid}>`, 'Trace log:', obj);
-  },
-
-  errorLog(err) {
-    return log.error(`${pspid}>`, 'Error occurred:', err);
+  optDetail(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const head = new Object();
+    const body = new Object();
+    head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
+    head['X-EBAY-API-CALL-NAME'] = o.operation;
+    head['X-EBAY-API-SITEID'] = 0;
+    body['RequesterCredentials'] = { 'eBayAuthToken': _o.token };
+    body['ErrorLanguage'] = 'en_US';
+    body['WarningLevel'] = 'High';
+    body['ItemID'] = _p.itemId;
+    body['DetailLevel'] = 'ReturnAll';
+    log.trace(`${pspid}>`, 'Request:', head, body);
+    return { head, body: this.toXML(_o.operation, body) };
   },
 
   renderStatus(status) {
@@ -566,5 +601,13 @@ export default {
         return false;
     }
     return true;
-  }
+  },
+
+  traceLog(obj) {
+    return log.trace(`${pspid}>`, 'Trace log:', obj);
+  },
+
+  errorLog(err) {
+    return log.error(`${pspid}>`, 'Error occurred:', err);
+  },
 }
