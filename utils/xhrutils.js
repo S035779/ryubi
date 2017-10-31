@@ -84,22 +84,20 @@ var postData = function(url, data, callback) {
 module.exports.postData = postData;
 
 /**
- * postData2
+ * postXML
  *
  * @param url {string}
  * @param head {object}
  * @param data {object}
  * @param callback {function}
  */
-var postData2 = function(url, data, callback) {
+var postXML = function(url, data, callback) {
   var request = new XMLHttpRequest();
   request.open("POST", url);
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
       var type = request.getResponseHeader("Content-Type");
-      if (type.indexOf("xml") !== -1
-        && request.responseXML) {
-        console.log(request.responseXML);
+      if (type === "text/xml; charset=utf-8") {
         callback(request.responseXML);
       } else if (type === "application/json; charset=utf-8") {
         callback(JSON.parse(request.responseText));
@@ -108,14 +106,13 @@ var postData2 = function(url, data, callback) {
       }
     }
   };
-  request.setRequestHeader("Content-Type"
-    , "text/plain; charset=UTF-8");
+  request.setRequestHeader("Content-Type", "text/xml; charset=UTF-8");
   for(var key in data.head) {
     request.setRequestHeader(key, data.head[key]);
   }
   request.send(data.body);
 };
-module.exports.postData2 = postData2;
+module.exports.postXML = postXML;
 
 /**
  * postJSON

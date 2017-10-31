@@ -1410,12 +1410,12 @@ var eBay = new Object();
       case 'findItemsByProduct':
         return new Promise(function (resolve) {
           JSONP.request(eBay.findingApi, response, function (obj) {
-            toObj(obj, resolve);
+            resolve(obj);
           });
         });
       case 'findItemDetails':
         return new Promise(function (resolve) {
-          __WEBPACK_IMPORTED_MODULE_4__utils_xhrutils___default.a.postData2(eBay.tradingApi, response, function (obj) {
+          __WEBPACK_IMPORTED_MODULE_4__utils_xhrutils___default.a.postXML(eBay.tradingApi, response, function (obj) {
             resolve(obj);
           });
         });
@@ -1439,18 +1439,24 @@ var eBay = new Object();
     return this.request('config/fetch');
   },
   fetchItems: function fetchItems(options, page) {
+    var _this = this;
+
     __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
     __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    return this.getItems(options, page).then(this.resItems).then(this.setItems).then(this.forDetail.bind(this)).then(R.tap(this.traceLog.bind(this))).then(R.map(this.resDetail.bind(this))).then(R.map(this.setDetail.bind(this))).then(R.flatten).catch(this.errorLog.bind(this));
+    return this.getItems(options, page).then(this.resItems).then(this.setItems).then(R.map(function (obj) {
+      return { itemId: obj.itemId[0] };
+    })).then(function (obj) {
+      return Promise.all(R.map(_this.getDetail.bind(_this), obj));
+    }).then(function (obj) {
+      return Promise.all(R.map(_this.toJSON.bind(_this), obj));
+    }).then(R.map(this.resDetail.bind(this))).then(R.map(this.setDetail.bind(this))).then(R.tap(this.traceLog.bind(this))).catch(this.errorLog.bind(this));
   },
-  fetchDetail: function fetchDetail(options, page) {
+  fetchItems2: function fetchItems2(options, page) {
     __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
     __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    return this.getItems(options, page).then(this.resItems).then(this.setItems)
-    //.then(R.tap(this.traceLog.bind(this)))
-    .catch(this.errorLog.bind(this));
+    return this.getItems(options, page).then(this.resItems).then(this.setItems).then(R.tap(this.traceLog.bind(this))).catch(this.errorLog.bind(this));
   },
   fetchCompleteItems: function fetchCompleteItems(options, page) {
     __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
@@ -1468,16 +1474,8 @@ var eBay = new Object();
     //.then(R.tap(this.traceLog.bind(this)))
     .catch(this.errorLog.bind(this));
   },
-  forDetail: function forDetail(objs) {
-    var _this = this;
-
-    var newDetail = objs.map(function (obj) {
-      return _this.getDetail({ itemId: obj.itemId[0] });
-    });
-    return Promise.all(newDetail);
-  },
   setDetail: function setDetail(obj) {
-    return obj && obj.Ack[0] === 'Success' ? obj.Item : null;
+    return obj && obj.Ack === 'Success' ? obj.Item : null;
   },
   resDetail: function resDetail(obj) {
     return obj.hasOwnProperty('GetItemResponse') ? obj.GetItemResponse : null;
@@ -1607,14 +1605,13 @@ var eBay = new Object();
     xml[req] = obj;
     return __WEBPACK_IMPORTED_MODULE_0_xmlbuilder___default.a.create(xml, { encoding: 'utf-8' }).end();
   },
-  toObj: function toObj(str, cbk) {
-    __WEBPACK_IMPORTED_MODULE_1_xml2js___default.a.parseString(str, {
-      attrkey: 'root',
-      charkey: 'sub',
-      trim: true,
-      explicitArray: false }, function (err, res) {
-      if (err) __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].error(err);
-      cbk(res);
+  toJSON: function toJSON(str) {
+    return new Promise(function (resolve) {
+      __WEBPACK_IMPORTED_MODULE_1_xml2js___default.a.parseString(str, {
+        attrkey: 'root', charkey: 'sub', trim: true, explicitArray: false }, function (err, res) {
+        if (err) __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].error(err);
+        resolve(res);
+      });
     });
   },
   optProducts: function optProducts(o, p) {
@@ -8867,21 +8864,20 @@ var postData = function postData(url, data, callback) {
 module.exports.postData = postData;
 
 /**
- * postData2
+ * postXML
  *
  * @param url {string}
  * @param head {object}
  * @param data {object}
  * @param callback {function}
  */
-var postData2 = function postData2(url, data, callback) {
+var postXML = function postXML(url, data, callback) {
   var request = new XMLHttpRequest();
   request.open("POST", url);
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
       var type = request.getResponseHeader("Content-Type");
-      if (type.indexOf("xml") !== -1 && request.responseXML) {
-        console.log(request.responseXML);
+      if (type === "text/xml; charset=utf-8") {
         callback(request.responseXML);
       } else if (type === "application/json; charset=utf-8") {
         callback(JSON.parse(request.responseText));
@@ -8890,13 +8886,13 @@ var postData2 = function postData2(url, data, callback) {
       }
     }
   };
-  request.setRequestHeader("Content-Type", "text/plain; charset=UTF-8");
+  request.setRequestHeader("Content-Type", "text/xml; charset=UTF-8");
   for (var key in data.head) {
     request.setRequestHeader(key, data.head[key]);
   }
   request.send(data.body);
 };
-module.exports.postData2 = postData2;
+module.exports.postXML = postXML;
 
 /**
  * postJSON

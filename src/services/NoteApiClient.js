@@ -55,12 +55,12 @@ export default {
       case 'findItemsByProduct':
         return new Promise(resolve => {
           JSONP.request(eBay.findingApi, response, obj => {
-            toObj(obj, resolve);
+            resolve(obj);
           });
         });
       case 'findItemDetails':
         return new Promise(resolve => {
-          xhr.postData2(eBay.tradingApi, response, obj => {
+          xhr.postXML(eBay.tradingApi, response, obj => {
             resolve(obj);
           });
         });
@@ -95,22 +95,27 @@ export default {
     return this.getItems(options, page)
       .then(this.resItems)
       .then(this.setItems)
-      .then(this.forDetail.bind(this))
-      .then(R.tap(this.traceLog.bind(this)))
+      .then(R.map(obj => ({ itemId: obj.itemId[0] })))
+      .then(obj =>
+        Promise.all(R.map(this.getDetail.bind(this), obj))
+      )
+      .then(obj =>
+        Promise.all(R.map(this.toJSON.bind(this), obj))
+      )
       .then(R.map(this.resDetail.bind(this)))
       .then(R.map(this.setDetail.bind(this)))
-      .then(R.flatten)
+      .then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
 
-  fetchDetail(options, page) {
+  fetchItems2(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
     spn.spin();
     return this.getItems(options, page)
       .then(this.resItems)
       .then(this.setItems)
-      //.then(R.tap(this.traceLog.bind(this)))
+      .then(R.tap(this.traceLog.bind(this)))
       .catch(this.errorLog.bind(this));
   },
   
@@ -136,15 +141,8 @@ export default {
       .catch(this.errorLog.bind(this));
   },
   
-  forDetail(objs) {
-    const newDetail = objs.map(obj => {
-      return this.getDetail({ itemId: obj.itemId[0] });
-    });
-    return Promise.all(newDetail);
-  },
-
   setDetail(obj) {
-    return  obj && obj.Ack[0] === 'Success'
+    return obj && obj.Ack === 'Success'
       ? obj.Item : null;
   },
 
@@ -327,15 +325,14 @@ export default {
     return builder.create(xml, { encoding: 'utf-8' }).end();
   },
 
-  toObj(str, cbk) {
-    xml.parseString(str, {
-      attrkey:          'root'
-      , charkey:        'sub'
-      , trim:           true
-      , explicitArray:  false }
-    , (err, res) => {
-      if(err) log.error(err);
-      cbk(res)
+  toJSON(str) {
+    return new Promise(resolve => {
+      xml.parseString(str, {
+        attrkey: 'root', charkey: 'sub', trim: true, explicitArray: false }
+      , (err, res) => {
+        if(err) log.error(err);
+        resolve(res)
+      });
     });
   },
 
