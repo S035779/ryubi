@@ -18,10 +18,9 @@ export default class NoteSidebar extends React.Component {
   }
 
   handleClickSave() {
-    const options = this.props.options;
     this.showSaveDialog((filename) => {
       log.info(`${pspid}>`, 'Save file:', filename);
-      NoteAction.writeItems(options)
+      NoteAction.writeItems(this.state)
       .then(items => this.saveItems(filename, items))
       //.then(console.log)
       .catch(this.showErrorBox);

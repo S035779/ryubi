@@ -1,8 +1,7 @@
 import React from 'react';
 import std from '../../../utils/stdutils';
-import { log } from '../../../utils/webutils';
+import { log, util } from '../../../utils/webutils';
 
-import {parse, end} from 'iso8601-duration';
 const pspid = `ProductsTableView`;
 
 export default class ProductsTable extends React.Component {
@@ -21,9 +20,8 @@ export default class ProductsTable extends React.Component {
     }
   };
 
-  renderExtension(date) {
-    const duration = std.getLocalTimeStamp(end(parse(date)));
-    return <div>( { duration } )</div>;
+  renderExtension(duration) {
+    return <div>( { util.toLeftDays(duration) } )</div>;
   }
 
   renderItem(obj, idx) {

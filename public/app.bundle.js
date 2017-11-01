@@ -4,19 +4,66 @@ webpackJsonp([0],[
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return util; });
 /* unused harmony export M */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return log; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return spn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return str; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_spin__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_spin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__utils_spin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xml2js__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xml2js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xml2js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xmlbuilder__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xmlbuilder___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xmlbuilder__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_iso8601_duration__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_iso8601_duration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_iso8601_duration__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_spin__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_spin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_spin__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+
+
 
 
 
 var Logger = null;
 var Spiner = null;
 var target = null;
+
+var util = {
+  setCSVHeader: function setCSVHeader(obj) {
+    var arr = new Array();
+    for (var prop in obj[0]) {
+      arr.push(prop);
+    }
+    obj.unshift(arr);
+    return obj;
+  },
+  toCSV: function toCSV(obj) {
+    var arr = new Array();
+    for (var prop in obj) {
+      arr.push(obj[prop]);
+    }
+    return arr.join();
+  },
+  toXML: function toXML(req, obj) {
+    var xml = new Object();
+    xml[req] = obj;
+    return __WEBPACK_IMPORTED_MODULE_1_xmlbuilder___default.a.create(xml, { encoding: 'utf-8' }).end();
+  },
+  toJSON: function toJSON(str) {
+    return new Promise(function (resolve) {
+      __WEBPACK_IMPORTED_MODULE_0_xml2js___default.a.parseString(str, {
+        attrkey: 'root', charkey: 'sub',
+        trim: true, explicitArray: false }, function (err, res) {
+        if (err) log.error(err);
+        resolve(res);
+      });
+    });
+  },
+  toLeftDays: function toLeftDays(date) {
+    var obj = Object(__WEBPACK_IMPORTED_MODULE_2_iso8601_duration__["parse"])(date);
+    return obj.days + ' days' + ' / ' + (obj.hours + ' hours') + ' / ' + (obj.minutes + ' minutes');
+  }
+};
 
 var M = {
   fork: function fork(join, func1, func2) {
@@ -93,7 +140,7 @@ var log = {
 };
 
 var spn = {
-  Spinner: __WEBPACK_IMPORTED_MODULE_0__utils_spin___default.a,
+  Spinner: __WEBPACK_IMPORTED_MODULE_3__utils_spin___default.a,
   target: target,
   config: function config(target) {
     var opts = {
@@ -121,7 +168,7 @@ var spn = {
       , hwaccel: false // Whether to use hardware acceleration
       , position: 'absolute' // Element positioning
     };
-    this.Spinner = new __WEBPACK_IMPORTED_MODULE_0__utils_spin___default.a(opts);
+    this.Spinner = new __WEBPACK_IMPORTED_MODULE_3__utils_spin___default.a(opts);
     this.target = document.getElementById(target);
   },
   spin: function spin() {
@@ -324,14 +371,14 @@ var str = {
       }
       this.children = [];
       if (!XMLElement) {
-        XMLElement = __webpack_require__(20);
-        XMLCData = __webpack_require__(21);
-        XMLComment = __webpack_require__(22);
-        XMLDeclaration = __webpack_require__(23);
-        XMLDocType = __webpack_require__(24);
-        XMLRaw = __webpack_require__(29);
-        XMLText = __webpack_require__(30);
-        XMLProcessingInstruction = __webpack_require__(31);
+        XMLElement = __webpack_require__(18);
+        XMLCData = __webpack_require__(19);
+        XMLComment = __webpack_require__(20);
+        XMLDeclaration = __webpack_require__(21);
+        XMLDocType = __webpack_require__(22);
+        XMLRaw = __webpack_require__(27);
+        XMLText = __webpack_require__(28);
+        XMLProcessingInstruction = __webpack_require__(29);
       }
     }
 
@@ -738,10 +785,10 @@ var str = {
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-module.exports.Container = __webpack_require__(85);
-module.exports.Mixin = __webpack_require__(87);
-module.exports.ReduceStore = __webpack_require__(88);
-module.exports.Store = __webpack_require__(55);
+module.exports.Container = __webpack_require__(84);
+module.exports.Mixin = __webpack_require__(86);
+module.exports.ReduceStore = __webpack_require__(87);
+module.exports.Store = __webpack_require__(54);
 
 /***/ }),
 /* 9 */
@@ -749,7 +796,7 @@ module.exports.Store = __webpack_require__(55);
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return dispatch; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flux__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flux__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_flux__);
 
 
@@ -1306,554 +1353,6 @@ module.exports = {
 
 /***/ }),
 /* 18 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dispatcher__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
-
-
-
-
-var pspid = 'AppAction';
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  selectedContent: function selectedContent(selected, title) {
-    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', selected, title);
-    Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'content/select', selected: selected, title: title });
-  },
-  fetchConfig: function fetchConfig() {
-    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchConfig().then(function (config) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'config/fetch/appid', config: config });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: config/fetch/appid');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', 'Config:', config);
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
-    });
-  },
-  writeConfig: function writeConfig(obj) {
-    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeConfig(obj).then(function (config) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'config/write/appid', config: config });
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: config/write/appid');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', 'Config:', config);
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
-    });
-  }
-});
-
-/***/ }),
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xmlbuilder__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xmlbuilder___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xmlbuilder__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xml2js__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xml2js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xml2js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_iso8601_duration__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_iso8601_duration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_iso8601_duration__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_webutils__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_xhrutils__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_xhrutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_xhrutils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_stdutils__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__utils_stdutils__);
-
-
-
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].config('console', 'basic', 'ALL', 'note-renderer');
-__WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].config('app');
-
-var pspid = 'eBAPIClient';
-
-//const v1 = 'http://svcs.ebay.com/services/search/FindingService/v1'
-//const v2 = 'https://api.ebay.com/ws/api.dll';
-//const s1 = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
-//const s2 = 'https://api.sandbox.ebay.com/ws/api.dll';
-//const appid = 'Develope-WatchNot-PRD-05d7a0307-e288d29c';
-//const appid = 'Develope-WatchNot-SBX-5f0ecce30-f5331d00';
-//const token = 'AgAAAA**AQAAAA**aAAAAA**jqT1WQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AAkouiDpGFoA6dj6x9nY+seQ**m/ADAA**AAMAAA**2b2SR6yRJyXpL8F99OVUZi/5Quje4X7fgVu8nn2J9GMww28GbOagFFBxcZEIJQAQZsZlsvuYtyqbow0IwnDcXOHYhqroKYtLxb0xl+DBD5nK7PGys8VYKW3+HhIOy4lzGGhpMpaik8fOSTaa6zKJVHJIaD4pJYbI86ws6WfEYTEUQwR7txElKfTEyW1ni53oezHEK4WTdT19vUPSagpkt+Yrge2xNrwiKDgCxYk5n34vSyHpQWIjMc0bT1R2hY4HVLY5HPhv3SSS3zz0hlpR0hNUFyD5YP0uIZ3rwOk+8Pght1uZh2xpS/r3mwecv9UkJy8Xi8QAbUc8JFXCuHdOnjmELkBLyMbaT8zP5o/rw8vjf4UvAQlFLCBxo+aWiBhtoUxI8TKf+fzr99hGwubnqz9Qb4Q74WAwv2XMH05prc1c4c5pct/gTpFD0V8LxDIJ7Jwtny0wijznlqTRUO/3su31r4fgsi37x1/w4JsC9y5yLfc80UKsihCyZOni5/jqXpat3soema7eufk9IZNmalzObyukrVIU1Pc4AeQur0z1jNaaDngxd8+u7DV76DlKarmyN1BTBzANMVXlOeoLH6pFxJ2vVNBnfAtSNgIBbEPczAbQ1ULTIGwf9FIj6iUNl+AH197F8x9TuVOZlePbAprYya0OLMgMyWFnDz/8i9nAY5zVPTqFQO60Ozmeqql044quPBUFLSop7j6AvgwtZoRsEg7SlJtUq+EB3fMR0JJI938eJD3knyhvwCFW1ZCn';
-
-var eBay = new Object();
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  request: function request(action, response) {
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Request:', action);
-    switch (action) {
-      case 'config/fetch':
-        return new Promise(function (resolve) {
-          var memory = window.localStorage || window.UserDataStorage && new __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["c" /* str */].UserDataStorage() || new __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["c" /* str */].CookieStorage();
-          eBay = JSON.parse(memory.getItem("eBay_config"));
-          resolve(eBay);
-        });
-      case 'config/write':
-        return new Promise(function (resolve) {
-          var memory = window.localStorage || window.UserDataStorage && new __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["c" /* str */].UserDataStorage() || new __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["c" /* str */].CookieStorage();
-          memory.setItem("eBay_config", JSON.stringify(response));
-          resolve(response);
-        });
-      case 'findItemsByKeywords':
-        return new Promise(function (resolve) {
-          JSONP.request(eBay.findingApi, response, function (obj) {
-            resolve(obj);
-          });
-        });
-      case 'findCompletedItems':
-        return new Promise(function (resolve) {
-          JSONP.request(eBay.findingApi, response, function (obj) {
-            resolve(obj);
-          });
-        });
-      case 'findItemsByProduct':
-        return new Promise(function (resolve) {
-          JSONP.request(eBay.findingApi, response, function (obj) {
-            resolve(obj);
-          });
-        });
-      case 'findItemDetails':
-        return new Promise(function (resolve) {
-          __WEBPACK_IMPORTED_MODULE_4__utils_xhrutils___default.a.postXML(eBay.tradingApi, response, function (obj) {
-            resolve(obj);
-          });
-        });
-      default:
-        return new Promise(function (resolve) {
-          __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].warn(pspid + '> Unknown request !!');
-          resolve(response);
-        });
-    }
-  },
-  putItems: function putItems(items) {
-    return this.request('writeItemsByKeywords', items);
-  },
-  putCompleteItems: function putCompleteItems(items) {
-    return this.request('writeCompletedItems', items);
-  },
-  putProductsItems: function putProductsItems(items) {
-    return this.request('writeItemsByProduct', items);
-  },
-  fetchConfig: function fetchConfig() {
-    return this.request('config/fetch');
-  },
-  fetchItems: function fetchItems(options, page) {
-    var _this = this;
-
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    return this.getItems(options, page).then(this.resItems).then(this.setItems).then(R.map(function (obj) {
-      return { itemId: obj.itemId[0] };
-    })).then(function (obj) {
-      return Promise.all(R.map(_this.getDetail.bind(_this), obj));
-    }).then(function (obj) {
-      return Promise.all(R.map(_this.toJSON.bind(_this), obj));
-    }).then(R.map(this.resDetail.bind(this))).then(R.map(this.setDetail.bind(this))).then(R.tap(this.traceLog.bind(this))).catch(this.errorLog.bind(this));
-  },
-  fetchItems2: function fetchItems2(options, page) {
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    return this.getItems(options, page).then(this.resItems).then(this.setItems).then(R.tap(this.traceLog.bind(this))).catch(this.errorLog.bind(this));
-  },
-  fetchCompleteItems: function fetchCompleteItems(options, page) {
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    return this.getCompleteItems(options, page).then(this.resCompleteItems).then(this.setItems)
-    //.then(R.tap(this.traceLog.bind(this)))
-    .catch(this.errorLog.bind(this));
-  },
-  fetchProductsItems: function fetchProductsItems(options, page) {
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    return this.getProductsItems(options, page).then(this.resProductsItems).then(this.setItems)
-    //.then(R.tap(this.traceLog.bind(this)))
-    .catch(this.errorLog.bind(this));
-  },
-  setDetail: function setDetail(obj) {
-    return obj && obj.Ack === 'Success' ? obj.Item : null;
-  },
-  resDetail: function resDetail(obj) {
-    return obj.hasOwnProperty('GetItemResponse') ? obj.GetItemResponse : null;
-  },
-  getDetail: function getDetail(options) {
-    return this.request('findItemDetails', this.optDetail({
-      token: eBay.token, operation: 'GetItem'
-    }, options));
-  },
-  writeConfig: function writeConfig(config) {
-    return this.request('config/write', config);
-  },
-  writeItems: function writeItems(options) {
-    var _this2 = this;
-
-    var pages = options.pages;
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'pages:', pages);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    var mapIndexed = R.addIndex(R.map);
-    return this.getItems(options, 1).then(this.resItems).then(R.curry(this.forItems.bind(this))(options)).then(R.map(this.resItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
-      return _this2.renderItem(obj, idx + 1);
-    })).then(this.setCSVHeader.bind(this)).then(R.map(this.toCSV.bind(this)))
-    //.then(R.tap(this.traceLog.bind(this)))
-    .catch(this.errorLog.bind(this));
-  },
-  writeCompleteItems: function writeCompleteItems(options) {
-    var _this3 = this;
-
-    var pages = options.pages;
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'pages:', pages);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    var mapIndexed = R.addIndex(R.map);
-    return this.getCompleteItems(options, 1).then(this.resCompleteItems).then(R.curry(this.forCompleteItems.bind(this))(options)).then(R.map(this.resCompleteItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
-      return _this3.renderItem(obj, idx + 1);
-    })).then(this.setCSVHeader.bind(this)).then(R.map(this.toCSV.bind(this)))
-    //.then(R.tap(this.traceLog.bind(this)))
-    .catch(this.errorLog.bind(this));
-  },
-  writeProductsItems: function writeProductsItems(options) {
-    var _this4 = this;
-
-    var pages = options.pages;
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'pages:', pages);
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
-    var mapIndexed = R.addIndex(R.map);
-    return this.getProductsItems(options, 1).then(this.resProductsItems).then(R.curry(this.forProductsItems.bind(this))(options)).then(R.map(this.resProductsItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
-      return _this4.renderItem(obj, idx + 1);
-    })).then(this.setCSVHeader.bind(this)).then(R.map(this.toCSV.bind(this)))
-    //.then(R.tap(this.traceLog.bind(this)))
-    .catch(this.errorLog.bind(this));
-  },
-  getItems: function getItems(options, page) {
-    return this.request('findItemsByKeywords', this.optItems({
-      appid: eBay.appid, page: page, operation: 'findItemsByKeywords'
-    }, options));
-  },
-  getCompleteItems: function getCompleteItems(options, page) {
-    return this.request('findCompletedItems', this.optItems({
-      appid: eBay.appid, page: page, operation: 'findCompletedItems'
-    }, options));
-  },
-  getProductsItems: function getProductsItems(options, page) {
-    return this.request('findItemsByProduct', this.optProducts({
-      appid: eBay.appid, page: page, operation: 'findItemsByProduct'
-    }, options));
-  },
-  forItems: function forItems(options, res) {
-    var pages = options.pages;
-    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
-    var newItems = [];
-    for (var idx = 1; idx <= page; idx++) {
-      newItems.push(this.getItems(options, idx));
-    }
-    return Promise.all(newItems);
-  },
-  forCompleteItems: function forCompleteItems(options, res) {
-    var pages = options.pages;
-    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
-    var newItems = [];
-    for (var idx = 1; idx <= page; idx++) {
-      newItems.push(this.getCompleteItems(options, idx));
-    }
-    return Promise.all(newItems);
-  },
-  forProductsItems: function forProductsItems(options, res) {
-    var pages = options.pages;
-    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
-    var newItems = [];
-    for (var idx = 1; idx <= page; idx++) {
-      newItems.push(this.getProductsItems(options, idx));
-    }
-    return Promise.all(newItems);
-  },
-  resItems: function resItems(obj) {
-    return obj.hasOwnProperty('findItemsByKeywordsResponse') ? obj.findItemsByKeywordsResponse[0] : null;
-  },
-  resCompleteItems: function resCompleteItems(obj) {
-    return obj.hasOwnProperty('findCompletedItemsResponse') ? obj.findCompletedItemsResponse[0] : null;
-  },
-  resProductsItems: function resProductsItems(obj) {
-    return obj.hasOwnProperty('findItemsByProductResponse') ? obj.findItemsByProductResponse[0] : null;
-  },
-  setItems: function setItems(obj) {
-    return obj && obj.ack[0] === 'Success' ? obj.searchResult[0].item : null;
-  },
-  setCSVHeader: function setCSVHeader(obj) {
-    var arr = new Array();
-    for (var prop in obj[0]) {
-      arr.push(prop);
-    }
-    obj.unshift(arr);
-    return obj;
-  },
-  toCSV: function toCSV(obj) {
-    var arr = new Array();
-    for (var prop in obj) {
-      arr.push(obj[prop]);
-    }
-    return arr.join();
-  },
-  toXML: function toXML(req, obj) {
-    obj['@xmlns'] = 'urn:ebay:apis:eBLBaseComponents';
-    var xml = new Object();
-    xml[req] = obj;
-    return __WEBPACK_IMPORTED_MODULE_0_xmlbuilder___default.a.create(xml, { encoding: 'utf-8' }).end();
-  },
-  toJSON: function toJSON(str) {
-    return new Promise(function (resolve) {
-      __WEBPACK_IMPORTED_MODULE_1_xml2js___default.a.parseString(str, {
-        attrkey: 'root', charkey: 'sub', trim: true, explicitArray: false }, function (err, res) {
-        if (err) __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].error(err);
-        resolve(res);
-      });
-    });
-  },
-  optProducts: function optProducts(o, p) {
-    var _o = o;
-    var _p = p ? p : {};
-    var options = new Object();
-    options['GLOBAL-ID'] = 'EBAY-US';
-    options['MESSAGE-ENCODING'] = 'UTF-8';
-    options['OPERATION-NAME'] = _o.operation;
-    options['REQUEST-DATA-FORMAT'] = 'NV';
-    options['RESPONSE-DATA-FORMAT'] = 'JSON';
-    options['REST-PAYLOAD'] = '';
-    options['SECURITY-APPNAME'] = _o.appid;
-    options['SERVICE-VERSION'] = '1.13.0';
-    options['outputSelector'] = 'SellerInfo';
-    options['paginationInput.entriesPerPage'] = 20;
-    options['paginationInput.pageNumber'] = _o.page;
-
-    if (_p.productId && _p.productType) {
-      options['productId'] = _p.productId;
-      options['productId.@type'] = _p.productType;
-    } else {
-      options['productId'] = '';
-      options['productId.@type'] = '';
-    }
-
-    var n = 0;
-    if (_p.seller && _p.seller.length) {
-      options['itemFilter(' + n + ').name'] = 'Seller';
-      _p.seller.forEach(function (slr, idx) {
-        return options['itemFilter(' + n + ').value(' + idx + ')'] = slr;
-      });
-      n++;
-    }
-
-    if (_p.highestPrice) {
-      options['itemFilter(' + n + ').name'] = 'MaxPrice';
-      options['itemFilter(' + n + ').value(0)'] = _p.highestPrice;
-      n++;
-    }
-
-    if (_p.lowestPrice) {
-      options['itemFilter(' + n + ').name'] = 'MinPrice';
-      options['itemFilter(' + n + ').value(0)'] = _p.lowestPrice;
-      n++;
-    }
-
-    if (_p.condition && _p.condition.length) {
-      options['itemFilter(' + n + ').name'] = 'Condition';
-      _p.condition.forEach(function (cdn, idx) {
-        return options['itemFilter(' + n + ').value(' + idx + ')'] = cdn;
-      });
-      n++;
-    }
-
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'Request:', options);
-    return options;
-  },
-  optItems: function optItems(o, p) {
-    var _o = o;
-    var _p = p ? p : {};
-    var options = new Object();
-    options['GLOBAL-ID'] = 'EBAY-US';
-    options['MESSAGE-ENCODING'] = 'UTF-8';
-    options['OPERATION-NAME'] = _o.operation;
-    options['REQUEST-DATA-FORMAT'] = 'NV';
-    options['RESPONSE-DATA-FORMAT'] = 'JSON';
-    options['REST-PAYLOAD'] = '';
-    options['SECURITY-APPNAME'] = _o.appid;
-    options['SERVICE-VERSION'] = '1.13.0';
-    options['outputSelector'] = 'SellerInfo';
-    options['paginationInput.entriesPerPage'] = 20;
-    options['paginationInput.pageNumber'] = _o.page;
-
-    if (_p.searchString) {
-      options['keywords'] = _p.searchString;
-    } else {
-      options['keywords'] = '';
-    }
-
-    var n = 0;
-    if (_p.seller && _p.seller.length) {
-      options['itemFilter(' + n + ').name'] = 'Seller';
-      _p.seller.forEach(function (slr, idx) {
-        return options['itemFilter(' + n + ').value(' + idx + ')'] = slr;
-      });
-      n++;
-    }
-
-    if (_p.highestPrice) {
-      options['itemFilter(' + n + ').name'] = 'MaxPrice';
-      options['itemFilter(' + n + ').value(0)'] = _p.highestPrice;
-      n++;
-    }
-
-    if (_p.lowestPrice) {
-      options['itemFilter(' + n + ').name'] = 'MinPrice';
-      options['itemFilter(' + n + ').value(0)'] = _p.lowestPrice;
-      n++;
-    }
-
-    if (_p.condition && _p.condition.length) {
-      options['itemFilter(' + n + ').name'] = 'Condition';
-      _p.condition.forEach(function (cdn, idx) {
-        return options['itemFilter(' + n + ').value(' + idx + ')'] = cdn;
-      });
-      n++;
-    }
-
-    if (_p.soldItemOnly === true) {
-      options['itemFilter(' + n + ').name'] = 'SoldItemOnly';
-      options['itemFilter(' + n + ').value(0)'] = 'true';
-      n++;
-    }
-
-    if (__WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default.a.isValidDate(_p.startDate)) {
-      options['itemFilter(' + n + ').name'] = 'EndTimeFrom';
-      options['itemFilter(' + n + ').value(0)'] = __WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default.a.setTimeStamp(_p.startDate);
-      n++;
-    }
-
-    if (__WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default.a.isValidDate(_p.endDate)) {
-      options['itemFilter(' + n + ').name'] = 'EndTimeTo';
-      options['itemFilter(' + n + ').value(0)'] = __WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default.a.setTimeStamp(_p.endDate);
-      n++;
-    }
-
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'Request:', options);
-    return options;
-  },
-  optDetail: function optDetail(o, p) {
-    var _o = o;
-    var _p = p ? p : {};
-    var head = new Object();
-    var body = new Object();
-    head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
-    head['X-EBAY-API-CALL-NAME'] = o.operation;
-    head['X-EBAY-API-SITEID'] = 0;
-    body['RequesterCredentials'] = { 'eBayAuthToken': _o.token };
-    body['ErrorLanguage'] = 'en_US';
-    body['WarningLevel'] = 'High';
-    body['ItemID'] = _p.itemId;
-    body['DetailLevel'] = 'ReturnAll';
-    __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'Request:', head, body);
-    return { head: head, body: this.toXML(_o.operation, body) };
-  },
-  renderStatus: function renderStatus(status) {
-    switch (status) {
-      case 0:
-        return 'Now available.';
-      case 1:
-        return 'New added.';
-      case 2:
-        return 'Removed.';
-    }
-  },
-  renderExtension: function renderExtension(date) {
-    return __WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default.a.getLocalTimeStamp(Object(__WEBPACK_IMPORTED_MODULE_2_iso8601_duration__["end"])(Object(__WEBPACK_IMPORTED_MODULE_2_iso8601_duration__["parse"])(date)));
-  },
-  renderItem: function renderItem(item, idx) {
-    var Img = item.hasOwnProperty('galleryURL') ? item.galleryURL[0] : '';
-    var Aid = item.itemId[0];
-    var Pid = item.hasOwnProperty('productId') ? item.productId.map(function (obj) {
-      return obj.__value__ + ' ( ' + obj['@type'] + ' )';
-    }) : ['---'];
-    var Sid = item.sellerInfo[0].sellerUserName[0];
-    var Stm = __WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default.a.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
-    var Etm = __WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default.a.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
-    var Url = item.viewItemURL[0];
-    var Ttl = item.title[0];
-    var Pc1 = item.sellingStatus[0].currentPrice[0].__value__;
-    var Ci1 = item.sellingStatus[0].currentPrice[0]['@currencyId'];
-    var Pc2 = item.sellingStatus[0].convertedCurrentPrice[0].__value__;
-    var Ci2 = item.sellingStatus[0].convertedCurrentPrice[0]['@currencyId'];
-    var Cdn = item.hasOwnProperty('condition') ? item.condition[0].conditionDisplayName[0] : '---';
-    var Cgp = item.primaryCategory[0].categoryName[0];
-    var Shp = item.shippingInfo[0].shipToLocations[0];
-    var Stt = item.sellingStatus[0].sellingState[0];
-    var Ext = item.sellingStatus[0].hasOwnProperty('timeLeft') ? this.renderExtension(item.sellingStatus[0].timeLeft[0]) : '';
-    var stt = this.renderStatus(0);
-    var Upd = __WEBPACK_IMPORTED_MODULE_5__utils_stdutils___default.a.getLocalTimeStamp(Date.now());
-
-    return {
-      'Key': idx,
-      'Image': Img,
-      'Url': Url,
-      'Title': Ttl,
-      'Sell Start': Stm,
-      'Sell Stop': Etm,
-      'Condition': Cdn,
-      'Seller': Sid,
-      'ItemID': Aid,
-      'ProductID': Pid.join('/'),
-      'Category': Cgp,
-      'Shipping': Shp,
-      'Price': Pc1,
-      'Currency': Ci1,
-      'Convert Price': Pc2,
-      'Convert Currency': Ci2,
-      'Status': Stt,
-      'Extention': Ext,
-      'Avail': stt,
-      'Updated': Upd
-    };
-  },
-  filterItem: function filterItem(options, obj) {
-    var item = obj;
-    if (options != null) {
-      if (!options.shipping.some(function (shipping) {
-        return shipping === item.shippingInfo[0].shipToLocations[0];
-      }) && options.shipping.length) return false;
-      if (!options.condition.some(function (condition) {
-        return condition === item.condition[0].conditionId[0];
-      }) && options.condition.length) return false;
-      if (!options.status.some(function (status) {
-        return status === item.sellingStatus[0].sellingState[0];
-      }) && options.status.length) return false;
-      if (!options.categoryPath.some(function (path) {
-        return path === item.primaryCategory[0].categoryName[0];
-      }) && options.categoryPath.length) return false;
-      if (!options.seller.some(function (selr) {
-        return selr === item.sellerInfo[0].sellerUserName[0];
-      }) && options.seller.length) return false;
-      if (!options.itemId.some(function (itemid) {
-        return itemid === item.itemId[0];
-      }) && options.itemId.length) return false;
-      if (!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
-      if (Number(options.lowestPrice) > item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.lowestPrice !== '') return false;
-      if (Number(options.highestPrice) < item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.highestPrice !== '') return false;
-    }
-    return true;
-  },
-  traceLog: function traceLog(obj) {
-    return __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace(pspid + '>', 'Trace log:', obj);
-  },
-  errorLog: function errorLog(err) {
-    return __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].error(pspid + '>', 'Error occurred:', err);
-  }
-});
-
-/***/ }),
-/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -1877,7 +1376,7 @@ var eBay = new Object();
 
   XMLNode = __webpack_require__(5);
 
-  XMLAttribute = __webpack_require__(58);
+  XMLAttribute = __webpack_require__(57);
 
   module.exports = XMLElement = function (superClass) {
     extend(XMLElement, superClass);
@@ -1978,7 +1477,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2020,7 +1519,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2062,7 +1561,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2113,7 +1612,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2138,13 +1637,13 @@ var eBay = new Object();
 
   XMLNode = __webpack_require__(5);
 
-  XMLDTDAttList = __webpack_require__(25);
+  XMLDTDAttList = __webpack_require__(23);
 
-  XMLDTDEntity = __webpack_require__(26);
+  XMLDTDEntity = __webpack_require__(24);
 
-  XMLDTDElement = __webpack_require__(27);
+  XMLDTDElement = __webpack_require__(25);
 
-  XMLDTDNotation = __webpack_require__(28);
+  XMLDTDNotation = __webpack_require__(26);
 
   module.exports = XMLDocType = function (superClass) {
     extend(XMLDocType, superClass);
@@ -2235,7 +1734,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2295,7 +1794,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2362,7 +1861,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2407,7 +1906,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2454,7 +1953,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2496,7 +1995,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2538,7 +2037,7 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -2583,110 +2082,661 @@ var eBay = new Object();
 }).call(this);
 
 /***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dispatcher__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
+
+
+var pspid = 'AppAction';
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  selectedContent: function selectedContent(selected, title) {
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: content/select');
+    Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'content/select', selected: selected, title: title });
+  },
+  fetchConfig: function fetchConfig() {
+    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].getConfig().then(function (config) {
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'config/fetch/appid', config: config });
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: config/fetch/appid');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+    });
+  },
+  writeConfig: function writeConfig(obj) {
+    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].putConfig(obj).then(function (config) {
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'config/write/appid', config: config });
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: config/write/appid');
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
+    });
+  }
 });
-/**
- * @description A module for parsing ISO8601 durations
- */
-
-/**
- * The pattern used for parsing ISO8601 duration (PnYnMnDTnHnMnS).
- * This does not cover the week format PnW.
- */
-
-// PnYnMnDTnHnMnS
-var numbers = '\\d+(?:[\\.,]\\d{0,3})?';
-var weekPattern = '(' + numbers + 'W)';
-var datePattern = '(' + numbers + 'Y)?(' + numbers + 'M)?(' + numbers + 'D)?';
-var timePattern = 'T(' + numbers + 'H)?(' + numbers + 'M)?(' + numbers + 'S)?';
-
-var iso8601 = 'P(?:' + weekPattern + '|' + datePattern + '(?:' + timePattern + ')?)';
-var objMap = ['weeks', 'years', 'months', 'days', 'hours', 'minutes', 'seconds'];
-
-/**
- * The ISO8601 regex for matching / testing durations
- */
-var pattern = exports.pattern = new RegExp(iso8601);
-
-/** Parse PnYnMnDTnHnMnS format to object
- * @param {string} durationString - PnYnMnDTnHnMnS formatted string
- * @return {Object} - With a property for each part of the pattern
- */
-var parse = exports.parse = function parse(durationString) {
-	// slice away first entry in match-array
-	return durationString.match(pattern).slice(1).reduce(function (prev, next, idx) {
-		prev[objMap[idx]] = parseFloat(next) || 0;
-		return prev;
-	}, {});
-};
-
-/**
- * Convert ISO8601 duration object to an end Date.
- *
- * @param {Object} duration - The duration object
- * @param {Date} startDate - The starting Date for calculating the duration
- * @return {Date} - The resulting end Date
- */
-var end = exports.end = function end(duration, startDate) {
-	// create two equal timestamps, add duration to 'then' and return time difference
-	var timestamp = startDate ? startDate.getTime() : Date.now();
-	var then = new Date(timestamp);
-
-	then.setFullYear(then.getFullYear() + duration.years);
-	then.setMonth(then.getMonth() + duration.months);
-	then.setDate(then.getDate() + duration.days);
-	then.setHours(then.getHours() + duration.hours);
-	then.setMinutes(then.getMinutes() + duration.minutes);
-	// then.setSeconds(then.getSeconds() + duration.seconds);
-	then.setMilliseconds(then.getMilliseconds() + duration.seconds * 1000);
-	// special case weeks
-	then.setDate(then.getDate() + duration.weeks * 7);
-
-	return then;
-};
-
-/**
- * Convert ISO8601 duration object to seconds
- *
- * @param {Object} duration - The duration object
- * @param {Date} startDate - The starting point for calculating the duration
- * @return {Number}
- */
-var toSeconds = exports.toSeconds = function toSeconds(duration, startDate) {
-	var timestamp = startDate ? startDate.getTime() : Date.now();
-	var now = new Date(timestamp);
-	var then = end(duration, startDate);
-
-	var seconds = (then.getTime() - now.getTime()) / 1000;
-	return seconds;
-};
-
-exports.default = {
-	end: end,
-	toSeconds: toSeconds,
-	pattern: pattern,
-	parse: parse
-};
 
 /***/ }),
-/* 33 */
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_webutils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_xhrutils__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_xhrutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__utils_xhrutils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_stdutils__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__utils_stdutils__);
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].config('console', 'basic', 'ALL', 'note-renderer');
+__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].config('app');
+
+var pspid = 'eBAPIClient';
+
+//const v1 = 'http://svcs.ebay.com/services/search/FindingService/v1'
+//const v2 = 'https://api.ebay.com/ws/api.dll';
+//const s1 = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
+//const s2 = 'https://api.sandbox.ebay.com/ws/api.dll';
+//const appid = 'Develope-WatchNot-PRD-05d7a0307-e288d29c';
+//const appid = 'Develope-WatchNot-SBX-5f0ecce30-f5331d00';
+//const token = 'AgAAAA**AQAAAA**aAAAAA**jqT1WQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AAkouiDpGFoA6dj6x9nY+seQ**m/ADAA**AAMAAA**2b2SR6yRJyXpL8F99OVUZi/5Quje4X7fgVu8nn2J9GMww28GbOagFFBxcZEIJQAQZsZlsvuYtyqbow0IwnDcXOHYhqroKYtLxb0xl+DBD5nK7PGys8VYKW3+HhIOy4lzGGhpMpaik8fOSTaa6zKJVHJIaD4pJYbI86ws6WfEYTEUQwR7txElKfTEyW1ni53oezHEK4WTdT19vUPSagpkt+Yrge2xNrwiKDgCxYk5n34vSyHpQWIjMc0bT1R2hY4HVLY5HPhv3SSS3zz0hlpR0hNUFyD5YP0uIZ3rwOk+8Pght1uZh2xpS/r3mwecv9UkJy8Xi8QAbUc8JFXCuHdOnjmELkBLyMbaT8zP5o/rw8vjf4UvAQlFLCBxo+aWiBhtoUxI8TKf+fzr99hGwubnqz9Qb4Q74WAwv2XMH05prc1c4c5pct/gTpFD0V8LxDIJ7Jwtny0wijznlqTRUO/3su31r4fgsi37x1/w4JsC9y5yLfc80UKsihCyZOni5/jqXpat3soema7eufk9IZNmalzObyukrVIU1Pc4AeQur0z1jNaaDngxd8+u7DV76DlKarmyN1BTBzANMVXlOeoLH6pFxJ2vVNBnfAtSNgIBbEPczAbQ1ULTIGwf9FIj6iUNl+AH197F8x9TuVOZlePbAprYya0OLMgMyWFnDz/8i9nAY5zVPTqFQO60Ozmeqql044quPBUFLSop7j6AvgwtZoRsEg7SlJtUq+EB3fMR0JJI938eJD3knyhvwCFW1ZCn';
+
+var eBay = new Object();
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  request: function request(action, response) {
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].info(pspid + '>', 'Request:', action);
+    switch (action) {
+      case 'config/fetch':
+        return new Promise(function (resolve) {
+          var memory = window.localStorage || window.UserDataStorage && new __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["c" /* str */].UserDataStorage() || new __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["c" /* str */].CookieStorage();
+          eBay = JSON.parse(memory.getItem("eBay_config"));
+          resolve(eBay);
+        });
+      case 'config/write':
+        return new Promise(function (resolve) {
+          var memory = window.localStorage || window.UserDataStorage && new __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["c" /* str */].UserDataStorage() || new __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["c" /* str */].CookieStorage();
+          memory.setItem("eBay_config", JSON.stringify(response));
+          resolve(response);
+        });
+      case 'findItemsByKeywords':
+        return new Promise(function (resolve) {
+          JSONP.request(eBay.findingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
+      case 'findCompletedItems':
+        return new Promise(function (resolve) {
+          JSONP.request(eBay.findingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
+      case 'findItemsByProduct':
+        return new Promise(function (resolve) {
+          JSONP.request(eBay.findingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
+      case 'findItemDetails':
+        return new Promise(function (resolve) {
+          __WEBPACK_IMPORTED_MODULE_1__utils_xhrutils___default.a.postXML(eBay.tradingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
+      default:
+        return new Promise(function (resolve) {
+          __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].warn(pspid + '> Unknown request !!');
+          resolve(response);
+        });
+    }
+  },
+  getConfig: function getConfig() {
+    return this.request('config/fetch');
+  },
+  getItems: function getItems(options, page) {
+    return this.request('findItemsByKeywords', this.optItems({
+      appid: eBay.appid, page: page, operation: 'findItemsByKeywords'
+    }, options));
+  },
+  getCompleteItems: function getCompleteItems(options, page) {
+    return this.request('findCompletedItems', this.optItems({
+      appid: eBay.appid, page: page, operation: 'findCompletedItems'
+    }, options));
+  },
+  getProductsItems: function getProductsItems(options, page) {
+    return this.request('findItemsByProduct', this.optProducts({
+      appid: eBay.appid, page: page, operation: 'findItemsByProduct'
+    }, options));
+  },
+  getDetail: function getDetail(options) {
+    return this.request('findItemDetails', this.optDetail({
+      token: eBay.token, operation: 'GetItem'
+    }, options));
+  },
+  putConfig: function putConfig(config) {
+    return this.request('config/write', config);
+  },
+  putItems: function putItems(items) {
+    return this.request('writeItemsByKeywords', items);
+  },
+  putCompleteItems: function putCompleteItems(items) {
+    return this.request('writeCompletedItems', items);
+  },
+  putProductsItems: function putProductsItems(items) {
+    return this.request('writeItemsByProduct', items);
+  },
+  fetchItems: function fetchItems(options, page) {
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
+    return this.getItems(options, page).then(this.resItems).then(this.setItems)
+    //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  fetchCompleteItems: function fetchCompleteItems(options, page) {
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
+    return this.getCompleteItems(options, page).then(this.resCompleteItems).then(this.setItems)
+    //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  fetchProductsItems: function fetchProductsItems(options, page) {
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
+    return this.getProductsItems(options, page).then(this.resProductsItems).then(this.setItems)
+    //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  fetchDetails: function fetchDetails(options, page) {
+    var _this = this;
+
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
+    return this.getItems(options, page).then(this.resItems).then(this.setItems).then(R.map(function (obj) {
+      return { itemId: obj.itemId };
+    })).then(function (obj) {
+      return Promise.all(R.map(_this.getDetail.bind(_this), obj));
+    }).then(function (obj) {
+      return Promise.all(R.map(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toJSON.bind(_this), obj));
+    }).then(R.map(this.resDetail.bind(this))).then(R.map(this.setDetail.bind(this)))
+    //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  writeItems: function writeItems(options) {
+    var _this2 = this;
+
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
+    var pages = Number(options.pages);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
+    var streamItems = function streamItems(idx) {
+      return Rx.Observable.fromPromise(_this2.getItems(options, idx));
+    };
+    var streamDetail = function streamDetail(obj) {
+      return Rx.Observable.fromPromise(_this2.getDetail({ itemId: obj.itemId }));
+    };
+    var forkItems = function forkItems(obj) {
+      return Rx.Observable.forkJoin(_this2.forItems(options, obj));
+    };
+    var forkJSON = function forkJSON(obj) {
+      return Rx.Observable.forkJoin(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toJSON(obj));
+    };
+    return streamItems(1).map(this.resItems).flatMap(forkItems).map(R.compose(R.flatten, R.map(this.setItems.bind(this)), R.map(this.resItems.bind(this)))).flatMap(Rx.Observable.from).flatMap(streamDetail).flatMap(forkJSON).map(R.compose(R.map(this.setDetail.bind(this)), R.map(this.resDetail.bind(this)))).map(R.curry(this.filterDetail.bind(this))(options)).map(R.tap(this.traceLog.bind(this)))
+    //.map((obj, idx) => this.renderItem(obj, idx + 1))
+    //.map(util.toCSV.bind(this))
+    .subscribe(this.traceLog
+    //, this.errorLog
+    //, () => { console.log('completed !!'); }
+    );
+    /*
+    const mapIndexed = R.addIndex(R.map);
+    return this.getItems(options, 1)
+      .then(this.resItems)
+      .then(R.curry(this.forItems.bind(this))(options))
+      .then(R.map(this.resItems.bind(this)))
+      .then(R.map(this.setItems.bind(this)))
+      .then(R.flatten)
+      .then(R.filter(
+        R.curry(this.filterItem.bind(this))(options)
+      ))
+      .then(mapIndexed(
+        (obj, idx) => this.renderItem(obj, idx + 1)
+      ))
+      .then(util.setCSVHeader.bind(this))
+      .then(R.map(util.toCSV.bind(this)))
+      //.then(R.tap(this.traceLog.bind(this)))
+      .catch(this.errorLog.bind(this));
+    */
+  },
+  writeCompleteItems: function writeCompleteItems(options) {
+    var _this3 = this;
+
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
+    var pages = Number(options.pages);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
+    var mapIndexed = R.addIndex(R.map);
+    return this.getCompleteItems(options, 1).then(this.resCompleteItems).then(R.curry(this.forCompleteItems.bind(this))(options)).then(R.map(this.resCompleteItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
+      return _this3.renderItem(obj, idx + 1);
+    })).then(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].setCSVHeader.bind(this)).then(R.map(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toCSV.bind(this)))
+    //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  writeProductsItems: function writeProductsItems(options) {
+    var _this4 = this;
+
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
+    var pages = Number(options.pages);
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
+    var mapIndexed = R.addIndex(R.map);
+    return this.getProductsItems(options, 1).then(this.resProductsItems).then(R.curry(this.forProductsItems.bind(this))(options)).then(R.map(this.resProductsItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
+      return _this4.renderItem(obj, idx + 1);
+    })).then(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].setCSVHeader.bind(this)).then(R.map(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toCSV.bind(this)))
+    //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  forItems: function forItems(options, res) {
+    var pages = Number(options.pages);
+    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    var newItems = [];
+    for (var idx = 1; idx <= page; idx++) {
+      newItems.push(this.getItems(options, idx));
+    }
+    return newItems;
+  },
+  forCompleteItems: function forCompleteItems(options, res) {
+    var pages = Number(options.pages);
+    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    var newItems = [];
+    for (var idx = 1; idx <= page; idx++) {
+      newItems.push(this.getCompleteItems(options, idx));
+    }
+    return Promise.all(newItems);
+  },
+  forProductsItems: function forProductsItems(options, res) {
+    var pages = Number(options.pages);
+    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    var newItems = [];
+    for (var idx = 1; idx <= page; idx++) {
+      newItems.push(this.getProductsItems(options, idx));
+    }
+    return Promise.all(newItems);
+  },
+  resItems: function resItems(obj) {
+    return obj.hasOwnProperty('findItemsByKeywordsResponse') ? obj.findItemsByKeywordsResponse[0] : null;
+  },
+  resCompleteItems: function resCompleteItems(obj) {
+    return obj.hasOwnProperty('findCompletedItemsResponse') ? obj.findCompletedItemsResponse[0] : null;
+  },
+  resProductsItems: function resProductsItems(obj) {
+    return obj.hasOwnProperty('findItemsByProductResponse') ? obj.findItemsByProductResponse[0] : null;
+  },
+  resDetail: function resDetail(obj) {
+    return obj.hasOwnProperty('GetItemResponse') ? obj.GetItemResponse : null;
+  },
+  setItems: function setItems(obj) {
+    return obj && obj.ack[0] === 'Success' ? obj.searchResult[0].item : null;
+  },
+  setDetail: function setDetail(obj) {
+    return obj && obj.Ack === 'Success' ? obj.Item : null;
+  },
+  optItems: function optItems(o, p) {
+    var _o = o;
+    var _p = p ? p : {};
+    var options = new Object();
+    options['GLOBAL-ID'] = 'EBAY-US';
+    options['MESSAGE-ENCODING'] = 'UTF-8';
+    options['OPERATION-NAME'] = _o.operation;
+    options['REQUEST-DATA-FORMAT'] = 'NV';
+    options['RESPONSE-DATA-FORMAT'] = 'JSON';
+    options['REST-PAYLOAD'] = '';
+    options['SECURITY-APPNAME'] = _o.appid;
+    options['SERVICE-VERSION'] = '1.13.0';
+    options['outputSelector'] = 'SellerInfo';
+    options['paginationInput.entriesPerPage'] = 20;
+    options['paginationInput.pageNumber'] = _o.page;
+
+    if (_p.searchString) {
+      options['keywords'] = _p.searchString;
+    } else {
+      options['keywords'] = '';
+    }
+
+    var n = 0;
+    if (_p.seller && _p.seller.length) {
+      options['itemFilter(' + n + ').name'] = 'Seller';
+      _p.seller.forEach(function (slr, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = slr;
+      });
+      n++;
+    }
+
+    if (_p.highestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MaxPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.highestPrice;
+      n++;
+    }
+
+    if (_p.lowestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MinPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.lowestPrice;
+      n++;
+    }
+
+    if (_p.condition && _p.condition.length) {
+      options['itemFilter(' + n + ').name'] = 'Condition';
+      _p.condition.forEach(function (cdn, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = cdn;
+      });
+      n++;
+    }
+
+    if (_p.soldItemOnly === true) {
+      options['itemFilter(' + n + ').name'] = 'SoldItemOnly';
+      options['itemFilter(' + n + ').value(0)'] = 'true';
+      n++;
+    }
+
+    if (__WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.isValidDate(_p.startDate)) {
+      options['itemFilter(' + n + ').name'] = 'EndTimeFrom';
+      options['itemFilter(' + n + ').value(0)'] = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.setTimeStamp(_p.startDate);
+      n++;
+    }
+
+    if (__WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.isValidDate(_p.endDate)) {
+      options['itemFilter(' + n + ').name'] = 'EndTimeTo';
+      options['itemFilter(' + n + ').value(0)'] = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.setTimeStamp(_p.endDate);
+      n++;
+    }
+
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'optItems:', options);
+    return options;
+  },
+  optProducts: function optProducts(o, p) {
+    var _o = o;
+    var _p = p ? p : {};
+    var options = new Object();
+    options['GLOBAL-ID'] = 'EBAY-US';
+    options['MESSAGE-ENCODING'] = 'UTF-8';
+    options['OPERATION-NAME'] = _o.operation;
+    options['REQUEST-DATA-FORMAT'] = 'NV';
+    options['RESPONSE-DATA-FORMAT'] = 'JSON';
+    options['REST-PAYLOAD'] = '';
+    options['SECURITY-APPNAME'] = _o.appid;
+    options['SERVICE-VERSION'] = '1.13.0';
+    options['outputSelector'] = 'SellerInfo';
+    options['paginationInput.entriesPerPage'] = 20;
+    options['paginationInput.pageNumber'] = _o.page;
+
+    if (_p.productId && _p.productType) {
+      options['productId'] = _p.productId;
+      options['productId.@type'] = _p.productType;
+    } else {
+      options['productId'] = '';
+      options['productId.@type'] = '';
+    }
+
+    var n = 0;
+    if (_p.seller && _p.seller.length) {
+      options['itemFilter(' + n + ').name'] = 'Seller';
+      _p.seller.forEach(function (slr, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = slr;
+      });
+      n++;
+    }
+
+    if (_p.highestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MaxPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.highestPrice;
+      n++;
+    }
+
+    if (_p.lowestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MinPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.lowestPrice;
+      n++;
+    }
+
+    if (_p.condition && _p.condition.length) {
+      options['itemFilter(' + n + ').name'] = 'Condition';
+      _p.condition.forEach(function (cdn, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = cdn;
+      });
+      n++;
+    }
+
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'optProducts:', options);
+    return options;
+  },
+  optDetail: function optDetail(o, p) {
+    var _o = o;
+    var _p = p ? p : {};
+    var head = new Object();
+    var body = new Object();
+    head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
+    head['X-EBAY-API-CALL-NAME'] = o.operation;
+    head['X-EBAY-API-SITEID'] = 0;
+    body['@xmlns'] = 'urn:ebay:apis:eBLBaseComponents';
+    body['RequesterCredentials'] = { 'eBayAuthToken': _o.token };
+    body['ErrorLanguage'] = 'en_US';
+    body['WarningLevel'] = 'High';
+    body['ItemID'] = _p.itemId;
+    body['DetailLevel'] = 'ReturnAll';
+    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'optDetail:', head, body);
+    return { head: head, body: __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toXML(_o.operation, body) };
+  },
+  renderStatus: function renderStatus(status) {
+    switch (status) {
+      case 0:
+        return 'Now available.';
+      case 1:
+        return 'New added.';
+      case 2:
+        return 'Removed.';
+    }
+  },
+  renderExtension: function renderExtension(duration) {
+    return __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toLeftDays(duration);
+  },
+  renderItem: function renderItem(item, idx) {
+    var Img = item.hasOwnProperty('galleryURL') ? item.galleryURL[0] : '';
+    var Aid = item.itemId[0];
+    var Pid = item.hasOwnProperty('productId') ? item.productId.map(function (obj) {
+      return obj.__value__ + ' ( ' + obj['@type'] + ' )';
+    }) : ['---'];
+    var Sid = item.sellerInfo[0].sellerUserName[0];
+    var Stm = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
+    var Etm = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
+    var Url = item.viewItemURL[0];
+    var Ttl = item.title[0];
+    var Pc1 = item.sellingStatus[0].currentPrice[0].__value__;
+    var Ci1 = item.sellingStatus[0].currentPrice[0]['@currencyId'];
+    var Pc2 = item.sellingStatus[0].convertedCurrentPrice[0].__value__;
+    var Ci2 = item.sellingStatus[0].convertedCurrentPrice[0]['@currencyId'];
+    var Cdn = item.hasOwnProperty('condition') ? item.condition[0].conditionDisplayName[0] : '---';
+    var Cgp = item.primaryCategory[0].categoryName[0];
+    var Shp = item.shippingInfo[0].shipToLocations[0];
+    var Stt = item.sellingStatus[0].sellingState[0];
+    var Ext = item.sellingStatus[0].hasOwnProperty('timeLeft') ? this.renderExtension(item.sellingStatus[0].timeLeft[0]) : '';
+    var stt = this.renderStatus(0);
+    var Upd = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.getLocalTimeStamp(Date.now());
+
+    return {
+      'Key': idx,
+      'Image': Img,
+      'Url': Url,
+      'Title': Ttl,
+      'Sell Start': Stm,
+      'Sell Stop': Etm,
+      'Condition': Cdn,
+      'Seller': Sid,
+      'ItemID': Aid,
+      'ProductID': Pid.join('/'),
+      'Category': Cgp,
+      'Shipping': Shp,
+      'Price': Pc1,
+      'Currency': Ci1,
+      'Convert Price': Pc2,
+      'Convert Currency': Ci2,
+      'Status': Stt,
+      'Extention': Ext,
+      'Avail': stt,
+      'Updated': Upd
+    };
+  },
+  filterItem: function filterItem(options, obj) {
+    var item = obj;
+    if (options != null) {
+      if (!options.shipping.some(function (shipping) {
+        return shipping === item.shippingInfo[0].shipToLocations[0];
+      }) && options.shipping.length) return false;
+      if (!options.condition.some(function (condition) {
+        return condition === item.condition[0].conditionId[0];
+      }) && options.condition.length) return false;
+      if (!options.status.some(function (status) {
+        return status === item.sellingStatus[0].sellingState[0];
+      }) && options.status.length) return false;
+      if (!options.categoryPath.some(function (path) {
+        return path === item.primaryCategory[0].categoryName[0];
+      }) && options.categoryPath.length) return false;
+      if (!options.seller.some(function (selr) {
+        return selr === item.sellerInfo[0].sellerUserName[0];
+      }) && options.seller.length) return false;
+      if (!options.itemId.some(function (itemid) {
+        return itemid === item.itemId[0];
+      }) && options.itemId.length) return false;
+      if (!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+      if (Number(options.lowestPrice) > item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.lowestPrice !== '') return false;
+      if (Number(options.highestPrice) < item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.highestPrice !== '') return false;
+    }
+    return true;
+  },
+  filterDetail: function filterDetail(options, obj) {
+    var item = obj;
+    if (options != null) {
+      if (!options.shipping.some(function (shipping) {
+        return shipping === item.ShipToLocations;
+      }) && options.shipping.length) return false;
+      if (!options.condition.some(function (condition) {
+        return condition === item.ConditionID;
+      }) && options.condition.length) return false;
+      if (!options.status.some(function (status) {
+        return status === item.SellingStatus.ListingStatus;
+      }) && options.status.length) return false;
+      if (!options.categoryPath.some(function (path) {
+        return path === item.PrimaryCategory.CategoryName;
+      }) && options.categoryPath.length) return false;
+      if (!options.seller.some(function (selr) {
+        return selr === item.Seller.UserID;
+      }) && options.seller.length) return false;
+      if (!options.itemId.some(function (itemid) {
+        return itemid === item.ItemID;
+      }) && options.itemId.length) return false;
+      if (!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+      if (Number(options.lowestPrice) > item.SellingStatus.ConvertedCurrentPrice.sub && options.lowestPrice !== '') return false;
+      if (Number(options.highestPrice) < item.SellingStatus.ConvertedCurrentPrice.sub && options.highestPrice !== '') return false;
+    }
+    return true;
+  },
+  traceLog: function traceLog(obj) {
+    return __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'Trace log:', obj);
+  },
+  errorLog: function errorLog(err) {
+    return __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].error(pspid + '>', 'Error occurred:', err);
+  }
+});
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("electron");
 
 /***/ }),
+/* 33 */,
 /* 34 */,
 /* 35 */,
 /* 36 */,
 /* 37 */,
-/* 38 */,
+/* 38 */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function () {
+  exports.defaults = {
+    "0.1": {
+      explicitCharkey: false,
+      trim: true,
+      normalize: true,
+      normalizeTags: false,
+      attrkey: "@",
+      charkey: "#",
+      explicitArray: false,
+      ignoreAttrs: false,
+      mergeAttrs: false,
+      explicitRoot: false,
+      validator: null,
+      xmlns: false,
+      explicitChildren: false,
+      childkey: '@@',
+      charsAsChildren: false,
+      includeWhiteChars: false,
+      async: false,
+      strict: true,
+      attrNameProcessors: null,
+      attrValueProcessors: null,
+      tagNameProcessors: null,
+      valueProcessors: null,
+      emptyTag: ''
+    },
+    "0.2": {
+      explicitCharkey: false,
+      trim: false,
+      normalize: false,
+      normalizeTags: false,
+      attrkey: "$",
+      charkey: "_",
+      explicitArray: true,
+      ignoreAttrs: false,
+      mergeAttrs: false,
+      explicitRoot: true,
+      validator: null,
+      xmlns: false,
+      explicitChildren: false,
+      preserveChildrenOrder: false,
+      childkey: '$$',
+      charsAsChildren: false,
+      includeWhiteChars: false,
+      async: false,
+      strict: true,
+      attrNameProcessors: null,
+      attrValueProcessors: null,
+      tagNameProcessors: null,
+      valueProcessors: null,
+      rootName: 'root',
+      xmldec: {
+        'version': '1.0',
+        'encoding': 'UTF-8',
+        'standalone': true
+      },
+      doctype: null,
+      renderOpts: {
+        'pretty': true,
+        'indent': '  ',
+        'newline': '\n'
+      },
+      headless: false,
+      chunkSize: 10000,
+      emptyTag: '',
+      cdata: false
+    }
+  };
+}).call(this);
+
+/***/ }),
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2715,31 +2765,31 @@ module.exports = require("electron");
   },
       hasProp = {}.hasOwnProperty;
 
-  XMLDeclaration = __webpack_require__(23);
+  XMLDeclaration = __webpack_require__(21);
 
-  XMLDocType = __webpack_require__(24);
+  XMLDocType = __webpack_require__(22);
 
-  XMLCData = __webpack_require__(21);
+  XMLCData = __webpack_require__(19);
 
-  XMLComment = __webpack_require__(22);
+  XMLComment = __webpack_require__(20);
 
-  XMLElement = __webpack_require__(20);
+  XMLElement = __webpack_require__(18);
 
-  XMLRaw = __webpack_require__(29);
+  XMLRaw = __webpack_require__(27);
 
-  XMLText = __webpack_require__(30);
+  XMLText = __webpack_require__(28);
 
-  XMLProcessingInstruction = __webpack_require__(31);
+  XMLProcessingInstruction = __webpack_require__(29);
 
-  XMLDTDAttList = __webpack_require__(25);
+  XMLDTDAttList = __webpack_require__(23);
 
-  XMLDTDElement = __webpack_require__(27);
+  XMLDTDElement = __webpack_require__(25);
 
-  XMLDTDEntity = __webpack_require__(26);
+  XMLDTDEntity = __webpack_require__(24);
 
-  XMLDTDNotation = __webpack_require__(28);
+  XMLDTDNotation = __webpack_require__(26);
 
-  XMLWriterBase = __webpack_require__(60);
+  XMLWriterBase = __webpack_require__(59);
 
   module.exports = XMLStringWriter = function (superClass) {
     extend(XMLStringWriter, superClass);
@@ -3044,82 +3094,6 @@ module.exports = require("electron");
 
 /***/ }),
 /* 40 */
-/***/ (function(module, exports) {
-
-// Generated by CoffeeScript 1.12.7
-(function () {
-  exports.defaults = {
-    "0.1": {
-      explicitCharkey: false,
-      trim: true,
-      normalize: true,
-      normalizeTags: false,
-      attrkey: "@",
-      charkey: "#",
-      explicitArray: false,
-      ignoreAttrs: false,
-      mergeAttrs: false,
-      explicitRoot: false,
-      validator: null,
-      xmlns: false,
-      explicitChildren: false,
-      childkey: '@@',
-      charsAsChildren: false,
-      includeWhiteChars: false,
-      async: false,
-      strict: true,
-      attrNameProcessors: null,
-      attrValueProcessors: null,
-      tagNameProcessors: null,
-      valueProcessors: null,
-      emptyTag: ''
-    },
-    "0.2": {
-      explicitCharkey: false,
-      trim: false,
-      normalize: false,
-      normalizeTags: false,
-      attrkey: "$",
-      charkey: "_",
-      explicitArray: true,
-      ignoreAttrs: false,
-      mergeAttrs: false,
-      explicitRoot: true,
-      validator: null,
-      xmlns: false,
-      explicitChildren: false,
-      preserveChildrenOrder: false,
-      childkey: '$$',
-      charsAsChildren: false,
-      includeWhiteChars: false,
-      async: false,
-      strict: true,
-      attrNameProcessors: null,
-      attrValueProcessors: null,
-      tagNameProcessors: null,
-      valueProcessors: null,
-      rootName: 'root',
-      xmldec: {
-        'version': '1.0',
-        'encoding': 'UTF-8',
-        'standalone': true
-      },
-      doctype: null,
-      renderOpts: {
-        'pretty': true,
-        'indent': '  ',
-        'newline': '\n'
-      },
-      headless: false,
-      chunkSize: 10000,
-      emptyTag: '',
-      cdata: false
-    }
-  };
-}).call(this);
-
-/***/ }),
-/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3194,12 +3168,13 @@ var Radio = function (_React$Component) {
 ;
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
+/* 42 */,
 /* 43 */,
 /* 44 */,
 /* 45 */,
@@ -3210,8 +3185,7 @@ module.exports = require("fs");
 /* 50 */,
 /* 51 */,
 /* 52 */,
-/* 53 */,
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3296,7 +3270,7 @@ function _getUniformDispatcher(stores) {
 module.exports = FluxStoreGroup;
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3319,7 +3293,7 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var _require = __webpack_require__(89);
+var _require = __webpack_require__(88);
 
 var EventEmitter = _require.EventEmitter;
 
@@ -3414,7 +3388,7 @@ module.exports = FluxStore;
 // protected, available to subclasses
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3446,7 +3420,7 @@ function _inherits(subClass, superClass) {
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var EventSubscription = __webpack_require__(91);
+var EventSubscription = __webpack_require__(90);
 
 /**
  * EmitterSubscription represents a subscription with listener and context data.
@@ -3478,7 +3452,7 @@ var EmitterSubscription = function (_EventSubscription) {
 module.exports = EmitterSubscription;
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -3487,13 +3461,13 @@ module.exports = EmitterSubscription;
 
   ref = __webpack_require__(10), assign = ref.assign, isFunction = ref.isFunction;
 
-  XMLDocument = __webpack_require__(99);
+  XMLDocument = __webpack_require__(98);
 
-  XMLDocumentCB = __webpack_require__(100);
+  XMLDocumentCB = __webpack_require__(99);
 
   XMLStringWriter = __webpack_require__(39);
 
-  XMLStreamWriter = __webpack_require__(101);
+  XMLStreamWriter = __webpack_require__(100);
 
   module.exports.create = function (name, xmldec, doctype, options) {
     var doc, root;
@@ -3535,7 +3509,7 @@ module.exports = EmitterSubscription;
 }).call(this);
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.6
@@ -3569,7 +3543,7 @@ module.exports = EmitterSubscription;
 }).call(this);
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.6
@@ -3739,7 +3713,7 @@ module.exports = EmitterSubscription;
 }).call(this);
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.6
@@ -3832,7 +3806,7 @@ module.exports = EmitterSubscription;
 }).call(this);
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.7
@@ -3871,23 +3845,23 @@ module.exports = EmitterSubscription;
 }).call(this);
 
 /***/ }),
+/* 61 */,
 /* 62 */,
 /* 63 */,
 /* 64 */,
 /* 65 */,
 /* 66 */,
 /* 67 */,
-/* 68 */,
-/* 69 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_App_App__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_App_App__ = __webpack_require__(83);
 
 
 
@@ -3895,6 +3869,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages_App_App__["a" /* default */], null), document.getElementById('app'));
 
 /***/ }),
+/* 69 */,
 /* 70 */,
 /* 71 */,
 /* 72 */,
@@ -3908,8 +3883,7 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* 80 */,
 /* 81 */,
 /* 82 */,
-/* 83 */,
-/* 84 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3919,8 +3893,8 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_flux_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_flux_utils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__FluxContainerConverter__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__FluxContainerConverter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__FluxContainerConverter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stores_appStore__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_AppAction__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stores_appStore__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_AppAction__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_AppBody_AppBody__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_Note_Note__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_Complete_Complete__ = __webpack_require__(121);
@@ -4011,7 +3985,7 @@ var App = function (_React$Component) {
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_1_flux_utils__["Container"].create(__WEBPACK_IMPORTED_MODULE_2__FluxContainerConverter___default.a.convert(App)));
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4053,11 +4027,11 @@ function _inherits(subClass, superClass) {
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var FluxContainerSubscriptions = __webpack_require__(86);
+var FluxContainerSubscriptions = __webpack_require__(85);
 var React = __webpack_require__(0);
 
 var invariant = __webpack_require__(2);
-var shallowEqual = __webpack_require__(38);
+var shallowEqual = __webpack_require__(37);
 
 var Component = React.Component;
 
@@ -4302,7 +4276,7 @@ function createFunctional(viewFn, _getStores, _calculateState, options) {
 module.exports = { create: create, createFunctional: createFunctional };
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4325,7 +4299,7 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var FluxStoreGroup = __webpack_require__(54);
+var FluxStoreGroup = __webpack_require__(53);
 
 function shallowArrayEqual(a, b) {
   if (a === b) {
@@ -4438,7 +4412,7 @@ var FluxContainerSubscriptions = function () {
 module.exports = FluxContainerSubscriptions;
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4455,7 +4429,7 @@ module.exports = FluxContainerSubscriptions;
 
 
 
-var FluxStoreGroup = __webpack_require__(54);
+var FluxStoreGroup = __webpack_require__(53);
 
 var invariant = __webpack_require__(2);
 
@@ -4566,7 +4540,7 @@ function enforceInterface(o) {
 module.exports = FluxMixinLegacy;
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4597,9 +4571,9 @@ function _inherits(subClass, superClass) {
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var FluxStore = __webpack_require__(55);
+var FluxStore = __webpack_require__(54);
 
-var abstractMethod = __webpack_require__(93);
+var abstractMethod = __webpack_require__(92);
 var invariant = __webpack_require__(2);
 
 /**
@@ -4700,7 +4674,7 @@ var FluxReduceStore = function (_FluxStore) {
 module.exports = FluxReduceStore;
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -4713,14 +4687,14 @@ module.exports = FluxReduceStore;
  */
 
 var fbemitter = {
-  EventEmitter: __webpack_require__(90),
-  EmitterSubscription: __webpack_require__(56)
+  EventEmitter: __webpack_require__(89),
+  EmitterSubscription: __webpack_require__(55)
 };
 
 module.exports = fbemitter;
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4744,8 +4718,8 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var EmitterSubscription = __webpack_require__(56);
-var EventSubscriptionVendor = __webpack_require__(92);
+var EmitterSubscription = __webpack_require__(55);
+var EventSubscriptionVendor = __webpack_require__(91);
 
 var emptyFunction = __webpack_require__(7);
 var invariant = __webpack_require__(2);
@@ -4921,7 +4895,7 @@ var BaseEventEmitter = function () {
 module.exports = BaseEventEmitter;
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4980,7 +4954,7 @@ var EventSubscription = function () {
 module.exports = EventSubscription;
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5093,7 +5067,7 @@ var EventSubscriptionVendor = function () {
 module.exports = EventSubscriptionVendor;
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5120,7 +5094,7 @@ function abstractMethod(className, methodName) {
 module.exports = abstractMethod;
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5190,7 +5164,7 @@ var AppStore = function (_ReduceStore) {
 /* harmony default export */ __webpack_exports__["a"] = (new AppStore(__WEBPACK_IMPORTED_MODULE_1__dispatcher__["a" /* default */]));
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -5202,10 +5176,10 @@ var AppStore = function (_ReduceStore) {
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-module.exports.Dispatcher = __webpack_require__(96);
+module.exports.Dispatcher = __webpack_require__(95);
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5446,400 +5420,194 @@ var Dispatcher = function () {
 module.exports = Dispatcher;
 
 /***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function () {
+  "use strict";
+
+  var builder,
+      defaults,
+      parser,
+      processors,
+      extend = function extend(child, parent) {
+    for (var key in parent) {
+      if (hasProp.call(parent, key)) child[key] = parent[key];
+    }function ctor() {
+      this.constructor = child;
+    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;
+  },
+      hasProp = {}.hasOwnProperty;
+
+  defaults = __webpack_require__(38);
+
+  builder = __webpack_require__(97);
+
+  parser = __webpack_require__(101);
+
+  processors = __webpack_require__(60);
+
+  exports.defaults = defaults.defaults;
+
+  exports.processors = processors;
+
+  exports.ValidationError = function (superClass) {
+    extend(ValidationError, superClass);
+
+    function ValidationError(message) {
+      this.message = message;
+    }
+
+    return ValidationError;
+  }(Error);
+
+  exports.Builder = builder.Builder;
+
+  exports.Parser = parser.Parser;
+
+  exports.parseString = parser.parseString;
+}).call(this);
+
+/***/ }),
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-/**
- * Copyright (c) 2011-2014 Felix Gnass
- * Licensed under the MIT license
- * http://spin.js.org/
- *
- * Example:
-    var opts = {
-      lines: 12             // The number of lines to draw
-    , length: 7             // The length of each line
-    , width: 5              // The line thickness
-    , radius: 10            // The radius of the inner circle
-    , scale: 1.0            // Scales overall size of the spinner
-    , corners: 1            // Roundness (0..1)
-    , color: '#000'         // #rgb or #rrggbb
-    , opacity: 1/4          // Opacity of the lines
-    , rotate: 0             // Rotation offset
-    , direction: 1          // 1: clockwise, -1: counterclockwise
-    , speed: 1              // Rounds per second
-    , trail: 100            // Afterglow percentage
-    , fps: 20               // Frames per second when using setTimeout()
-    , zIndex: 2e9           // Use a high z-index by default
-    , className: 'spinner'  // CSS class to assign to the element
-    , top: '50%'            // center vertically
-    , left: '50%'           // center horizontally
-    , shadow: false         // Whether to render a shadow
-    , hwaccel: false        // Whether to use hardware acceleration (might be buggy)
-    , position: 'absolute'  // Element positioning
-    }
-    var target = document.getElementById('foo')
-    var spinner = new Spinner(opts).spin(target)
- */
-;(function (root, factory) {
-
-  /* CommonJS */
-  if (( false ? 'undefined' : _typeof(module)) == 'object' && module.exports) module.exports = factory();
-
-  /* AMD module */
-  else if (true) !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-    /* Browser global */
-    else root.Spinner = factory();
-})(this, function () {
+// Generated by CoffeeScript 1.12.7
+(function () {
   "use strict";
 
-  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
-  ,
-      animations = {} /* Animation rules keyed by their name */
-  ,
-      useCssAnimations /* Whether to use CSS animations or setTimeout */
-  ,
-      sheet; /* A stylesheet to hold the @keyframe or VML rules. */
+  var builder,
+      defaults,
+      escapeCDATA,
+      requiresCDATA,
+      wrapCDATA,
+      hasProp = {}.hasOwnProperty;
 
-  /**
-   * Utility function to create elements. If no tag name is given,
-   * a DIV is created. Optionally properties can be passed.
-   */
-  function createEl(tag, prop) {
-    var el = document.createElement(tag || 'div'),
-        n;
+  builder = __webpack_require__(56);
 
-    for (n in prop) {
-      el[n] = prop[n];
-    }return el;
-  }
+  defaults = __webpack_require__(38).defaults;
 
-  /**
-   * Appends children and returns the parent.
-   */
-  function ins(parent /* child1, child2, ...*/) {
-    for (var i = 1, n = arguments.length; i < n; i++) {
-      parent.appendChild(arguments[i]);
-    }
+  requiresCDATA = function requiresCDATA(entry) {
+    return typeof entry === "string" && (entry.indexOf('&') >= 0 || entry.indexOf('>') >= 0 || entry.indexOf('<') >= 0);
+  };
 
-    return parent;
-  }
+  wrapCDATA = function wrapCDATA(entry) {
+    return "<![CDATA[" + escapeCDATA(entry) + "]]>";
+  };
 
-  /**
-   * Creates an opacity keyframe animation rule and returns its name.
-   * Since most mobile Webkits have timing issues with animation-delay,
-   * we create separate rules for each line/segment.
-   */
-  function addAnimation(alpha, trail, i, lines) {
-    var name = ['opacity', trail, ~~(alpha * 100), i, lines].join('-'),
-        start = 0.01 + i / lines * 100,
-        z = Math.max(1 - (1 - alpha) / trail * (100 - start), alpha),
-        prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase(),
-        pre = prefix && '-' + prefix + '-' || '';
+  escapeCDATA = function escapeCDATA(entry) {
+    return entry.replace(']]>', ']]]]><![CDATA[>');
+  };
 
-    if (!animations[name]) {
-      sheet.insertRule('@' + pre + 'keyframes ' + name + '{' + '0%{opacity:' + z + '}' + start + '%{opacity:' + alpha + '}' + (start + 0.01) + '%{opacity:1}' + (start + trail) % 100 + '%{opacity:' + alpha + '}' + '100%{opacity:' + z + '}' + '}', sheet.cssRules.length);
-
-      animations[name] = 1;
-    }
-
-    return name;
-  }
-
-  /**
-   * Tries various vendor prefixes and returns the first supported property.
-   */
-  function vendor(el, prop) {
-    var s = el.style,
-        pp,
-        i;
-
-    prop = prop.charAt(0).toUpperCase() + prop.slice(1);
-    if (s[prop] !== undefined) return prop;
-    for (i = 0; i < prefixes.length; i++) {
-      pp = prefixes[i] + prop;
-      if (s[pp] !== undefined) return pp;
-    }
-  }
-
-  /**
-   * Sets multiple style properties at once.
-   */
-  function css(el, prop) {
-    for (var n in prop) {
-      el.style[vendor(el, n) || n] = prop[n];
-    }
-
-    return el;
-  }
-
-  /**
-   * Fills in default values.
-   */
-  function merge(obj) {
-    for (var i = 1; i < arguments.length; i++) {
-      var def = arguments[i];
-      for (var n in def) {
-        if (obj[n] === undefined) obj[n] = def[n];
+  exports.Builder = function () {
+    function Builder(opts) {
+      var key, ref, value;
+      this.options = {};
+      ref = defaults["0.2"];
+      for (key in ref) {
+        if (!hasProp.call(ref, key)) continue;
+        value = ref[key];
+        this.options[key] = value;
+      }
+      for (key in opts) {
+        if (!hasProp.call(opts, key)) continue;
+        value = opts[key];
+        this.options[key] = value;
       }
     }
-    return obj;
-  }
 
-  /**
-   * Returns the line color from the given string or array.
-   */
-  function getColor(color, idx) {
-    return typeof color == 'string' ? color : color[idx % color.length];
-  }
-
-  // Built-in defaults
-
-  var defaults = {
-    lines: 12 // The number of lines to draw
-    , length: 7 // The length of each line
-    , width: 5 // The line thickness
-    , radius: 10 // The radius of the inner circle
-    , scale: 1.0 // Scales overall size of the spinner
-    , corners: 1 // Roundness (0..1)
-    , color: '#000' // #rgb or #rrggbb
-    , opacity: 1 / 4 // Opacity of the lines
-    , rotate: 0 // Rotation offset
-    , direction: 1 // 1: clockwise, -1: counterclockwise
-    , speed: 1 // Rounds per second
-    , trail: 100 // Afterglow percentage
-    , fps: 20 // Frames per second when using setTimeout()
-    , zIndex: 2e9 // Use a high z-index by default
-    , className: 'spinner' // CSS class to assign to the element
-    , top: '50%' // center vertically
-    , left: '50%' // center horizontally
-    , shadow: false // Whether to render a shadow
-    , hwaccel: false // Whether to use hardware acceleration (might be buggy)
-    , position: 'absolute' // Element positioning
-
-
-    /** The constructor */
-  };function Spinner(o) {
-    this.opts = merge(o || {}, Spinner.defaults, defaults);
-  }
-
-  // Global defaults that override the built-ins:
-  Spinner.defaults = {};
-
-  merge(Spinner.prototype, {
-    /**
-     * Adds the spinner to the given target element. If this instance is already
-     * spinning, it is automatically removed from its previous target b calling
-     * stop() internally.
-     */
-    spin: function spin(target) {
-      this.stop();
-
-      var self = this,
-          o = self.opts,
-          el = self.el = createEl(null, { className: o.className });
-
-      css(el, {
-        position: o.position,
-        width: 0,
-        zIndex: o.zIndex,
-        left: o.left,
-        top: o.top
-      });
-
-      if (target) {
-        target.insertBefore(el, target.firstChild || null);
+    Builder.prototype.buildObject = function (rootObj) {
+      var attrkey, charkey, render, rootElement, rootName;
+      attrkey = this.options.attrkey;
+      charkey = this.options.charkey;
+      if (Object.keys(rootObj).length === 1 && this.options.rootName === defaults['0.2'].rootName) {
+        rootName = Object.keys(rootObj)[0];
+        rootObj = rootObj[rootName];
+      } else {
+        rootName = this.options.rootName;
       }
-
-      el.setAttribute('role', 'progressbar');
-      self.lines(el, self.opts);
-
-      if (!useCssAnimations) {
-        // No CSS animation support, use setTimeout() instead
-        var i = 0,
-            start = (o.lines - 1) * (1 - o.direction) / 2,
-            alpha,
-            fps = o.fps,
-            f = fps / o.speed,
-            ostep = (1 - o.opacity) / (f * o.trail / 100),
-            astep = f / o.lines;(function anim() {
-          i++;
-          for (var j = 0; j < o.lines; j++) {
-            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity);
-
-            self.opacity(el, j * o.direction + start, alpha, o);
+      render = function (_this) {
+        return function (element, obj) {
+          var attr, child, entry, index, key, value;
+          if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object') {
+            if (_this.options.cdata && requiresCDATA(obj)) {
+              element.raw(wrapCDATA(obj));
+            } else {
+              element.txt(obj);
+            }
+          } else if (Array.isArray(obj)) {
+            for (index in obj) {
+              if (!hasProp.call(obj, index)) continue;
+              child = obj[index];
+              for (key in child) {
+                entry = child[key];
+                element = render(element.ele(key), entry).up();
+              }
+            }
+          } else {
+            for (key in obj) {
+              if (!hasProp.call(obj, key)) continue;
+              child = obj[key];
+              if (key === attrkey) {
+                if ((typeof child === 'undefined' ? 'undefined' : _typeof(child)) === "object") {
+                  for (attr in child) {
+                    value = child[attr];
+                    element = element.att(attr, value);
+                  }
+                }
+              } else if (key === charkey) {
+                if (_this.options.cdata && requiresCDATA(child)) {
+                  element = element.raw(wrapCDATA(child));
+                } else {
+                  element = element.txt(child);
+                }
+              } else if (Array.isArray(child)) {
+                for (index in child) {
+                  if (!hasProp.call(child, index)) continue;
+                  entry = child[index];
+                  if (typeof entry === 'string') {
+                    if (_this.options.cdata && requiresCDATA(entry)) {
+                      element = element.ele(key).raw(wrapCDATA(entry)).up();
+                    } else {
+                      element = element.ele(key, entry).up();
+                    }
+                  } else {
+                    element = render(element.ele(key), entry).up();
+                  }
+                }
+              } else if ((typeof child === 'undefined' ? 'undefined' : _typeof(child)) === "object") {
+                element = render(element.ele(key), child).up();
+              } else {
+                if (typeof child === 'string' && _this.options.cdata && requiresCDATA(child)) {
+                  element = element.ele(key).raw(wrapCDATA(child)).up();
+                } else {
+                  if (child == null) {
+                    child = '';
+                  }
+                  element = element.ele(key, child.toString()).up();
+                }
+              }
+            }
           }
-          self.timeout = self.el && setTimeout(anim, ~~(1000 / fps));
-        })();
-      }
-      return self;
-    }
-
-    /**
-     * Stops and removes the Spinner.
-     */
-    , stop: function stop() {
-      var el = this.el;
-      if (el) {
-        clearTimeout(this.timeout);
-        if (el.parentNode) el.parentNode.removeChild(el);
-        this.el = undefined;
-      }
-      return this;
-    }
-
-    /**
-     * Internal method that draws the individual lines. Will be overwritten
-     * in VML fallback mode below.
-     */
-    , lines: function lines(el, o) {
-      var i = 0,
-          start = (o.lines - 1) * (1 - o.direction) / 2,
-          seg;
-
-      function fill(color, shadow) {
-        return css(createEl(), {
-          position: 'absolute',
-          width: o.scale * (o.length + o.width) + 'px',
-          height: o.scale * o.width + 'px',
-          background: color,
-          boxShadow: shadow,
-          transformOrigin: 'left',
-          transform: 'rotate(' + ~~(360 / o.lines * i + o.rotate) + 'deg) translate(' + o.scale * o.radius + 'px' + ',0)',
-          borderRadius: (o.corners * o.scale * o.width >> 1) + 'px'
-        });
-      }
-
-      for (; i < o.lines; i++) {
-        seg = css(createEl(), {
-          position: 'absolute',
-          top: 1 + ~(o.scale * o.width / 2) + 'px',
-          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
-          opacity: o.opacity,
-          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1 / o.speed + 's linear infinite'
-        });
-
-        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px #000'), { top: '2px' }));
-        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')));
-      }
-      return el;
-    }
-
-    /**
-     * Internal method that adjusts the opacity of a single line.
-     * Will be overwritten in VML fallback mode below.
-     */
-    , opacity: function opacity(el, i, val) {
-      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val;
-    }
-
-  });
-
-  function initVML() {
-
-    /* Utility function to create a VML tag */
-    function vml(tag, attr) {
-      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr);
-    }
-
-    // No CSS transforms but VML support, add a CSS rule for VML elements:
-    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)');
-
-    Spinner.prototype.lines = function (el, o) {
-      var r = o.scale * (o.length + o.width),
-          s = o.scale * 2 * r;
-
-      function grp() {
-        return css(vml('group', {
-          coordsize: s + ' ' + s,
-          coordorigin: -r + ' ' + -r
-        }), { width: s, height: s });
-      }
-
-      var margin = -(o.width + o.length) * o.scale * 2 + 'px',
-          g = css(grp(), { position: 'absolute', top: margin, left: margin }),
-          i;
-
-      function seg(i, dx, filter) {
-        ins(g, ins(css(grp(), { rotation: 360 / o.lines * i + 'deg', left: ~~dx }), ins(css(vml('roundrect', { arcsize: o.corners }), { width: r,
-          height: o.scale * o.width,
-          left: o.scale * o.radius,
-          top: -o.scale * o.width >> 1,
-          filter: filter
-        }), vml('fill', { color: getColor(o.color, i), opacity: o.opacity }), vml('stroke', { opacity: 0 }) // transparent stroke to fix color bleeding upon opacity change
-        )));
-      }
-
-      if (o.shadow) for (i = 1; i <= o.lines; i++) {
-        seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)');
-      }
-
-      for (i = 1; i <= o.lines; i++) {
-        seg(i);
-      }return ins(el, g);
+          return element;
+        };
+      }(this);
+      rootElement = builder.create(rootName, this.options.xmldec, this.options.doctype, {
+        headless: this.options.headless,
+        allowSurrogateChars: this.options.allowSurrogateChars
+      });
+      return render(rootElement, rootObj).end(this.options.renderOpts);
     };
 
-    Spinner.prototype.opacity = function (el, i, val, o) {
-      var c = el.firstChild;
-      o = o.shadow && o.lines || 0;
-      if (c && i + o < c.childNodes.length) {
-        c = c.childNodes[i + o];c = c && c.firstChild;c = c && c.firstChild;
-        if (c) c.opacity = val;
-      }
-    };
-  }
-
-  if (typeof document !== 'undefined') {
-    sheet = function () {
-      var el = createEl('style', { type: 'text/css' });
-      ins(document.getElementsByTagName('head')[0], el);
-      return el.sheet || el.styleSheet;
-    }();
-
-    var probe = css(createEl('group'), { behavior: 'url(#default#VML)' });
-
-    if (!vendor(probe, 'transform') && probe.adj) initVML();else useCssAnimations = vendor(probe, 'animation');
-  }
-
-  return Spinner;
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(98)(module)))
+    return Builder;
+  }();
+}).call(this);
 
 /***/ }),
 /* 98 */
-/***/ (function(module, exports) {
-
-module.exports = function (module) {
-	if (!module.webpackPolyfill) {
-		module.deprecate = function () {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function get() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function get() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-/***/ }),
-/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -5862,7 +5630,7 @@ module.exports = function (module) {
 
   XMLNode = __webpack_require__(5);
 
-  XMLStringifier = __webpack_require__(59);
+  XMLStringifier = __webpack_require__(58);
 
   XMLStringWriter = __webpack_require__(39);
 
@@ -5900,7 +5668,7 @@ module.exports = function (module) {
 }).call(this);
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -5929,33 +5697,33 @@ module.exports = function (module) {
 
   ref = __webpack_require__(10), isObject = ref.isObject, isFunction = ref.isFunction, isPlainObject = ref.isPlainObject;
 
-  XMLElement = __webpack_require__(20);
+  XMLElement = __webpack_require__(18);
 
-  XMLCData = __webpack_require__(21);
+  XMLCData = __webpack_require__(19);
 
-  XMLComment = __webpack_require__(22);
+  XMLComment = __webpack_require__(20);
 
-  XMLRaw = __webpack_require__(29);
+  XMLRaw = __webpack_require__(27);
 
-  XMLText = __webpack_require__(30);
+  XMLText = __webpack_require__(28);
 
-  XMLProcessingInstruction = __webpack_require__(31);
+  XMLProcessingInstruction = __webpack_require__(29);
 
-  XMLDeclaration = __webpack_require__(23);
+  XMLDeclaration = __webpack_require__(21);
 
-  XMLDocType = __webpack_require__(24);
+  XMLDocType = __webpack_require__(22);
 
-  XMLDTDAttList = __webpack_require__(25);
+  XMLDTDAttList = __webpack_require__(23);
 
-  XMLDTDEntity = __webpack_require__(26);
+  XMLDTDEntity = __webpack_require__(24);
 
-  XMLDTDElement = __webpack_require__(27);
+  XMLDTDElement = __webpack_require__(25);
 
-  XMLDTDNotation = __webpack_require__(28);
+  XMLDTDNotation = __webpack_require__(26);
 
-  XMLAttribute = __webpack_require__(58);
+  XMLAttribute = __webpack_require__(57);
 
-  XMLStringifier = __webpack_require__(59);
+  XMLStringifier = __webpack_require__(58);
 
   XMLStringWriter = __webpack_require__(39);
 
@@ -6324,7 +6092,7 @@ module.exports = function (module) {
 }).call(this);
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.6
@@ -6352,31 +6120,31 @@ module.exports = function (module) {
   },
       hasProp = {}.hasOwnProperty;
 
-  XMLDeclaration = __webpack_require__(23);
+  XMLDeclaration = __webpack_require__(21);
 
-  XMLDocType = __webpack_require__(24);
+  XMLDocType = __webpack_require__(22);
 
-  XMLCData = __webpack_require__(21);
+  XMLCData = __webpack_require__(19);
 
-  XMLComment = __webpack_require__(22);
+  XMLComment = __webpack_require__(20);
 
-  XMLElement = __webpack_require__(20);
+  XMLElement = __webpack_require__(18);
 
-  XMLRaw = __webpack_require__(29);
+  XMLRaw = __webpack_require__(27);
 
-  XMLText = __webpack_require__(30);
+  XMLText = __webpack_require__(28);
 
-  XMLProcessingInstruction = __webpack_require__(31);
+  XMLProcessingInstruction = __webpack_require__(29);
 
-  XMLDTDAttList = __webpack_require__(25);
+  XMLDTDAttList = __webpack_require__(23);
 
-  XMLDTDElement = __webpack_require__(27);
+  XMLDTDElement = __webpack_require__(25);
 
-  XMLDTDEntity = __webpack_require__(26);
+  XMLDTDEntity = __webpack_require__(24);
 
-  XMLDTDNotation = __webpack_require__(28);
+  XMLDTDNotation = __webpack_require__(26);
 
-  XMLWriterBase = __webpack_require__(60);
+  XMLWriterBase = __webpack_require__(59);
 
   module.exports = XMLStreamWriter = function (superClass) {
     extend(XMLStreamWriter, superClass);
@@ -6625,194 +6393,7 @@ module.exports = function (module) {
 }).call(this);
 
 /***/ }),
-/* 102 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Generated by CoffeeScript 1.12.7
-(function () {
-  "use strict";
-
-  var builder,
-      defaults,
-      parser,
-      processors,
-      extend = function extend(child, parent) {
-    for (var key in parent) {
-      if (hasProp.call(parent, key)) child[key] = parent[key];
-    }function ctor() {
-      this.constructor = child;
-    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;
-  },
-      hasProp = {}.hasOwnProperty;
-
-  defaults = __webpack_require__(40);
-
-  builder = __webpack_require__(103);
-
-  parser = __webpack_require__(104);
-
-  processors = __webpack_require__(61);
-
-  exports.defaults = defaults.defaults;
-
-  exports.processors = processors;
-
-  exports.ValidationError = function (superClass) {
-    extend(ValidationError, superClass);
-
-    function ValidationError(message) {
-      this.message = message;
-    }
-
-    return ValidationError;
-  }(Error);
-
-  exports.Builder = builder.Builder;
-
-  exports.Parser = parser.Parser;
-
-  exports.parseString = parser.parseString;
-}).call(this);
-
-/***/ }),
-/* 103 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-// Generated by CoffeeScript 1.12.7
-(function () {
-  "use strict";
-
-  var builder,
-      defaults,
-      escapeCDATA,
-      requiresCDATA,
-      wrapCDATA,
-      hasProp = {}.hasOwnProperty;
-
-  builder = __webpack_require__(57);
-
-  defaults = __webpack_require__(40).defaults;
-
-  requiresCDATA = function requiresCDATA(entry) {
-    return typeof entry === "string" && (entry.indexOf('&') >= 0 || entry.indexOf('>') >= 0 || entry.indexOf('<') >= 0);
-  };
-
-  wrapCDATA = function wrapCDATA(entry) {
-    return "<![CDATA[" + escapeCDATA(entry) + "]]>";
-  };
-
-  escapeCDATA = function escapeCDATA(entry) {
-    return entry.replace(']]>', ']]]]><![CDATA[>');
-  };
-
-  exports.Builder = function () {
-    function Builder(opts) {
-      var key, ref, value;
-      this.options = {};
-      ref = defaults["0.2"];
-      for (key in ref) {
-        if (!hasProp.call(ref, key)) continue;
-        value = ref[key];
-        this.options[key] = value;
-      }
-      for (key in opts) {
-        if (!hasProp.call(opts, key)) continue;
-        value = opts[key];
-        this.options[key] = value;
-      }
-    }
-
-    Builder.prototype.buildObject = function (rootObj) {
-      var attrkey, charkey, render, rootElement, rootName;
-      attrkey = this.options.attrkey;
-      charkey = this.options.charkey;
-      if (Object.keys(rootObj).length === 1 && this.options.rootName === defaults['0.2'].rootName) {
-        rootName = Object.keys(rootObj)[0];
-        rootObj = rootObj[rootName];
-      } else {
-        rootName = this.options.rootName;
-      }
-      render = function (_this) {
-        return function (element, obj) {
-          var attr, child, entry, index, key, value;
-          if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object') {
-            if (_this.options.cdata && requiresCDATA(obj)) {
-              element.raw(wrapCDATA(obj));
-            } else {
-              element.txt(obj);
-            }
-          } else if (Array.isArray(obj)) {
-            for (index in obj) {
-              if (!hasProp.call(obj, index)) continue;
-              child = obj[index];
-              for (key in child) {
-                entry = child[key];
-                element = render(element.ele(key), entry).up();
-              }
-            }
-          } else {
-            for (key in obj) {
-              if (!hasProp.call(obj, key)) continue;
-              child = obj[key];
-              if (key === attrkey) {
-                if ((typeof child === 'undefined' ? 'undefined' : _typeof(child)) === "object") {
-                  for (attr in child) {
-                    value = child[attr];
-                    element = element.att(attr, value);
-                  }
-                }
-              } else if (key === charkey) {
-                if (_this.options.cdata && requiresCDATA(child)) {
-                  element = element.raw(wrapCDATA(child));
-                } else {
-                  element = element.txt(child);
-                }
-              } else if (Array.isArray(child)) {
-                for (index in child) {
-                  if (!hasProp.call(child, index)) continue;
-                  entry = child[index];
-                  if (typeof entry === 'string') {
-                    if (_this.options.cdata && requiresCDATA(entry)) {
-                      element = element.ele(key).raw(wrapCDATA(entry)).up();
-                    } else {
-                      element = element.ele(key, entry).up();
-                    }
-                  } else {
-                    element = render(element.ele(key), entry).up();
-                  }
-                }
-              } else if ((typeof child === 'undefined' ? 'undefined' : _typeof(child)) === "object") {
-                element = render(element.ele(key), child).up();
-              } else {
-                if (typeof child === 'string' && _this.options.cdata && requiresCDATA(child)) {
-                  element = element.ele(key).raw(wrapCDATA(child)).up();
-                } else {
-                  if (child == null) {
-                    child = '';
-                  }
-                  element = element.ele(key, child.toString()).up();
-                }
-              }
-            }
-          }
-          return element;
-        };
-      }(this);
-      rootElement = builder.create(rootName, this.options.xmldec, this.options.doctype, {
-        headless: this.options.headless,
-        allowSurrogateChars: this.options.allowSurrogateChars
-      });
-      return render(rootElement, rootObj).end(this.options.renderOpts);
-    };
-
-    return Builder;
-  }();
-}).call(this);
-
-/***/ }),
-/* 104 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -6843,17 +6424,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   },
       hasProp = {}.hasOwnProperty;
 
-  sax = __webpack_require__(105);
+  sax = __webpack_require__(102);
 
-  events = __webpack_require__(108);
+  events = __webpack_require__(105);
 
-  bom = __webpack_require__(109);
+  bom = __webpack_require__(106);
 
-  processors = __webpack_require__(61);
+  processors = __webpack_require__(60);
 
-  setImmediate = __webpack_require__(110).setImmediate;
+  setImmediate = __webpack_require__(107).setImmediate;
 
-  defaults = __webpack_require__(40).defaults;
+  defaults = __webpack_require__(38).defaults;
 
   isEmpty = function isEmpty(thing) {
     return (typeof thing === 'undefined' ? 'undefined' : _typeof(thing)) === "object" && thing != null && Object.keys(thing).length === 0;
@@ -7192,7 +6773,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }).call(this);
 
 /***/ }),
-/* 105 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -7348,7 +6929,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   var Stream;
   try {
-    Stream = __webpack_require__(106).Stream;
+    Stream = __webpack_require__(103).Stream;
   } catch (ex) {
     Stream = function Stream() {};
   }
@@ -7416,7 +6997,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   SAXStream.prototype.write = function (data) {
     if (typeof Buffer === 'function' && typeof Buffer.isBuffer === 'function' && Buffer.isBuffer(data)) {
       if (!this._decoder) {
-        var SD = __webpack_require__(107).StringDecoder;
+        var SD = __webpack_require__(104).StringDecoder;
         this._decoder = new SD('utf8');
       }
       data = this._decoder.write(data);
@@ -8738,25 +8319,25 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })( false ? this.sax = {} : exports);
 
 /***/ }),
-/* 106 */
+/* 103 */
 /***/ (function(module, exports) {
 
 module.exports = require("stream");
 
 /***/ }),
-/* 107 */
+/* 104 */
 /***/ (function(module, exports) {
 
 module.exports = require("string_decoder");
 
 /***/ }),
-/* 108 */
+/* 105 */
 /***/ (function(module, exports) {
 
 module.exports = require("events");
 
 /***/ }),
-/* 109 */
+/* 106 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.7
@@ -8773,10 +8354,496 @@ module.exports = require("events");
 }).call(this);
 
 /***/ }),
-/* 110 */
+/* 107 */
 /***/ (function(module, exports) {
 
 module.exports = require("timers");
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+/**
+ * @description A module for parsing ISO8601 durations
+ */
+
+/**
+ * The pattern used for parsing ISO8601 duration (PnYnMnDTnHnMnS).
+ * This does not cover the week format PnW.
+ */
+
+// PnYnMnDTnHnMnS
+var numbers = '\\d+(?:[\\.,]\\d{0,3})?';
+var weekPattern = '(' + numbers + 'W)';
+var datePattern = '(' + numbers + 'Y)?(' + numbers + 'M)?(' + numbers + 'D)?';
+var timePattern = 'T(' + numbers + 'H)?(' + numbers + 'M)?(' + numbers + 'S)?';
+
+var iso8601 = 'P(?:' + weekPattern + '|' + datePattern + '(?:' + timePattern + ')?)';
+var objMap = ['weeks', 'years', 'months', 'days', 'hours', 'minutes', 'seconds'];
+
+/**
+ * The ISO8601 regex for matching / testing durations
+ */
+var pattern = exports.pattern = new RegExp(iso8601);
+
+/** Parse PnYnMnDTnHnMnS format to object
+ * @param {string} durationString - PnYnMnDTnHnMnS formatted string
+ * @return {Object} - With a property for each part of the pattern
+ */
+var parse = exports.parse = function parse(durationString) {
+	// slice away first entry in match-array
+	return durationString.match(pattern).slice(1).reduce(function (prev, next, idx) {
+		prev[objMap[idx]] = parseFloat(next) || 0;
+		return prev;
+	}, {});
+};
+
+/**
+ * Convert ISO8601 duration object to an end Date.
+ *
+ * @param {Object} duration - The duration object
+ * @param {Date} startDate - The starting Date for calculating the duration
+ * @return {Date} - The resulting end Date
+ */
+var end = exports.end = function end(duration, startDate) {
+	// create two equal timestamps, add duration to 'then' and return time difference
+	var timestamp = startDate ? startDate.getTime() : Date.now();
+	var then = new Date(timestamp);
+
+	then.setFullYear(then.getFullYear() + duration.years);
+	then.setMonth(then.getMonth() + duration.months);
+	then.setDate(then.getDate() + duration.days);
+	then.setHours(then.getHours() + duration.hours);
+	then.setMinutes(then.getMinutes() + duration.minutes);
+	// then.setSeconds(then.getSeconds() + duration.seconds);
+	then.setMilliseconds(then.getMilliseconds() + duration.seconds * 1000);
+	// special case weeks
+	then.setDate(then.getDate() + duration.weeks * 7);
+
+	return then;
+};
+
+/**
+ * Convert ISO8601 duration object to seconds
+ *
+ * @param {Object} duration - The duration object
+ * @param {Date} startDate - The starting point for calculating the duration
+ * @return {Number}
+ */
+var toSeconds = exports.toSeconds = function toSeconds(duration, startDate) {
+	var timestamp = startDate ? startDate.getTime() : Date.now();
+	var now = new Date(timestamp);
+	var then = end(duration, startDate);
+
+	var seconds = (then.getTime() - now.getTime()) / 1000;
+	return seconds;
+};
+
+exports.default = {
+	end: end,
+	toSeconds: toSeconds,
+	pattern: pattern,
+	parse: parse
+};
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/**
+ * Copyright (c) 2011-2014 Felix Gnass
+ * Licensed under the MIT license
+ * http://spin.js.org/
+ *
+ * Example:
+    var opts = {
+      lines: 12             // The number of lines to draw
+    , length: 7             // The length of each line
+    , width: 5              // The line thickness
+    , radius: 10            // The radius of the inner circle
+    , scale: 1.0            // Scales overall size of the spinner
+    , corners: 1            // Roundness (0..1)
+    , color: '#000'         // #rgb or #rrggbb
+    , opacity: 1/4          // Opacity of the lines
+    , rotate: 0             // Rotation offset
+    , direction: 1          // 1: clockwise, -1: counterclockwise
+    , speed: 1              // Rounds per second
+    , trail: 100            // Afterglow percentage
+    , fps: 20               // Frames per second when using setTimeout()
+    , zIndex: 2e9           // Use a high z-index by default
+    , className: 'spinner'  // CSS class to assign to the element
+    , top: '50%'            // center vertically
+    , left: '50%'           // center horizontally
+    , shadow: false         // Whether to render a shadow
+    , hwaccel: false        // Whether to use hardware acceleration (might be buggy)
+    , position: 'absolute'  // Element positioning
+    }
+    var target = document.getElementById('foo')
+    var spinner = new Spinner(opts).spin(target)
+ */
+;(function (root, factory) {
+
+  /* CommonJS */
+  if (( false ? 'undefined' : _typeof(module)) == 'object' && module.exports) module.exports = factory();
+
+  /* AMD module */
+  else if (true) !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+    /* Browser global */
+    else root.Spinner = factory();
+})(this, function () {
+  "use strict";
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+  ,
+      animations = {} /* Animation rules keyed by their name */
+  ,
+      useCssAnimations /* Whether to use CSS animations or setTimeout */
+  ,
+      sheet; /* A stylesheet to hold the @keyframe or VML rules. */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div'),
+        n;
+
+    for (n in prop) {
+      el[n] = prop[n];
+    }return el;
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i = 1, n = arguments.length; i < n; i++) {
+      parent.appendChild(arguments[i]);
+    }
+
+    return parent;
+  }
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha * 100), i, lines].join('-'),
+        start = 0.01 + i / lines * 100,
+        z = Math.max(1 - (1 - alpha) / trail * (100 - start), alpha),
+        prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase(),
+        pre = prefix && '-' + prefix + '-' || '';
+
+    if (!animations[name]) {
+      sheet.insertRule('@' + pre + 'keyframes ' + name + '{' + '0%{opacity:' + z + '}' + start + '%{opacity:' + alpha + '}' + (start + 0.01) + '%{opacity:1}' + (start + trail) % 100 + '%{opacity:' + alpha + '}' + '100%{opacity:' + z + '}' + '}', sheet.cssRules.length);
+
+      animations[name] = 1;
+    }
+
+    return name;
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style,
+        pp,
+        i;
+
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1);
+    if (s[prop] !== undefined) return prop;
+    for (i = 0; i < prefixes.length; i++) {
+      pp = prefixes[i] + prop;
+      if (s[pp] !== undefined) return pp;
+    }
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop) {
+      el.style[vendor(el, n) || n] = prop[n];
+    }
+
+    return el;
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i = 1; i < arguments.length; i++) {
+      var def = arguments[i];
+      for (var n in def) {
+        if (obj[n] === undefined) obj[n] = def[n];
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * Returns the line color from the given string or array.
+   */
+  function getColor(color, idx) {
+    return typeof color == 'string' ? color : color[idx % color.length];
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12 // The number of lines to draw
+    , length: 7 // The length of each line
+    , width: 5 // The line thickness
+    , radius: 10 // The radius of the inner circle
+    , scale: 1.0 // Scales overall size of the spinner
+    , corners: 1 // Roundness (0..1)
+    , color: '#000' // #rgb or #rrggbb
+    , opacity: 1 / 4 // Opacity of the lines
+    , rotate: 0 // Rotation offset
+    , direction: 1 // 1: clockwise, -1: counterclockwise
+    , speed: 1 // Rounds per second
+    , trail: 100 // Afterglow percentage
+    , fps: 20 // Frames per second when using setTimeout()
+    , zIndex: 2e9 // Use a high z-index by default
+    , className: 'spinner' // CSS class to assign to the element
+    , top: '50%' // center vertically
+    , left: '50%' // center horizontally
+    , shadow: false // Whether to render a shadow
+    , hwaccel: false // Whether to use hardware acceleration (might be buggy)
+    , position: 'absolute' // Element positioning
+
+
+    /** The constructor */
+  };function Spinner(o) {
+    this.opts = merge(o || {}, Spinner.defaults, defaults);
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {};
+
+  merge(Spinner.prototype, {
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function spin(target) {
+      this.stop();
+
+      var self = this,
+          o = self.opts,
+          el = self.el = createEl(null, { className: o.className });
+
+      css(el, {
+        position: o.position,
+        width: 0,
+        zIndex: o.zIndex,
+        left: o.left,
+        top: o.top
+      });
+
+      if (target) {
+        target.insertBefore(el, target.firstChild || null);
+      }
+
+      el.setAttribute('role', 'progressbar');
+      self.lines(el, self.opts);
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0,
+            start = (o.lines - 1) * (1 - o.direction) / 2,
+            alpha,
+            fps = o.fps,
+            f = fps / o.speed,
+            ostep = (1 - o.opacity) / (f * o.trail / 100),
+            astep = f / o.lines;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity);
+
+            self.opacity(el, j * o.direction + start, alpha, o);
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000 / fps));
+        })();
+      }
+      return self;
+    }
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    , stop: function stop() {
+      var el = this.el;
+      if (el) {
+        clearTimeout(this.timeout);
+        if (el.parentNode) el.parentNode.removeChild(el);
+        this.el = undefined;
+      }
+      return this;
+    }
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    , lines: function lines(el, o) {
+      var i = 0,
+          start = (o.lines - 1) * (1 - o.direction) / 2,
+          seg;
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: o.scale * (o.length + o.width) + 'px',
+          height: o.scale * o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360 / o.lines * i + o.rotate) + 'deg) translate(' + o.scale * o.radius + 'px' + ',0)',
+          borderRadius: (o.corners * o.scale * o.width >> 1) + 'px'
+        });
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1 + ~(o.scale * o.width / 2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1 / o.speed + 's linear infinite'
+        });
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px #000'), { top: '2px' }));
+        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')));
+      }
+      return el;
+    }
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    , opacity: function opacity(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val;
+    }
+
+  });
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr);
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)');
+
+    Spinner.prototype.lines = function (el, o) {
+      var r = o.scale * (o.length + o.width),
+          s = o.scale * 2 * r;
+
+      function grp() {
+        return css(vml('group', {
+          coordsize: s + ' ' + s,
+          coordorigin: -r + ' ' + -r
+        }), { width: s, height: s });
+      }
+
+      var margin = -(o.width + o.length) * o.scale * 2 + 'px',
+          g = css(grp(), { position: 'absolute', top: margin, left: margin }),
+          i;
+
+      function seg(i, dx, filter) {
+        ins(g, ins(css(grp(), { rotation: 360 / o.lines * i + 'deg', left: ~~dx }), ins(css(vml('roundrect', { arcsize: o.corners }), { width: r,
+          height: o.scale * o.width,
+          left: o.scale * o.radius,
+          top: -o.scale * o.width >> 1,
+          filter: filter
+        }), vml('fill', { color: getColor(o.color, i), opacity: o.opacity }), vml('stroke', { opacity: 0 }) // transparent stroke to fix color bleeding upon opacity change
+        )));
+      }
+
+      if (o.shadow) for (i = 1; i <= o.lines; i++) {
+        seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)');
+      }
+
+      for (i = 1; i <= o.lines; i++) {
+        seg(i);
+      }return ins(el, g);
+    };
+
+    Spinner.prototype.opacity = function (el, i, val, o) {
+      var c = el.firstChild;
+      o = o.shadow && o.lines || 0;
+      if (c && i + o < c.childNodes.length) {
+        c = c.childNodes[i + o];c = c && c.firstChild;c = c && c.firstChild;
+        if (c) c.opacity = val;
+      }
+    };
+  }
+
+  if (typeof document !== 'undefined') {
+    sheet = function () {
+      var el = createEl('style', { type: 'text/css' });
+      ins(document.getElementsByTagName('head')[0], el);
+      return el.sheet || el.styleSheet;
+    }();
+
+    var probe = css(createEl('group'), { behavior: 'url(#default#VML)' });
+
+    if (!vendor(probe, 'transform') && probe.adj) initVML();else useCssAnimations = vendor(probe, 'animation');
+  }
+
+  return Spinner;
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(110)(module)))
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports) {
+
+module.exports = function (module) {
+	if (!module.webpackPolyfill) {
+		module.deprecate = function () {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function get() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function get() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
 
 /***/ }),
 /* 111 */
@@ -8971,7 +9038,7 @@ var AppBody = function (_React$Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_AppAction__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_AppAction__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -9037,7 +9104,7 @@ var AppSidebar = function (_React$Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_AppAction__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_AppAction__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -9289,10 +9356,13 @@ var NoteStore = function (_ReduceStore) {
     key: 'reduce',
     value: function reduce(state, action) {
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Request: ' + action.type);
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '> options: ' + action.options);
       switch (action.type) {
         case 'item/fetch/note':
           return Object.assign({}, state, { items: action.items, options: action.options,
             page: action.page });
+        case 'item/write/note':
+          return Object.assign({}, state, { options: action.options });
         default:
           return state;
       }
@@ -9369,13 +9439,13 @@ var NoteBody = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__ = __webpack_require__(119);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Radio_Radio__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Radio_Radio__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_webutils__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_stdutils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_stdutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_stdutils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_electron__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -9415,10 +9485,9 @@ var NoteSidebar = function (_React$Component) {
     value: function handleClickSave() {
       var _this2 = this;
 
-      var options = this.props.options;
       this.showSaveDialog(function (filename) {
         __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
-        __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].writeItems(options).then(function (items) {
+        __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].writeItems(_this2.state).then(function (items) {
           return _this2.saveItems(filename, items);
         })
         //.then(console.log)
@@ -9888,7 +9957,7 @@ var NoteSidebar = function (_React$Component) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dispatcher__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
 
 
@@ -9915,9 +9984,11 @@ var pspid = 'NoteAction';
     });
   },
   writeItems: function writeItems(options) {
-    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeItems(options).then(function (items) {
+    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeItems(options).then(function (csv) {
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/write/note', options: options });
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/write/note');
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
-      return items;
+      return csv;
     });
   }
 });
@@ -9932,8 +10003,6 @@ var pspid = 'NoteAction';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_stdutils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_stdutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__utils_stdutils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_iso8601_duration__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_iso8601_duration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9941,7 +10010,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -9988,13 +10056,12 @@ var NoteTable = function (_React$Component) {
     }
   }, {
     key: 'renderExtension',
-    value: function renderExtension(date) {
-      var duration = __WEBPACK_IMPORTED_MODULE_1__utils_stdutils___default.a.getLocalTimeStamp(Object(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__["end"])(Object(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__["parse"])(date)));
+    value: function renderExtension(duration) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
         '( ',
-        duration,
+        __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["d" /* util */].toLeftDays(duration),
         ' )'
       );
     }
@@ -10432,13 +10499,13 @@ var CompleteBody = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Radio_Radio__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Radio_Radio__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_webutils__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_stdutils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_stdutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_stdutils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_electron__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -10479,10 +10546,9 @@ var CompleteSidebar = function (_React$Component) {
     value: function handleClickSave() {
       var _this2 = this;
 
-      var options = this.props.options;
       this.showSaveDialog(function (filename) {
         __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
-        __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].writeCompleteItems(options).then(function (items) {
+        __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].writeCompleteItems(_this2.state).then(function (items) {
           return _this2.saveItems(filename, items);
         })
         //.then(console.log)
@@ -10975,7 +11041,7 @@ var CompleteSidebar = function (_React$Component) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dispatcher__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
 
 
@@ -11019,8 +11085,6 @@ var pspid = 'CompleteAction';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_stdutils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_stdutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__utils_stdutils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_iso8601_duration__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_iso8601_duration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11028,7 +11092,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -11075,13 +11138,12 @@ var CompleteTable = function (_React$Component) {
     }
   }, {
     key: 'renderExtension',
-    value: function renderExtension(date) {
-      var duration = __WEBPACK_IMPORTED_MODULE_1__utils_stdutils___default.a.getLocalTimeStamp(Object(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__["end"])(Object(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__["parse"])(date)));
+    value: function renderExtension(duration) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
         '( ',
-        duration,
+        __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["d" /* util */].toLeftDays(duration),
         ' )'
       );
     }
@@ -11517,13 +11579,13 @@ var ProductsBody = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Radio_Radio__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Radio_Radio__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_webutils__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_stdutils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_stdutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_stdutils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_electron___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_electron__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11563,10 +11625,9 @@ var ProductsSidebar = function (_React$Component) {
     value: function handleClickSave() {
       var _this2 = this;
 
-      var options = this.props.options;
       this.showSaveDialog(function (filename) {
         __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
-        __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].writeProductsItems(options).then(function (items) {
+        __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].writeProductsItems(_this2.state).then(function (items) {
           return _this2.saveItems(filename, items);
         })
         //.then(console.log)
@@ -12042,7 +12103,7 @@ var ProductsSidebar = function (_React$Component) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dispatcher__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
 
 
@@ -12086,8 +12147,6 @@ var pspid = 'ProductsAction';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_stdutils__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_stdutils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__utils_stdutils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_iso8601_duration__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_iso8601_duration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12095,7 +12154,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -12142,13 +12200,12 @@ var ProductsTable = function (_React$Component) {
     }
   }, {
     key: 'renderExtension',
-    value: function renderExtension(date) {
-      var duration = __WEBPACK_IMPORTED_MODULE_1__utils_stdutils___default.a.getLocalTimeStamp(Object(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__["end"])(Object(__WEBPACK_IMPORTED_MODULE_3_iso8601_duration__["parse"])(date)));
+    value: function renderExtension(duration) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
         '( ',
-        duration,
+        __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["d" /* util */].toLeftDays(duration),
         ' )'
       );
     }
@@ -12389,7 +12446,7 @@ var ProductsTable = function (_React$Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_AppAction__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_AppAction__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_webutils__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12572,7 +12629,7 @@ var GlobalHeader = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_webutils__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_electron__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_electron__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_electron___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_electron__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12651,5 +12708,5 @@ var GlobalFooter = function (_React$Component) {
 ;
 
 /***/ })
-],[69]);
+],[68]);
 //# sourceMappingURL=app.bundle.js.map

@@ -19,10 +19,9 @@ export default class CompleteSidebar extends React.Component {
   }
 
   handleClickSave() {
-    const options = this.props.options;
     this.showSaveDialog((filename) => {
       log.info(`${pspid}>`, 'Save file:', filename);
-      CompleteAction.writeCompleteItems(options)
+      CompleteAction.writeCompleteItems(this.state)
       .then(items => this.saveItems(filename, items))
       //.then(console.log)
       .catch(this.showErrorBox);

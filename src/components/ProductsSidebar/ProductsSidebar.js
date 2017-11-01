@@ -18,10 +18,9 @@ export default class ProductsSidebar extends React.Component {
   }
 
   handleClickSave() {
-    const options = this.props.options;
     this.showSaveDialog((filename) => {
       log.info(`${pspid}>`, 'Save file:', filename);
-      ProductsAction.writeProductsItems(options)
+      ProductsAction.writeProductsItems(this.state)
       .then(items => this.saveItems(filename, items))
       //.then(console.log)
       .catch(this.showErrorBox);

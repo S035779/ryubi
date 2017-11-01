@@ -26,9 +26,11 @@ export default {
   },
   writeItems(options) {
     return NoteApiClient.writeItems(options)
-    .then(items => {
+    .then(csv => {
+      dispatch({ type: 'item/write/note', options });
+      log.info(`${pspid}>`, 'Response: item/write/note');
       spn.stop();
-      return items;
+      return csv;
     });
   },
 }

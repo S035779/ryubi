@@ -28,11 +28,15 @@ class NoteStore extends ReduceStore {
   
   reduce(state, action) {
     log.info(`${pspid}> Request: ${action.type}`);
+    log.trace(`${pspid}> options: ${action.options}`);
     switch (action.type) {
       case 'item/fetch/note':
         return Object.assign({}, state
           , { items: action.items, options: action.options
             , page: action.page });
+      case 'item/write/note':
+        return Object.assign({}, state
+          , { options: action.options });
       default:
         return state;
     }
