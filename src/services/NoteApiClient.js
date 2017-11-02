@@ -7,14 +7,6 @@ spn.config('app');
 
 const pspid = `eBAPIClient`;
 
-//const v1 = 'http://svcs.ebay.com/services/search/FindingService/v1'
-//const v2 = 'https://api.ebay.com/ws/api.dll';
-//const s1 = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
-//const s2 = 'https://api.sandbox.ebay.com/ws/api.dll';
-//const appid = 'Develope-WatchNot-PRD-05d7a0307-e288d29c';
-//const appid = 'Develope-WatchNot-SBX-5f0ecce30-f5331d00';
-//const token = 'AgAAAA**AQAAAA**aAAAAA**jqT1WQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AAkouiDpGFoA6dj6x9nY+seQ**m/ADAA**AAMAAA**2b2SR6yRJyXpL8F99OVUZi/5Quje4X7fgVu8nn2J9GMww28GbOagFFBxcZEIJQAQZsZlsvuYtyqbow0IwnDcXOHYhqroKYtLxb0xl+DBD5nK7PGys8VYKW3+HhIOy4lzGGhpMpaik8fOSTaa6zKJVHJIaD4pJYbI86ws6WfEYTEUQwR7txElKfTEyW1ni53oezHEK4WTdT19vUPSagpkt+Yrge2xNrwiKDgCxYk5n34vSyHpQWIjMc0bT1R2hY4HVLY5HPhv3SSS3zz0hlpR0hNUFyD5YP0uIZ3rwOk+8Pght1uZh2xpS/r3mwecv9UkJy8Xi8QAbUc8JFXCuHdOnjmELkBLyMbaT8zP5o/rw8vjf4UvAQlFLCBxo+aWiBhtoUxI8TKf+fzr99hGwubnqz9Qb4Q74WAwv2XMH05prc1c4c5pct/gTpFD0V8LxDIJ7Jwtny0wijznlqTRUO/3su31r4fgsi37x1/w4JsC9y5yLfc80UKsihCyZOni5/jqXpat3soema7eufk9IZNmalzObyukrVIU1Pc4AeQur0z1jNaaDngxd8+u7DV76DlKarmyN1BTBzANMVXlOeoLH6pFxJ2vVNBnfAtSNgIBbEPczAbQ1ULTIGwf9FIj6iUNl+AH197F8x9TuVOZlePbAprYya0OLMgMyWFnDz/8i9nAY5zVPTqFQO60Ozmeqql044quPBUFLSop7j6AvgwtZoRsEg7SlJtUq+EB3fMR0JJI938eJD3knyhvwCFW1ZCn';
-
 let eBay = new Object();
 
 export default {
@@ -34,6 +26,7 @@ export default {
           const memory = window.localStorage
           || (window.UserDataStorage && new str.UserDataStorage())
           || new str.CookieStorage();
+          eBay = response;
           memory.setItem("eBay_config", JSON.stringify(response));
           resolve(response);
         });
