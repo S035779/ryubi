@@ -140,25 +140,6 @@ export default {
       .catch(this.errorLog.bind(this));
   },
   
-  fetchDetails(options, page) {
-    log.trace(`${pspid}>`,'options:', options);
-    log.trace(`${pspid}>`,'page:', page);
-    return this.getItems(options, page)
-      .then(this.resItems)
-      .then(this.setItems)
-      .then(R.map(obj => ({ itemId: obj.itemId })))
-      .then(obj =>
-        Promise.all(R.map(this.getDetail.bind(this), obj))
-      )
-      .then(obj =>
-        Promise.all(R.map(util.toJSON.bind(this), obj))
-      )
-      .then(R.map(this.resDetail.bind(this)))
-      .then(R.map(this.setDetail.bind(this)))
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
-  },
-
   writeItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
