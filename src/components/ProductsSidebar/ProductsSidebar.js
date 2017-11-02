@@ -1,13 +1,8 @@
 import React from 'react';
 import ProductsAction from '../../actions/ProductsAction';
 import Radio from '../../components/Radio/Radio';
-import { log, spn } from '../../../utils/webutils';
+import { app, log, spn } from '../../../utils/webutils';
 import std from '../../../utils/stdutils';
-
-import fs from 'fs';
-import electron from 'electron';
-const remote = electron.remote;
-const dialog = electron.remote.dialog;
 
 const pspid = `ProductsSidebarView`;
 
@@ -18,55 +13,20 @@ export default class ProductsSidebar extends React.Component {
   }
 
   handleClickSave() {
-    this.showSaveDialog((filename) => {
+    app.showSaveDialog((filename) => {
       log.info(`${pspid}>`, 'Save file:', filename);
+      app.unlinkFile(filename);
       spn.spin();
       ProductsAction.writeProductsItems(this.state)
       .subscribe(
-        obj => { this.saveFile(filename, obj); }
-        , err => this.showErrorBox(err)
+        obj => { app.saveFile(filename, obj); }
+        , err => app.showErrorBox(err)
         , () => {
-          this.showMessageBox();
+          app.showSaveMessageBox();
           spn.stop();
         }
       );
     });
-  }
-
-  saveFile(filename, csv) {
-    return new Promise((resolve, reject) => {
-      fs.appendFile(filename, csv, err => {
-        if(err) reject(err);
-        resolve('The file has been saved!');
-      });
-    });
-  }
-
-  showSaveDialog(callback) {
-    const win = remote.getCurrentWindow();
-    const options = {
-      title: 'Save',
-      filters: [
-        { name: 'CSV File', extensions: ['csv']},
-        { name: 'All Files', extensions: ['*'] }
-    ]};
-    dialog.showSaveDialog(win, options, callback);
-  }
-
-  showErrorBox(err) {
-    dialog.showErrorBox("Error", err.message);
-  }
-
-  showMessageBox() {
-    const win = remote.getCurrentWindow();
-    const options = {
-      type: 'info'
-      , buttons: [ 'OK' ]
-      , title: 'Save file'
-      , message: 'Save file'
-      , detail: 'CSV file saved.'
-    };
-    dialog.showMessageBox(win, options);
   }
 
   handleChangeHome() {

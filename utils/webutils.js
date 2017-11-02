@@ -2,10 +2,79 @@ import xml from 'xml2js';
 import builder from 'xmlbuilder';
 import { parse } from 'iso8601-duration';
 import Spinner from '../utils/spin';
+import fs from 'fs';
+import electron from 'electron';
+const remote = electron.remote;
+const dialog = electron.remote.dialog;
 
 let Logger = null;
 let Spiner = null;
 let target = null;
+
+export const app = {
+  saveFile(filename, csv) {
+    return new Promise((resolve, reject) => {
+      fs.appendFile(filename, csv, err => {
+        if(err) reject(err);
+        resolve('The file has been saved!');
+      });
+    });
+  },
+
+  unlinkFile(filename, csv) {
+    return new Promise((resolve, reject) => {
+      fs.unlink(filename, err => {
+        if(err) reject(err);
+        resolve('The file has been deleted!');
+      });
+    });
+  },
+
+  showSaveDialog(callback) {
+    const win = remote.getCurrentWindow();
+    const options = {
+      title: 'Save',
+      filters: [
+        { name: 'CSV File', extensions: ['csv']},
+        { name: 'All Files', extensions: ['*'] }
+    ]};
+    dialog.showSaveDialog(win, options, callback);
+  },
+
+  showErrorBox(err) {
+    dialog.showErrorBox("Error", err.message);
+  },
+
+  showSaveMessageBox() {
+    const win = remote.getCurrentWindow();
+    const options = {
+      type: 'info'
+      , buttons: [ 'OK' ]
+      , title: 'Save file'
+      , message: 'Save file'
+      , detail: 'CSV file saved.'
+    };
+    dialog.showMessageBox(win, options);
+  },
+
+  showCloseMessageBox(callback) {
+    const win = remote.getCurrentWindow();
+    const options = {
+      type: 'info',
+      buttons: ['OK', 'Cancel'],
+      title: 'Quit',
+      message: 'Would you like to close this window?',
+      detail: 'Close this window.'
+    };
+    dialog.showMessageBox(win, options, callback);
+  },
+
+  close() {
+    const win = remote.getCurrentWindow();
+    win.close();
+  }
+
+};
 
 export const util = {
   setCSVHeader(obj) {
