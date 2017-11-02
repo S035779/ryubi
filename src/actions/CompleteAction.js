@@ -8,27 +8,33 @@ export default {
   increment(options, page) {
     log.trace(`${pspid}>`, options);
     page = ++page > 0 ? page : 1;
+    spn.spin();
     return NoteApiClient.fetchCompleteItems(options, page)
     .then(items => {
-      dispatch({ type: 'item/fetch/complete', items, options, page });
+      dispatch({ type: 'item/fetch/complete'
+        , items, options, page });
       log.info(`${pspid}>`, 'Response: item/fetch/complete');
       spn.stop();
     });
   },
   decrement(options, page) {
     page = --page > 0 ? page : 1;
+    spn.spin();
     return NoteApiClient.fetchCompleteItems(options, page)
     .then(items => {
-      dispatch({ type: 'item/fetch/complete', items, options, page });
+      dispatch({ type: 'item/fetch/complete'
+        , items, options, page });
       log.info(`${pspid}> Response: item/fetch/complete`);
       spn.stop();
     });
   },
   writeCompleteItems(options) {
+    spn.spin();
     return NoteApiClient.writeCompleteItems(options)
-    .then(items => {
-      spn.stop();
-      return items;
+    .map(csv => {
+      dispatch({ type: 'item/write/complete', options });
+      log.info(`${pspid}>`, 'Response: item/write/complete');
+      return csv;
     });
   },
 }

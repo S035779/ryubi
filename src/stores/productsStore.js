@@ -31,7 +31,10 @@ class ProductsStore extends ReduceStore {
       case 'item/fetch/products':
         return Object.assign({}, state
           , { items: action.items, options: action.options
-          , page: action.page });
+            , page: action.page });
+      case 'item/write/products':
+        return Object.assign({}, state
+          , { options: action.options });
       default:
         return state;
     }

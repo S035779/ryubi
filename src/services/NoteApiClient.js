@@ -120,7 +120,6 @@ export default {
   fetchItems(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
-    spn.spin();
     return this.getItems(options, page)
       .then(this.resItems)
       .then(this.setItems)
@@ -131,7 +130,6 @@ export default {
   fetchCompleteItems(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
-    spn.spin();
     return this.getCompleteItems(options, page)
       .then(this.resCompleteItems)
       .then(this.setItems)
@@ -142,7 +140,6 @@ export default {
   fetchProductsItems(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
-    spn.spin();
     return this.getProductsItems(options, page)
       .then(this.resProductsItems)
       .then(this.setItems)
@@ -153,7 +150,6 @@ export default {
   fetchDetails(options, page) {
     log.trace(`${pspid}>`,'options:', options);
     log.trace(`${pspid}>`,'page:', page);
-    spn.spin();
     return this.getItems(options, page)
       .then(this.resItems)
       .then(this.setItems)
@@ -173,7 +169,6 @@ export default {
   writeItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    spn.spin();
     const streamItems = idx =>
       Rx.Observable.fromPromise(
         this.getItems(options, idx));
@@ -187,92 +182,84 @@ export default {
     return streamItems(1)
       .map(this.resItems)
       .flatMap(forkItems)
-      .map(R.compose(
-        R.flatten
-        , R.map(this.setItems.bind(this))
-        , R.map(this.resItems.bind(this))
-      ))
+      .map(R.map(this.resItems.bind(this)))
+      .map(R.map(this.setItems.bind(this)))
+      .map(R.flatten)
       .flatMap(Rx.Observable.from)
       .flatMap(streamDetail)
       .flatMap(forkJSON)
-      .map(R.compose(
-        R.map(this.setDetail.bind(this))
-        , R.map(this.resDetail.bind(this))
+      .map(R.map(this.resDetail.bind(this)))
+      .map(R.map(this.setDetail.bind(this)))
+      .map(R.filter(
+        R.curry(this.filterDetail.bind(this))(options)
       ))
-      .map(R.curry(this.filterDetail.bind(this))(options))
-      .map(R.tap(this.traceLog.bind(this)))
-      //.map((obj, idx) => this.renderItem(obj, idx + 1))
-      //.map(util.toCSV.bind(this))
-      .subscribe(
-        this.traceLog
-        //, this.errorLog
-        //, () => { console.log('completed !!'); }
-      );
-    /*
-    const mapIndexed = R.addIndex(R.map);
-    return this.getItems(options, 1)
-      .then(this.resItems)
-      .then(R.curry(this.forItems.bind(this))(options))
-      .then(R.map(this.resItems.bind(this)))
-      .then(R.map(this.setItems.bind(this)))
-      .then(R.flatten)
-      .then(R.filter(
-        R.curry(this.filterItem.bind(this))(options)
-      ))
-      .then(mapIndexed(
-        (obj, idx) => this.renderItem(obj, idx + 1)
-      ))
-      .then(util.setCSVHeader.bind(this))
-      .then(R.map(util.toCSV.bind(this)))
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
-    */
+      .map(R.map(this.renderDetail.bind(this)))
+      .map(R.map(util.toCSV.bind(this)))
+      .map(R.map(csv => csv + '\n'));
   },
 
   writeCompleteItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    spn.spin();
-    const mapIndexed = R.addIndex(R.map);
-    return this.getCompleteItems(options, 1)
-      .then(this.resCompleteItems)
-      .then(R.curry(this.forCompleteItems.bind(this))(options))
-      .then(R.map(this.resCompleteItems.bind(this)))
-      .then(R.map(this.setItems.bind(this)))
-      .then(R.flatten)
-      .then(R.filter(
-        R.curry(this.filterItem.bind(this))(options)
+    const streamItems = idx =>
+      Rx.Observable.fromPromise(
+        this.getCompleteItems(options, idx));
+    const streamDetail = obj =>
+      Rx.Observable.fromPromise(
+        this.getDetail({ itemId: obj.itemId }));
+    const forkItems = obj =>
+      Rx.Observable.forkJoin(this.forCompleteItems(options, obj));
+    const forkJSON = obj =>
+      Rx.Observable.forkJoin(util.toJSON(obj));
+    return streamItems(1)
+      .map(this.resCompleteItems)
+      .flatMap(forkItems)
+      .map(R.map(this.resCompleteItems.bind(this)))
+      .map(R.map(this.setItems.bind(this)))
+      .map(R.flatten)
+      .flatMap(Rx.Observable.from)
+      .flatMap(streamDetail)
+      .flatMap(forkJSON)
+      .map(R.map(this.resDetail.bind(this)))
+      .map(R.map(this.setDetail.bind(this)))
+      .map(R.filter(
+        R.curry(this.filterDetail.bind(this))(options)
       ))
-      .then(mapIndexed(
-        (obj, idx) => this.renderItem(obj, idx + 1)
-      ))
-      .then(util.setCSVHeader.bind(this))
-      .then(R.map(util.toCSV.bind(this)))
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
+      .map(R.map(this.renderDetail.bind(this)))
+      .map(R.map(util.toCSV.bind(this)))
+      .map(R.map(csv => csv + '\n'));
   },
   
   writeProductsItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    spn.spin();
-    const mapIndexed = R.addIndex(R.map);
-    return this.getProductsItems(options, 1)
-      .then(this.resProductsItems)
-      .then(R.curry(this.forProductsItems.bind(this))(options))
-      .then(R.map(this.resProductsItems.bind(this)))
-      .then(R.map(this.setItems.bind(this)))
-      .then(R.flatten)
-      .then(R.filter(
-        R.curry(this.filterItem.bind(this))(options)
+    const streamItems = idx =>
+      Rx.Observable.fromPromise(
+        this.getProductsItems(options, idx));
+    const streamDetail = obj =>
+      Rx.Observable.fromPromise(
+        this.getDetail({ itemId: obj.itemId }));
+    const forkItems = obj =>
+      Rx.Observable.forkJoin(this.forProductsItems(options, obj));
+    const forkJSON = obj =>
+      Rx.Observable.forkJoin(util.toJSON(obj));
+    return streamItems(1)
+      .map(this.resProductsItems)
+      .flatMap(forkItems)
+      .map(R.map(this.resProductsItems.bind(this)))
+      .map(R.map(this.setItems.bind(this)))
+      .map(R.flatten)
+      .flatMap(Rx.Observable.from)
+      .flatMap(streamDetail)
+      .flatMap(forkJSON)
+      .map(R.map(this.resDetail.bind(this)))
+      .map(R.map(this.setDetail.bind(this)))
+      .map(R.filter(
+        R.curry(this.filterDetail.bind(this))(options)
       ))
-      .then(mapIndexed(
-        (obj, idx) => this.renderItem(obj, idx + 1)
-      ))
-      .then(util.setCSVHeader.bind(this))
-      .then(R.map(util.toCSV.bind(this)))
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
+      .map(R.map(this.renderDetail.bind(this)))
+      .map(R.map(util.toCSV.bind(this)))
+      .map(R.map(csv => csv + '\n'));
   },
   
   forItems(options, res) {
@@ -296,7 +283,7 @@ export default {
     for(let idx=1; idx <= page; idx++) {
       newItems.push(this.getCompleteItems(options, idx));
     }
-    return Promise.all(newItems);
+    return newItems;
   },
   
   forProductsItems(options, res) {
@@ -308,7 +295,7 @@ export default {
     for(let idx=1; idx <= page; idx++) {
       newItems.push(this.getProductsItems(options, idx));
     }
-    return Promise.all(newItems);
+    return newItems;
   },
   
   resItems(obj) {
@@ -558,6 +545,66 @@ export default {
       , 'Extention':        Ext
       , 'Avail':            stt
       , 'Updated':          Upd
+    };
+  },
+
+  renderDetail(item) {
+    const Img = item.hasOwnProperty('PictureDetails')
+      ? item.PictureDetails.GalleryURL : '';
+    const Aid = item.ItemID;
+    let UPC   = '';
+    let EAN   = '';
+    let ISBN  = '';
+    if(item.hasOwnProperty('ProductListingDetails')) {
+      const pdf = item.ProductListingDetails;
+      UPC   = pdf.hasOwnProperty('UPC')   ? `UPC: ${pdf.UPC}`   : '';
+      EAN   = pdf.hasOwnProperty('EAN')   ? `EAN: ${pdf.EAN}`   : '';
+      ISBN  = pdf.hasOwnProperty('ISBN')  ? `ISBN: ${pdf.ISBN}` : '';
+    }
+    const Sid = item.Seller.UserID;
+    const Stm
+      = std.getLocalTimeStamp(item.ListingDetails.StartTime);
+    const Etm
+      = std.getLocalTimeStamp(item.ListingDetails.EndTime);
+    const Url = item.ListingDetails.ViewItemURL;
+    const Ttl = item.Title;
+    const Pc1 = item.SellingStatus
+      .CurrentPrice.sub;
+    const Ci1 = item.SellingStatus
+      .CurrentPrice.root.currencyID;
+    const Pc2 = item.ListingDetails
+      .ConvertedStartPrice.sub;
+    const Ci2 = item.ListingDetails
+      .ConvertedStartPrice.root.currencyID;
+    const Cdn = item.ConditionDisplayName;
+    const Cgp = item.PrimaryCategory.CategoryName;
+    const Shp = Array.isArray(item.ShipToLocations)
+      ? item.ShipToLocations : [ item.ShipToLocations ];
+    const Stt = item.SellingStatus.ListingStatus;
+    const Ext = item.hasOwnProperty('TimeLeft')
+      ? this.renderExtension(item.TimeLeft)
+      : '';
+
+    return {
+      'Image':                Img
+      , 'Url':                Url
+      , 'Title':              Ttl
+      , 'StartTime':          Stm
+      , 'EndTime':            Etm
+      , 'Condition':          Cdn
+      , 'Seller':             Sid
+      , 'ItemID':             Aid
+      , 'ProductID(UPC)':     UPC
+      , 'ProductID(EAN)':     EAN
+      , 'ProductID(ISBN)':    ISBN
+      , 'Category':           Cgp
+      , 'Shipping':           Shp.join('/')
+      , 'CurrentPrice':       Pc1
+      , 'CurrentCurrency':    Ci1
+      , 'ConvertedPrice':     Pc2
+      , 'ConvertedCurrency':  Ci2
+      , 'Status':             Stt
+      , 'LeftTime':           Ext
     };
   },
 

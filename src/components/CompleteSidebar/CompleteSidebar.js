@@ -1,12 +1,11 @@
 import React from 'react';
 import CompleteAction from '../../actions/CompleteAction';
 import Radio from '../../components/Radio/Radio';
-import { log } from '../../../utils/webutils';
+import { log, spn } from '../../../utils/webutils';
 import std from '../../../utils/stdutils';
 
 import fs from 'fs';
 import electron from 'electron';
-const app = electron.app;
 const remote = electron.remote;
 const dialog = electron.remote.dialog;
 
@@ -21,18 +20,23 @@ export default class CompleteSidebar extends React.Component {
   handleClickSave() {
     this.showSaveDialog((filename) => {
       log.info(`${pspid}>`, 'Save file:', filename);
+      spn.spin();
       CompleteAction.writeCompleteItems(this.state)
-      .then(items => this.saveItems(filename, items))
-      //.then(console.log)
-      .catch(this.showErrorBox);
+      .subscribe(
+        obj => { this.saveFile(filename, obj); }
+        , err => this.showErrorBox(err)
+        , () => {
+          this.showMessageBox();
+          spn.stop();
+        }
+      );
     });
   }
 
-  saveItems(filename, items) {
-    log.trace(`${pspid}`, filename, items);
-    return new Promise(resolve => {
-      fs.writeFile(filename, items.join('\n'), err => {
-        if(err) reject(err.message);
+  saveFile(filename, csv) {
+    return new Promise((resolve, reject) => {
+      fs.appendFile(filename, csv, err => {
+        if(err) reject(err);
         resolve('The file has been saved!');
       });
     });
@@ -51,6 +55,18 @@ export default class CompleteSidebar extends React.Component {
 
   showErrorBox(err) {
     dialog.showErrorBox("Error", err.message);
+  }
+
+  showMessageBox() {
+    const win = remote.getCurrentWindow();
+    const options = {
+      type: 'info'
+      , buttons: [ 'OK' ]
+      , title: 'Save file'
+      , message: 'Save file'
+      , detail: 'CSV file saved.'
+    };
+    dialog.showMessageBox(win, options);
   }
 
   handleChangeHome() {

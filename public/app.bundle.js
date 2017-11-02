@@ -2230,7 +2230,6 @@ var eBay = new Object();
   fetchItems: function fetchItems(options, page) {
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
     return this.getItems(options, page).then(this.resItems).then(this.setItems)
     //.then(R.tap(this.traceLog.bind(this)))
     .catch(this.errorLog.bind(this));
@@ -2238,7 +2237,6 @@ var eBay = new Object();
   fetchCompleteItems: function fetchCompleteItems(options, page) {
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
     return this.getCompleteItems(options, page).then(this.resCompleteItems).then(this.setItems)
     //.then(R.tap(this.traceLog.bind(this)))
     .catch(this.errorLog.bind(this));
@@ -2246,7 +2244,6 @@ var eBay = new Object();
   fetchProductsItems: function fetchProductsItems(options, page) {
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
     return this.getProductsItems(options, page).then(this.resProductsItems).then(this.setItems)
     //.then(R.tap(this.traceLog.bind(this)))
     .catch(this.errorLog.bind(this));
@@ -2256,7 +2253,6 @@ var eBay = new Object();
 
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'page:', page);
-    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
     return this.getItems(options, page).then(this.resItems).then(this.setItems).then(R.map(function (obj) {
       return { itemId: obj.itemId };
     })).then(function (obj) {
@@ -2272,7 +2268,6 @@ var eBay = new Object();
 
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     var pages = Number(options.pages);
-    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
     var streamItems = function streamItems(idx) {
       return Rx.Observable.fromPromise(_this2.getItems(options, idx));
     };
@@ -2285,58 +2280,51 @@ var eBay = new Object();
     var forkJSON = function forkJSON(obj) {
       return Rx.Observable.forkJoin(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toJSON(obj));
     };
-    return streamItems(1).map(this.resItems).flatMap(forkItems).map(R.compose(R.flatten, R.map(this.setItems.bind(this)), R.map(this.resItems.bind(this)))).flatMap(Rx.Observable.from).flatMap(streamDetail).flatMap(forkJSON).map(R.compose(R.map(this.setDetail.bind(this)), R.map(this.resDetail.bind(this)))).map(R.curry(this.filterDetail.bind(this))(options)).map(R.tap(this.traceLog.bind(this)))
-    //.map((obj, idx) => this.renderItem(obj, idx + 1))
-    //.map(util.toCSV.bind(this))
-    .subscribe(this.traceLog
-    //, this.errorLog
-    //, () => { console.log('completed !!'); }
-    );
-    /*
-    const mapIndexed = R.addIndex(R.map);
-    return this.getItems(options, 1)
-      .then(this.resItems)
-      .then(R.curry(this.forItems.bind(this))(options))
-      .then(R.map(this.resItems.bind(this)))
-      .then(R.map(this.setItems.bind(this)))
-      .then(R.flatten)
-      .then(R.filter(
-        R.curry(this.filterItem.bind(this))(options)
-      ))
-      .then(mapIndexed(
-        (obj, idx) => this.renderItem(obj, idx + 1)
-      ))
-      .then(util.setCSVHeader.bind(this))
-      .then(R.map(util.toCSV.bind(this)))
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
-    */
+    return streamItems(1).map(this.resItems).flatMap(forkItems).map(R.map(this.resItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(streamDetail).flatMap(forkJSON).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(options))).map(R.map(this.renderDetail.bind(this))).map(R.map(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toCSV.bind(this))).map(R.map(function (csv) {
+      return csv + '\n';
+    }));
   },
   writeCompleteItems: function writeCompleteItems(options) {
     var _this3 = this;
 
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     var pages = Number(options.pages);
-    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
-    var mapIndexed = R.addIndex(R.map);
-    return this.getCompleteItems(options, 1).then(this.resCompleteItems).then(R.curry(this.forCompleteItems.bind(this))(options)).then(R.map(this.resCompleteItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
-      return _this3.renderItem(obj, idx + 1);
-    })).then(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].setCSVHeader.bind(this)).then(R.map(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toCSV.bind(this)))
-    //.then(R.tap(this.traceLog.bind(this)))
-    .catch(this.errorLog.bind(this));
+    var streamItems = function streamItems(idx) {
+      return Rx.Observable.fromPromise(_this3.getCompleteItems(options, idx));
+    };
+    var streamDetail = function streamDetail(obj) {
+      return Rx.Observable.fromPromise(_this3.getDetail({ itemId: obj.itemId }));
+    };
+    var forkItems = function forkItems(obj) {
+      return Rx.Observable.forkJoin(_this3.forCompleteItems(options, obj));
+    };
+    var forkJSON = function forkJSON(obj) {
+      return Rx.Observable.forkJoin(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toJSON(obj));
+    };
+    return streamItems(1).map(this.resCompleteItems).flatMap(forkItems).map(R.map(this.resCompleteItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(streamDetail).flatMap(forkJSON).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(options))).map(R.map(this.renderDetail.bind(this))).map(R.map(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toCSV.bind(this))).map(R.map(function (csv) {
+      return csv + '\n';
+    }));
   },
   writeProductsItems: function writeProductsItems(options) {
     var _this4 = this;
 
     __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["a" /* log */].trace(pspid + '>', 'options:', options);
     var pages = Number(options.pages);
-    __WEBPACK_IMPORTED_MODULE_0__utils_webutils__["b" /* spn */].spin();
-    var mapIndexed = R.addIndex(R.map);
-    return this.getProductsItems(options, 1).then(this.resProductsItems).then(R.curry(this.forProductsItems.bind(this))(options)).then(R.map(this.resProductsItems.bind(this))).then(R.map(this.setItems.bind(this))).then(R.flatten).then(R.filter(R.curry(this.filterItem.bind(this))(options))).then(mapIndexed(function (obj, idx) {
-      return _this4.renderItem(obj, idx + 1);
-    })).then(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].setCSVHeader.bind(this)).then(R.map(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toCSV.bind(this)))
-    //.then(R.tap(this.traceLog.bind(this)))
-    .catch(this.errorLog.bind(this));
+    var streamItems = function streamItems(idx) {
+      return Rx.Observable.fromPromise(_this4.getProductsItems(options, idx));
+    };
+    var streamDetail = function streamDetail(obj) {
+      return Rx.Observable.fromPromise(_this4.getDetail({ itemId: obj.itemId }));
+    };
+    var forkItems = function forkItems(obj) {
+      return Rx.Observable.forkJoin(_this4.forProductsItems(options, obj));
+    };
+    var forkJSON = function forkJSON(obj) {
+      return Rx.Observable.forkJoin(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toJSON(obj));
+    };
+    return streamItems(1).map(this.resProductsItems).flatMap(forkItems).map(R.map(this.resProductsItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(streamDetail).flatMap(forkJSON).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(options))).map(R.map(this.renderDetail.bind(this))).map(R.map(__WEBPACK_IMPORTED_MODULE_0__utils_webutils__["d" /* util */].toCSV.bind(this))).map(R.map(function (csv) {
+      return csv + '\n';
+    }));
   },
   forItems: function forItems(options, res) {
     var pages = Number(options.pages);
@@ -2354,7 +2342,7 @@ var eBay = new Object();
     for (var idx = 1; idx <= page; idx++) {
       newItems.push(this.getCompleteItems(options, idx));
     }
-    return Promise.all(newItems);
+    return newItems;
   },
   forProductsItems: function forProductsItems(options, res) {
     var pages = Number(options.pages);
@@ -2363,7 +2351,7 @@ var eBay = new Object();
     for (var idx = 1; idx <= page; idx++) {
       newItems.push(this.getProductsItems(options, idx));
     }
-    return Promise.all(newItems);
+    return newItems;
   },
   resItems: function resItems(obj) {
     return obj.hasOwnProperty('findItemsByKeywordsResponse') ? obj.findItemsByKeywordsResponse[0] : null;
@@ -2585,6 +2573,55 @@ var eBay = new Object();
       'Extention': Ext,
       'Avail': stt,
       'Updated': Upd
+    };
+  },
+  renderDetail: function renderDetail(item) {
+    var Img = item.hasOwnProperty('PictureDetails') ? item.PictureDetails.GalleryURL : '';
+    var Aid = item.ItemID;
+    var UPC = '';
+    var EAN = '';
+    var ISBN = '';
+    if (item.hasOwnProperty('ProductListingDetails')) {
+      var pdf = item.ProductListingDetails;
+      UPC = pdf.hasOwnProperty('UPC') ? 'UPC: ' + pdf.UPC : '';
+      EAN = pdf.hasOwnProperty('EAN') ? 'EAN: ' + pdf.EAN : '';
+      ISBN = pdf.hasOwnProperty('ISBN') ? 'ISBN: ' + pdf.ISBN : '';
+    }
+    var Sid = item.Seller.UserID;
+    var Stm = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.getLocalTimeStamp(item.ListingDetails.StartTime);
+    var Etm = __WEBPACK_IMPORTED_MODULE_2__utils_stdutils___default.a.getLocalTimeStamp(item.ListingDetails.EndTime);
+    var Url = item.ListingDetails.ViewItemURL;
+    var Ttl = item.Title;
+    var Pc1 = item.SellingStatus.CurrentPrice.sub;
+    var Ci1 = item.SellingStatus.CurrentPrice.root.currencyID;
+    var Pc2 = item.ListingDetails.ConvertedStartPrice.sub;
+    var Ci2 = item.ListingDetails.ConvertedStartPrice.root.currencyID;
+    var Cdn = item.ConditionDisplayName;
+    var Cgp = item.PrimaryCategory.CategoryName;
+    var Shp = Array.isArray(item.ShipToLocations) ? item.ShipToLocations : [item.ShipToLocations];
+    var Stt = item.SellingStatus.ListingStatus;
+    var Ext = item.hasOwnProperty('TimeLeft') ? this.renderExtension(item.TimeLeft) : '';
+
+    return {
+      'Image': Img,
+      'Url': Url,
+      'Title': Ttl,
+      'StartTime': Stm,
+      'EndTime': Etm,
+      'Condition': Cdn,
+      'Seller': Sid,
+      'ItemID': Aid,
+      'ProductID(UPC)': UPC,
+      'ProductID(EAN)': EAN,
+      'ProductID(ISBN)': ISBN,
+      'Category': Cgp,
+      'Shipping': Shp.join('/'),
+      'CurrentPrice': Pc1,
+      'CurrentCurrency': Ci1,
+      'ConvertedPrice': Pc2,
+      'ConvertedCurrency': Ci2,
+      'Status': Stt,
+      'LeftTime': Ext
     };
   },
   filterItem: function filterItem(options, obj) {
@@ -9356,7 +9393,6 @@ var NoteStore = function (_ReduceStore) {
     key: 'reduce',
     value: function reduce(state, action) {
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Request: ' + action.type);
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '> options: ' + action.options);
       switch (action.type) {
         case 'item/fetch/note':
           return Object.assign({}, state, { items: action.items, options: action.options,
@@ -9487,21 +9523,35 @@ var NoteSidebar = function (_React$Component) {
 
       this.showSaveDialog(function (filename) {
         __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
-        __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].writeItems(_this2.state).then(function (items) {
-          return _this2.saveItems(filename, items);
-        })
-        //.then(console.log)
-        .catch(_this2.showErrorBox);
+        _this2.unlinkFile(filename);
+        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
+        __WEBPACK_IMPORTED_MODULE_1__actions_NoteAction__["a" /* default */].writeItems(_this2.state).subscribe(function (obj) {
+          _this2.saveFile(filename, obj);
+        }, function (err) {
+          return _this2.showErrorBox(err);
+        }, function () {
+          _this2.showMessageBox();
+          __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].stop();
+        });
       });
     }
   }, {
-    key: 'saveItems',
-    value: function saveItems(filename, items) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace('' + pspid, filename, items);
-      return new Promise(function (resolve) {
-        __WEBPACK_IMPORTED_MODULE_5_fs___default.a.writeFile(filename, items.join('\n'), function (err) {
-          if (err) reject(err.message);
+    key: 'saveFile',
+    value: function saveFile(filename, csv) {
+      return new Promise(function (resolve, reject) {
+        __WEBPACK_IMPORTED_MODULE_5_fs___default.a.appendFile(filename, csv, function (err) {
+          if (err) reject(err);
           resolve('The file has been saved!');
+        });
+      });
+    }
+  }, {
+    key: 'unlinkFile',
+    value: function unlinkFile(filename, csv) {
+      return new Promise(function (resolve, reject) {
+        __WEBPACK_IMPORTED_MODULE_5_fs___default.a.unlink(filename, function (err) {
+          if (err) reject(err);
+          resolve('The file has been deleted!');
         });
       });
     }
@@ -9518,6 +9568,19 @@ var NoteSidebar = function (_React$Component) {
     key: 'showErrorBox',
     value: function showErrorBox(err) {
       dialog.showErrorBox("Error", err.message);
+    }
+  }, {
+    key: 'showMessageBox',
+    value: function showMessageBox() {
+      var win = remote.getCurrentWindow();
+      var options = {
+        type: 'info',
+        buttons: ['OK'],
+        title: 'Save file',
+        message: 'Save file',
+        detail: 'CSV file saved.'
+      };
+      dialog.showMessageBox(win, options);
     }
   }, {
     key: 'handleChangeHome',
@@ -9969,25 +10032,29 @@ var pspid = 'NoteAction';
   increment: function increment(options, page) {
     __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
     page = ++page > 0 ? page : 1;
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchItems(options, page).then(function (items) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/note', items: items, options: options, page: page });
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/note',
+        items: items, options: options, page: page });
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/fetch/note');
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
     });
   },
   decrement: function decrement(options, page) {
     page = --page > 0 ? page : 1;
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchItems(options, page).then(function (items) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/note', items: items, options: options, page: page });
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/note',
+        items: items, options: options, page: page });
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Response: item/fetch/note');
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
     });
   },
   writeItems: function writeItems(options) {
-    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeItems(options).then(function (csv) {
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
+    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeItems(options).map(function (csv) {
       Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/write/note', options: options });
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/write/note');
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
       return csv;
     });
   }
@@ -10423,6 +10490,8 @@ var CompleteStore = function (_ReduceStore) {
         case 'item/fetch/complete':
           return Object.assign({}, state, { items: action.items, options: action.options,
             page: action.page });
+        case 'item/write/complete':
+          return Object.assign({}, state, { options: action.options });
         default:
           return state;
       }
@@ -10523,7 +10592,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var app = __WEBPACK_IMPORTED_MODULE_6_electron___default.a.app;
 var remote = __WEBPACK_IMPORTED_MODULE_6_electron___default.a.remote;
 var dialog = __WEBPACK_IMPORTED_MODULE_6_electron___default.a.remote.dialog;
 
@@ -10548,20 +10616,23 @@ var CompleteSidebar = function (_React$Component) {
 
       this.showSaveDialog(function (filename) {
         __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
-        __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].writeCompleteItems(_this2.state).then(function (items) {
-          return _this2.saveItems(filename, items);
-        })
-        //.then(console.log)
-        .catch(_this2.showErrorBox);
+        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
+        __WEBPACK_IMPORTED_MODULE_1__actions_CompleteAction__["a" /* default */].writeCompleteItems(_this2.state).subscribe(function (obj) {
+          _this2.saveFile(filename, obj);
+        }, function (err) {
+          return _this2.showErrorBox(err);
+        }, function () {
+          _this2.showMessageBox();
+          __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].stop();
+        });
       });
     }
   }, {
-    key: 'saveItems',
-    value: function saveItems(filename, items) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace('' + pspid, filename, items);
-      return new Promise(function (resolve) {
-        __WEBPACK_IMPORTED_MODULE_5_fs___default.a.writeFile(filename, items.join('\n'), function (err) {
-          if (err) reject(err.message);
+    key: 'saveFile',
+    value: function saveFile(filename, csv) {
+      return new Promise(function (resolve, reject) {
+        __WEBPACK_IMPORTED_MODULE_5_fs___default.a.appendFile(filename, csv, function (err) {
+          if (err) reject(err);
           resolve('The file has been saved!');
         });
       });
@@ -10579,6 +10650,19 @@ var CompleteSidebar = function (_React$Component) {
     key: 'showErrorBox',
     value: function showErrorBox(err) {
       dialog.showErrorBox("Error", err.message);
+    }
+  }, {
+    key: 'showMessageBox',
+    value: function showMessageBox() {
+      var win = remote.getCurrentWindow();
+      var options = {
+        type: 'info',
+        buttons: ['OK'],
+        title: 'Save file',
+        message: 'Save file',
+        detail: 'CSV file saved.'
+      };
+      dialog.showMessageBox(win, options);
     }
   }, {
     key: 'handleChangeHome',
@@ -11053,24 +11137,30 @@ var pspid = 'CompleteAction';
   increment: function increment(options, page) {
     __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
     page = ++page > 0 ? page : 1;
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchCompleteItems(options, page).then(function (items) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/complete', items: items, options: options, page: page });
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/complete',
+        items: items, options: options, page: page });
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/fetch/complete');
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
     });
   },
   decrement: function decrement(options, page) {
     page = --page > 0 ? page : 1;
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchCompleteItems(options, page).then(function (items) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/complete', items: items, options: options, page: page });
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/complete',
+        items: items, options: options, page: page });
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Response: item/fetch/complete');
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
     });
   },
   writeCompleteItems: function writeCompleteItems(options) {
-    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeCompleteItems(options).then(function (items) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
-      return items;
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
+    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeCompleteItems(options).map(function (csv) {
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/write/complete', options: options });
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/write/complete');
+      return csv;
     });
   }
 });
@@ -11503,6 +11593,8 @@ var ProductsStore = function (_ReduceStore) {
         case 'item/fetch/products':
           return Object.assign({}, state, { items: action.items, options: action.options,
             page: action.page });
+        case 'item/write/products':
+          return Object.assign({}, state, { options: action.options });
         default:
           return state;
       }
@@ -11627,20 +11719,23 @@ var ProductsSidebar = function (_React$Component) {
 
       this.showSaveDialog(function (filename) {
         __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].info(pspid + '>', 'Save file:', filename);
-        __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].writeProductsItems(_this2.state).then(function (items) {
-          return _this2.saveItems(filename, items);
-        })
-        //.then(console.log)
-        .catch(_this2.showErrorBox);
+        __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].spin();
+        __WEBPACK_IMPORTED_MODULE_1__actions_ProductsAction__["a" /* default */].writeProductsItems(_this2.state).subscribe(function (obj) {
+          _this2.saveFile(filename, obj);
+        }, function (err) {
+          return _this2.showErrorBox(err);
+        }, function () {
+          _this2.showMessageBox();
+          __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["b" /* spn */].stop();
+        });
       });
     }
   }, {
-    key: 'saveItems',
-    value: function saveItems(filename, items) {
-      __WEBPACK_IMPORTED_MODULE_3__utils_webutils__["a" /* log */].trace('' + pspid, filename, items);
-      return new Promise(function (resolve) {
-        __WEBPACK_IMPORTED_MODULE_5_fs___default.a.writeFile(filename, items.join('\n'), function (err) {
-          if (err) reject(err.message);
+    key: 'saveFile',
+    value: function saveFile(filename, csv) {
+      return new Promise(function (resolve, reject) {
+        __WEBPACK_IMPORTED_MODULE_5_fs___default.a.appendFile(filename, csv, function (err) {
+          if (err) reject(err);
           resolve('The file has been saved!');
         });
       });
@@ -11658,6 +11753,19 @@ var ProductsSidebar = function (_React$Component) {
     key: 'showErrorBox',
     value: function showErrorBox(err) {
       dialog.showErrorBox("Error", err.message);
+    }
+  }, {
+    key: 'showMessageBox',
+    value: function showMessageBox() {
+      var win = remote.getCurrentWindow();
+      var options = {
+        type: 'info',
+        buttons: ['OK'],
+        title: 'Save file',
+        message: 'Save file',
+        detail: 'CSV file saved.'
+      };
+      dialog.showMessageBox(win, options);
     }
   }, {
     key: 'handleChangeHome',
@@ -12115,24 +12223,30 @@ var pspid = 'ProductsAction';
   increment: function increment(options, page) {
     __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].trace(pspid + '>', options);
     page = ++page > 0 ? page : 1;
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchProductsItems(options, page).then(function (items) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/products', items: items, options: options, page: page });
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/products',
+        items: items, options: options, page: page });
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/fetch/products');
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
     });
   },
   decrement: function decrement(options, page) {
     page = --page > 0 ? page : 1;
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
     return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].fetchProductsItems(options, page).then(function (items) {
-      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/products', items: items, options: options, page: page });
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/fetch/products',
+        items: items, options: options, page: page });
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '> Response: item/fetch/products');
       __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
     });
   },
   writeProductsItems: function writeProductsItems(options) {
-    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeProductsItems(options).then(function (items) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].stop();
-      return items;
+    __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["b" /* spn */].spin();
+    return __WEBPACK_IMPORTED_MODULE_1__services_NoteApiClient__["a" /* default */].writeProductsItems(options).map(function (csv) {
+      Object(__WEBPACK_IMPORTED_MODULE_0__dispatcher__["b" /* dispatch */])({ type: 'item/write/products', options: options });
+      __WEBPACK_IMPORTED_MODULE_2__utils_webutils__["a" /* log */].info(pspid + '>', 'Response: item/write/products');
+      return csv;
     });
   }
 });

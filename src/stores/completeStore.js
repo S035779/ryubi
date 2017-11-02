@@ -34,6 +34,9 @@ class CompleteStore extends ReduceStore {
         return Object.assign({}, state
           , { items: action.items, options: action.options
             , page: action.page });
+      case 'item/write/complete':
+        return Object.assign({}, state
+          , { options: action.options });
       default:
         return state;
     }
