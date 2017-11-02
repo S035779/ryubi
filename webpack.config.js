@@ -9,7 +9,6 @@ const config = {
     , common:   [  'react', 'react-dom', 'react-router-dom', './main.css' ]
   }
   , target: "electron-renderer"
-  //, target: "web"
   , output: {
     path: path.resolve(__dirname, 'public')
     , filename: '[name].bundle.js'
@@ -47,11 +46,11 @@ const config = {
     new ExtractTextPlugin({
       filename: 'common.css'
     })
-    //, new webpack.optimize.UglifyJsPlugin({
-    //  warnings:  true
-    //  , sourceMap: true
-    //  , mangle:    true
-    //})
+    , new webpack.optimize.UglifyJsPlugin({
+      warnings:  true
+      , sourceMap: true
+      , mangle:    true
+    })
     , new webpack.optimize.CommonsChunkPlugin({
       name:       'common'
       , filename: 'common.js'
