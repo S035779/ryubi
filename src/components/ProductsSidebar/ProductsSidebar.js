@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductsAction from '../../actions/ProductsAction';
 import Radio from '../../components/Radio/Radio';
-import { app, log, spn } from '../../../utils/webutils';
+import { app, log, spn, util } from '../../../utils/webutils';
 import std from '../../../utils/stdutils';
 
 const pspid = `ProductsSidebarView`;
@@ -12,13 +12,41 @@ export default class ProductsSidebar extends React.Component {
     this.state = Object.assign({}, props.options);
   }
 
+  csvHeader() {
+    return {
+      'Image':                ''
+      , 'Url':                ''
+      , 'Title':              ''
+      , 'StartTime':          ''
+      , 'EndTime':            ''
+      , 'Condition':          ''
+      , 'Seller':             ''
+      , 'ItemID':             ''
+      , 'ProductID(UPC)':     ''
+      , 'ProductID(EAN)':     ''
+      , 'ProductID(ISBN)':    ''
+      , 'Category':           ''
+      , 'Shipping':           ''
+      , 'CurrentPrice':       ''
+      , 'CurrentCurrency':    ''
+      , 'ConvertedPrice':     ''
+      , 'ConvertedCurrency':  ''
+      , 'Status':             ''
+      , 'LeftTime':           ''
+    };
+  }
+
   handleChangeSave() {
     log.info(`${pspid}>`, 'Request: handleChangeSave');
     if(!Number(this.state.pages))
       return app.showErrorBox('Pages is not a number!');
     app.showSaveDialog((filename) => {
+      if(!filename) 
+        return log.info('File save canceled!');
       log.trace(`${pspid}>`, 'Save file:', filename);
       util.touchFile(filename)
+      .then(() => util.saveFile(filename
+          , util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
         ProductsAction.writeProductsItems(this.state).subscribe(

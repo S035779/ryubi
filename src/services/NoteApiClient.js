@@ -524,8 +524,8 @@ export default {
 
   renderDetail(item) {
     const Img = item.hasOwnProperty('PictureDetails')
-      ? item.PictureDetails.GalleryURL : '';
-    const Url = item.ListingDetails.ViewItemURL;
+      ? '"' + item.PictureDetails.GalleryURL + '"' : '';
+    const Url = '"' + item.ListingDetails.ViewItemURL + '"';
     const Ttl = '"' + item.Title + '"';
     const Aid = item.ItemID;
     let UPC   = '';
@@ -533,9 +533,9 @@ export default {
     let ISBN  = '';
     if(item.hasOwnProperty('ProductListingDetails')) {
       const pdf = item.ProductListingDetails;
-      UPC = pdf.hasOwnProperty('UPC')  ? `UPC: ${pdf.UPC}`   : '';
-      EAN = pdf.hasOwnProperty('EAN')  ? `EAN: ${pdf.EAN}`   : '';
-      ISBN= pdf.hasOwnProperty('ISBN') ? `ISBN: ${pdf.ISBN}` : '';
+      UPC  = pdf.hasOwnProperty('UPC')  ? pdf.UPC  : '';
+      EAN  = pdf.hasOwnProperty('EAN')  ? pdf.EAN  : '';
+      ISBN = pdf.hasOwnProperty('ISBN') ? pdf.ISBN : '';
     }
     const Sid = item.Seller.UserID;
     const Stm

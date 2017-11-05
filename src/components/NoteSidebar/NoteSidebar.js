@@ -12,7 +12,7 @@ export default class NoteSidebar extends React.Component {
     this.state = Object.assign({}, props.options);
   }
 
-  renderHeader() {
+  csvHeader() {
     return {
       'Image':                ''
       , 'Url':                ''
@@ -41,10 +41,12 @@ export default class NoteSidebar extends React.Component {
     if(!Number(this.state.pages))
       return app.showErrorBox('Pages is not a number!');
     app.showSaveDialog(filename => {
+      if(!filename) 
+        return log.info('File save canceled!');
       log.trace(`${pspid}>`, 'Save file:', filename);
       util.touchFile(filename)
       .then(() => util.saveFile(filename
-        , util.getCSVHeader(this.renderHeader())))
+          , util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
         NoteAction.writeItems(this.state).subscribe(

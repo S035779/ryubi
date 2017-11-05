@@ -89,18 +89,18 @@ export const util = {
   },
   getCSVHeader(obj) {
     let arr = new Array();
-    for(let prop in obj[0]) {
+    for(let prop in obj) {
       arr.push(prop);
     }
-    return arr.join();
+    return arr.join() + '\n';
   },
-  setCSVHeader(obj) {
+  setCSVHeader(objs) {
     let arr = new Array();
-    for(let prop in obj[0]) {
+    for(let prop in objs[0]) {
       arr.push(prop);
     }
     obj.unshift(arr);
-    return obj;
+    return objs;
   },
   toCSV(obj) {
     let arr = new Array();
