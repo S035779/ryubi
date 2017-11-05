@@ -525,23 +525,23 @@ export default {
   renderDetail(item) {
     const Img = item.hasOwnProperty('PictureDetails')
       ? item.PictureDetails.GalleryURL : '';
+    const Url = item.ListingDetails.ViewItemURL;
+    const Ttl = '"' + item.Title + '"';
     const Aid = item.ItemID;
     let UPC   = '';
     let EAN   = '';
     let ISBN  = '';
     if(item.hasOwnProperty('ProductListingDetails')) {
       const pdf = item.ProductListingDetails;
-      UPC   = pdf.hasOwnProperty('UPC')   ? `UPC: ${pdf.UPC}`   : '';
-      EAN   = pdf.hasOwnProperty('EAN')   ? `EAN: ${pdf.EAN}`   : '';
-      ISBN  = pdf.hasOwnProperty('ISBN')  ? `ISBN: ${pdf.ISBN}` : '';
+      UPC = pdf.hasOwnProperty('UPC')  ? `UPC: ${pdf.UPC}`   : '';
+      EAN = pdf.hasOwnProperty('EAN')  ? `EAN: ${pdf.EAN}`   : '';
+      ISBN= pdf.hasOwnProperty('ISBN') ? `ISBN: ${pdf.ISBN}` : '';
     }
     const Sid = item.Seller.UserID;
     const Stm
       = std.getLocalTimeStamp(item.ListingDetails.StartTime);
     const Etm
       = std.getLocalTimeStamp(item.ListingDetails.EndTime);
-    const Url = item.ListingDetails.ViewItemURL;
-    const Ttl = item.Title;
     const Pc1 = item.SellingStatus
       .CurrentPrice.sub;
     const Ci1 = item.SellingStatus
@@ -551,14 +551,12 @@ export default {
     const Ci2 = item.ListingDetails
       .ConvertedStartPrice.root.currencyID;
     const Cdn = item.ConditionDisplayName;
-    const Cgp = item.PrimaryCategory.CategoryName;
+    const Cgp = '"' + item.PrimaryCategory.CategoryName + '"';
     const Shp = Array.isArray(item.ShipToLocations)
       ? item.ShipToLocations : [ item.ShipToLocations ];
     const Stt = item.SellingStatus.ListingStatus;
     const Ext = item.hasOwnProperty('TimeLeft')
-      ? this.renderExtension(item.TimeLeft)
-      : '';
-
+      ? this.renderExtension(item.TimeLeft) : '';
     return {
       'Image':                Img
       , 'Url':                Url

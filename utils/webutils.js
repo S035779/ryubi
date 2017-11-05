@@ -12,24 +12,6 @@ let Spiner = null;
 let target = null;
 
 export const app = {
-  saveFile(filename, csv) {
-    return new Promise((resolve, reject) => {
-      fs.appendFile(filename, csv, err => {
-        if(err) reject(err);
-        resolve('The file has been saved!');
-      });
-    });
-  },
-
-  unlinkFile(filename, csv) {
-    return new Promise((resolve, reject) => {
-      fs.unlink(filename, err => {
-        if(err) reject(err);
-        resolve('The file has been deleted!');
-      });
-    });
-  },
-
   showSaveDialog(callback) {
     const win = remote.getCurrentWindow();
     const options = {
@@ -40,11 +22,9 @@ export const app = {
     ]};
     dialog.showSaveDialog(win, options, callback);
   },
-
-  showErrorBox(err) {
-    dialog.showErrorBox("Error", err.message);
+  showErrorBox(str) {
+    dialog.showErrorBox("Error", str);
   },
-
   showSaveMessageBox() {
     const win = remote.getCurrentWindow();
     const options = {
@@ -56,7 +36,6 @@ export const app = {
     };
     dialog.showMessageBox(win, options);
   },
-
   showCloseMessageBox(callback) {
     const win = remote.getCurrentWindow();
     const options = {
@@ -68,7 +47,6 @@ export const app = {
     };
     dialog.showMessageBox(win, options, callback);
   },
-
   close() {
     const win = remote.getCurrentWindow();
     win.close();
@@ -77,6 +55,45 @@ export const app = {
 };
 
 export const util = {
+  saveFile(filename, obj) {
+    return new Promise((resolve, reject) => {
+      fs.appendFile(filename, obj, err => {
+        if(err) reject(err);
+        resolve('File has been saved!');
+      });
+    });
+  },
+  unlinkFile(filename) {
+    return new Promise((resolve, reject) => {
+      fs.unlink(filename, err => {
+        if(err) reject(err);
+        resolve('File has been unlinked!');
+      });
+    });
+  },
+  accessFile(filename) {
+    return new Promise((resolve, reject) => {
+      fs.access(filename
+      , fs.constants.F_OK & fs.constants.W_OK
+      , err => {
+        if(err) reject(err);
+        resolve(true);
+      });
+    });
+  },
+  touchFile(filename) {
+    return new Promise(resolve => {
+      fs.closeSync(fs.openSync(filename, 'w', 0o666));
+      resolve('File has been touched!');
+    });
+  },
+  getCSVHeader(obj) {
+    let arr = new Array();
+    for(let prop in obj[0]) {
+      arr.push(prop);
+    }
+    return arr.join();
+  },
   setCSVHeader(obj) {
     let arr = new Array();
     for(let prop in obj[0]) {

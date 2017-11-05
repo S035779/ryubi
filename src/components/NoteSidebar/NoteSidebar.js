@@ -1,7 +1,7 @@
 import React from 'react';
 import NoteAction from '../../actions/NoteAction';
 import Radio from '../../components/Radio/Radio';
-import { app, log, spn } from '../../../utils/webutils';
+import { app, log, spn, util } from '../../../utils/webutils';
 import std from '../../../utils/stdutils';
 
 const pspid = `NoteSidebarView`;
@@ -12,20 +12,51 @@ export default class NoteSidebar extends React.Component {
     this.state = Object.assign({}, props.options);
   }
 
-  handleClickSave() {
-    app.showSaveDialog((filename) => {
-      log.info(`${pspid}>`, 'Save file:', filename);
-      app.unlinkFile(filename);
-      spn.spin();
-      NoteAction.writeItems(this.state)
-      .subscribe(
-        obj => { app.saveFile(filename, obj); }
-        , err => app.showErrorBox(err)
-        , () => {
-          app.showSaveMessageBox();
-          spn.stop();
-        }
-      );
+  renderHeader() {
+    return {
+      'Image':                ''
+      , 'Url':                ''
+      , 'Title':              ''
+      , 'StartTime':          ''
+      , 'EndTime':            ''
+      , 'Condition':          ''
+      , 'Seller':             ''
+      , 'ItemID':             ''
+      , 'ProductID(UPC)':     ''
+      , 'ProductID(EAN)':     ''
+      , 'ProductID(ISBN)':    ''
+      , 'Category':           ''
+      , 'Shipping':           ''
+      , 'CurrentPrice':       ''
+      , 'CurrentCurrency':    ''
+      , 'ConvertedPrice':     ''
+      , 'ConvertedCurrency':  ''
+      , 'Status':             ''
+      , 'LeftTime':           ''
+    };
+  }
+
+  handleChangeSave() {
+    log.info(`${pspid}>`, 'Request: handleChangeSave');
+    if(!Number(this.state.pages))
+      return app.showErrorBox('Pages is not a number!');
+    app.showSaveDialog(filename => {
+      log.trace(`${pspid}>`, 'Save file:', filename);
+      util.touchFile(filename)
+      .then(() => util.saveFile(filename
+        , util.getCSVHeader(this.renderHeader())))
+      .then(() => {
+        spn.spin();
+        NoteAction.writeItems(this.state).subscribe(
+          obj => util.saveFile(filename, obj)
+          , err => app.showErrorBox(err.message)
+          , () => {
+            app.showSaveMessageBox();
+            log.info('File has been saved!');
+            spn.stop();
+          }
+        );
+      });
     });
   }
   
@@ -199,7 +230,7 @@ export default class NoteSidebar extends React.Component {
       <span className="nav-group-item">
         <div className="form-actions">
         <button className="btn btn-mini btn-primary"
-          onClick={this.handleClickSave.bind(this)}>Save
+          onClick={this.handleChangeSave.bind(this)}>Save
         </button>
         </div>
       </span>

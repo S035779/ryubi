@@ -12,20 +12,25 @@ export default class ProductsSidebar extends React.Component {
     this.state = Object.assign({}, props.options);
   }
 
-  handleClickSave() {
+  handleChangeSave() {
+    log.info(`${pspid}>`, 'Request: handleChangeSave');
+    if(!Number(this.state.pages))
+      return app.showErrorBox('Pages is not a number!');
     app.showSaveDialog((filename) => {
-      log.info(`${pspid}>`, 'Save file:', filename);
-      app.unlinkFile(filename);
-      spn.spin();
-      ProductsAction.writeProductsItems(this.state)
-      .subscribe(
-        obj => { app.saveFile(filename, obj); }
-        , err => app.showErrorBox(err)
-        , () => {
-          app.showSaveMessageBox();
-          spn.stop();
-        }
-      );
+      log.trace(`${pspid}>`, 'Save file:', filename);
+      util.touchFile(filename)
+      .then(() => {
+        spn.spin();
+        ProductsAction.writeProductsItems(this.state).subscribe(
+          obj => util.saveFile(filename, obj)
+          , err => app.showErrorBox(err.message)
+          , () => {
+            app.showSaveMessageBox();
+            log.info('File has been saved!');
+            spn.stop();
+          }
+        )
+      });
     });
   }
 
@@ -190,7 +195,7 @@ export default class ProductsSidebar extends React.Component {
       <span className="nav-group-item">
         <div className="form-actions">
         <button className="btn btn-mini btn-primary"
-          onClick={this.handleClickSave.bind(this)}>Save
+          onClick={this.handleChangeSave.bind(this)}>Save
         </button>
         </div>
       </span>

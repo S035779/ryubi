@@ -32,7 +32,7 @@ module.exports = class MainWindow {
     this.window = new BrowserWindow({
       width: 1152, height: 964
     });
-    //this.window.openDevTools();
+    this.window.openDevTools();
     this.window.loadURL(url.format({
       pathname: path.join(`${__dirname}/../public`
         , 'index.html'),

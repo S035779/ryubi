@@ -1,4 +1,3 @@
-//require('dotenv').config({ path: __dirname + '/.env' });
 const electron = require('electron');
 const app = electron.app;
 const MainWindow = require('./views/main-window');
