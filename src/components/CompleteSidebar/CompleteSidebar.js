@@ -49,7 +49,8 @@ export default class CompleteSidebar extends React.Component {
           , util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
-        CompleteAction.writeCompleteItems(this.state).subscribe(
+        CompleteAction.writeCompleteItems(this.state)
+        .subscribe(
           obj => util.saveFile(filename, obj)
           , err => app.showErrorBox(err.message)
           , () => {

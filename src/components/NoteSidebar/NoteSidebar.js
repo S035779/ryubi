@@ -49,7 +49,8 @@ export default class NoteSidebar extends React.Component {
           , util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
-        NoteAction.writeItems(this.state).subscribe(
+        NoteAction.writeItems(this.state)
+        .subscribe(
           obj => util.saveFile(filename, obj)
           , err => app.showErrorBox(err.message)
           , () => {

@@ -49,7 +49,8 @@ export default class ProductsSidebar extends React.Component {
           , util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
-        ProductsAction.writeProductsItems(this.state).subscribe(
+        ProductsAction.writeProductsItems(this.state)
+        .subscribe(
           obj => util.saveFile(filename, obj)
           , err => app.showErrorBox(err.message)
           , () => {
