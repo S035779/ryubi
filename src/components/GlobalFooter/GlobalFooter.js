@@ -1,13 +1,34 @@
 import React from 'react';
-import { app, log } from '../../../utils/webutils';
+import { log } from '../../../utils/webutils';
+
+import electron from 'electron';
+const remote = electron.remote;
+const dialog = electron.remote.dialog;
 
 const pspid = `GlobalFooterView`;
 
 export default class GlobalFooter extends React.Component {
+  showCloseMessageBox(callback) {
+    const win = remote.getCurrentWindow();
+    const options = {
+      type: 'info',
+      buttons: ['OK', 'Cancel'],
+      title: 'Quit',
+      message: 'Would you like to close this window?',
+      detail: 'Close this window.'
+    };
+    dialog.showMessageBox(win, options, callback);
+  }
+
+  close() {
+    const win = remote.getCurrentWindow();
+    win.close();
+  }
+
   handleClickClose() {
-    app.showCloseMessageBox((response) => {
+    this.showCloseMessageBox((response) => {
       log.trace(`${pspid}>`, 'Click button:', response);
-      if(!response) app.close();
+      if(!response) this.close();
     });
   }
 

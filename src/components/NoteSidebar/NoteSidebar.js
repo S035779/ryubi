@@ -1,8 +1,13 @@
 import React from 'react';
 import NoteAction from '../../actions/NoteAction';
 import Radio from '../../components/Radio/Radio';
-import { app, log, spn, util } from '../../../utils/webutils';
+import { log, spn, util } from '../../../utils/webutils';
 import std from '../../../utils/stdutils';
+
+import fs from 'fs';
+import electron from 'electron';
+const remote = electron.remote;
+const dialog = electron.remote.dialog;
 
 const pspid = `NoteSidebarView`;
 
@@ -10,6 +15,49 @@ export default class NoteSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props.options);
+  }
+
+  saveFile(filename, obj) {
+    return new Promise((resolve, reject) => {
+      fs.appendFile(filename, obj, err => {
+        if(err) reject(err);
+        resolve('File has been saved!');
+      });
+    });
+  }
+
+  touchFile(filename) {
+    return new Promise(resolve => {
+      fs.closeSync(fs.openSync(filename, 'w', 0o666));
+      resolve('File has been touched!');
+    });
+  }
+
+  showSaveDialog(callback) {
+    const win = remote.getCurrentWindow();
+    const options = {
+      title: 'Save',
+      filters: [
+        { name: 'CSV File', extensions: ['csv']},
+        { name: 'All Files', extensions: ['*'] }
+    ]};
+    dialog.showSaveDialog(win, options, callback);
+  }
+
+  showErrorBox(str) {
+    dialog.showErrorBox("Error", str);
+  }
+
+  showSaveMessageBox() {
+    const win = remote.getCurrentWindow();
+    const options = {
+      type: 'info'
+      , buttons: [ 'OK' ]
+      , title: 'Save file'
+      , message: 'Save file'
+      , detail: 'CSV file saved.'
+    };
+    dialog.showMessageBox(win, options);
   }
 
   csvHeader() {
@@ -39,21 +87,21 @@ export default class NoteSidebar extends React.Component {
   handleChangeSave() {
     log.info(`${pspid}>`, 'Request: handleChangeSave');
     if(!Number(this.state.pages))
-      return app.showErrorBox('Pages is not a number!');
-    app.showSaveDialog(filename => {
+      return this.showErrorBox('Pages is not a number!');
+    this.showSaveDialog(filename => {
       if(!filename) 
         return log.info('File save canceled!');
       log.trace(`${pspid}>`, 'Save file:', filename);
-      util.touchFile(filename)
-      .then(() => util.saveFile(filename
+      this.touchFile(filename)
+      .then(() => this.saveFile(filename
           , util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
         NoteAction.writeItems(this.state).subscribe(
-          obj => util.saveFile(filename, obj)
-          , err => app.showErrorBox(err.message)
+          obj => this.saveFile(filename, obj)
+          , err => this.showErrorBox(err.message)
           , () => {
-            app.showSaveMessageBox();
+            this.showSaveMessageBox();
             log.info('File has been saved!');
             spn.stop();
           }
