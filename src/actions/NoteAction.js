@@ -31,10 +31,10 @@ export default {
   writeItems(options) {
     spn.spin();
     return NoteApiClient.writeItems(options)
-    .map(csv => {
+    .map(objs => {
       dispatch({ type: 'item/write/note', options });
       log.info(`${pspid}>`, 'Response: item/write/note');
-      return csv;
+      return objs;
     });
   },
 }
