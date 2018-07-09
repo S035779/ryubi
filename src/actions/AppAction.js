@@ -24,5 +24,5 @@ export default {
       log.info(`${pspid}>`, 'Response: config/write/appid');
       spn.stop();
     });
-  },
+  }
 }

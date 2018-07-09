@@ -21,7 +21,7 @@ module.exports = class AppMenu {
           }
         ]
       }
-      , {
+/*      , {
         label: 'Edit'
         , submenu: [
           { role: 'undo' }
@@ -71,6 +71,7 @@ module.exports = class AppMenu {
               require('electron').shell.openExternal('https://electron.atom.io')
          }}]
       }
+*/
     ];
 
     if (process.platform === 'darwin') {

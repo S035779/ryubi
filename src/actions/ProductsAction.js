@@ -36,5 +36,5 @@ export default {
       log.info(`${pspid}>`, 'Response: item/write/products');
       return objs;
     });
-  },
+  }
 }

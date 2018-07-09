@@ -8,7 +8,7 @@
  * @param {object} p
  * @returns {object}
  */
-var extend = function(o, p) {
+const extend = function(o, p) {
   for(prop in p) {            // For all props in p.
     o[prop] = p[prop];        // Add the property to o.
   }
@@ -26,7 +26,7 @@ module.exports.extend = extend;
  * @param {object} p
  * @returns {object}
  */
-var merge = function(o, p) {
+const merge = function(o, p) {
   for(prop in p) {            // For all props in p.
     if (o.hasOwnProperty[prop]) continue;
                               // Except those already in o.
@@ -44,7 +44,7 @@ module.exports.merge = merge;
  * @param {object} p
  * @returns {object}
  */
-var restrict = function(o, p) {
+const restrict = function(o, p) {
   for(prop in o) {            // For all props in o
     if (!(prop in p)) delete o[prop];
                               // Delete if not in p
@@ -61,7 +61,7 @@ module.exports.restrict = restrict;
  * @param {object} p
  * @returns {object}
  */
-var subtract = function(o, p) {
+const subtract = function(o, p) {
   for(prop in p) {            // For all props in p
     delete o[prop];           // Delete from o (deleting a
                               // nonexistent prop is harmless)
@@ -79,7 +79,7 @@ module.exports.subtract = subtract;
  * @param {object} p
  * @returns {object}
  */
-var union = function(o,p) { return extend(extend({},o), p); }
+const union = function(o,p) { return extend(extend({},o), p); }
 module.exports.union = union;
 
 /**
@@ -91,7 +91,7 @@ module.exports.union = union;
  * @param {object} p
  * @returns {object}
  */
-var intersection = function(o,p) { 
+const intersection = function(o,p) { 
   return restrict(extend({}, o), p); 
 };
 module.exports.intersection = intersection;
@@ -103,11 +103,11 @@ module.exports.intersection = intersection;
  * @param {object} o
  * @returns {array}
  */
-var keys = function(o) {
+const keys = function(o) {
   if (typeof o !== "object") throw TypeError();
                               // Object argument required
-  var result = [];            // The array we will return
-  for(var prop in o) {        // For all enumerable properties
+  let result = [];            // The array we will return
+  for(let prop in o) {        // For all enumerable properties
     if (o.hasOwnProperty(prop)) 
                               // If it is an own property
       result.push(prop);      // add it to the array.
@@ -123,11 +123,11 @@ module.exports.keys = keys;
  * @param {array} p
  * @returns {array}
  */
-var and = function(o, p) {
+const and = function(o, p) {
   if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
-  var _o = o.filter(function(x){ return x });
-  var _p = p.filter(function(x){ return x });
-  var result = _o.concat(_p)
+  const _o = o.filter(function(x){ return x });
+  const _p = p.filter(function(x){ return x });
+  const result = _o.concat(_p)
    .filter(function(x, i, y){ 
      return y.indexOf(x) !== y.lastIndexOf(x); })
    .filter(function(x, i, y){ 
@@ -143,11 +143,11 @@ module.exports.and = and;
  * @param {array} p
  * @returns {array}
  */
-var del = function(o, p) {
+const del = function(o, p) {
   if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
-  var _o = o.filter(function(x){ return x });
-  var _p = p.filter(function(x){ return x });
-  var result =
+  const _o = o.filter(function(x){ return x });
+  const _p = p.filter(function(x){ return x });
+  const result =
    _o.filter(function(x, i, y) { return _p.indexOf(x) === -1; });
   return result;
 };
@@ -160,11 +160,11 @@ module.exports.del = del;
  * @param {array} p
  * @returns {array}
  */
-var add = function(o, p) {
+const add = function(o, p) {
   if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
-  var _o = o.filter(function(x){ return x });
-  var _p = p.filter(function(x){ return x });
-  var result =
+  const _o = o.filter(function(x){ return x });
+  const _p = p.filter(function(x){ return x });
+  const result =
    _p.filter(function(x, i, y) { return _o.indexOf(x) === -1; });
   return result;
 };
@@ -177,11 +177,11 @@ module.exports.add = add;
  * @param {array} p
  * @returns {array}
  */
-var dif = function(o, p) {
+const dif = function(o, p) {
   if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
-  var _o = o.filter(function(x){ return x });
-  var _p = p.filter(function(x){ return x });
-  var result =
+  const _o = o.filter(function(x){ return x });
+  const _p = p.filter(function(x){ return x });
+  const result =
     _o.filter(function(x, i, y) { return _p.indexOf(x) === -1; })
    .concat(
       _p.filter(function(x, i, y) { 
@@ -198,11 +198,11 @@ module.exports.dif = dif;
  * @param {array} p
  * @returns {array}
  */
-var dup = function(o, p) {
+const dup = function(o, p) {
   if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
-  var _o = o.filter(function(x){ return x });
-  var _p = p.filter(function(x){ return x });
-  var result = _o.concat(_p)
+  const _o = o.filter(function(x){ return x });
+  const _p = p.filter(function(x){ return x });
+  const result = _o.concat(_p)
    .filter(function(x, i, y){ return y.indexOf(x) === i; });
   return result;
 };
@@ -214,17 +214,17 @@ module.exports.dup = dup;
  * @param {array} o
  * @returns {array}
  */
-var dst = function(o) { 
+const dst = function(o) { 
   if (!Array.isArray(o)) throw TypeError();
-  var _o = o.filter(function(x){ return x });
-  var _p = _o.sort(function(s, t){
-    var a=s.toString().toLowerCase();
-    var b=t.toString().toLowerCase();
+  const _o = o.filter(function(x){ return x });
+  const _p = _o.sort(function(s, t){
+    const a=s.toString().toLowerCase();
+    const b=t.toString().toLowerCase();
     if(a<b) return -1;
     if(a>b) return 1;
     return 0;
   });
-  var result =  _p.filter(function(x, i, y) {
+  const result =  _p.filter(function(x, i, y) {
     if(i===0) return true;
     return x!==y[i-1];
   })
@@ -237,8 +237,8 @@ module.exports.dst = dst;
  *
  * @returns {string}
  */
-var getTimeStamp = function() {
-  var dt = new Date();
+const getTimeStamp = function() {
+  const dt = new Date();
   return dt.toISOString();
 };
 module.exports.getTimeStamp = getTimeStamp;
@@ -249,12 +249,12 @@ module.exports.getTimeStamp = getTimeStamp;
  * @param {string} s
  * @returns {string}
  */
-var getLocalTimeStamp = function (s) {
-  var dt = new Date(s);
-  var _yr = dt.getFullYear();
-  var _mo = dt.getMonth() + 1;
-  var _dy = dt.getDate();
-  var _tm = dt.toTimeString().split(' ')[0];
+const getLocalTimeStamp = function (s) {
+  const dt = new Date(s);
+  const _yr = dt.getFullYear();
+  const _mo = dt.getMonth() + 1;
+  const _dy = dt.getDate();
+  const _tm = dt.toTimeString().split(' ')[0];
   return `${_yr}-${_mo}-${_dy} ${_tm}`;
 };
 module.exports.getLocalTimeStamp = getLocalTimeStamp;
@@ -265,21 +265,21 @@ module.exports.getLocalTimeStamp = getLocalTimeStamp;
  * @param {string} s
  * @returns {object}
  */
-var setTimeStamp = function (s) {
-	var matches = /^(\d+)\/(\d+)\/(\d+)$/.exec(s);
+const setTimeStamp = function (s) {
+	const matches = /^(\d+)\/(\d+)\/(\d+)$/.exec(s);
 	if(!matches) {
 		return false;
 	}
-	var y = parseInt(matches[1]);
-	var m = parseInt(matches[2]);
-	var d = parseInt(matches[3]);
+	const y = parseInt(matches[1]);
+	const m = parseInt(matches[2]);
+	const d = parseInt(matches[3]);
 	if(m < 1 || m > 12 || d < 1 || d > 31) {
 		return null;
 	}
-	var dt = new Date(y, m - 1, d, 0, 0, 0, 0);
-	if(dt.getFullYear() != y
-			|| dt.getMonth() != m - 1
-			|| dt.getDate() != d)
+	const dt = new Date(y, m - 1, d, 0, 0, 0, 0);
+	if(dt.getFullYear() !== y
+			|| dt.getMonth() !== m - 1
+			|| dt.getDate() !== d)
 	{
 		return null;
 	}
@@ -287,21 +287,21 @@ var setTimeStamp = function (s) {
 };
 module.exports.setTimeStamp = setTimeStamp;
 
-var isValidDate = function (s) {
-	var matches = /^(\d+)\/(\d+)\/(\d+)$/.exec(s);
+const isValidDate = function (s) {
+	const matches = /^(\d+)\/(\d+)\/(\d+)$/.exec(s);
 	if(!matches) {
 		return false;
 	}
-	var y = parseInt(matches[1]);
-	var m = parseInt(matches[2]);
-	var d = parseInt(matches[3]);
+	const y = parseInt(matches[1]);
+	const m = parseInt(matches[2]);
+	const d = parseInt(matches[3]);
 	if(m < 1 || m > 12 || d < 1 || d > 31) {
 		return false;
 	}
-	var dt = new Date(y, m - 1, d, 0, 0, 0, 0);
-	if(dt.getFullYear() != y
-			|| dt.getMonth() != m - 1
-			|| dt.getDate() != d)
+	const dt = new Date(y, m - 1, d, 0, 0, 0, 0);
+	if(dt.getFullYear() !== y
+			|| dt.getMonth() !== m - 1
+			|| dt.getDate() !== d)
 	{
 		return false;
 	}
@@ -325,12 +325,12 @@ module.exports.isValidDate = isValidDate;
  * @param {number} e -  Stopping after a total of start+end 
  *                      milliseconds.
  */
-var invoke = function(fn, s, i, e) {
+const invoke = function(fn, s, i, e) {
   if (!s) s = 0;
   setTimeout(fn, s);
   if (arguments.length >= 3) {
     setTimeout(function() {
-      var h = setInterval(fn, i);
+      const h = setInterval(fn, i);
       if (e) setTimeout(function() { clearInterval(h); }, e);
     }, s);
   }
@@ -344,11 +344,11 @@ module.exports.invoke = invoke;
  */
 exports.encodeFormData = function(data) {
   if (!data) return "";
-  var pairs = [];
-  for(var name in data) {
+  let pairs = [];
+  for(let name in data) {
     if (!data.hasOwnProperty(name)) continue;
     if (typeof data[name] === "function") continue;
-    var value = data[name].toString();
+    const value = data[name].toString();
     name = encodeURIComponent(name.replace(" ", "+"));
     value = encodeURIComponent(value.replace(" ", "+"));
     pairs.push(name + "=" + value);
@@ -365,10 +365,10 @@ exports.decodeFormData = function(text, sep, eq, isDecode) {
   text = text || location.search.substr(1);
   sep = sep || '&';
   eq = eq || '=';
-  var decode = (isDecode) ? decodeURIComponent 
+  const decode = (isDecode) ? decodeURIComponent 
     : function(a) { return a; };
   return text.split(sep).reduce(function(obj, v) {
-    var pair = v.split(eq);
+    const pair = v.split(eq);
     obj[pair[0]] = decode(pair[1]);
     return obj;
   }, {});
@@ -379,10 +379,10 @@ exports.decodeFormData = function(text, sep, eq, isDecode) {
  * $length: number of characters to be generated.
  */
 exports.makeRandStr = function(length) {
-  var chars =
+  const chars =
 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789';
-  var str = '';
-  for (var i = 0; i < length; ++i) {
+  let str = '';
+  for (let i = 0; i < length; ++i) {
     str += chars[ Math.floor( Math.random() * 62 ) ];
   }
   return str;
@@ -393,9 +393,9 @@ exports.makeRandStr = function(length) {
  * $length: number of characters to be generated.
  */
 exports.makeRandInt = function(length) {
-  var chars = '123456789';
-  var str = '';
-  for (var i = 0; i < length; ++i) {
+  const chars = '123456789';
+  let str = '';
+  for (let i = 0; i < length; ++i) {
     str += chars[ Math.floor( Math.random() * 9 ) ];
   }
   return parseInt(str, 10);

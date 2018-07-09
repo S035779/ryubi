@@ -4,7 +4,7 @@
  * http://spin.js.org/
  *
  * Example:
-    var opts = {
+    const opts = {
       lines: 12             // The number of lines to draw
     , length: 7             // The length of each line
     , width: 5              // The line thickness
@@ -26,23 +26,23 @@
     , hwaccel: false        // Whether to use hardware acceleration (might be buggy)
     , position: 'absolute'  // Element positioning
     }
-    var target = document.getElementById('foo')
-    var spinner = new Spinner(opts).spin(target)
+    const target = document.getElementById('foo')
+    const spinner = new Spinner(opts).spin(target)
  */
 ;(function (root, factory) {
 
   /* CommonJS */
-  if (typeof module == 'object' && module.exports) module.exports = factory()
+  if (typeof module === 'object' && module.exports) module.exports = factory()
 
   /* AMD module */
-  else if (typeof define == 'function' && define.amd) define(factory)
+  else if (typeof define === 'function' && define.amd) define(factory)
 
   /* Browser global */
   else root.Spinner = factory()
 }(this, function () {
   "use strict"
 
-  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+  let prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
     , animations = {} /* Animation rules keyed by their name */
     , useCssAnimations /* Whether to use CSS animations or setTimeout */
     , sheet /* A stylesheet to hold the @keyframe or VML rules. */
@@ -52,7 +52,7 @@
    * a DIV is created. Optionally properties can be passed.
    */
   function createEl (tag, prop) {
-    var el = document.createElement(tag || 'div')
+    let el = document.createElement(tag || 'div')
       , n
 
     for (n in prop) el[n] = prop[n]
@@ -63,7 +63,7 @@
    * Appends children and returns the parent.
    */
   function ins (parent /* child1, child2, ...*/) {
-    for (var i = 1, n = arguments.length; i < n; i++) {
+    for (let i = 1, n = arguments.length; i < n; i++) {
       parent.appendChild(arguments[i])
     }
 
@@ -76,7 +76,7 @@
    * we create separate rules for each line/segment.
    */
   function addAnimation (alpha, trail, i, lines) {
-    var name = ['opacity', trail, ~~(alpha * 100), i, lines].join('-')
+    const name = ['opacity', trail, ~~(alpha * 100), i, lines].join('-')
       , start = 0.01 + i/lines * 100
       , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
       , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
@@ -102,7 +102,7 @@
    * Tries various vendor prefixes and returns the first supported property.
    */
   function vendor (el, prop) {
-    var s = el.style
+    let s = el.style
       , pp
       , i
 
@@ -118,7 +118,7 @@
    * Sets multiple style properties at once.
    */
   function css (el, prop) {
-    for (var n in prop) {
+    for (let n in prop) {
       el.style[vendor(el, n) || n] = prop[n]
     }
 
@@ -129,9 +129,9 @@
    * Fills in default values.
    */
   function merge (obj) {
-    for (var i = 1; i < arguments.length; i++) {
-      var def = arguments[i]
-      for (var n in def) {
+    for (let i = 1; i < arguments.length; i++) {
+      const def = arguments[i]
+      for (let n in def) {
         if (obj[n] === undefined) obj[n] = def[n]
       }
     }
@@ -142,12 +142,12 @@
    * Returns the line color from the given string or array.
    */
   function getColor (color, idx) {
-    return typeof color == 'string' ? color : color[idx % color.length]
+    return typeof color === 'string' ? color : color[idx % color.length]
   }
 
   // Built-in defaults
 
-  var defaults = {
+  const defaults = {
     lines: 12             // The number of lines to draw
   , length: 7             // The length of each line
   , width: 5              // The line thickness
@@ -187,7 +187,7 @@
     spin: function (target) {
       this.stop()
 
-      var self = this
+      const self = this
         , o = self.opts
         , el = self.el = createEl(null, {className: o.className})
 
@@ -208,7 +208,7 @@
 
       if (!useCssAnimations) {
         // No CSS animation support, use setTimeout() instead
-        var i = 0
+        let i = 0
           , start = (o.lines - 1) * (1 - o.direction) / 2
           , alpha
           , fps = o.fps
@@ -218,7 +218,7 @@
 
         ;(function anim () {
           i++
-          for (var j = 0; j < o.lines; j++) {
+          for (let j = 0; j < o.lines; j++) {
             alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
 
             self.opacity(el, j * o.direction + start, alpha, o)
@@ -233,7 +233,7 @@
      * Stops and removes the Spinner.
      */
   , stop: function () {
-      var el = this.el
+      const el = this.el
       if (el) {
         clearTimeout(this.timeout)
         if (el.parentNode) el.parentNode.removeChild(el)
@@ -247,7 +247,7 @@
      * in VML fallback mode below.
      */
   , lines: function (el, o) {
-      var i = 0
+      let i = 0
         , start = (o.lines - 1) * (1 - o.direction) / 2
         , seg
 
@@ -301,7 +301,7 @@
     sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
 
     Spinner.prototype.lines = function (el, o) {
-      var r = o.scale * (o.length + o.width)
+      const r = o.scale * (o.length + o.width)
         , s = o.scale * 2 * r
 
       function grp () {
@@ -314,9 +314,9 @@
         )
       }
 
-      var margin = -(o.width + o.length) * o.scale * 2 + 'px'
+      let margin = -(o.width + o.length) * o.scale * 2 + 'px'
         , g = css(grp(), {position: 'absolute', top: margin, left: margin})
-        , i
+        , i;
 
       function seg (i, dx, filter) {
         ins(
@@ -350,7 +350,7 @@
     }
 
     Spinner.prototype.opacity = function (el, i, val, o) {
-      var c = el.firstChild
+      const c = el.firstChild
       o = o.shadow && o.lines || 0
       if (c && i + o < c.childNodes.length) {
         c = c.childNodes[i + o]; c = c && c.firstChild; c = c && c.firstChild
@@ -361,12 +361,12 @@
 
   if (typeof document !== 'undefined') {
     sheet = (function () {
-      var el = createEl('style', {type : 'text/css'})
+      const el = createEl('style', {type : 'text/css'})
       ins(document.getElementsByTagName('head')[0], el)
       return el.sheet || el.styleSheet
     }())
 
-    var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+    const probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
 
     if (!vendor(probe, 'transform') && probe.adj) initVML()
     else useCssAnimations = vendor(probe, 'animation')

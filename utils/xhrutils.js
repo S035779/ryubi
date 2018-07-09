@@ -4,13 +4,13 @@
  * @param data {object}
  * @returns {string}
  */
-var encodeFormData = function(data) {
+const encodeFormData = function(data) {
   if (!data) return ""
-  var pairs = [];
-  for(var name in data) {
+  let pairs = [];
+  for(let name in data) {
     if (!data.hasOwnProperty(name)) continue;
     if (typeof data[name] === "function") continue;
-    var value = data[name].toString();
+    let value = data[name].toString();
     name = encodeURIComponent(name.replace(" ", "+"));
     value = encodeURIComponent(value.replace(" ", "+"));
     pairs.push(name + "=" + value);
@@ -25,12 +25,12 @@ var encodeFormData = function(data) {
  * @param data {object}
  * @param callback {function}
  */
-var get = function(url, data, callback) {
-  var request = new XMLHttpRequest();
+const get = function(url, data, callback) {
+  const request = new XMLHttpRequest();
   request.open("GET", url + "?" + encodeFormData(data));
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
-      var type = request.getResponseHeader("Content-Type");
+      let type = request.getResponseHeader("Content-Type");
       if (type.indexOf("xml") !== -1
         && request.responseXML) {
         callback(request.responseXML);
@@ -52,8 +52,8 @@ module.exports.get = get;
  * @param data {object}
  * @param callback {function}
  */
-var getData = function(url, data, callback) {
-  var request = new XMLHttpRequest();
+const getData = function(url, data, callback) {
+  const request = new XMLHttpRequest();
   request.open("GET", url + "?" + encodeFormData(data));
   request.onreadystatechange = function() {
     if (request.readyState === 4
@@ -70,8 +70,8 @@ module.exports.getData = getData;
  * @param data {object}
  * @param callback {function}
  */
-var postData = function(url, data, callback) {
-  var request = new XMLHttpRequest();
+const postData = function(url, data, callback) {
+  const request = new XMLHttpRequest();
   request.open("POST", url);
   request.onreadystatechange = function() {
     if (request.readyState === 4 && callback)
@@ -91,12 +91,12 @@ module.exports.postData = postData;
  * @param data {object}
  * @param callback {function}
  */
-var postXML = function(url, data, callback) {
-  var request = new XMLHttpRequest();
+const postXML = function(url, data, callback) {
+  const request = new XMLHttpRequest();
   request.open("POST", url);
   request.onreadystatechange = function() {
     if (request.readyState === 4 && request.status === 200) {
-      var type = request.getResponseHeader("Content-Type");
+      let type = request.getResponseHeader("Content-Type");
       if (type === "text/xml; charset=utf-8") {
         callback(request.responseXML);
       } else if (type === "application/json; charset=utf-8") {
@@ -107,7 +107,7 @@ var postXML = function(url, data, callback) {
     }
   };
   request.setRequestHeader("Content-Type", "text/xml; charset=UTF-8");
-  for(var key in data.head) {
+  for(let key in data.head) {
     request.setRequestHeader(key, data.head[key]);
   }
   request.send(data.body);
@@ -121,8 +121,8 @@ module.exports.postXML = postXML;
  * @param data {object}
  * @param callback {function}
  */
-var postJSON = function(url, data, callback) {
-  var request = new XMLHttpRequest();
+const postJSON = function(url, data, callback) {
+  const request = new XMLHttpRequest();
   request.open("POST", url);
   request.onreadystatechange = function() {
     if (request.readyState === 4 && callback)

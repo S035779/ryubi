@@ -26,6 +26,10 @@ class App extends React.Component {
     AppAction.fetchConfig();
   }
 
+  updated() {
+    console.log('Updating App modules...');
+  }
+
   render() {
     return <div className="window">
     <GlobalHeader title={this.state.title} />

@@ -678,5 +678,5 @@ export default {
 
   errorLog(err) {
     return log.error(`${pspid}>`, 'Error occurred:', err);
-  },
+  }
 }

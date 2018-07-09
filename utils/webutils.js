@@ -52,7 +52,7 @@ export const util = {
         `${obj.days} days` + ' / '
       + `${obj.hours} hours` + ' / '
       + `${obj.minutes} minutes`);
-  },
+  }
 };
 
 export const M = {
@@ -124,7 +124,7 @@ export const log = {
   trace(msg)  {
     const args = Array.prototype.slice.call(arguments);
     this.logger('TRACE',  args);
-  },
+  }
 };
 
 export const spn = {
@@ -160,7 +160,7 @@ export const spn = {
     this.target = document.getElementById(target);
   },
   spin() { this.Spinner.spin(this.target); },
-  stop()  { this.Spinner.stop(); },
+  stop()  { this.Spinner.stop(); }
 };
 
 export const str = {
@@ -172,7 +172,7 @@ export const str = {
    * @param daysToLive
    */
   setCookies(name, value, daysToLive) {
-    var cookie = name + "=" + encodeURIComponent(value);
+    let cookie = name + "=" + encodeURIComponent(value);
     if(typeof daysToLive === "number")
       cookie += "; max-age=" + (daysToLive*60*60*24);
     document.cookie = cookie;
@@ -187,16 +187,16 @@ export const str = {
    * @returns {object} - Store name and value in object.
    */
   getCookies() {
-      var cookies = {};
-      var all = document.cookie;
+      let cookies = {};
+      const all = document.cookie;
       if (all === "")
           return cookies;
-      var list = all.split("; ");
-      for(var i = 0; i < list.length; i++) {
-          var cookie = list[i];
-          var p = cookie.indexOf("=");
-          var name = cookie.substring(0,p);
-          var value = cookie.substring(p+1);
+      const list = all.split("; ");
+      for(let i = 0; i < list.length; i++) {
+          const cookie = list[i];
+          const p = cookie.indexOf("=");
+          const name = cookie.substring(0,p);
+          const value = cookie.substring(p+1);
           value = decodeURIComponent(value);
           cookies[name] = value;
       }
@@ -212,24 +212,24 @@ export const str = {
    * @param path {string} - scope
    */
   CookieStorage(maxage, path) {
-      var cookies = (function() {
-          var cookies = {};
-          var all = document.cookie;
+      const cookies = (function() {
+          let cookies = {};
+          const all = document.cookie;
           if (all === "")
               return cookies;
-          var list = all.split("; ");
-          for(var i = 0; i < list.length; i++) {
-              var cookie = list[i];
-              var p = cookie.indexOf("=");
-              var name = cookie.substring(0,p);
-              var value = cookie.substring(p+1);
+          const list = all.split("; ");
+          for(let i = 0; i < list.length; i++) {
+              const cookie = list[i];
+              const p = cookie.indexOf("=");
+              const name = cookie.substring(0,p);
+              const value = cookie.substring(p+1);
               value = decodeURIComponent(value);
               cookies[name] = value;
           }
           return cookies;
       }());
-      var keys = [];
-      for(var key in cookies) keys.push(key);
+      let keys = [];
+      for(let key in cookies) keys.push(key);
       this.length = keys.length;
       this.key = function(n) {
           if (n < 0 || n >= keys.length) return null;
@@ -244,7 +244,7 @@ export const str = {
               this.length++;
           }
           cookies[key] = value;
-          var cookie = key + "=" + encodeURIComponent(value);
+          let cookie = key + "=" + encodeURIComponent(value);
           if (maxage) cookie += "; max-age=" + maxage;
           if (path) cookie += "; path=" + path;
           document.cookie = cookie;
@@ -252,7 +252,7 @@ export const str = {
       this.removeItem = function(key) {
           if (!(key in cookies)) return;
           delete cookies[key];
-          for(var i = 0; i < keys.length; i++) {
+          for(let i = 0; i < keys.length; i++) {
               if (keys[i] === key) {
                   keys.splice(i,1);
                   break;
@@ -262,7 +262,7 @@ export const str = {
           document.cookie = key + "=; max-age=0";
       };
       this.clear = function() {
-          for(var i = 0; i < keys.length; i++)
+          for(let i = 0; i < keys.length; i++)
               document.cookie = keys[i] + "=; max-age=0";
           cookies = {};
           keys = [];
@@ -279,13 +279,13 @@ export const str = {
    *                  userData in maxage seconds
    */
   UserDataStorage(maxage)  {
-      var memory = document.createElement("div");
+      const memory = document.createElement("div");
       memory.style.display = "none";
       memory.style.behavior = "url('#default#userData')";
       document.body.appendChild(memory);
       if (maxage) {
-          var now = new Date().getTime();
-          var expires = now + maxage * 1000;
+          const now = new Date().getTime();
+          const expires = now + maxage * 1000;
           memory.expires = new Date(expires).toUTCString();
       }
       memory.load("UserDataStorage");

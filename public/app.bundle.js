@@ -1,3 +1,16284 @@
-webpackJsonp([0],[,function(t,e,n){"use strict";n.d(e,"d",function(){return p}),n.d(e,"a",function(){return h}),n.d(e,"b",function(){return f}),n.d(e,"c",function(){return m});var r=n(96),i=n.n(r),o=n(56),a=n.n(o),s=n(108),c=(n.n(s),n(109)),u=n.n(c),l="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},p={getCSVHeader:function(t){var e=new Array;for(var n in t)e.push(n);return e.join()+"\n"},setCSVHeader:function(t){var e=new Array;for(var n in t[0])e.push(n);return obj.unshift(e),t},toCSV:function(t){var e=new Array;for(var n in t)e.push(t[n]);return e.join()},toXML:function(t,e){var n=new Object;return n[t]=e,a.a.create(n,{encoding:"utf-8"}).end()},toJSON:function(t){return new Promise(function(e){i.a.parseString(t,{attrkey:"root",charkey:"sub",trim:!0,explicitArray:!1},function(t,n){t&&h.error(t),e(n)})})},toLeftDays:function(t){var e=Object(s.parse)(t);return e.days+" days / "+e.hours+" hours / "+e.minutes+" minutes"}},h={Logger:null,config:function(t,e,n,r){var i={alert:new Log4js.JSAlertAppender,console:new Log4js.BrowserConsoleAppender},o={basic:new Log4js.BasicLayout,json:new Log4js.JSONLayout,xml:new Log4js.XMLLayout},a=(Log4js.Level.OFF,Log4js.Level.FATAL,Log4js.Level.ERROR,Log4js.Level.WARN,Log4js.Level.INFO,Log4js.Level.DEBUG,Log4js.Level.TRACE,Log4js.Level.ALL,i[t]);a.setLayout(o[e]);var s=new Log4js.getLogger(r);s.addAppender(a),this.Logger=s},logger:function(t,e){var n=e.map(function(t){return"object"===(void 0===t?"undefined":l(t))?JSON.stringify(t,null,4):null==t?"?":t});this.Logger.log(t,n.join(" "),null)},fatal:function(t){var e=Array.prototype.slice.call(arguments);this.logger("FATAL",e)},error:function(t){var e=Array.prototype.slice.call(arguments);this.logger("ERROR",e)},warn:function(t){var e=Array.prototype.slice.call(arguments);this.logger("WARN",e)},info:function(t){var e=Array.prototype.slice.call(arguments);this.logger("INFO",e)},debug:function(t){var e=Array.prototype.slice.call(arguments);this.logger("DEBUG",e)},trace:function(t){var e=Array.prototype.slice.call(arguments);this.logger("TRACE",e)}},f={Spinner:u.a,target:null,config:function(t){var e={lines:13,length:28,width:14,radius:42,scale:1,corners:1,color:"#000",opacity:.25,rotate:0,direction:1,speed:1,trail:60,fps:20,zIndex:2e9,className:"spinner",top:"49%",left:"49%",shadow:!1,hwaccel:!1,position:"absolute"};this.Spinner=new u.a(e),this.target=document.getElementById(t)},spin:function(){this.Spinner.spin(this.target)},stop:function(){this.Spinner.stop()}},m={setCookies:function(t,e,n){var r=t+"="+encodeURIComponent(e);"number"==typeof n&&(r+="; max-age="+60*n*60*24),document.cookie=r},getCookies:function(){var t={},e=document.cookie;if(""===e)return t;for(var n=e.split("; "),r=0;r<n.length;r++){var i=n[r],o=i.indexOf("="),a=i.substring(0,o),s=i.substring(o+1);s=decodeURIComponent(s),t[a]=s}return t},CookieStorage:function(t,e){var n=function(){var t={},e=document.cookie;if(""===e)return t;for(var n=e.split("; "),r=0;r<n.length;r++){var i=n[r],o=i.indexOf("="),a=i.substring(0,o),s=i.substring(o+1);s=decodeURIComponent(s),t[a]=s}return t}(),r=[];for(var i in n)r.push(i);this.length=r.length,this.key=function(t){return t<0||t>=r.length?null:r[t]},this.getItem=function(t){return n[t]||null},this.setItem=function(i,o){i in n||(r.push(i),this.length++),n[i]=o;var a=i+"="+encodeURIComponent(o);t&&(a+="; max-age="+t),e&&(a+="; path="+e),document.cookie=a},this.removeItem=function(t){if(t in n){delete n[t];for(var e=0;e<r.length;e++)if(r[e]===t){r.splice(e,1);break}this.length--,document.cookie=t+"=; max-age=0"}},this.clear=function(){for(var t=0;t<r.length;t++)document.cookie=r[t]+"=; max-age=0";n={},r=[],this.length=0}},UserDataStorage:function(t){var e=document.createElement("div");if(e.style.display="none",e.style.behavior="url('#default#userData')",document.body.appendChild(e),t){var n=(new Date).getTime(),r=n+1e3*t;e.expires=new Date(r).toUTCString()}e.load("UserDataStorage"),this.getItem=function(t){return e.getAttribute(t)||null},this.setItem=function(t,n){e.setAttribute(t,n),e.save("UserDataStorage")},this.removeItem=function(t){e.removeAttribute(t),e.save("UserDataStorage")}}}},,,,function(t,e,n){(function(){var e,r,i,o,a,s,c,u,l,p,h,f,m={}.hasOwnProperty;f=n(10),h=f.isObject,p=f.isFunction,l=f.isEmpty,a=null,e=null,r=null,i=null,o=null,c=null,u=null,s=null,t.exports=function(){function t(t){this.parent=t,this.parent&&(this.options=this.parent.options,this.stringify=this.parent.stringify),this.children=[],a||(a=n(18),e=n(19),r=n(20),i=n(21),o=n(22),c=n(27),u=n(28),s=n(29))}return t.prototype.element=function(t,e,n){var r,i,o,a,s,c,u,f,d,y;if(c=null,null==e&&(e={}),e=e.valueOf(),h(e)||(d=[e,n],n=d[0],e=d[1]),null!=t&&(t=t.valueOf()),Array.isArray(t))for(o=0,u=t.length;o<u;o++)i=t[o],c=this.element(i);else if(p(t))c=this.element(t.apply());else if(h(t)){for(s in t)if(m.call(t,s))if(y=t[s],p(y)&&(y=y.apply()),h(y)&&l(y)&&(y=null),!this.options.ignoreDecorators&&this.stringify.convertAttKey&&0===s.indexOf(this.stringify.convertAttKey))c=this.attribute(s.substr(this.stringify.convertAttKey.length),y);else if(!this.options.separateArrayItems&&Array.isArray(y))for(a=0,f=y.length;a<f;a++)i=y[a],r={},r[s]=i,c=this.element(r);else h(y)?(c=this.element(s),c.element(y)):c=this.element(s,y)}else c=!this.options.ignoreDecorators&&this.stringify.convertTextKey&&0===t.indexOf(this.stringify.convertTextKey)?this.text(n):!this.options.ignoreDecorators&&this.stringify.convertCDataKey&&0===t.indexOf(this.stringify.convertCDataKey)?this.cdata(n):!this.options.ignoreDecorators&&this.stringify.convertCommentKey&&0===t.indexOf(this.stringify.convertCommentKey)?this.comment(n):!this.options.ignoreDecorators&&this.stringify.convertRawKey&&0===t.indexOf(this.stringify.convertRawKey)?this.raw(n):!this.options.ignoreDecorators&&this.stringify.convertPIKey&&0===t.indexOf(this.stringify.convertPIKey)?this.instruction(t.substr(this.stringify.convertPIKey.length),n):this.node(t,e,n);if(null==c)throw new Error("Could not create any elements with: "+t);return c},t.prototype.insertBefore=function(t,e,n){var r,i,o;if(this.isRoot)throw new Error("Cannot insert elements at root level");return i=this.parent.children.indexOf(this),o=this.parent.children.splice(i),r=this.parent.element(t,e,n),Array.prototype.push.apply(this.parent.children,o),r},t.prototype.insertAfter=function(t,e,n){var r,i,o;if(this.isRoot)throw new Error("Cannot insert elements at root level");return i=this.parent.children.indexOf(this),o=this.parent.children.splice(i+1),r=this.parent.element(t,e,n),Array.prototype.push.apply(this.parent.children,o),r},t.prototype.remove=function(){var t;if(this.isRoot)throw new Error("Cannot remove the root element");return t=this.parent.children.indexOf(this),[].splice.apply(this.parent.children,[t,t-t+1].concat([])),this.parent},t.prototype.node=function(t,e,n){var r,i;return null!=t&&(t=t.valueOf()),e||(e={}),e=e.valueOf(),h(e)||(i=[e,n],n=i[0],e=i[1]),r=new a(this,t,e),null!=n&&r.text(n),this.children.push(r),r},t.prototype.text=function(t){var e;return e=new u(this,t),this.children.push(e),this},t.prototype.cdata=function(t){var n;return n=new e(this,t),this.children.push(n),this},t.prototype.comment=function(t){var e;return e=new r(this,t),this.children.push(e),this},t.prototype.commentBefore=function(t){var e,n;return e=this.parent.children.indexOf(this),n=this.parent.children.splice(e),this.parent.comment(t),Array.prototype.push.apply(this.parent.children,n),this},t.prototype.commentAfter=function(t){var e,n;return e=this.parent.children.indexOf(this),n=this.parent.children.splice(e+1),this.parent.comment(t),Array.prototype.push.apply(this.parent.children,n),this},t.prototype.raw=function(t){var e;return e=new c(this,t),this.children.push(e),this},t.prototype.instruction=function(t,e){var n,r,i,o,a;if(null!=t&&(t=t.valueOf()),null!=e&&(e=e.valueOf()),Array.isArray(t))for(o=0,a=t.length;o<a;o++)n=t[o],this.instruction(n);else if(h(t))for(n in t)m.call(t,n)&&(r=t[n],this.instruction(n,r));else p(e)&&(e=e.apply()),i=new s(this,t,e),this.children.push(i);return this},t.prototype.instructionBefore=function(t,e){var n,r;return n=this.parent.children.indexOf(this),r=this.parent.children.splice(n),this.parent.instruction(t,e),Array.prototype.push.apply(this.parent.children,r),this},t.prototype.instructionAfter=function(t,e){var n,r;return n=this.parent.children.indexOf(this),r=this.parent.children.splice(n+1),this.parent.instruction(t,e),Array.prototype.push.apply(this.parent.children,r),this},t.prototype.declaration=function(t,e,n){var r,o;return r=this.document(),o=new i(r,t,e,n),r.children[0]instanceof i?r.children[0]=o:r.children.unshift(o),r.root()||r},t.prototype.doctype=function(t,e){var n,r,i,a,s,c,u,l,p,h;for(r=this.document(),i=new o(r,t,e),p=r.children,a=s=0,u=p.length;s<u;a=++s)if((n=p[a])instanceof o)return r.children[a]=i,i;for(h=r.children,a=c=0,l=h.length;c<l;a=++c)if(n=h[a],n.isRoot)return r.children.splice(a,0,i),i;return r.children.push(i),i},t.prototype.up=function(){if(this.isRoot)throw new Error("The root node has no parent. Use doc() if you need to get the document object.");return this.parent},t.prototype.root=function(){var t;for(t=this;t;){if(t.isDocument)return t.rootObject;if(t.isRoot)return t;t=t.parent}},t.prototype.document=function(){var t;for(t=this;t;){if(t.isDocument)return t;t=t.parent}},t.prototype.end=function(t){return this.document().end(t)},t.prototype.prev=function(){var t;if((t=this.parent.children.indexOf(this))<1)throw new Error("Already at the first node");return this.parent.children[t-1]},t.prototype.next=function(){var t;if(-1===(t=this.parent.children.indexOf(this))||t===this.parent.children.length-1)throw new Error("Already at the last node");return this.parent.children[t+1]},t.prototype.importDocument=function(t){var e;return e=t.root().clone(),e.parent=this,e.isRoot=!1,this.children.push(e),this},t.prototype.ele=function(t,e,n){return this.element(t,e,n)},t.prototype.nod=function(t,e,n){return this.node(t,e,n)},t.prototype.txt=function(t){return this.text(t)},t.prototype.dat=function(t){return this.cdata(t)},t.prototype.com=function(t){return this.comment(t)},t.prototype.ins=function(t,e){return this.instruction(t,e)},t.prototype.doc=function(){return this.document()},t.prototype.dec=function(t,e,n){return this.declaration(t,e,n)},t.prototype.dtd=function(t,e){return this.doctype(t,e)},t.prototype.e=function(t,e,n){return this.element(t,e,n)},t.prototype.n=function(t,e,n){return this.node(t,e,n)},t.prototype.t=function(t){return this.text(t)},t.prototype.d=function(t){return this.cdata(t)},t.prototype.c=function(t){return this.comment(t)},t.prototype.r=function(t){return this.raw(t)},t.prototype.i=function(t,e){return this.instruction(t,e)},t.prototype.u=function(){return this.up()},t.prototype.importXMLBuilder=function(t){return this.importDocument(t)},t}()}).call(this)},,,function(t,e,n){t.exports.Container=n(84),t.exports.Mixin=n(86),t.exports.ReduceStore=n(87),t.exports.Store=n(54)},function(t,e,n){"use strict";n.d(e,"b",function(){return o});var r=n(94),i=(n.n(r),new r.Dispatcher);e.a=i;var o=i.dispatch.bind(i)},function(t,e){var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};(function(){var e,r,i,o,a,s,c=[].slice,u={}.hasOwnProperty;e=function(){var t,e,n,r,i,a;if(a=arguments[0],i=2<=arguments.length?c.call(arguments,1):[],o(Object.assign))Object.assign.apply(null,arguments);else for(t=0,n=i.length;t<n;t++)if(null!=(r=i[t]))for(e in r)u.call(r,e)&&(a[e]=r[e]);return a},o=function(t){return!!t&&"[object Function]"===Object.prototype.toString.call(t)},a=function(t){var e;return!!t&&("function"===(e=void 0===t?"undefined":n(t))||"object"===e)},r=function(t){return o(Array.isArray)?Array.isArray(t):"[object Array]"===Object.prototype.toString.call(t)},i=function(t){var e;if(r(t))return!t.length;for(e in t)if(u.call(t,e))return!1;return!0},s=function(t){var e,n;return a(t)&&(n=Object.getPrototypeOf(t))&&(e=n.constructor)&&"function"==typeof e&&e instanceof e&&Function.prototype.toString.call(e)===Function.prototype.toString.call(Object)},t.exports.assign=e,t.exports.isFunction=o,t.exports.isObject=a,t.exports.isArray=r,t.exports.isEmpty=i,t.exports.isPlainObject=s}).call(this)},function(t,e){var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},r=function(t,e){for(prop in e)t[prop]=e[prop];return t};t.exports.extend=r;var i=function(t,e){for(prop in e)t.hasOwnProperty[prop]||(t[prop]=e[prop]);return t};t.exports.merge=i;var o=function(t,e){for(prop in t)prop in e||delete t[prop];return t};t.exports.restrict=o;var a=function(t,e){for(prop in e)delete t[prop];return t};t.exports.subtract=a;var s=function(t,e){return r(r({},t),e)};t.exports.union=s;var c=function(t,e){return o(r({},t),e)};t.exports.intersection=c;var u=function(t){if("object"!==(void 0===t?"undefined":n(t)))throw TypeError();var e=[];for(var r in t)t.hasOwnProperty(r)&&e.push(r);return e};t.exports.keys=u;var l=function(t,e){if(!Array.isArray(t)||!Array.isArray(e))throw TypeError();var n=t.filter(function(t){return t}),r=e.filter(function(t){return t});return n.concat(r).filter(function(t,e,n){return n.indexOf(t)!==n.lastIndexOf(t)}).filter(function(t,e,n){return n.indexOf(t)===e})};t.exports.and=l;var p=function(t,e){if(!Array.isArray(t)||!Array.isArray(e))throw TypeError();var n=t.filter(function(t){return t}),r=e.filter(function(t){return t});return n.filter(function(t,e,n){return-1===r.indexOf(t)})};t.exports.del=p;var h=function(t,e){if(!Array.isArray(t)||!Array.isArray(e))throw TypeError();var n=t.filter(function(t){return t});return e.filter(function(t){return t}).filter(function(t,e,r){return-1===n.indexOf(t)})};t.exports.add=h;var f=function(t,e){if(!Array.isArray(t)||!Array.isArray(e))throw TypeError();var n=t.filter(function(t){return t}),r=e.filter(function(t){return t});return n.filter(function(t,e,n){return-1===r.indexOf(t)}).concat(r.filter(function(t,e,r){return-1===n.indexOf(t)}))};t.exports.dif=f;var m=function(t,e){if(!Array.isArray(t)||!Array.isArray(e))throw TypeError();var n=t.filter(function(t){return t}),r=e.filter(function(t){return t});return n.concat(r).filter(function(t,e,n){return n.indexOf(t)===e})};t.exports.dup=m;var d=function(t){if(!Array.isArray(t))throw TypeError();return t.filter(function(t){return t}).sort(function(t,e){var n=t.toString().toLowerCase(),r=e.toString().toLowerCase();return n<r?-1:n>r?1:0}).filter(function(t,e,n){return 0===e||t!==n[e-1]})};t.exports.dst=d;var y=function(){return(new Date).toISOString()};t.exports.getTimeStamp=y;var g=function(t){var e=new Date(t);return e.getFullYear()+"-"+(e.getMonth()+1)+"-"+e.getDate()+" "+e.toTimeString().split(" ")[0]};t.exports.getLocalTimeStamp=g;var b=function(t){var e=/^(\d+)\/(\d+)\/(\d+)$/.exec(t);if(!e)return!1;var n=parseInt(e[1]),r=parseInt(e[2]),i=parseInt(e[3]);if(r<1||r>12||i<1||i>31)return null;var o=new Date(n,r-1,i,0,0,0,0);return o.getFullYear()!=n||o.getMonth()!=r-1||o.getDate()!=i?null:o.toISOString()};t.exports.setTimeStamp=b;var v=function(t){var e=/^(\d+)\/(\d+)\/(\d+)$/.exec(t);if(!e)return!1;var n=parseInt(e[1]),r=parseInt(e[2]),i=parseInt(e[3]);if(r<1||r>12||i<1||i>31)return!1;var o=new Date(n,r-1,i,0,0,0,0);return o.getFullYear()==n&&o.getMonth()==r-1&&o.getDate()==i};t.exports.isValidDate=v;var E=function(t,e,n,r){e||(e=0),setTimeout(t,e),arguments.length>=3&&setTimeout(function(){var e=setInterval(t,n);r&&setTimeout(function(){clearInterval(e)},r)},e)};t.exports.invoke=E,e.encodeFormData=function(t){if(!t)return"";var e=[];for(var n in t)if(t.hasOwnProperty(n)&&"function"!=typeof t[n]){var r=t[n].toString();n=encodeURIComponent(n.replace(" ","+")),r=encodeURIComponent(r.replace(" ","+")),e.push(n+"="+r)}return e.join("&")},e.decodeFormData=function(t,e,n,r){t=t||location.search.substr(1),e=e||"&",n=n||"=";var i=r?decodeURIComponent:function(t){return t};return t.split(e).reduce(function(t,e){var r=e.split(n);return t[r[0]]=i(r[1]),t},{})},e.makeRandStr=function(t){for(var e="",n=0;n<t;++n)e+="abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789"[Math.floor(62*Math.random())];return e},e.makeRandInt=function(t){for(var e="",n=0;n<t;++n)e+="123456789"[Math.floor(9*Math.random())];return parseInt(e,10)}},,,,,,function(t,e){t.exports={convert:function(t){var e=t;return t=function(){for(var t=arguments.length,n=Array(t),r=0;r<t;r++)n[r]=arguments[r];return new(Function.prototype.bind.apply(e,[null].concat(n)))},t.prototype=e.prototype,t.getStores=e.getStores,t.calculateState=e.calculateState,t}}},function(t,e,n){(function(){var e,r,i,o,a,s=function(t,e){function n(){this.constructor=t}for(var r in e)c.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},c={}.hasOwnProperty;a=n(10),o=a.isObject,i=a.isFunction,r=n(5),e=n(57),t.exports=function(t){function n(t,e,r){if(n.__super__.constructor.call(this,t),null==e)throw new Error("Missing element name");this.name=this.stringify.eleName(e),this.attributes={},null!=r&&this.attribute(r),t.isDocument&&(this.isRoot=!0,this.documentObject=t,t.rootObject=this)}return s(n,t),n.prototype.clone=function(){var t,e,n,r;n=Object.create(this),n.isRoot&&(n.documentObject=null),n.attributes={},r=this.attributes;for(e in r)c.call(r,e)&&(t=r[e],n.attributes[e]=t.clone());return n.children=[],this.children.forEach(function(t){var e;return e=t.clone(),e.parent=n,n.children.push(e)}),n},n.prototype.attribute=function(t,n){var r,a;if(null!=t&&(t=t.valueOf()),o(t))for(r in t)c.call(t,r)&&(a=t[r],this.attribute(r,a));else i(n)&&(n=n.apply()),this.options.skipNullAttributes&&null==n||(this.attributes[t]=new e(this,t,n));return this},n.prototype.removeAttribute=function(t){var e,n,r;if(null==t)throw new Error("Missing attribute name");if(t=t.valueOf(),Array.isArray(t))for(n=0,r=t.length;n<r;n++)e=t[n],delete this.attributes[e];else delete this.attributes[t];return this},n.prototype.toString=function(t){return this.options.writer.set(t).element(this)},n.prototype.att=function(t,e){return this.attribute(t,e)},n.prototype.a=function(t,e){return this.attribute(t,e)},n}(r)}).call(this)},function(t,e,n){(function(){var e,r=function(t,e){function n(){this.constructor=t}for(var r in e)i.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},i={}.hasOwnProperty;e=n(5),t.exports=function(t){function e(t,n){if(e.__super__.constructor.call(this,t),null==n)throw new Error("Missing CDATA text");this.text=this.stringify.cdata(n)}return r(e,t),e.prototype.clone=function(){return Object.create(this)},e.prototype.toString=function(t){return this.options.writer.set(t).cdata(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r=function(t,e){function n(){this.constructor=t}for(var r in e)i.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},i={}.hasOwnProperty;e=n(5),t.exports=function(t){function e(t,n){if(e.__super__.constructor.call(this,t),null==n)throw new Error("Missing comment text");this.text=this.stringify.comment(n)}return r(e,t),e.prototype.clone=function(){return Object.create(this)},e.prototype.toString=function(t){return this.options.writer.set(t).comment(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r,i=function(t,e){function n(){this.constructor=t}for(var r in e)o.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},o={}.hasOwnProperty;r=n(10).isObject,e=n(5),t.exports=function(t){function e(t,n,i,o){var a;e.__super__.constructor.call(this,t),r(n)&&(a=n,n=a.version,i=a.encoding,o=a.standalone),n||(n="1.0"),this.version=this.stringify.xmlVersion(n),null!=i&&(this.encoding=this.stringify.xmlEncoding(i)),null!=o&&(this.standalone=this.stringify.xmlStandalone(o))}return i(e,t),e.prototype.toString=function(t){return this.options.writer.set(t).declaration(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r,i,o,a,s,c=function(t,e){function n(){this.constructor=t}for(var r in e)u.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},u={}.hasOwnProperty;s=n(10).isObject,a=n(5),e=n(23),i=n(24),r=n(25),o=n(26),t.exports=function(t){function n(t,e,r){var i,o;n.__super__.constructor.call(this,t),this.documentObject=t,s(e)&&(i=e,e=i.pubID,r=i.sysID),null==r&&(o=[e,r],r=o[0],e=o[1]),null!=e&&(this.pubID=this.stringify.dtdPubID(e)),null!=r&&(this.sysID=this.stringify.dtdSysID(r))}return c(n,t),n.prototype.element=function(t,e){var n;return n=new r(this,t,e),this.children.push(n),this},n.prototype.attList=function(t,n,r,i,o){var a;return a=new e(this,t,n,r,i,o),this.children.push(a),this},n.prototype.entity=function(t,e){var n;return n=new i(this,!1,t,e),this.children.push(n),this},n.prototype.pEntity=function(t,e){var n;return n=new i(this,!0,t,e),this.children.push(n),this},n.prototype.notation=function(t,e){var n;return n=new o(this,t,e),this.children.push(n),this},n.prototype.toString=function(t){return this.options.writer.set(t).docType(this)},n.prototype.ele=function(t,e){return this.element(t,e)},n.prototype.att=function(t,e,n,r,i){return this.attList(t,e,n,r,i)},n.prototype.ent=function(t,e){return this.entity(t,e)},n.prototype.pent=function(t,e){return this.pEntity(t,e)},n.prototype.not=function(t,e){return this.notation(t,e)},n.prototype.up=function(){return this.root()||this.documentObject},n}(a)}).call(this)},function(t,e,n){(function(){var e,r=function(t,e){function n(){this.constructor=t}for(var r in e)i.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},i={}.hasOwnProperty;e=n(5),t.exports=function(t){function e(t,n,r,i,o,a){if(e.__super__.constructor.call(this,t),null==n)throw new Error("Missing DTD element name");if(null==r)throw new Error("Missing DTD attribute name");if(!i)throw new Error("Missing DTD attribute type");if(!o)throw new Error("Missing DTD attribute default");if(0!==o.indexOf("#")&&(o="#"+o),!o.match(/^(#REQUIRED|#IMPLIED|#FIXED|#DEFAULT)$/))throw new Error("Invalid default value type; expected: #REQUIRED, #IMPLIED, #FIXED or #DEFAULT");if(a&&!o.match(/^(#FIXED|#DEFAULT)$/))throw new Error("Default value only applies to #FIXED or #DEFAULT");this.elementName=this.stringify.eleName(n),this.attributeName=this.stringify.attName(r),this.attributeType=this.stringify.dtdAttType(i),this.defaultValue=this.stringify.dtdAttDefault(a),this.defaultValueType=o}return r(e,t),e.prototype.toString=function(t){return this.options.writer.set(t).dtdAttList(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r,i=function(t,e){function n(){this.constructor=t}for(var r in e)o.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},o={}.hasOwnProperty;r=n(10).isObject,e=n(5),t.exports=function(t){function e(t,n,i,o){if(e.__super__.constructor.call(this,t),null==i)throw new Error("Missing entity name");if(null==o)throw new Error("Missing entity value");if(this.pe=!!n,this.name=this.stringify.eleName(i),r(o)){if(!o.pubID&&!o.sysID)throw new Error("Public and/or system identifiers are required for an external entity");if(o.pubID&&!o.sysID)throw new Error("System identifier is required for a public external entity");if(null!=o.pubID&&(this.pubID=this.stringify.dtdPubID(o.pubID)),null!=o.sysID&&(this.sysID=this.stringify.dtdSysID(o.sysID)),null!=o.nData&&(this.nData=this.stringify.dtdNData(o.nData)),this.pe&&this.nData)throw new Error("Notation declaration is not allowed in a parameter entity")}else this.value=this.stringify.dtdEntityValue(o)}return i(e,t),e.prototype.toString=function(t){return this.options.writer.set(t).dtdEntity(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r=function(t,e){function n(){this.constructor=t}for(var r in e)i.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},i={}.hasOwnProperty;e=n(5),t.exports=function(t){function e(t,n,r){if(e.__super__.constructor.call(this,t),null==n)throw new Error("Missing DTD element name");r||(r="(#PCDATA)"),Array.isArray(r)&&(r="("+r.join(",")+")"),this.name=this.stringify.eleName(n),this.value=this.stringify.dtdElementValue(r)}return r(e,t),e.prototype.toString=function(t){return this.options.writer.set(t).dtdElement(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r=function(t,e){function n(){this.constructor=t}for(var r in e)i.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},i={}.hasOwnProperty;e=n(5),t.exports=function(t){function e(t,n,r){if(e.__super__.constructor.call(this,t),null==n)throw new Error("Missing notation name");if(!r.pubID&&!r.sysID)throw new Error("Public or system identifiers are required for an external entity");this.name=this.stringify.eleName(n),null!=r.pubID&&(this.pubID=this.stringify.dtdPubID(r.pubID)),null!=r.sysID&&(this.sysID=this.stringify.dtdSysID(r.sysID))}return r(e,t),e.prototype.toString=function(t){return this.options.writer.set(t).dtdNotation(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r=function(t,e){function n(){this.constructor=t}for(var r in e)i.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},i={}.hasOwnProperty;e=n(5),t.exports=function(t){function e(t,n){if(e.__super__.constructor.call(this,t),null==n)throw new Error("Missing raw text");this.value=this.stringify.raw(n)}return r(e,t),e.prototype.clone=function(){return Object.create(this)},e.prototype.toString=function(t){return this.options.writer.set(t).raw(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r=function(t,e){function n(){this.constructor=t}for(var r in e)i.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},i={}.hasOwnProperty;e=n(5),t.exports=function(t){function e(t,n){if(e.__super__.constructor.call(this,t),null==n)throw new Error("Missing element text");this.value=this.stringify.eleText(n)}return r(e,t),e.prototype.clone=function(){return Object.create(this)},e.prototype.toString=function(t){return this.options.writer.set(t).text(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r=function(t,e){function n(){this.constructor=t}for(var r in e)i.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},i={}.hasOwnProperty;e=n(5),t.exports=function(t){function e(t,n,r){if(e.__super__.constructor.call(this,t),null==n)throw new Error("Missing instruction target");this.target=this.stringify.insTarget(n),r&&(this.value=this.stringify.insValue(r))}return r(e,t),e.prototype.clone=function(){return Object.create(this)},e.prototype.toString=function(t){return this.options.writer.set(t).processingInstruction(this)},e}(e)}).call(this)},function(t,e,n){"use strict";var r=n(9),i=n(31),o=n(1);e.a={selectedContent:function(t,e){o.a.info("AppAction>","Response: content/select"),Object(r.b)({type:"content/select",selected:t,title:e})},fetchConfig:function(){return i.a.getConfig().then(function(t){Object(r.b)({type:"config/fetch/appid",config:t}),o.a.info("AppAction>","Response: config/fetch/appid"),o.b.stop()})},writeConfig:function(t){return i.a.putConfig(t).then(function(t){Object(r.b)({type:"config/write/appid",config:t}),o.a.info("AppAction>","Response: config/write/appid"),o.b.stop()})}}},function(t,e,n){"use strict";var r=n(1),i=n(111),o=n.n(i),a=n(11),s=n.n(a);r.a.config("console","basic","ALL","note-renderer"),r.b.config("app");var c="eBAPIClient",u=new Object;e.a={request:function(t,e){switch(r.a.info(c+">","Request:",t),t){case"config/fetch":return new Promise(function(t){var e=window.localStorage||window.UserDataStorage&&new r.c.UserDataStorage||new r.c.CookieStorage;u=JSON.parse(e.getItem("eBay_config")),t(u)});case"config/write":return new Promise(function(t){var n=window.localStorage||window.UserDataStorage&&new r.c.UserDataStorage||new r.c.CookieStorage;u=e,n.setItem("eBay_config",JSON.stringify(e)),t(e)});case"findItemsByKeywords":case"findCompletedItems":case"findItemsByProduct":return new Promise(function(t){JSONP.request(u.findingApi,e,function(e){t(e)})});case"findItemDetails":return new Promise(function(t){o.a.postXML(u.tradingApi,e,function(e){t(e)})});default:return new Promise(function(t){r.a.warn(c+"> Unknown request !!"),t(e)})}},getConfig:function(){return this.request("config/fetch")},getItems:function(t,e){return this.request("findItemsByKeywords",this.optItems({appid:u.appid,page:e,operation:"findItemsByKeywords"},t))},getCompleteItems:function(t,e){return this.request("findCompletedItems",this.optItems({appid:u.appid,page:e,operation:"findCompletedItems"},t))},getProductsItems:function(t,e){return this.request("findItemsByProduct",this.optProducts({appid:u.appid,page:e,operation:"findItemsByProduct"},t))},getDetail:function(t){return this.request("findItemDetails",this.optDetail({token:u.token,operation:"GetItem"},t))},putConfig:function(t){return this.request("config/write",t)},putItems:function(t){return this.request("writeItemsByKeywords",t)},putCompleteItems:function(t){return this.request("writeCompletedItems",t)},putProductsItems:function(t){return this.request("writeItemsByProduct",t)},fetchItems:function(t,e){return r.a.trace(c+">","options:",t),r.a.trace(c+">","page:",e),this.getItems(t,e).then(this.resItems).then(this.setItems).catch(this.errorLog.bind(this))},fetchCompleteItems:function(t,e){return r.a.trace(c+">","options:",t),r.a.trace(c+">","page:",e),this.getCompleteItems(t,e).then(this.resCompleteItems).then(this.setItems).catch(this.errorLog.bind(this))},fetchProductsItems:function(t,e){return r.a.trace(c+">","options:",t),r.a.trace(c+">","page:",e),this.getProductsItems(t,e).then(this.resProductsItems).then(this.setItems).catch(this.errorLog.bind(this))},writeItems:function(t){var e=this;r.a.trace(c+">","options:",t);var n=(Number(t.pages),function(t){return Rx.Observable.fromPromise(e.getDetail({itemId:t.itemId}))}),i=function(n){return Rx.Observable.forkJoin(e.forItems(t,n))},o=function(t){return Rx.Observable.forkJoin(r.d.toJSON(t))};return function(n){return Rx.Observable.fromPromise(e.getItems(t,n))}(1).map(this.resItems).flatMap(i).map(R.map(this.resItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(n).flatMap(o).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(t))).map(R.map(this.renderDetail.bind(this))).map(R.map(r.d.toCSV.bind(this))).map(R.map(function(t){return t+"\n"}))},writeCompleteItems:function(t){var e=this;r.a.trace(c+">","options:",t);var n=(Number(t.pages),function(t){return Rx.Observable.fromPromise(e.getDetail({itemId:t.itemId}))}),i=function(n){return Rx.Observable.forkJoin(e.forCompleteItems(t,n))},o=function(t){return Rx.Observable.forkJoin(r.d.toJSON(t))};return function(n){return Rx.Observable.fromPromise(e.getCompleteItems(t,n))}(1).map(this.resCompleteItems).flatMap(i).map(R.map(this.resCompleteItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(n).flatMap(o).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(t))).map(R.map(this.renderDetail.bind(this))).map(R.map(r.d.toCSV.bind(this))).map(R.map(function(t){return t+"\n"}))},writeProductsItems:function(t){var e=this;r.a.trace(c+">","options:",t);var n=(Number(t.pages),function(t){return Rx.Observable.fromPromise(e.getDetail({itemId:t.itemId}))}),i=function(n){return Rx.Observable.forkJoin(e.forProductsItems(t,n))},o=function(t){return Rx.Observable.forkJoin(r.d.toJSON(t))};return function(n){return Rx.Observable.fromPromise(e.getProductsItems(t,n))}(1).map(this.resProductsItems).flatMap(i).map(R.map(this.resProductsItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(n).flatMap(o).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(t))).map(R.map(this.renderDetail.bind(this))).map(R.map(r.d.toCSV.bind(this))).map(R.map(function(t){return t+"\n"}))},forItems:function(t,e){for(var n=Number(t.pages),r=Number(e.paginationOutput[0].totalPages[0])<n?Number(e.paginationOutput[0].totalPages[0]):n,i=[],o=1;o<=r;o++)i.push(this.getItems(t,o));return i},forCompleteItems:function(t,e){for(var n=Number(t.pages),r=Number(e.paginationOutput[0].totalPages[0])<n?Number(e.paginationOutput[0].totalPages[0]):n,i=[],o=1;o<=r;o++)i.push(this.getCompleteItems(t,o));return i},forProductsItems:function(t,e){for(var n=Number(t.pages),r=Number(e.paginationOutput[0].totalPages[0])<n?Number(e.paginationOutput[0].totalPages[0]):n,i=[],o=1;o<=r;o++)i.push(this.getProductsItems(t,o));return i},resItems:function(t){return t.hasOwnProperty("findItemsByKeywordsResponse")?t.findItemsByKeywordsResponse[0]:null},resCompleteItems:function(t){return t.hasOwnProperty("findCompletedItemsResponse")?t.findCompletedItemsResponse[0]:null},resProductsItems:function(t){return t.hasOwnProperty("findItemsByProductResponse")?t.findItemsByProductResponse[0]:null},resDetail:function(t){return t.hasOwnProperty("GetItemResponse")?t.GetItemResponse:null},setItems:function(t){return t&&"Success"===t.ack[0]?t.searchResult[0].item:null},setDetail:function(t){return t&&"Success"===t.Ack?t.Item:null},optItems:function(t,e){var n=t,i=e||{},o=new Object;o["GLOBAL-ID"]="EBAY-US",o["MESSAGE-ENCODING"]="UTF-8",o["OPERATION-NAME"]=n.operation,o["REQUEST-DATA-FORMAT"]="NV",o["RESPONSE-DATA-FORMAT"]="JSON",o["REST-PAYLOAD"]="",o["SECURITY-APPNAME"]=n.appid,o["SERVICE-VERSION"]="1.13.0",o.outputSelector="SellerInfo",o["paginationInput.entriesPerPage"]=20,o["paginationInput.pageNumber"]=n.page,i.searchString?o.keywords=i.searchString:o.keywords="";var a=0;return i.seller&&i.seller.length&&(o["itemFilter("+a+").name"]="Seller",i.seller.forEach(function(t,e){return o["itemFilter("+a+").value("+e+")"]=t}),a++),i.highestPrice&&(o["itemFilter("+a+").name"]="MaxPrice",o["itemFilter("+a+").value(0)"]=i.highestPrice,a++),i.lowestPrice&&(o["itemFilter("+a+").name"]="MinPrice",o["itemFilter("+a+").value(0)"]=i.lowestPrice,a++),i.condition&&i.condition.length&&(o["itemFilter("+a+").name"]="Condition",i.condition.forEach(function(t,e){return o["itemFilter("+a+").value("+e+")"]=t}),a++),!0===i.soldItemOnly&&(o["itemFilter("+a+").name"]="SoldItemOnly",o["itemFilter("+a+").value(0)"]="true",a++),s.a.isValidDate(i.startDate)&&(o["itemFilter("+a+").name"]="EndTimeFrom",o["itemFilter("+a+").value(0)"]=s.a.setTimeStamp(i.startDate),a++),s.a.isValidDate(i.endDate)&&(o["itemFilter("+a+").name"]="EndTimeTo",o["itemFilter("+a+").value(0)"]=s.a.setTimeStamp(i.endDate),a++),r.a.trace(c+">","optItems:",o),o},optProducts:function(t,e){var n=t,i=e||{},o=new Object;o["GLOBAL-ID"]="EBAY-US",o["MESSAGE-ENCODING"]="UTF-8",o["OPERATION-NAME"]=n.operation,o["REQUEST-DATA-FORMAT"]="NV",o["RESPONSE-DATA-FORMAT"]="JSON",o["REST-PAYLOAD"]="",o["SECURITY-APPNAME"]=n.appid,o["SERVICE-VERSION"]="1.13.0",o.outputSelector="SellerInfo",o["paginationInput.entriesPerPage"]=20,o["paginationInput.pageNumber"]=n.page,i.productId&&i.productType?(o.productId=i.productId,o["productId.@type"]=i.productType):(o.productId="",o["productId.@type"]="");var a=0;return i.seller&&i.seller.length&&(o["itemFilter("+a+").name"]="Seller",i.seller.forEach(function(t,e){return o["itemFilter("+a+").value("+e+")"]=t}),a++),i.highestPrice&&(o["itemFilter("+a+").name"]="MaxPrice",o["itemFilter("+a+").value(0)"]=i.highestPrice,a++),i.lowestPrice&&(o["itemFilter("+a+").name"]="MinPrice",o["itemFilter("+a+").value(0)"]=i.lowestPrice,a++),i.condition&&i.condition.length&&(o["itemFilter("+a+").name"]="Condition",i.condition.forEach(function(t,e){return o["itemFilter("+a+").value("+e+")"]=t}),a++),r.a.trace(c+">","optProducts:",o),o},optDetail:function(t,e){var n=t,i=e||{},o=new Object,a=new Object;return o["X-EBAY-API-COMPATIBILITY-LEVEL"]="967",o["X-EBAY-API-CALL-NAME"]=t.operation,o["X-EBAY-API-SITEID"]=0,a["@xmlns"]="urn:ebay:apis:eBLBaseComponents",a.RequesterCredentials={eBayAuthToken:n.token},a.ErrorLanguage="en_US",a.WarningLevel="High",a.ItemID=i.itemId,a.DetailLevel="ReturnAll",r.a.trace(c+">","optDetail:",o,a),{head:o,body:r.d.toXML(n.operation,a)}},renderStatus:function(t){switch(t){case 0:return"Now available.";case 1:return"New added.";case 2:return"Removed."}},renderExtension:function(t){return r.d.toLeftDays(t)},renderItem:function(t,e){var n=t.hasOwnProperty("galleryURL")?t.galleryURL[0]:"",r=t.itemId[0],i=t.hasOwnProperty("productId")?t.productId.map(function(t){return t.__value__+" ( "+t["@type"]+" )"}):["---"],o=t.sellerInfo[0].sellerUserName[0],a=s.a.getLocalTimeStamp(t.listingInfo[0].startTime[0]),c=s.a.getLocalTimeStamp(t.listingInfo[0].endTime[0]),u=t.viewItemURL[0],l=t.title[0],p=t.sellingStatus[0].currentPrice[0].__value__,h=t.sellingStatus[0].currentPrice[0]["@currencyId"],f=t.sellingStatus[0].convertedCurrentPrice[0].__value__,m=t.sellingStatus[0].convertedCurrentPrice[0]["@currencyId"],d=t.hasOwnProperty("condition")?t.condition[0].conditionDisplayName[0]:"---",y=t.primaryCategory[0].categoryName[0],g=t.shippingInfo[0].shipToLocations[0],b=t.sellingStatus[0].sellingState[0],v=t.sellingStatus[0].hasOwnProperty("timeLeft")?this.renderExtension(t.sellingStatus[0].timeLeft[0]):"",E=this.renderStatus(0),w=s.a.getLocalTimeStamp(Date.now());return{Key:e,Image:n,Url:u,Title:l,"Sell Start":a,"Sell Stop":c,Condition:d,Seller:o,ItemID:r,ProductID:i.join("/"),Category:y,Shipping:g,Price:p,Currency:h,"Convert Price":f,"Convert Currency":m,Status:b,Extention:v,Avail:E,Updated:w}},renderDetail:function(t){var e=t.hasOwnProperty("PictureDetails")?'"'+t.PictureDetails.GalleryURL+'"':"",n='"'+t.ListingDetails.ViewItemURL+'"',r='"'+t.Title+'"',i=t.ItemID,o="",a="",c="";if(t.hasOwnProperty("ProductListingDetails")){var u=t.ProductListingDetails;o=u.hasOwnProperty("UPC")?u.UPC:"",a=u.hasOwnProperty("EAN")?u.EAN:"",c=u.hasOwnProperty("ISBN")?u.ISBN:""}var l=t.Seller.UserID,p=s.a.getLocalTimeStamp(t.ListingDetails.StartTime),h=s.a.getLocalTimeStamp(t.ListingDetails.EndTime),f=t.SellingStatus.CurrentPrice.sub,m=t.SellingStatus.CurrentPrice.root.currencyID,d=t.ListingDetails.ConvertedStartPrice.sub,y=t.ListingDetails.ConvertedStartPrice.root.currencyID,g=t.ConditionDisplayName,b='"'+t.PrimaryCategory.CategoryName+'"',v=Array.isArray(t.ShipToLocations)?t.ShipToLocations:[t.ShipToLocations],E=t.SellingStatus.ListingStatus,w=t.hasOwnProperty("TimeLeft")?this.renderExtension(t.TimeLeft):"";return{Image:e,Url:n,Title:r,StartTime:p,EndTime:h,Condition:g,Seller:l,ItemID:i,"ProductID(UPC)":o,"ProductID(EAN)":a,"ProductID(ISBN)":c,Category:b,Shipping:v.join("/"),CurrentPrice:f,CurrentCurrency:m,ConvertedPrice:d,ConvertedCurrency:y,Status:E,LeftTime:w}},filterItem:function(t,e){var n=e;if(null!=t){if(!t.shipping.some(function(t){return t===n.shippingInfo[0].shipToLocations[0]})&&t.shipping.length)return!1;if(!t.condition.some(function(t){return t===n.condition[0].conditionId[0]})&&t.condition.length)return!1;if(!t.status.some(function(t){return t===n.sellingStatus[0].sellingState[0]})&&t.status.length)return!1;if(!t.categoryPath.some(function(t){return t===n.primaryCategory[0].categoryName[0]})&&t.categoryPath.length)return!1;if(!t.seller.some(function(t){return t===n.sellerInfo[0].sellerUserName[0]})&&t.seller.length)return!1;if(!t.itemId.some(function(t){return t===n.itemId[0]})&&t.itemId.length)return!1;if(!isFinite(t.lowestPrice)||!isFinite(t.highestPrice))return!1;if(Number(t.lowestPrice)>n.sellingStatus[0].convertedCurrentPrice[0].__value__&&""!==t.lowestPrice)return!1;if(Number(t.highestPrice)<n.sellingStatus[0].convertedCurrentPrice[0].__value__&&""!==t.highestPrice)return!1}return!0},filterDetail:function(t,e){var n=e;if(null!=t){if(!t.shipping.some(function(t){return t===n.ShipToLocations})&&t.shipping.length)return!1;if(!t.condition.some(function(t){return t===n.ConditionID})&&t.condition.length)return!1;if(!t.status.some(function(t){return t===n.SellingStatus.ListingStatus})&&t.status.length)return!1;if(!t.categoryPath.some(function(t){return t===n.PrimaryCategory.CategoryName})&&t.categoryPath.length)return!1;if(!t.seller.some(function(t){return t===n.Seller.UserID})&&t.seller.length)return!1;if(!t.itemId.some(function(t){return t===n.ItemID})&&t.itemId.length)return!1;if(!isFinite(t.lowestPrice)||!isFinite(t.highestPrice))return!1;if(Number(t.lowestPrice)>n.SellingStatus.ConvertedCurrentPrice.sub&&""!==t.lowestPrice)return!1;if(Number(t.highestPrice)<n.SellingStatus.ConvertedCurrentPrice.sub&&""!==t.highestPrice)return!1}return!0},traceLog:function(t){return r.a.trace(c+">","Trace log:",t)},errorLog:function(t){return r.a.error(c+">","Error occurred:",t)}}},function(t,e){t.exports=require("electron")},,,,,,function(t,e){(function(){e.defaults={.1:{explicitCharkey:!1,trim:!0,normalize:!0,normalizeTags:!1,attrkey:"@",charkey:"#",explicitArray:!1,ignoreAttrs:!1,mergeAttrs:!1,explicitRoot:!1,validator:null,xmlns:!1,explicitChildren:!1,childkey:"@@",charsAsChildren:!1,includeWhiteChars:!1,async:!1,strict:!0,attrNameProcessors:null,attrValueProcessors:null,tagNameProcessors:null,valueProcessors:null,emptyTag:""},.2:{explicitCharkey:!1,trim:!1,normalize:!1,normalizeTags:!1,attrkey:"$",charkey:"_",explicitArray:!0,ignoreAttrs:!1,mergeAttrs:!1,explicitRoot:!0,validator:null,xmlns:!1,explicitChildren:!1,preserveChildrenOrder:!1,childkey:"$$",charsAsChildren:!1,includeWhiteChars:!1,async:!1,strict:!0,attrNameProcessors:null,attrValueProcessors:null,tagNameProcessors:null,valueProcessors:null,rootName:"root",xmldec:{version:"1.0",encoding:"UTF-8",standalone:!0},doctype:null,renderOpts:{pretty:!0,indent:"  ",newline:"\n"},headless:!1,chunkSize:1e4,emptyTag:"",cdata:!1}}}).call(this)},function(t,e,n){(function(){var e,r,i,o,a,s,c,u,l,p,h,f,m,d=function(t,e){function n(){this.constructor=t}for(var r in e)y.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},y={}.hasOwnProperty;c=n(21),u=n(22),e=n(19),r=n(20),l=n(18),h=n(27),f=n(28),p=n(29),i=n(23),o=n(25),a=n(24),s=n(26),m=n(59),t.exports=function(t){function n(t){n.__super__.constructor.call(this,t)}return d(n,t),n.prototype.document=function(t){var e,n,i,o,a;for(this.textispresent=!1,o="",a=t.children,n=0,i=a.length;n<i;n++)e=a[n],o+=function(){switch(!1){case!(e instanceof c):return this.declaration(e);case!(e instanceof u):return this.docType(e);case!(e instanceof r):return this.comment(e);case!(e instanceof p):return this.processingInstruction(e);default:return this.element(e,0)}}.call(this);return this.pretty&&o.slice(-this.newline.length)===this.newline&&(o=o.slice(0,-this.newline.length)),o},n.prototype.attribute=function(t){return" "+t.name+'="'+t.value+'"'},n.prototype.cdata=function(t,e){return this.space(e)+"<![CDATA["+t.text+"]]>"+this.newline},n.prototype.comment=function(t,e){return this.space(e)+"\x3c!-- "+t.text+" --\x3e"+this.newline},n.prototype.declaration=function(t,e){var n;return n=this.space(e),n+='<?xml version="'+t.version+'"',null!=t.encoding&&(n+=' encoding="'+t.encoding+'"'),null!=t.standalone&&(n+=' standalone="'+t.standalone+'"'),n+=this.spacebeforeslash+"?>",n+=this.newline},n.prototype.docType=function(t,n){var c,u,l,h,f;if(n||(n=0),h=this.space(n),h+="<!DOCTYPE "+t.root().name,t.pubID&&t.sysID?h+=' PUBLIC "'+t.pubID+'" "'+t.sysID+'"':t.sysID&&(h+=' SYSTEM "'+t.sysID+'"'),t.children.length>0){for(h+=" [",h+=this.newline,f=t.children,u=0,l=f.length;u<l;u++)c=f[u],h+=function(){switch(!1){case!(c instanceof i):return this.dtdAttList(c,n+1);case!(c instanceof o):return this.dtdElement(c,n+1);case!(c instanceof a):return this.dtdEntity(c,n+1);case!(c instanceof s):return this.dtdNotation(c,n+1);case!(c instanceof e):return this.cdata(c,n+1);case!(c instanceof r):return this.comment(c,n+1);case!(c instanceof p):return this.processingInstruction(c,n+1);default:throw new Error("Unknown DTD node type: "+c.constructor.name)}}.call(this);h+="]"}return h+=this.spacebeforeslash+">",h+=this.newline},n.prototype.element=function(t,n){var i,o,a,s,c,u,m,d,g,b,v,E,w;n||(n=0),w=!1,this.textispresent?(this.newline="",this.pretty=!1):(this.newline=this.newlinedefault,this.pretty=this.prettydefault),E=this.space(n),d="",d+=E+"<"+t.name,g=t.attributes;for(m in g)y.call(g,m)&&(i=g[m],d+=this.attribute(i));if(0===t.children.length||t.children.every(function(t){return""===t.value}))this.allowEmpty?d+="></"+t.name+">"+this.newline:d+=this.spacebeforeslash+"/>"+this.newline;else if(this.pretty&&1===t.children.length&&null!=t.children[0].value)d+=">",d+=t.children[0].value,d+="</"+t.name+">"+this.newline;else{if(this.dontprettytextnodes)for(b=t.children,a=0,c=b.length;a<c;a++)if(o=b[a],null!=o.value){this.textispresent++,w=!0;break}for(this.textispresent&&(this.newline="",this.pretty=!1,E=this.space(n)),d+=">"+this.newline,v=t.children,s=0,u=v.length;s<u;s++)o=v[s],d+=function(){switch(!1){case!(o instanceof e):return this.cdata(o,n+1);case!(o instanceof r):return this.comment(o,n+1);case!(o instanceof l):return this.element(o,n+1);case!(o instanceof h):return this.raw(o,n+1);case!(o instanceof f):return this.text(o,n+1);case!(o instanceof p):return this.processingInstruction(o,n+1);default:throw new Error("Unknown XML node type: "+o.constructor.name)}}.call(this);w&&this.textispresent--,this.textispresent||(this.newline=this.newlinedefault,this.pretty=this.prettydefault),d+=E+"</"+t.name+">"+this.newline}return d},n.prototype.processingInstruction=function(t,e){var n;return n=this.space(e)+"<?"+t.target,t.value&&(n+=" "+t.value),n+=this.spacebeforeslash+"?>"+this.newline},n.prototype.raw=function(t,e){return this.space(e)+t.value+this.newline},n.prototype.text=function(t,e){return this.space(e)+t.value+this.newline},n.prototype.dtdAttList=function(t,e){var n;return n=this.space(e)+"<!ATTLIST "+t.elementName+" "+t.attributeName+" "+t.attributeType,"#DEFAULT"!==t.defaultValueType&&(n+=" "+t.defaultValueType),t.defaultValue&&(n+=' "'+t.defaultValue+'"'),n+=this.spacebeforeslash+">"+this.newline},n.prototype.dtdElement=function(t,e){return this.space(e)+"<!ELEMENT "+t.name+" "+t.value+this.spacebeforeslash+">"+this.newline},n.prototype.dtdEntity=function(t,e){var n;return n=this.space(e)+"<!ENTITY",t.pe&&(n+=" %"),n+=" "+t.name,t.value?n+=' "'+t.value+'"':(t.pubID&&t.sysID?n+=' PUBLIC "'+t.pubID+'" "'+t.sysID+'"':t.sysID&&(n+=' SYSTEM "'+t.sysID+'"'),t.nData&&(n+=" NDATA "+t.nData)),n+=this.spacebeforeslash+">"+this.newline},n.prototype.dtdNotation=function(t,e){var n;return n=this.space(e)+"<!NOTATION "+t.name,t.pubID&&t.sysID?n+=' PUBLIC "'+t.pubID+'" "'+t.sysID+'"':t.pubID?n+=' PUBLIC "'+t.pubID+'"':t.sysID&&(n+=' SYSTEM "'+t.sysID+'"'),n+=this.spacebeforeslash+">"+this.newline},n.prototype.openNode=function(t,e){var n,r,i,o;if(e||(e=0),t instanceof l){i=this.space(e)+"<"+t.name,o=t.attributes;for(r in o)y.call(o,r)&&(n=o[r],i+=this.attribute(n));return i+=(t.children?">":"/>")+this.newline}return i=this.space(e)+"<!DOCTYPE "+t.rootNodeName,t.pubID&&t.sysID?i+=' PUBLIC "'+t.pubID+'" "'+t.sysID+'"':t.sysID&&(i+=' SYSTEM "'+t.sysID+'"'),i+=(t.children?" [":">")+this.newline},n.prototype.closeNode=function(t,e){switch(e||(e=0),!1){case!(t instanceof l):return this.space(e)+"</"+t.name+">"+this.newline;case!(t instanceof u):return this.space(e)+"]>"+this.newline}},n}(m)}).call(this)},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),u=function(t){function e(t){r(this,e);var n=i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return n.state={value:t.defaultValue},n}return o(e,t),c(e,[{key:"handleChange",value:function(t){this.props.onChange&&this.props.onChange(t),this.setState({value:t.target.value})}},{key:"render",value:function(){var t=this.props.value||this.state.value,e=s.a.Children.map(this.props.children,function(e,n){return s.a.createElement("div",{className:"radio"},s.a.createElement("label",null,s.a.createElement("input",{type:"radio",name:this.props.name,value:e.props.value,checked:e.props.value===t,onChange:this.handleChange.bind(this)}),e.props.children))}.bind(this));return s.a.createElement("span",null,e)}}]),e}(s.a.Component);e.a=u},function(t,e){t.exports=require("fs")},,,,,,,,,,,,function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t){t&&t.length||("production"!==process.env.NODE_ENV?o(!1,"Must provide at least one store to FluxStoreGroup"):o(!1));var e=t[0].getDispatcher();if("production"!==process.env.NODE_ENV)for(var n=t,r=Array.isArray(n),i=0,n=r?n:n[Symbol.iterator]();;){var a;if(r){if(i>=n.length)break;a=n[i++]}else{if(i=n.next(),i.done)break;a=i.value}var s=a;s.getDispatcher()!==e&&("production"!==process.env.NODE_ENV?o(!1,"All stores in a FluxStoreGroup must use the same dispatcher"):o(!1))}return e}var o=n(2),a=function(){function t(e,n){var o=this;r(this,t),this._dispatcher=i(e);var a=e.map(function(t){return t.getDispatchToken()});this._dispatchToken=this._dispatcher.register(function(t){o._dispatcher.waitFor(a),n()})}return t.prototype.release=function(){this._dispatcher.unregister(this._dispatchToken)},t}();t.exports=a},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var i=n(88),o=i.EventEmitter,a=n(2),s=function(){function t(e){var n=this;r(this,t),this.__className=this.constructor.name,this.__changed=!1,this.__changeEvent="change",this.__dispatcher=e,this.__emitter=new o,this._dispatchToken=e.register(function(t){n.__invokeOnDispatch(t)})}return t.prototype.addListener=function(t){return this.__emitter.addListener(this.__changeEvent,t)},t.prototype.getDispatcher=function(){return this.__dispatcher},t.prototype.getDispatchToken=function(){return this._dispatchToken},t.prototype.hasChanged=function(){return this.__dispatcher.isDispatching()||("production"!==process.env.NODE_ENV?a(!1,"%s.hasChanged(): Must be invoked while dispatching.",this.__className):a(!1)),this.__changed},t.prototype.__emitChange=function(){this.__dispatcher.isDispatching()||("production"!==process.env.NODE_ENV?a(!1,"%s.__emitChange(): Must be invoked while dispatching.",this.__className):a(!1)),this.__changed=!0},t.prototype.__invokeOnDispatch=function(t){this.__changed=!1,this.__onDispatch(t),this.__changed&&this.__emitter.emit(this.__changeEvent)},t.prototype.__onDispatch=function(t){"production"!==process.env.NODE_ENV?a(!1,"%s has not overridden FluxStore.__onDispatch(), which is required",this.__className):a(!1)},t}();t.exports=s},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+(void 0===e?"undefined":o(e)));t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},a=n(90),s=function(t){function e(n,i,o){r(this,e),t.call(this,n),this.listener=i,this.context=o}return i(e,t),e}(a);t.exports=s},function(t,e,n){(function(){var e,r,i,o,a,s,c;c=n(10),a=c.assign,s=c.isFunction,e=n(98),r=n(99),o=n(39),i=n(100),t.exports.create=function(t,n,r,i){var o,s;if(null==t)throw new Error("Root element needs a name");return i=a({},n,r,i),o=new e(i),s=o.element(t),i.headless||(o.declaration(i),null==i.pubID&&null==i.sysID||o.doctype(i)),s},t.exports.begin=function(t,n,i){var o;return s(t)&&(o=[t,n],n=o[0],i=o[1],t={}),n?new r(t,n,i):new e(t)},t.exports.stringWriter=function(t){return new o(t)},t.exports.streamWriter=function(t,e){return new i(t,e)}}).call(this)},function(t,e){(function(){t.exports=function(){function t(t,e,n){if(this.options=t.options,this.stringify=t.stringify,null==e)throw new Error("Missing attribute name of element "+t.name);if(null==n)throw new Error("Missing attribute value for attribute "+e+" of element "+t.name);this.name=this.stringify.attName(e),this.value=this.stringify.attValue(n)}return t.prototype.clone=function(){return Object.create(this)},t.prototype.toString=function(t){return this.options.writer.set(t).attribute(this)},t}()}).call(this)},function(t,e){(function(){var e=function(t,e){return function(){return t.apply(e,arguments)}},n={}.hasOwnProperty;t.exports=function(){function t(t){this.assertLegalChar=e(this.assertLegalChar,this);var r,i,o;t||(t={}),this.noDoubleEncoding=t.noDoubleEncoding,i=t.stringify||{};for(r in i)n.call(i,r)&&(o=i[r],this[r]=o)}return t.prototype.eleName=function(t){return t=""+t||"",this.assertLegalChar(t)},t.prototype.eleText=function(t){return t=""+t||"",this.assertLegalChar(this.elEscape(t))},t.prototype.cdata=function(t){return t=""+t||"",t=t.replace("]]>","]]]]><![CDATA[>"),this.assertLegalChar(t)},t.prototype.comment=function(t){if(t=""+t||"",t.match(/--/))throw new Error("Comment text cannot contain double-hypen: "+t);return this.assertLegalChar(t)},t.prototype.raw=function(t){return""+t||""},t.prototype.attName=function(t){return t=""+t||""},t.prototype.attValue=function(t){return t=""+t||"",this.attEscape(t)},t.prototype.insTarget=function(t){return""+t||""},t.prototype.insValue=function(t){if(t=""+t||"",t.match(/\?>/))throw new Error("Invalid processing instruction value: "+t);return t},t.prototype.xmlVersion=function(t){if(t=""+t||"",!t.match(/1\.[0-9]+/))throw new Error("Invalid version number: "+t);return t},t.prototype.xmlEncoding=function(t){if(t=""+t||"",!t.match(/^[A-Za-z](?:[A-Za-z0-9._-]|-)*$/))throw new Error("Invalid encoding: "+t);return t},t.prototype.xmlStandalone=function(t){return t?"yes":"no"},t.prototype.dtdPubID=function(t){return""+t||""},t.prototype.dtdSysID=function(t){return""+t||""},t.prototype.dtdElementValue=function(t){return""+t||""},t.prototype.dtdAttType=function(t){return""+t||""},t.prototype.dtdAttDefault=function(t){return null!=t?""+t||"":t},t.prototype.dtdEntityValue=function(t){return""+t||""},t.prototype.dtdNData=function(t){return""+t||""},t.prototype.convertAttKey="@",t.prototype.convertPIKey="?",t.prototype.convertTextKey="#text",t.prototype.convertCDataKey="#cdata",t.prototype.convertCommentKey="#comment",t.prototype.convertRawKey="#raw",t.prototype.assertLegalChar=function(t){var e;if(e=t.match(/[\0\uFFFE\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/))throw new Error("Invalid character in string: "+t+" at index "+e.index);return t},t.prototype.elEscape=function(t){var e;return e=this.noDoubleEncoding?/(?!&\S+;)&/g:/&/g,t.replace(e,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\r/g,"&#xD;")},t.prototype.attEscape=function(t){var e;return e=this.noDoubleEncoding?/(?!&\S+;)&/g:/&/g,t.replace(e,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;").replace(/\t/g,"&#x9;").replace(/\n/g,"&#xA;").replace(/\r/g,"&#xD;")},t}()}).call(this)},function(t,e){(function(){var e={}.hasOwnProperty;t.exports=function(){function t(t){var n,r,i,o,a,s,c,u,l;t||(t={}),this.pretty=t.pretty||!1,this.allowEmpty=null!=(r=t.allowEmpty)&&r,this.pretty?(this.indent=null!=(i=t.indent)?i:"  ",this.newline=null!=(o=t.newline)?o:"\n",this.offset=null!=(a=t.offset)?a:0,this.dontprettytextnodes=null!=(s=t.dontprettytextnodes)?s:0):(this.indent="",this.newline="",this.offset=0,this.dontprettytextnodes=0),this.spacebeforeslash=null!=(c=t.spacebeforeslash)?c:"",!0===this.spacebeforeslash&&(this.spacebeforeslash=" "),this.newlinedefault=this.newline,this.prettydefault=this.pretty,u=t.writer||{};for(n in u)e.call(u,n)&&(l=u[n],this[n]=l)}return t.prototype.set=function(t){var n,r,i;t||(t={}),"pretty"in t&&(this.pretty=t.pretty),"allowEmpty"in t&&(this.allowEmpty=t.allowEmpty),this.pretty?(this.indent="indent"in t?t.indent:"  ",this.newline="newline"in t?t.newline:"\n",this.offset="offset"in t?t.offset:0,this.dontprettytextnodes="dontprettytextnodes"in t?t.dontprettytextnodes:0):(this.indent="",this.newline="",this.offset=0,this.dontprettytextnodes=0),this.spacebeforeslash="spacebeforeslash"in t?t.spacebeforeslash:"",!0===this.spacebeforeslash&&(this.spacebeforeslash=" "),this.newlinedefault=this.newline,this.prettydefault=this.pretty,r=t.writer||{};for(n in r)e.call(r,n)&&(i=r[n],this[n]=i);return this},t.prototype.space=function(t){var e;return this.pretty?(e=(t||0)+this.offset+1,e>0?new Array(e).join(this.indent):""):""},t}()}).call(this)},function(t,e){(function(){"use strict";var t;t=new RegExp(/(?!xmlns)^.*:/),e.normalize=function(t){return t.toLowerCase()},e.firstCharLowerCase=function(t){return t.charAt(0).toLowerCase()+t.slice(1)},e.stripPrefix=function(e){return e.replace(t,"")},e.parseNumbers=function(t){return isNaN(t)||(t=t%1==0?parseInt(t,10):parseFloat(t)),t},e.parseBooleans=function(t){return/^(?:true|false)$/i.test(t)&&(t="true"===t.toLowerCase()),t}}).call(this)},,,,,,,,function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var r=n(0),i=n.n(r),o=n(48),a=n.n(o),s=n(83);a.a.render(i.a.createElement(s.a,null),document.getElementById("app"))},,,,,,,,,,,,,,,function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(8),u=(n.n(c),n(17)),l=n.n(u),p=n(93),h=n(30),f=n(112),m=n(115),d=n(121),y=n(127),g=n(133),b=n(134),v=n(135),E=n(136),w=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),_=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),w(e,[{key:"componentWillMount",value:function(){h.a.fetchConfig()}},{key:"render",value:function(){return s.a.createElement("div",{className:"window"},s.a.createElement(v.a,{title:this.state.title}),s.a.createElement(g.a,{selected:this.state.selected},s.a.createElement("span",{label:"Search of items"}),s.a.createElement("span",{label:"Search of Completed items"}),s.a.createElement("span",{label:"Search of Product IDs"}),s.a.createElement("span",{label:"Preference"})),s.a.createElement(b.a,{selected:this.state.selected},s.a.createElement(m.a,null),s.a.createElement(d.a,null),s.a.createElement(y.a,null),s.a.createElement(f.a,{config:this.state.config})),s.a.createElement(E.a,null))}}],[{key:"getStores",value:function(){return[p.a]}},{key:"calculateState",value:function(){return p.a.getState()}}]),e}(s.a.Component);e.a=c.Container.create(l.a.convert(_))},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+(void 0===e?"undefined":u(e)));t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}function o(t,e){s(t);var n=l({},y,e||{}),o=function(e,r,i){var o=n.withProps?r:void 0,a=n.withContext?i:void 0;return t.calculateState(e,o,a)},c=function(e,r){var i=n.withProps?e:void 0,o=n.withContext?r:void 0;return t.getStores(i,o)},u=function(t){function e(n,i){var a=this;r(this,e),t.call(this,n,i),this._fluxContainerSubscriptions=new p,this._fluxContainerSubscriptions.setStores(c(n)),this._fluxContainerSubscriptions.addListener(function(){a.setState(function(t,e){return o(t,e,i)})});var s=o(void 0,n,i);this.state=l({},this.state||{},s)}return i(e,t),e.prototype.componentWillReceiveProps=function(e,r){t.prototype.componentWillReceiveProps&&t.prototype.componentWillReceiveProps.call(this,e,r),(n.withProps||n.withContext)&&(this._fluxContainerSubscriptions.setStores(c(e,r)),this.setState(function(t){return o(t,e,r)}))},e.prototype.componentWillUnmount=function(){t.prototype.componentWillUnmount&&t.prototype.componentWillUnmount.call(this),this._fluxContainerSubscriptions.reset()},e}(t),h=n.pure?a(u):u,f=t.displayName||t.name;return h.displayName="FluxContainer("+f+")",h}function a(t){return function(t){function e(){r(this,e),t.apply(this,arguments)}return i(e,t),e.prototype.shouldComponentUpdate=function(t,e){return!m(this.props,t)||!m(this.state,e)},e}(t)}function s(t){t.getStores||("production"!==process.env.NODE_ENV?f(!1,"Components that use FluxContainer must implement `static getStores()`"):f(!1)),t.calculateState||("production"!==process.env.NODE_ENV?f(!1,"Components that use FluxContainer must implement `static calculateState()`"):f(!1))}function c(t,e,n,a){var s=function(o){function a(){r(this,a),o.apply(this,arguments)}return i(a,o),a.getStores=function(t,n){return e(t,n)},a.calculateState=function(t,e,r){return n(t,e,r)},a.prototype.render=function(){return t(this.state)},a}(d),c=t.displayName||t.name||"FunctionalContainer";return s.displayName=c,o(s,a)}var u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},l=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(t[r]=n[r])}return t},p=n(85),h=n(0),f=n(2),m=n(37),d=h.Component,y={pure:!0,withProps:!1,withContext:!1};t.exports={create:o,createFunctional:c}},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(t===e)return!0;if(t.length!==e.length)return!1;for(var n=0;n<t.length;n++)if(t[n]!==e[n])return!1;return!0}var o=n(53),a=function(){function t(){r(this,t),this._callbacks=[]}return t.prototype.setStores=function(t){var e=this;if(!this._stores||!i(this._stores,t)){this._stores=t,this._resetTokens(),this._resetStoreGroup();var n=!1,r=[];"production"!==process.env.NODE_ENV?this._tokens=t.map(function(t){return t.addListener(function(){n=!0,r.push(t)})}):function(){var r=function(){n=!0};e._tokens=t.map(function(t){return t.addListener(r)})}();var a=function(){n&&(e._callbacks.forEach(function(t){return t()}),n=!1,"production"!==process.env.NODE_ENV&&(r=[]))};this._storeGroup=new o(t,a)}},t.prototype.addListener=function(t){this._callbacks.push(t)},t.prototype.reset=function(){this._resetTokens(),this._resetStoreGroup(),this._resetCallbacks(),this._resetStores()},t.prototype._resetTokens=function(){this._tokens&&(this._tokens.forEach(function(t){return t.remove()}),this._tokens=null)},t.prototype._resetStoreGroup=function(){this._storeGroup&&(this._storeGroup.release(),this._storeGroup=null)},t.prototype._resetStores=function(){this._stores=null},t.prototype._resetCallbacks=function(){this._callbacks=[]},t}();t.exports=a},function(t,e,n){"use strict";function r(t){var e=arguments.length<=1||void 0===arguments[1]?{withProps:!1}:arguments[1];return t=t.filter(function(t){return!!t}),{getInitialState:function(){return i(this),e.withProps?this.constructor.calculateState(null,this.props):this.constructor.calculateState(null,void 0)},componentWillMount:function(){var n=this,r=!1,i=function(){r=!0};this._fluxMixinSubscriptions=t.map(function(t){return t.addListener(i)});var a=function(){r&&n.setState(function(t){return e.withProps?n.constructor.calculateState(t,n.props):n.constructor.calculateState(t,void 0)}),r=!1};this._fluxMixinStoreGroup=new o(t,a)},componentWillUnmount:function(){this._fluxMixinStoreGroup.release();for(var t=this._fluxMixinSubscriptions,e=Array.isArray(t),n=0,t=e?t:t[Symbol.iterator]();;){var r;if(e){if(n>=t.length)break;r=t[n++]}else{if(n=t.next(),n.done)break;r=n.value}r.remove()}this._fluxMixinSubscriptions=[]}}}function i(t){t.constructor.calculateState||("production"!==process.env.NODE_ENV?a(!1,"Components that use FluxMixinLegacy must implement `calculateState()` on the statics object"):a(!1))}var o=n(53),a=n(2);t.exports=r},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+(void 0===e?"undefined":o(e)));t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},a=n(54),s=n(92),c=n(2),u=function(t){function e(n){r(this,e),t.call(this,n),this._state=this.getInitialState()}return i(e,t),e.prototype.getState=function(){return this._state},e.prototype.getInitialState=function(){return s("FluxReduceStore","getInitialState")},e.prototype.reduce=function(t,e){return s("FluxReduceStore","reduce")},e.prototype.areEqual=function(t,e){return t===e},e.prototype.__invokeOnDispatch=function(t){this.__changed=!1;var e=this._state,n=this.reduce(e,t);void 0===n&&("production"!==process.env.NODE_ENV?c(!1,"%s returned undefined from reduce(...), did you forget to return state in the default case? (use null if this was intentional)",this.constructor.name):c(!1)),this.areEqual(e,n)||(this._state=n,this.__emitChange()),this.__changed&&this.__emitter.emit(this.__changeEvent)},e}(a);t.exports=u},function(t,e,n){var r={EventEmitter:n(89),EmitterSubscription:n(55)};t.exports=r},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var i=n(55),o=n(91),a=n(7),s=n(2),c=function(){function t(){r(this,t),this._subscriber=new o,this._currentSubscription=null}return t.prototype.addListener=function(t,e,n){return this._subscriber.addSubscription(t,new i(this._subscriber,e,n))},t.prototype.once=function(t,e,n){var r=this;return this.addListener(t,function(){r.removeCurrentListener(),e.apply(n,arguments)})},t.prototype.removeAllListeners=function(t){this._subscriber.removeAllSubscriptions(t)},t.prototype.removeCurrentListener=function(){this._currentSubscription||("production"!==process.env.NODE_ENV?s(!1,"Not in an emitting cycle; there is no current subscription"):s(!1)),this._subscriber.removeSubscription(this._currentSubscription)},t.prototype.listeners=function(t){var e=this._subscriber.getSubscriptionsForType(t);return e?e.filter(a.thatReturnsTrue).map(function(t){return t.listener}):[]},t.prototype.emit=function(t){var e=this._subscriber.getSubscriptionsForType(t);if(e){for(var n=Object.keys(e),r=0;r<n.length;r++){var i=n[r],o=e[i];o&&(this._currentSubscription=o,this.__emitToSubscription.apply(this,[o].concat(Array.prototype.slice.call(arguments))))}this._currentSubscription=null}},t.prototype.__emitToSubscription=function(t,e){var n=Array.prototype.slice.call(arguments,2);t.listener.apply(t.context,n)},t}();t.exports=c},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var i=function(){function t(e){r(this,t),this.subscriber=e}return t.prototype.remove=function(){this.subscriber&&(this.subscriber.removeSubscription(this),this.subscriber=null)},t}();t.exports=i},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var i=n(2),o=function(){function t(){r(this,t),this._subscriptionsForType={},this._currentSubscription=null}return t.prototype.addSubscription=function(t,e){e.subscriber!==this&&("production"!==process.env.NODE_ENV?i(!1,"The subscriber of the subscription is incorrectly set."):i(!1)),this._subscriptionsForType[t]||(this._subscriptionsForType[t]=[]);var n=this._subscriptionsForType[t].length;return this._subscriptionsForType[t].push(e),e.eventType=t,e.key=n,e},t.prototype.removeAllSubscriptions=function(t){void 0===t?this._subscriptionsForType={}:delete this._subscriptionsForType[t]},t.prototype.removeSubscription=function(t){var e=t.eventType,n=t.key,r=this._subscriptionsForType[e];r&&delete r[n]},t.prototype.getSubscriptionsForType=function(t){return this._subscriptionsForType[t]},t}();t.exports=o},function(t,e,n){"use strict";function r(t,e){"production"!==process.env.NODE_ENV?i(!1,"Subclasses of %s must override %s() with their own implementation.",t,e):i(!1)}var i=n(2);t.exports=r},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(8),s=(n.n(a),n(9)),c=n(1),u=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),l=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),u(e,[{key:"getInitialState",value:function(){return{selected:0,title:"",config:{selected:"",title:"",appid:"",token:"",findingApi:"",tradingApi:""}}}},{key:"reduce",value:function(t,e){switch(c.a.info("appStore> Request: "+e.type),e.type){case"content/select":return Object.assign({},t,{selected:e.selected,title:e.title});case"config/fetch/appid":case"config/write/appid":return Object.assign({},t,{config:e.config});default:return t}}}]),e}(a.ReduceStore);e.a=new l(s.a)},function(t,e,n){t.exports.Dispatcher=n(95)},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}e.__esModule=!0;var i=n(2),o=function(){function t(){r(this,t),this._callbacks={},this._isDispatching=!1,this._isHandled={},this._isPending={},this._lastID=1}return t.prototype.register=function(t){var e="ID_"+this._lastID++;return this._callbacks[e]=t,e},t.prototype.unregister=function(t){this._callbacks[t]||("production"!==process.env.NODE_ENV?i(!1,"Dispatcher.unregister(...): `%s` does not map to a registered callback.",t):i(!1)),delete this._callbacks[t]},t.prototype.waitFor=function(t){this._isDispatching||("production"!==process.env.NODE_ENV?i(!1,"Dispatcher.waitFor(...): Must be invoked while dispatching."):i(!1));for(var e=0;e<t.length;e++){var n=t[e];this._isPending[n]?this._isHandled[n]||("production"!==process.env.NODE_ENV?i(!1,"Dispatcher.waitFor(...): Circular dependency detected while waiting for `%s`.",n):i(!1)):(this._callbacks[n]||("production"!==process.env.NODE_ENV?i(!1,"Dispatcher.waitFor(...): `%s` does not map to a registered callback.",n):i(!1)),this._invokeCallback(n))}},t.prototype.dispatch=function(t){this._isDispatching&&("production"!==process.env.NODE_ENV?i(!1,"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch."):i(!1)),this._startDispatching(t);try{for(var e in this._callbacks)this._isPending[e]||this._invokeCallback(e)}finally{this._stopDispatching()}},t.prototype.isDispatching=function(){return this._isDispatching},t.prototype._invokeCallback=function(t){this._isPending[t]=!0,this._callbacks[t](this._pendingPayload),this._isHandled[t]=!0},t.prototype._startDispatching=function(t){for(var e in this._callbacks)this._isPending[e]=!1,this._isHandled[e]=!1;this._pendingPayload=t,this._isDispatching=!0},t.prototype._stopDispatching=function(){delete this._pendingPayload,this._isDispatching=!1},t}();t.exports=o},function(t,e,n){(function(){"use strict";var t,r,i,o,a=function(t,e){function n(){this.constructor=t}for(var r in e)s.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},s={}.hasOwnProperty;r=n(38),t=n(97),i=n(101),o=n(60),e.defaults=r.defaults,e.processors=o,e.ValidationError=function(t){function e(t){this.message=t}return a(e,t),e}(Error),e.Builder=t.Builder,e.Parser=i.Parser,e.parseString=i.parseString}).call(this)},function(t,e,n){var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};(function(){"use strict";var t,i,o,a,s,c={}.hasOwnProperty;t=n(56),i=n(38).defaults,a=function(t){return"string"==typeof t&&(t.indexOf("&")>=0||t.indexOf(">")>=0||t.indexOf("<")>=0)},s=function(t){return"<![CDATA["+o(t)+"]]>"},o=function(t){return t.replace("]]>","]]]]><![CDATA[>")},e.Builder=function(){function e(t){var e,n,r;this.options={},n=i[.2];for(e in n)c.call(n,e)&&(r=n[e],this.options[e]=r);for(e in t)c.call(t,e)&&(r=t[e],this.options[e]=r)}return e.prototype.buildObject=function(e){var n,o,u,l,p;return n=this.options.attrkey,o=this.options.charkey,1===Object.keys(e).length&&this.options.rootName===i[.2].rootName?(p=Object.keys(e)[0],e=e[p]):p=this.options.rootName,u=function(t){return function(e,i){var l,p,h,f,m,d;if("object"!==(void 0===i?"undefined":r(i)))t.options.cdata&&a(i)?e.raw(s(i)):e.txt(i);else if(Array.isArray(i)){for(f in i)if(c.call(i,f)){p=i[f];for(m in p)h=p[m],e=u(e.ele(m),h).up()}}else for(m in i)if(c.call(i,m))if(p=i[m],m===n){if("object"===(void 0===p?"undefined":r(p)))for(l in p)d=p[l],e=e.att(l,d)}else if(m===o)e=t.options.cdata&&a(p)?e.raw(s(p)):e.txt(p);else if(Array.isArray(p))for(f in p)c.call(p,f)&&(h=p[f],e="string"==typeof h?t.options.cdata&&a(h)?e.ele(m).raw(s(h)).up():e.ele(m,h).up():u(e.ele(m),h).up());else"object"===(void 0===p?"undefined":r(p))?e=u(e.ele(m),p).up():"string"==typeof p&&t.options.cdata&&a(p)?e=e.ele(m).raw(s(p)).up():(null==p&&(p=""),e=e.ele(m,p.toString()).up());return e}}(this),l=t.create(p,this.options.xmldec,this.options.doctype,{headless:this.options.headless,allowSurrogateChars:this.options.allowSurrogateChars}),u(l,e).end(this.options.renderOpts)},e}()}).call(this)},function(t,e,n){(function(){var e,r,i,o,a=function(t,e){function n(){this.constructor=t}for(var r in e)s.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},s={}.hasOwnProperty;o=n(10).isPlainObject,e=n(5),i=n(58),r=n(39),t.exports=function(t){function e(t){e.__super__.constructor.call(this,null),t||(t={}),t.writer||(t.writer=new r),this.options=t,this.stringify=new i(t),this.isDocument=!0}return a(e,t),e.prototype.end=function(t){var e;return t?o(t)&&(e=t,t=this.options.writer.set(e)):t=this.options.writer,t.document(this)},e.prototype.toString=function(t){return this.options.writer.set(t).document(this)},e}(e)}).call(this)},function(t,e,n){(function(){var e,r,i,o,a,s,c,u,l,p,h,f,m,d,y,g,b,v,E,w={}.hasOwnProperty;E=n(10),b=E.isObject,g=E.isFunction,v=E.isPlainObject,p=n(18),r=n(19),i=n(20),f=n(27),y=n(28),h=n(29),u=n(21),l=n(22),o=n(23),s=n(24),a=n(25),c=n(26),e=n(57),d=n(58),m=n(39),t.exports=function(){function t(t,e,n){var r;t||(t={}),t.writer?v(t.writer)&&(r=t.writer,t.writer=new m(r)):t.writer=new m(t),this.options=t,this.writer=t.writer,this.stringify=new d(t),this.onDataCallback=e||function(){},this.onEndCallback=n||function(){},this.currentNode=null,this.currentLevel=-1,this.openTags={},this.documentStarted=!1,this.documentCompleted=!1,this.root=null}return t.prototype.node=function(t,e,n){var r;if(null==t)throw new Error("Missing node name");if(this.root&&-1===this.currentLevel)throw new Error("Document can only have one root node");return this.openCurrent(),t=t.valueOf(),null==e&&(e={}),e=e.valueOf(),b(e)||(r=[e,n],n=r[0],e=r[1]),this.currentNode=new p(this,t,e),this.currentNode.children=!1,this.currentLevel++,this.openTags[this.currentLevel]=this.currentNode,null!=n&&this.text(n),this},t.prototype.element=function(t,e,n){return this.currentNode&&this.currentNode instanceof l?this.dtdElement.apply(this,arguments):this.node(t,e,n)},t.prototype.attribute=function(t,n){var r,i;if(!this.currentNode||this.currentNode.children)throw new Error("att() can only be used immediately after an ele() call in callback mode");if(null!=t&&(t=t.valueOf()),b(t))for(r in t)w.call(t,r)&&(i=t[r],this.attribute(r,i));else g(n)&&(n=n.apply()),this.options.skipNullAttributes&&null==n||(this.currentNode.attributes[t]=new e(this,t,n));return this},t.prototype.text=function(t){var e;return this.openCurrent(),e=new y(this,t),this.onData(this.writer.text(e,this.currentLevel+1)),this},t.prototype.cdata=function(t){var e;return this.openCurrent(),e=new r(this,t),this.onData(this.writer.cdata(e,this.currentLevel+1)),this},t.prototype.comment=function(t){var e;return this.openCurrent(),e=new i(this,t),this.onData(this.writer.comment(e,this.currentLevel+1)),this},t.prototype.raw=function(t){var e;return this.openCurrent(),e=new f(this,t),this.onData(this.writer.raw(e,this.currentLevel+1)),this},t.prototype.instruction=function(t,e){var n,r,i,o,a;if(this.openCurrent(),null!=t&&(t=t.valueOf()),null!=e&&(e=e.valueOf()),Array.isArray(t))for(n=0,o=t.length;n<o;n++)r=t[n],this.instruction(r);else if(b(t))for(r in t)w.call(t,r)&&(i=t[r],this.instruction(r,i));else g(e)&&(e=e.apply()),a=new h(this,t,e),this.onData(this.writer.processingInstruction(a,this.currentLevel+1));return this},t.prototype.declaration=function(t,e,n){var r;if(this.openCurrent(),this.documentStarted)throw new Error("declaration() must be the first node");return r=new u(this,t,e,n),this.onData(this.writer.declaration(r,this.currentLevel+1)),this},t.prototype.doctype=function(t,e,n){if(this.openCurrent(),null==t)throw new Error("Missing root node name");if(this.root)throw new Error("dtd() must come before the root node");return this.currentNode=new l(this,e,n),this.currentNode.rootNodeName=t,this.currentNode.children=!1,this.currentLevel++,this.openTags[this.currentLevel]=this.currentNode,this},t.prototype.dtdElement=function(t,e){var n;return this.openCurrent(),n=new a(this,t,e),this.onData(this.writer.dtdElement(n,this.currentLevel+1)),this},t.prototype.attList=function(t,e,n,r,i){var a;return this.openCurrent(),a=new o(this,t,e,n,r,i),this.onData(this.writer.dtdAttList(a,this.currentLevel+1)),this},t.prototype.entity=function(t,e){var n;return this.openCurrent(),n=new s(this,!1,t,e),this.onData(this.writer.dtdEntity(n,this.currentLevel+1)),this},t.prototype.pEntity=function(t,e){var n;return this.openCurrent(),n=new s(this,!0,t,e),this.onData(this.writer.dtdEntity(n,this.currentLevel+1)),this},t.prototype.notation=function(t,e){var n;return this.openCurrent(),n=new c(this,t,e),this.onData(this.writer.dtdNotation(n,this.currentLevel+1)),this},t.prototype.up=function(){if(this.currentLevel<0)throw new Error("The document node has no parent");return this.currentNode?(this.currentNode.children?this.closeNode(this.currentNode):this.openNode(this.currentNode),this.currentNode=null):this.closeNode(this.openTags[this.currentLevel]),delete this.openTags[this.currentLevel],this.currentLevel--,this},t.prototype.end=function(){for(;this.currentLevel>=0;)this.up();return this.onEnd()},t.prototype.openCurrent=function(){if(this.currentNode)return this.currentNode.children=!0,this.openNode(this.currentNode)},t.prototype.openNode=function(t){if(!t.isOpen)return!this.root&&0===this.currentLevel&&t instanceof p&&(this.root=t),this.onData(this.writer.openNode(t,this.currentLevel)),t.isOpen=!0},t.prototype.closeNode=function(t){if(!t.isClosed)return this.onData(this.writer.closeNode(t,this.currentLevel)),t.isClosed=!0},t.prototype.onData=function(t){return this.documentStarted=!0,this.onDataCallback(t)},t.prototype.onEnd=function(){return this.documentCompleted=!0,this.onEndCallback()},t.prototype.ele=function(){return this.element.apply(this,arguments)},t.prototype.nod=function(t,e,n){return this.node(t,e,n)},t.prototype.txt=function(t){return this.text(t)},t.prototype.dat=function(t){return this.cdata(t)},t.prototype.com=function(t){return this.comment(t)},t.prototype.ins=function(t,e){return this.instruction(t,e)},t.prototype.dec=function(t,e,n){return this.declaration(t,e,n)},t.prototype.dtd=function(t,e,n){return this.doctype(t,e,n)},t.prototype.e=function(t,e,n){return this.element(t,e,n)},t.prototype.n=function(t,e,n){return this.node(t,e,n)},t.prototype.t=function(t){return this.text(t)},t.prototype.d=function(t){return this.cdata(t)},t.prototype.c=function(t){return this.comment(t)},t.prototype.r=function(t){return this.raw(t)},t.prototype.i=function(t,e){return this.instruction(t,e)},t.prototype.att=function(){return this.currentNode&&this.currentNode instanceof l?this.attList.apply(this,arguments):this.attribute.apply(this,arguments)},t.prototype.a=function(){return this.currentNode&&this.currentNode instanceof l?this.attList.apply(this,arguments):this.attribute.apply(this,arguments)},t.prototype.ent=function(t,e){return this.entity(t,e)},t.prototype.pent=function(t,e){return this.pEntity(t,e)},t.prototype.not=function(t,e){return this.notation(t,e)},t}()}).call(this)},function(t,e,n){(function(){var e,r,i,o,a,s,c,u,l,p,h,f,m,d=function(t,e){function n(){this.constructor=t}for(var r in e)y.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},y={}.hasOwnProperty;c=n(21),u=n(22),e=n(19),r=n(20),l=n(18),h=n(27),f=n(28),p=n(29),i=n(23),o=n(25),a=n(24),s=n(26),m=n(59),t.exports=function(t){function n(t,e){this.stream=t,n.__super__.constructor.call(this,e)}return d(n,t),n.prototype.document=function(t){var e,n,i,o,a,s,l,h;for(s=t.children,n=0,o=s.length;n<o;n++)e=s[n],e.isLastRootNode=!1;for(t.children[t.children.length-1].isLastRootNode=!0,l=t.children,h=[],i=0,a=l.length;i<a;i++)switch(e=l[i],!1){case!(e instanceof c):h.push(this.declaration(e));break;case!(e instanceof u):h.push(this.docType(e));break;case!(e instanceof r):h.push(this.comment(e));break;case!(e instanceof p):h.push(this.processingInstruction(e));break;default:h.push(this.element(e))}return h},n.prototype.attribute=function(t){return this.stream.write(" "+t.name+'="'+t.value+'"')},n.prototype.cdata=function(t,e){return this.stream.write(this.space(e)+"<![CDATA["+t.text+"]]>"+this.endline(t))},n.prototype.comment=function(t,e){return this.stream.write(this.space(e)+"\x3c!-- "+t.text+" --\x3e"+this.endline(t))},n.prototype.declaration=function(t,e){return this.stream.write(this.space(e)),this.stream.write('<?xml version="'+t.version+'"'),null!=t.encoding&&this.stream.write(' encoding="'+t.encoding+'"'),null!=t.standalone&&this.stream.write(' standalone="'+t.standalone+'"'),this.stream.write(this.spacebeforeslash+"?>"),this.stream.write(this.endline(t))},n.prototype.docType=function(t,n){var c,u,l,h;if(n||(n=0),this.stream.write(this.space(n)),this.stream.write("<!DOCTYPE "+t.root().name),t.pubID&&t.sysID?this.stream.write(' PUBLIC "'+t.pubID+'" "'+t.sysID+'"'):t.sysID&&this.stream.write(' SYSTEM "'+t.sysID+'"'),t.children.length>0){for(this.stream.write(" ["),this.stream.write(this.endline(t)),h=t.children,u=0,l=h.length;u<l;u++)switch(c=h[u],!1){case!(c instanceof i):this.dtdAttList(c,n+1);break;case!(c instanceof o):this.dtdElement(c,n+1);break;case!(c instanceof a):this.dtdEntity(c,n+1);break;case!(c instanceof s):this.dtdNotation(c,n+1);break;case!(c instanceof e):this.cdata(c,n+1);break;case!(c instanceof r):this.comment(c,n+1);break;case!(c instanceof p):this.processingInstruction(c,n+1);break;default:throw new Error("Unknown DTD node type: "+c.constructor.name)}this.stream.write("]")}return this.stream.write(this.spacebeforeslash+">"),this.stream.write(this.endline(t))},n.prototype.element=function(t,n){var i,o,a,s,c,u,m,d;n||(n=0),d=this.space(n),this.stream.write(d+"<"+t.name),u=t.attributes;for(c in u)y.call(u,c)&&(i=u[c],this.attribute(i));if(0===t.children.length||t.children.every(function(t){return""===t.value}))this.allowEmpty?this.stream.write("></"+t.name+">"):this.stream.write(this.spacebeforeslash+"/>");else if(this.pretty&&1===t.children.length&&null!=t.children[0].value)this.stream.write(">"),this.stream.write(t.children[0].value),this.stream.write("</"+t.name+">");else{for(this.stream.write(">"+this.newline),m=t.children,a=0,s=m.length;a<s;a++)switch(o=m[a],!1){case!(o instanceof e):this.cdata(o,n+1);break;case!(o instanceof r):this.comment(o,n+1);break;case!(o instanceof l):this.element(o,n+1);break;case!(o instanceof h):this.raw(o,n+1);break;case!(o instanceof f):this.text(o,n+1);break;case!(o instanceof p):this.processingInstruction(o,n+1);break;default:throw new Error("Unknown XML node type: "+o.constructor.name)}this.stream.write(d+"</"+t.name+">")}return this.stream.write(this.endline(t))},n.prototype.processingInstruction=function(t,e){return this.stream.write(this.space(e)+"<?"+t.target),t.value&&this.stream.write(" "+t.value),this.stream.write(this.spacebeforeslash+"?>"+this.endline(t))},n.prototype.raw=function(t,e){return this.stream.write(this.space(e)+t.value+this.endline(t))},n.prototype.text=function(t,e){return this.stream.write(this.space(e)+t.value+this.endline(t))},n.prototype.dtdAttList=function(t,e){return this.stream.write(this.space(e)+"<!ATTLIST "+t.elementName+" "+t.attributeName+" "+t.attributeType),"#DEFAULT"!==t.defaultValueType&&this.stream.write(" "+t.defaultValueType),t.defaultValue&&this.stream.write(' "'+t.defaultValue+'"'),this.stream.write(this.spacebeforeslash+">"+this.endline(t))},n.prototype.dtdElement=function(t,e){return this.stream.write(this.space(e)+"<!ELEMENT "+t.name+" "+t.value),this.stream.write(this.spacebeforeslash+">"+this.endline(t))},n.prototype.dtdEntity=function(t,e){return this.stream.write(this.space(e)+"<!ENTITY"),t.pe&&this.stream.write(" %"),this.stream.write(" "+t.name),t.value?this.stream.write(' "'+t.value+'"'):(t.pubID&&t.sysID?this.stream.write(' PUBLIC "'+t.pubID+'" "'+t.sysID+'"'):t.sysID&&this.stream.write(' SYSTEM "'+t.sysID+'"'),t.nData&&this.stream.write(" NDATA "+t.nData)),this.stream.write(this.spacebeforeslash+">"+this.endline(t))},n.prototype.dtdNotation=function(t,e){return this.stream.write(this.space(e)+"<!NOTATION "+t.name),t.pubID&&t.sysID?this.stream.write(' PUBLIC "'+t.pubID+'" "'+t.sysID+'"'):t.pubID?this.stream.write(' PUBLIC "'+t.pubID+'"'):t.sysID&&this.stream.write(' SYSTEM "'+t.sysID+'"'),this.stream.write(this.spacebeforeslash+">"+this.endline(t))},n.prototype.endline=function(t){return t.isLastRootNode?"":this.newline},n}(m)}).call(this)},function(t,e,n){var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};(function(){"use strict";var t,i,o,a,s,c,u,l,p=function(t,e){return function(){return t.apply(e,arguments)}},h=function(t,e){function n(){this.constructor=t}for(var r in e)f.call(e,r)&&(t[r]=e[r]);return n.prototype=e.prototype,t.prototype=new n,t.__super__=e.prototype,t},f={}.hasOwnProperty;u=n(102),o=n(105),t=n(106),c=n(60),l=n(107).setImmediate,i=n(38).defaults,a=function(t){return"object"===(void 0===t?"undefined":r(t))&&null!=t&&0===Object.keys(t).length},s=function(t,e,n){var r,i,o;for(r=0,i=t.length;r<i;r++)o=t[r],e=o(e,n);return e},e.Parser=function(n){function o(t){this.parseString=p(this.parseString,this),this.reset=p(this.reset,this),this.assignOrPush=p(this.assignOrPush,this),this.processAsync=p(this.processAsync,this);var n,r,o;if(!(this instanceof e.Parser))return new e.Parser(t);this.options={},r=i[.2];for(n in r)f.call(r,n)&&(o=r[n],this.options[n]=o);for(n in t)f.call(t,n)&&(o=t[n],this.options[n]=o);this.options.xmlns&&(this.options.xmlnskey=this.options.attrkey+"ns"),this.options.normalizeTags&&(this.options.tagNameProcessors||(this.options.tagNameProcessors=[]),this.options.tagNameProcessors.unshift(c.normalize)),this.reset()}return h(o,n),o.prototype.processAsync=function(){var t,e;try{return this.remaining.length<=this.options.chunkSize?(t=this.remaining,this.remaining="",this.saxParser=this.saxParser.write(t),this.saxParser.close()):(t=this.remaining.substr(0,this.options.chunkSize),this.remaining=this.remaining.substr(this.options.chunkSize,this.remaining.length),this.saxParser=this.saxParser.write(t),l(this.processAsync))}catch(t){if(e=t,!this.saxParser.errThrown)return this.saxParser.errThrown=!0,this.emit(e)}},o.prototype.assignOrPush=function(t,e,n){return e in t?(t[e]instanceof Array||(t[e]=[t[e]]),t[e].push(n)):this.options.explicitArray?t[e]=[n]:t[e]=n},o.prototype.reset=function(){var t,e,n,i;return this.removeAllListeners(),this.saxParser=u.parser(this.options.strict,{trim:!1,normalize:!1,xmlns:this.options.xmlns}),this.saxParser.errThrown=!1,this.saxParser.onerror=function(t){return function(e){if(t.saxParser.resume(),!t.saxParser.errThrown)return t.saxParser.errThrown=!0,t.emit("error",e)}}(this),this.saxParser.onend=function(t){return function(){if(!t.saxParser.ended)return t.saxParser.ended=!0,t.emit("end",t.resultObject)}}(this),this.saxParser.ended=!1,this.EXPLICIT_CHARKEY=this.options.explicitCharkey,this.resultObject=null,i=[],t=this.options.attrkey,e=this.options.charkey,this.saxParser.onopentag=function(n){return function(r){var o,a,c,u,l;if(c={},c[e]="",!n.options.ignoreAttrs){l=r.attributes;for(o in l)f.call(l,o)&&(t in c||n.options.mergeAttrs||(c[t]={}),a=n.options.attrValueProcessors?s(n.options.attrValueProcessors,r.attributes[o],o):r.attributes[o],u=n.options.attrNameProcessors?s(n.options.attrNameProcessors,o):o,n.options.mergeAttrs?n.assignOrPush(c,u,a):c[t][u]=a)}return c["#name"]=n.options.tagNameProcessors?s(n.options.tagNameProcessors,r.name):r.name,n.options.xmlns&&(c[n.options.xmlnskey]={uri:r.uri,local:r.local}),i.push(c)}}(this),this.saxParser.onclosetag=function(t){return function(){var n,o,c,u,l,p,h,m,d,y;if(p=i.pop(),l=p["#name"],t.options.explicitChildren&&t.options.preserveChildrenOrder||delete p["#name"],!0===p.cdata&&(n=p.cdata,delete p.cdata),d=i[i.length-1],p[e].match(/^\s*$/)&&!n?(o=p[e],delete p[e]):(t.options.trim&&(p[e]=p[e].trim()),t.options.normalize&&(p[e]=p[e].replace(/\s{2,}/g," ").trim()),p[e]=t.options.valueProcessors?s(t.options.valueProcessors,p[e],l):p[e],1===Object.keys(p).length&&e in p&&!t.EXPLICIT_CHARKEY&&(p=p[e])),a(p)&&(p=""!==t.options.emptyTag?t.options.emptyTag:o),null!=t.options.validator&&(y="/"+function(){var t,e,n;for(n=[],t=0,e=i.length;t<e;t++)u=i[t],n.push(u["#name"]);return n}().concat(l).join("/"),function(){var e;try{p=t.options.validator(y,d&&d[l],p)}catch(n){return e=n,t.emit("error",e)}}()),t.options.explicitChildren&&!t.options.mergeAttrs&&"object"===(void 0===p?"undefined":r(p)))if(t.options.preserveChildrenOrder){if(d){d[t.options.childkey]=d[t.options.childkey]||[],h={};for(c in p)f.call(p,c)&&(h[c]=p[c]);d[t.options.childkey].push(h),delete p["#name"],1===Object.keys(p).length&&e in p&&!t.EXPLICIT_CHARKEY&&(p=p[e])}}else u={},t.options.attrkey in p&&(u[t.options.attrkey]=p[t.options.attrkey],delete p[t.options.attrkey]),!t.options.charsAsChildren&&t.options.charkey in p&&(u[t.options.charkey]=p[t.options.charkey],delete p[t.options.charkey]),Object.getOwnPropertyNames(p).length>0&&(u[t.options.childkey]=p),p=u;return i.length>0?t.assignOrPush(d,l,p):(t.options.explicitRoot&&(m=p,p={},p[l]=m),t.resultObject=p,t.saxParser.ended=!0,t.emit("end",t.resultObject))}}(this),n=function(t){return function(n){var r,o;if(o=i[i.length-1])return o[e]+=n,t.options.explicitChildren&&t.options.preserveChildrenOrder&&t.options.charsAsChildren&&(t.options.includeWhiteChars||""!==n.replace(/\\n/g,"").trim())&&(o[t.options.childkey]=o[t.options.childkey]||[],r={"#name":"__text__"},r[e]=n,t.options.normalize&&(r[e]=r[e].replace(/\s{2,}/g," ").trim()),o[t.options.childkey].push(r)),o}}(this),this.saxParser.ontext=n,this.saxParser.oncdata=function(t){return function(t){var e;if(e=n(t))return e.cdata=!0}}()},o.prototype.parseString=function(e,n){var r;null!=n&&"function"==typeof n&&(this.on("end",function(t){return this.reset(),n(null,t)}),this.on("error",function(t){return this.reset(),n(t)}));try{return e=e.toString(),""===e.trim()?(this.emit("end",null),!0):(e=t.stripBOM(e),this.options.async?(this.remaining=e,l(this.processAsync),this.saxParser):this.saxParser.write(e).close())}catch(t){if(r=t,!this.saxParser.errThrown&&!this.saxParser.ended)return this.emit("error",r),this.saxParser.errThrown=!0;if(this.saxParser.ended)throw r}},o}(o.EventEmitter),e.parseString=function(t,n,i){var o,a,s;return null!=i?("function"==typeof i&&(o=i),"object"===(void 0===n?"undefined":r(n))&&(a=n)):("function"==typeof n&&(o=n),a={}),s=new e.Parser(a),s.parseString(t,o)}}).call(this)},function(t,e,n){var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};!function(t){function e(n,r){if(!(this instanceof e))return new e(n,r);var i=this;o(i),i.q=i.c="",i.bufferCheckPosition=t.MAX_BUFFER_LENGTH,i.opt=r||{},i.opt.lowercase=i.opt.lowercase||i.opt.lowercasetags,i.looseCase=i.opt.lowercase?"toLowerCase":"toUpperCase",i.tags=[],i.closed=i.closedRoot=i.sawRoot=!1,i.tag=i.error=null,i.strict=!!n,i.noscript=!(!n&&!i.opt.noscript),i.state=q.BEGIN,i.strictEntities=i.opt.strictEntities,i.ENTITIES=i.strictEntities?Object.create(t.XML_ENTITIES):Object.create(t.ENTITIES),i.attribList=[],i.opt.xmlns&&(i.ns=Object.create(F)),i.trackPosition=!1!==i.opt.position,i.trackPosition&&(i.position=i.line=i.column=0),m(i,"onready")}function i(e){for(var n=Math.max(t.MAX_BUFFER_LENGTH,10),r=0,i=0,o=D.length;i<o;i++){var a=e[D[i]].length;if(a>n)switch(D[i]){case"textNode":y(e);break;case"cdata":d(e,"oncdata",e.cdata),e.cdata="";break;case"script":d(e,"onscript",e.script),e.script="";break;default:b(e,"Max buffer length exceeded: "+D[i])}r=Math.max(r,a)}var s=t.MAX_BUFFER_LENGTH-r;e.bufferCheckPosition=s+e.position}function o(t){for(var e=0,n=D.length;e<n;e++)t[D[e]]=""}function a(t){y(t),""!==t.cdata&&(d(t,"oncdata",t.cdata),t.cdata=""),""!==t.script&&(d(t,"onscript",t.script),t.script="")}function s(t,e){return new c(t,e)}function c(t,n){if(!(this instanceof c))return new c(t,n);x.apply(this),this._parser=new e(t,n),this.writable=!0,this.readable=!0;var r=this;this._parser.onend=function(){r.emit("end")},this._parser.onerror=function(t){r.emit("error",t),r._parser.error=null},this._decoder=null,A.forEach(function(t){Object.defineProperty(r,"on"+t,{get:function(){return r._parser["on"+t]},set:function(e){if(!e)return r.removeAllListeners(t),r._parser["on"+t]=e,e;r.on(t,e)},enumerable:!0,configurable:!1})})}function u(t){return" "===t||"\n"===t||"\r"===t||"\t"===t}function l(t){return'"'===t||"'"===t}function p(t){return">"===t||u(t)}function h(t,e){return t.test(e)}function f(t,e){return!h(t,e)}function m(t,e,n){t[e]&&t[e](n)}function d(t,e,n){t.textNode&&y(t),m(t,e,n)}function y(t){t.textNode=g(t.opt,t.textNode),t.textNode&&m(t,"ontext",t.textNode),t.textNode=""}function g(t,e){return t.trim&&(e=e.trim()),t.normalize&&(e=e.replace(/\s+/g," ")),e}function b(t,e){return y(t),t.trackPosition&&(e+="\nLine: "+t.line+"\nColumn: "+t.column+"\nChar: "+t.c),e=new Error(e),t.error=e,m(t,"onerror",e),t}function v(t){return t.sawRoot&&!t.closedRoot&&E(t,"Unclosed root tag"),t.state!==q.BEGIN&&t.state!==q.BEGIN_WHITESPACE&&t.state!==q.TEXT&&b(t,"Unexpected end"),y(t),t.c="",t.closed=!0,m(t,"onend"),e.call(t,t.strict,t.opt),t}function E(t,n){if("object"!==(void 0===t?"undefined":r(t))||!(t instanceof e))throw new Error("bad call to strictFail");t.strict&&b(t,n)}function w(t){t.strict||(t.tagName=t.tagName[t.looseCase]());var e=t.tags[t.tags.length-1]||t,n=t.tag={name:t.tagName,attributes:{}};t.opt.xmlns&&(n.ns=e.ns),t.attribList.length=0,d(t,"onopentagstart",n)}function _(t,e){var n=t.indexOf(":"),r=n<0?["",t]:t.split(":"),i=r[0],o=r[1];return e&&"xmlns"===t&&(i="xmlns",o=""),{prefix:i,local:o}}function S(t){if(t.strict||(t.attribName=t.attribName[t.looseCase]()),-1!==t.attribList.indexOf(t.attribName)||t.tag.attributes.hasOwnProperty(t.attribName))return void(t.attribName=t.attribValue="");if(t.opt.xmlns){var e=_(t.attribName,!0),n=e.prefix,r=e.local;if("xmlns"===n)if("xml"===r&&t.attribValue!==L)E(t,"xml: prefix must be bound to "+L+"\nActual: "+t.attribValue);else if("xmlns"===r&&t.attribValue!==j)E(t,"xmlns: prefix must be bound to "+j+"\nActual: "+t.attribValue);else{var i=t.tag,o=t.tags[t.tags.length-1]||t;i.ns===o.ns&&(i.ns=Object.create(o.ns)),i.ns[r]=t.attribValue}t.attribList.push([t.attribName,t.attribValue])}else t.tag.attributes[t.attribName]=t.attribValue,d(t,"onattribute",{name:t.attribName,value:t.attribValue});t.attribName=t.attribValue=""}function C(t,e){if(t.opt.xmlns){var n=t.tag,r=_(t.tagName);n.prefix=r.prefix,n.local=r.local,n.uri=n.ns[r.prefix]||"",n.prefix&&!n.uri&&(E(t,"Unbound namespace prefix: "+JSON.stringify(t.tagName)),n.uri=r.prefix);var i=t.tags[t.tags.length-1]||t;n.ns&&i.ns!==n.ns&&Object.keys(n.ns).forEach(function(e){d(t,"onopennamespace",{prefix:e,uri:n.ns[e]})});for(var o=0,a=t.attribList.length;o<a;o++){var s=t.attribList[o],c=s[0],u=s[1],l=_(c,!0),p=l.prefix,h=l.local,f=""===p?"":n.ns[p]||"",m={name:c,value:u,prefix:p,local:h,uri:f};p&&"xmlns"!==p&&!f&&(E(t,"Unbound namespace prefix: "+JSON.stringify(p)),m.uri=p),t.tag.attributes[c]=m,d(t,"onattribute",m)}t.attribList.length=0}t.tag.isSelfClosing=!!e,t.sawRoot=!0,t.tags.push(t.tag),d(t,"onopentag",t.tag),e||(t.noscript||"script"!==t.tagName.toLowerCase()?t.state=q.TEXT:t.state=q.SCRIPT,t.tag=null,t.tagName=""),t.attribName=t.attribValue="",t.attribList.length=0}function N(t){if(!t.tagName)return E(t,"Weird empty close tag."),t.textNode+="</>",void(t.state=q.TEXT);if(t.script){if("script"!==t.tagName)return t.script+="</"+t.tagName+">",t.tagName="",void(t.state=q.SCRIPT);d(t,"onscript",t.script),t.script=""}var e=t.tags.length,n=t.tagName;t.strict||(n=n[t.looseCase]());for(var r=n;e--;){if(t.tags[e].name===r)break;E(t,"Unexpected close tag")}if(e<0)return E(t,"Unmatched closing tag: "+t.tagName),t.textNode+="</"+t.tagName+">",void(t.state=q.TEXT);t.tagName=n;for(var i=t.tags.length;i-- >e;){var o=t.tag=t.tags.pop();t.tagName=t.tag.name,d(t,"onclosetag",t.tagName);var a={};for(var s in o.ns)a[s]=o.ns[s];var c=t.tags[t.tags.length-1]||t;t.opt.xmlns&&o.ns!==c.ns&&Object.keys(o.ns).forEach(function(e){var n=o.ns[e];d(t,"onclosenamespace",{prefix:e,uri:n})})}0===e&&(t.closedRoot=!0),t.tagName=t.attribValue=t.attribName="",t.attribList.length=0,t.state=q.TEXT}function I(t){var e,n=t.entity,r=n.toLowerCase(),i="";return t.ENTITIES[n]?t.ENTITIES[n]:t.ENTITIES[r]?t.ENTITIES[r]:(n=r,"#"===n.charAt(0)&&("x"===n.charAt(1)?(n=n.slice(2),e=parseInt(n,16),i=e.toString(16)):(n=n.slice(1),e=parseInt(n,10),i=e.toString(10))),n=n.replace(/^0+/,""),isNaN(e)||i.toLowerCase()!==n?(E(t,"Invalid character entity"),"&"+t.entity+";"):String.fromCodePoint(e))}function T(t,e){"<"===e?(t.state=q.OPEN_WAKA,t.startTagPosition=t.position):u(e)||(E(t,"Non-whitespace before first tag."),t.textNode=e,t.state=q.TEXT)}function O(t,e){var n="";return e<t.length&&(n=t.charAt(e)),n}function P(t){var e=this;if(this.error)throw this.error;if(e.closed)return b(e,"Cannot write after close. Assign an onready handler.");if(null===t)return v(e);"object"===(void 0===t?"undefined":r(t))&&(t=t.toString());for(var n=0,o="";;){if(o=O(t,n++),e.c=o,!o)break;switch(e.trackPosition&&(e.position++,"\n"===o?(e.line++,e.column=0):e.column++),e.state){case q.BEGIN:if(e.state=q.BEGIN_WHITESPACE,"\ufeff"===o)continue;T(e,o);continue;case q.BEGIN_WHITESPACE:T(e,o);continue;case q.TEXT:if(e.sawRoot&&!e.closedRoot){for(var a=n-1;o&&"<"!==o&&"&"!==o;)(o=O(t,n++))&&e.trackPosition&&(e.position++,"\n"===o?(e.line++,e.column=0):e.column++);e.textNode+=t.substring(a,n-1)}"<"!==o||e.sawRoot&&e.closedRoot&&!e.strict?(u(o)||e.sawRoot&&!e.closedRoot||E(e,"Text data outside of root node."),"&"===o?e.state=q.TEXT_ENTITY:e.textNode+=o):(e.state=q.OPEN_WAKA,e.startTagPosition=e.position);continue;case q.SCRIPT:"<"===o?e.state=q.SCRIPT_ENDING:e.script+=o;continue;case q.SCRIPT_ENDING:"/"===o?e.state=q.CLOSE_TAG:(e.script+="<"+o,e.state=q.SCRIPT);continue;case q.OPEN_WAKA:if("!"===o)e.state=q.SGML_DECL,e.sgmlDecl="";else if(u(o));else if(h(M,o))e.state=q.OPEN_TAG,e.tagName=o;else if("/"===o)e.state=q.CLOSE_TAG,e.tagName="";else if("?"===o)e.state=q.PROC_INST,e.procInstName=e.procInstBody="";else{if(E(e,"Unencoded <"),e.startTagPosition+1<e.position){var s=e.position-e.startTagPosition;o=new Array(s).join(" ")+o}e.textNode+="<"+o,e.state=q.TEXT}continue;case q.SGML_DECL:(e.sgmlDecl+o).toUpperCase()===k?(d(e,"onopencdata"),e.state=q.CDATA,e.sgmlDecl="",e.cdata=""):e.sgmlDecl+o==="--"?(e.state=q.COMMENT,e.comment="",e.sgmlDecl=""):(e.sgmlDecl+o).toUpperCase()===R?(e.state=q.DOCTYPE,(e.doctype||e.sawRoot)&&E(e,"Inappropriately located doctype declaration"),e.doctype="",e.sgmlDecl=""):">"===o?(d(e,"onsgmldeclaration",e.sgmlDecl),e.sgmlDecl="",e.state=q.TEXT):l(o)?(e.state=q.SGML_DECL_QUOTED,e.sgmlDecl+=o):e.sgmlDecl+=o;continue;case q.SGML_DECL_QUOTED:o===e.q&&(e.state=q.SGML_DECL,e.q=""),e.sgmlDecl+=o;continue;case q.DOCTYPE:">"===o?(e.state=q.TEXT,d(e,"ondoctype",e.doctype),e.doctype=!0):(e.doctype+=o,"["===o?e.state=q.DOCTYPE_DTD:l(o)&&(e.state=q.DOCTYPE_QUOTED,e.q=o));continue;case q.DOCTYPE_QUOTED:e.doctype+=o,o===e.q&&(e.q="",e.state=q.DOCTYPE);continue;case q.DOCTYPE_DTD:e.doctype+=o,"]"===o?e.state=q.DOCTYPE:l(o)&&(e.state=q.DOCTYPE_DTD_QUOTED,e.q=o);continue;case q.DOCTYPE_DTD_QUOTED:e.doctype+=o,o===e.q&&(e.state=q.DOCTYPE_DTD,e.q="");continue;case q.COMMENT:"-"===o?e.state=q.COMMENT_ENDING:e.comment+=o;continue;case q.COMMENT_ENDING:"-"===o?(e.state=q.COMMENT_ENDED,e.comment=g(e.opt,e.comment),e.comment&&d(e,"oncomment",e.comment),e.comment=""):(e.comment+="-"+o,e.state=q.COMMENT);continue;case q.COMMENT_ENDED:">"!==o?(E(e,"Malformed comment"),e.comment+="--"+o,e.state=q.COMMENT):e.state=q.TEXT;continue;case q.CDATA:"]"===o?e.state=q.CDATA_ENDING:e.cdata+=o;continue;case q.CDATA_ENDING:"]"===o?e.state=q.CDATA_ENDING_2:(e.cdata+="]"+o,e.state=q.CDATA);continue;case q.CDATA_ENDING_2:">"===o?(e.cdata&&d(e,"oncdata",e.cdata),d(e,"onclosecdata"),e.cdata="",e.state=q.TEXT):"]"===o?e.cdata+="]":(e.cdata+="]]"+o,e.state=q.CDATA);continue;case q.PROC_INST:"?"===o?e.state=q.PROC_INST_ENDING:u(o)?e.state=q.PROC_INST_BODY:e.procInstName+=o;continue;case q.PROC_INST_BODY:if(!e.procInstBody&&u(o))continue;"?"===o?e.state=q.PROC_INST_ENDING:e.procInstBody+=o;continue;case q.PROC_INST_ENDING:">"===o?(d(e,"onprocessinginstruction",{name:e.procInstName,body:e.procInstBody}),e.procInstName=e.procInstBody="",e.state=q.TEXT):(e.procInstBody+="?"+o,e.state=q.PROC_INST_BODY);continue;case q.OPEN_TAG:h(U,o)?e.tagName+=o:(w(e),">"===o?C(e):"/"===o?e.state=q.OPEN_TAG_SLASH:(u(o)||E(e,"Invalid character in tag name"),e.state=q.ATTRIB));continue;case q.OPEN_TAG_SLASH:">"===o?(C(e,!0),N(e)):(E(e,"Forward-slash in opening tag not followed by >"),e.state=q.ATTRIB);continue;case q.ATTRIB:if(u(o))continue;">"===o?C(e):"/"===o?e.state=q.OPEN_TAG_SLASH:h(M,o)?(e.attribName=o,e.attribValue="",e.state=q.ATTRIB_NAME):E(e,"Invalid attribute name");continue;case q.ATTRIB_NAME:"="===o?e.state=q.ATTRIB_VALUE:">"===o?(E(e,"Attribute without value"),e.attribValue=e.attribName,S(e),C(e)):u(o)?e.state=q.ATTRIB_NAME_SAW_WHITE:h(U,o)?e.attribName+=o:E(e,"Invalid attribute name");continue;case q.ATTRIB_NAME_SAW_WHITE:if("="===o)e.state=q.ATTRIB_VALUE;else{if(u(o))continue;E(e,"Attribute without value"),e.tag.attributes[e.attribName]="",e.attribValue="",d(e,"onattribute",{name:e.attribName,value:""}),e.attribName="",">"===o?C(e):h(M,o)?(e.attribName=o,e.state=q.ATTRIB_NAME):(E(e,"Invalid attribute name"),e.state=q.ATTRIB)}continue;case q.ATTRIB_VALUE:if(u(o))continue;l(o)?(e.q=o,e.state=q.ATTRIB_VALUE_QUOTED):(E(e,"Unquoted attribute value"),e.state=q.ATTRIB_VALUE_UNQUOTED,e.attribValue=o);continue;case q.ATTRIB_VALUE_QUOTED:if(o!==e.q){"&"===o?e.state=q.ATTRIB_VALUE_ENTITY_Q:e.attribValue+=o;continue}S(e),e.q="",e.state=q.ATTRIB_VALUE_CLOSED;continue;case q.ATTRIB_VALUE_CLOSED:u(o)?e.state=q.ATTRIB:">"===o?C(e):"/"===o?e.state=q.OPEN_TAG_SLASH:h(M,o)?(E(e,"No whitespace between attributes"),e.attribName=o,e.attribValue="",e.state=q.ATTRIB_NAME):E(e,"Invalid attribute name");continue;case q.ATTRIB_VALUE_UNQUOTED:if(!p(o)){"&"===o?e.state=q.ATTRIB_VALUE_ENTITY_U:e.attribValue+=o;continue}S(e),">"===o?C(e):e.state=q.ATTRIB;continue;case q.CLOSE_TAG:if(e.tagName)">"===o?N(e):h(U,o)?e.tagName+=o:e.script?(e.script+="</"+e.tagName,e.tagName="",e.state=q.SCRIPT):(u(o)||E(e,"Invalid tagname in closing tag"),e.state=q.CLOSE_TAG_SAW_WHITE);else{if(u(o))continue;f(M,o)?e.script?(e.script+="</"+o,e.state=q.SCRIPT):E(e,"Invalid tagname in closing tag."):e.tagName=o}continue;case q.CLOSE_TAG_SAW_WHITE:if(u(o))continue;">"===o?N(e):E(e,"Invalid characters in closing tag");continue;case q.TEXT_ENTITY:case q.ATTRIB_VALUE_ENTITY_Q:case q.ATTRIB_VALUE_ENTITY_U:var c,m;switch(e.state){case q.TEXT_ENTITY:c=q.TEXT,m="textNode";break;case q.ATTRIB_VALUE_ENTITY_Q:c=q.ATTRIB_VALUE_QUOTED,m="attribValue";break;case q.ATTRIB_VALUE_ENTITY_U:c=q.ATTRIB_VALUE_UNQUOTED,m="attribValue"}";"===o?(e[m]+=I(e),e.entity="",e.state=c):h(e.entity.length?V:B,o)?e.entity+=o:(E(e,"Invalid character in entity name"),e[m]+="&"+e.entity+o,e.entity="",e.state=c);continue;default:throw new Error(e,"Unknown state: "+e.state)}}return e.position>=e.bufferCheckPosition&&i(e),e}t.parser=function(t,n){return new e(t,n)},t.SAXParser=e,t.SAXStream=c,t.createStream=s,t.MAX_BUFFER_LENGTH=65536;var D=["comment","sgmlDecl","textNode","tagName","doctype","procInstName","procInstBody","entity","attribName","attribValue","cdata","script"];t.EVENTS=["text","processinginstruction","sgmldeclaration","doctype","comment","opentagstart","attribute","opentag","closetag","opencdata","cdata","closecdata","error","end","ready","script","opennamespace","closenamespace"],Object.create||(Object.create=function(t){function e(){}return e.prototype=t,new e}),Object.keys||(Object.keys=function(t){var e=[];for(var n in t)t.hasOwnProperty(n)&&e.push(n);return e}),e.prototype={end:function(){v(this)},write:P,resume:function(){return this.error=null,this},close:function(){return this.write(null)},flush:function(){a(this)}};var x;try{x=n(103).Stream}catch(t){x=function(){}}var A=t.EVENTS.filter(function(t){return"error"!==t&&"end"!==t});c.prototype=Object.create(x.prototype,{constructor:{value:c}}),c.prototype.write=function(t){if("function"==typeof Buffer&&"function"==typeof Buffer.isBuffer&&Buffer.isBuffer(t)){if(!this._decoder){var e=n(104).StringDecoder;this._decoder=new e("utf8")}t=this._decoder.write(t)}return this._parser.write(t.toString()),this.emit("data",t),!0},c.prototype.end=function(t){return t&&t.length&&this.write(t),this._parser.end(),!0},c.prototype.on=function(t,e){var n=this;return n._parser["on"+t]||-1===A.indexOf(t)||(n._parser["on"+t]=function(){var e=1===arguments.length?[arguments[0]]:Array.apply(null,arguments);e.splice(0,0,t),n.emit.apply(n,e)}),x.prototype.on.call(n,t,e)};var k="[CDATA[",R="DOCTYPE",L="http://www.w3.org/XML/1998/namespace",j="http://www.w3.org/2000/xmlns/",F={xml:L,xmlns:j},M=/[:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/,U=/[:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u00B7\u0300-\u036F\u203F-\u2040.\d-]/,B=/[#:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/,V=/[#:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u00B7\u0300-\u036F\u203F-\u2040.\d-]/,q=0;t.STATE={BEGIN:q++,BEGIN_WHITESPACE:q++,TEXT:q++,TEXT_ENTITY:q++,OPEN_WAKA:q++,SGML_DECL:q++,SGML_DECL_QUOTED:q++,DOCTYPE:q++,DOCTYPE_QUOTED:q++,DOCTYPE_DTD:q++,DOCTYPE_DTD_QUOTED:q++,COMMENT_STARTING:q++,COMMENT:q++,COMMENT_ENDING:q++,COMMENT_ENDED:q++,CDATA:q++,CDATA_ENDING:q++,CDATA_ENDING_2:q++,PROC_INST:q++,PROC_INST_BODY:q++,PROC_INST_ENDING:q++,OPEN_TAG:q++,OPEN_TAG_SLASH:q++,ATTRIB:q++,ATTRIB_NAME:q++,ATTRIB_NAME_SAW_WHITE:q++,ATTRIB_VALUE:q++,ATTRIB_VALUE_QUOTED:q++,ATTRIB_VALUE_CLOSED:q++,ATTRIB_VALUE_UNQUOTED:q++,ATTRIB_VALUE_ENTITY_Q:q++,ATTRIB_VALUE_ENTITY_U:q++,CLOSE_TAG:q++,CLOSE_TAG_SAW_WHITE:q++,SCRIPT:q++,SCRIPT_ENDING:q++},t.XML_ENTITIES={amp:"&",gt:">",lt:"<",quot:'"',apos:"'"},t.ENTITIES={amp:"&",gt:">",lt:"<",quot:'"',apos:"'",AElig:198,Aacute:193,Acirc:194,Agrave:192,Aring:197,Atilde:195,Auml:196,Ccedil:199,ETH:208,Eacute:201,Ecirc:202,Egrave:200,Euml:203,Iacute:205,Icirc:206,Igrave:204,Iuml:207,Ntilde:209,Oacute:211,Ocirc:212,Ograve:210,Oslash:216,Otilde:213,Ouml:214,THORN:222,Uacute:218,Ucirc:219,Ugrave:217,Uuml:220,Yacute:221,aacute:225,acirc:226,aelig:230,agrave:224,aring:229,atilde:227,auml:228,ccedil:231,eacute:233,ecirc:234,egrave:232,eth:240,euml:235,iacute:237,icirc:238,igrave:236,iuml:239,ntilde:241,oacute:243,ocirc:244,ograve:242,oslash:248,otilde:245,ouml:246,szlig:223,thorn:254,uacute:250,ucirc:251,ugrave:249,uuml:252,yacute:253,yuml:255,copy:169,reg:174,nbsp:160,iexcl:161,cent:162,pound:163,curren:164,yen:165,brvbar:166,sect:167,uml:168,ordf:170,laquo:171,not:172,shy:173,macr:175,deg:176,plusmn:177,sup1:185,sup2:178,sup3:179,acute:180,micro:181,para:182,middot:183,cedil:184,ordm:186,raquo:187,frac14:188,frac12:189,frac34:190,iquest:191,times:215,divide:247,OElig:338,oelig:339,Scaron:352,scaron:353,Yuml:376,fnof:402,circ:710,tilde:732,Alpha:913,Beta:914,Gamma:915,Delta:916,Epsilon:917,Zeta:918,Eta:919,Theta:920,Iota:921,Kappa:922,Lambda:923,Mu:924,Nu:925,Xi:926,Omicron:927,Pi:928,Rho:929,Sigma:931,Tau:932,Upsilon:933,Phi:934,Chi:935,Psi:936,Omega:937,alpha:945,beta:946,gamma:947,delta:948,epsilon:949,zeta:950,eta:951,theta:952,iota:953,kappa:954,lambda:955,mu:956,nu:957,xi:958,omicron:959,pi:960,rho:961,sigmaf:962,sigma:963,tau:964,upsilon:965,phi:966,chi:967,psi:968,omega:969,thetasym:977,upsih:978,piv:982,ensp:8194,emsp:8195,thinsp:8201,zwnj:8204,zwj:8205,lrm:8206,rlm:8207,ndash:8211,mdash:8212,lsquo:8216,rsquo:8217,sbquo:8218,ldquo:8220,rdquo:8221,bdquo:8222,dagger:8224,Dagger:8225,bull:8226,hellip:8230,permil:8240,prime:8242,Prime:8243,lsaquo:8249,rsaquo:8250,oline:8254,frasl:8260,euro:8364,image:8465,weierp:8472,real:8476,trade:8482,alefsym:8501,larr:8592,uarr:8593,rarr:8594,darr:8595,harr:8596,crarr:8629,lArr:8656,uArr:8657,rArr:8658,dArr:8659,hArr:8660,forall:8704,part:8706,exist:8707,empty:8709,nabla:8711,isin:8712,notin:8713,ni:8715,prod:8719,sum:8721,minus:8722,lowast:8727,radic:8730,prop:8733,infin:8734,ang:8736,and:8743,or:8744,cap:8745,cup:8746,int:8747,there4:8756,sim:8764,cong:8773,asymp:8776,ne:8800,equiv:8801,le:8804,ge:8805,sub:8834,sup:8835,nsub:8836,sube:8838,supe:8839,oplus:8853,otimes:8855,perp:8869,sdot:8901,lceil:8968,rceil:8969,lfloor:8970,rfloor:8971,lang:9001,rang:9002,loz:9674,spades:9824,clubs:9827,hearts:9829,diams:9830},Object.keys(t.ENTITIES).forEach(function(e){var n=t.ENTITIES[e],r="number"==typeof n?String.fromCharCode(n):n;t.ENTITIES[e]=r});for(var G in t.STATE)t.STATE[t.STATE[G]]=G;q=t.STATE,/*! http://mths.be/fromcodepoint v0.1.0 by @mathias */
-String.fromCodePoint||function(){var t=String.fromCharCode,e=Math.floor,n=function(){var n,r,i=[],o=-1,a=arguments.length;if(!a)return"";for(var s="";++o<a;){var c=Number(arguments[o]);if(!isFinite(c)||c<0||c>1114111||e(c)!==c)throw RangeError("Invalid code point: "+c);c<=65535?i.push(c):(c-=65536,n=55296+(c>>10),r=c%1024+56320,i.push(n,r)),(o+1===a||i.length>16384)&&(s+=t.apply(null,i),i.length=0)}return s};Object.defineProperty?Object.defineProperty(String,"fromCodePoint",{value:n,configurable:!0,writable:!0}):String.fromCodePoint=n}()}(e)},function(t,e){t.exports=require("stream")},function(t,e){t.exports=require("string_decoder")},function(t,e){t.exports=require("events")},function(t,e){(function(){"use strict";e.stripBOM=function(t){return"\ufeff"===t[0]?t.substring(1):t}}).call(this)},function(t,e){t.exports=require("timers")},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var r=["weeks","years","months","days","hours","minutes","seconds"],i=e.pattern=new RegExp("P(?:(\\d+(?:[\\.,]\\d{0,3})?W)|(\\d+(?:[\\.,]\\d{0,3})?Y)?(\\d+(?:[\\.,]\\d{0,3})?M)?(\\d+(?:[\\.,]\\d{0,3})?D)?(?:T(\\d+(?:[\\.,]\\d{0,3})?H)?(\\d+(?:[\\.,]\\d{0,3})?M)?(\\d+(?:[\\.,]\\d{0,3})?S)?)?)"),o=e.parse=function(t){return t.match(i).slice(1).reduce(function(t,e,n){return t[r[n]]=parseFloat(e)||0,t},{})},a=e.end=function(t,e){var n=e?e.getTime():Date.now(),r=new Date(n);return r.setFullYear(r.getFullYear()+t.years),r.setMonth(r.getMonth()+t.months),r.setDate(r.getDate()+t.days),r.setHours(r.getHours()+t.hours),r.setMinutes(r.getMinutes()+t.minutes),r.setMilliseconds(r.getMilliseconds()+1e3*t.seconds),r.setDate(r.getDate()+7*t.weeks),r},s=e.toSeconds=function(t,e){var n=e?e.getTime():Date.now(),r=new Date(n);return(a(t,e).getTime()-r.getTime())/1e3};e.default={end:a,toSeconds:s,pattern:i,parse:o}},function(t,e,n){(function(t){var r,i,o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};!function(a,s){"object"==o(t)&&t.exports?t.exports=s():(r=s,void 0!==(i="function"==typeof r?r.call(e,n,e,t):r)&&(t.exports=i))}(0,function(){"use strict";function t(t,e){var n,r=document.createElement(t||"div");for(n in e)r[n]=e[n];return r}function e(t){for(var e=1,n=arguments.length;e<n;e++)t.appendChild(arguments[e]);return t}function n(t,e,n,r){var i=["opacity",e,~~(100*t),n,r].join("-"),o=.01+n/r*100,a=Math.max(1-(1-t)/e*(100-o),t),s=c.substring(0,c.indexOf("Animation")).toLowerCase(),l=s&&"-"+s+"-"||"";return p[i]||(u.insertRule("@"+l+"keyframes "+i+"{0%{opacity:"+a+"}"+o+"%{opacity:"+t+"}"+(o+.01)+"%{opacity:1}"+(o+e)%100+"%{opacity:"+t+"}100%{opacity:"+a+"}}",u.cssRules.length),p[i]=1),i}function r(t,e){var n,r,i=t.style;if(e=e.charAt(0).toUpperCase()+e.slice(1),void 0!==i[e])return e;for(r=0;r<l.length;r++)if(n=l[r]+e,void 0!==i[n])return n}function i(t,e){for(var n in e)t.style[r(t,n)||n]=e[n];return t}function o(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var r in n)void 0===t[r]&&(t[r]=n[r])}return t}function a(t,e){return"string"==typeof t?t:t[e%t.length]}function s(t){this.opts=o(t||{},s.defaults,h)}var c,u,l=["webkit","Moz","ms","O"],p={},h={lines:12,length:7,width:5,radius:10,scale:1,corners:1,color:"#000",opacity:.25,rotate:0,direction:1,speed:1,trail:100,fps:20,zIndex:2e9,className:"spinner",top:"50%",left:"50%",shadow:!1,hwaccel:!1,position:"absolute"};if(s.defaults={},o(s.prototype,{spin:function(e){this.stop();var n=this,r=n.opts,o=n.el=t(null,{className:r.className});if(i(o,{position:r.position,width:0,zIndex:r.zIndex,left:r.left,top:r.top}),e&&e.insertBefore(o,e.firstChild||null),o.setAttribute("role","progressbar"),n.lines(o,n.opts),!c){var a,s=0,u=(r.lines-1)*(1-r.direction)/2,l=r.fps,p=l/r.speed,h=(1-r.opacity)/(p*r.trail/100),f=p/r.lines;!function t(){s++;for(var e=0;e<r.lines;e++)a=Math.max(1-(s+(r.lines-e)*f)%p*h,r.opacity),n.opacity(o,e*r.direction+u,a,r);n.timeout=n.el&&setTimeout(t,~~(1e3/l))}()}return n},stop:function(){var t=this.el;return t&&(clearTimeout(this.timeout),t.parentNode&&t.parentNode.removeChild(t),this.el=void 0),this},lines:function(r,o){function s(e,n){return i(t(),{position:"absolute",width:o.scale*(o.length+o.width)+"px",height:o.scale*o.width+"px",background:e,boxShadow:n,transformOrigin:"left",transform:"rotate("+~~(360/o.lines*l+o.rotate)+"deg) translate("+o.scale*o.radius+"px,0)",borderRadius:(o.corners*o.scale*o.width>>1)+"px"})}for(var u,l=0,p=(o.lines-1)*(1-o.direction)/2;l<o.lines;l++)u=i(t(),{position:"absolute",top:1+~(o.scale*o.width/2)+"px",transform:o.hwaccel?"translate3d(0,0,0)":"",opacity:o.opacity,animation:c&&n(o.opacity,o.trail,p+l*o.direction,o.lines)+" "+1/o.speed+"s linear infinite"}),o.shadow&&e(u,i(s("#000","0 0 4px #000"),{top:"2px"})),e(r,e(u,s(a(o.color,l),"0 0 1px rgba(0,0,0,.1)")));return r},opacity:function(t,e,n){e<t.childNodes.length&&(t.childNodes[e].style.opacity=n)}}),"undefined"!=typeof document){u=function(){var n=t("style",{type:"text/css"});return e(document.getElementsByTagName("head")[0],n),n.sheet||n.styleSheet}();var f=i(t("group"),{behavior:"url(#default#VML)"});!r(f,"transform")&&f.adj?function(){function n(e,n){return t("<"+e+' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">',n)}u.addRule(".spin-vml","behavior:url(#default#VML)"),s.prototype.lines=function(t,r){function o(){return i(n("group",{coordsize:l+" "+l,coordorigin:-u+" "+-u}),{width:l,height:l})}function s(t,s,c){e(h,e(i(o(),{rotation:360/r.lines*t+"deg",left:~~s}),e(i(n("roundrect",{arcsize:r.corners}),{width:u,height:r.scale*r.width,left:r.scale*r.radius,top:-r.scale*r.width>>1,filter:c}),n("fill",{color:a(r.color,t),opacity:r.opacity}),n("stroke",{opacity:0}))))}var c,u=r.scale*(r.length+r.width),l=2*r.scale*u,p=-(r.width+r.length)*r.scale*2+"px",h=i(o(),{position:"absolute",top:p,left:p});if(r.shadow)for(c=1;c<=r.lines;c++)s(c,-2,"progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)");for(c=1;c<=r.lines;c++)s(c);return e(t,h)},s.prototype.opacity=function(t,e,n,r){var i=t.firstChild;r=r.shadow&&r.lines||0,i&&e+r<i.childNodes.length&&(i=i.childNodes[e+r],i=i&&i.firstChild,(i=i&&i.firstChild)&&(i.opacity=n))}}():c=r(f,"animation")}return s})}).call(e,n(110)(t))},function(t,e){t.exports=function(t){return t.webpackPolyfill||(t.deprecate=function(){},t.paths=[],t.children||(t.children=[]),Object.defineProperty(t,"loaded",{enumerable:!0,get:function(){return t.l}}),Object.defineProperty(t,"id",{enumerable:!0,get:function(){return t.i}}),t.webpackPolyfill=1),t}},function(t,e){var n=function(t){if(!t)return"";var e=[];for(var n in t)if(t.hasOwnProperty(n)&&"function"!=typeof t[n]){var r=t[n].toString();n=encodeURIComponent(n.replace(" ","+")),r=encodeURIComponent(r.replace(" ","+")),e.push(n+"="+r)}return e.join("&")},r=function(t,e,r){var i=new XMLHttpRequest;i.open("GET",t+"?"+n(e)),i.onreadystatechange=function(){if(4===i.readyState&&200===i.status){var t=i.getResponseHeader("Content-Type");r(-1!==t.indexOf("xml")&&i.responseXML?i.responseXML:"application/json; charset=utf-8"===t?JSON.parse(i.responseText):i.responseText)}},i.send(null)};t.exports.get=r;var i=function(t,e,r){var i=new XMLHttpRequest;i.open("GET",t+"?"+n(e)),i.onreadystatechange=function(){4===i.readyState&&r&&r(i)},i.send(null)};t.exports.getData=i;var o=function(t,e,r){var i=new XMLHttpRequest;i.open("POST",t),i.onreadystatechange=function(){4===i.readyState&&r&&r(i)},i.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),i.send(n(e))};t.exports.postData=o;var a=function(t,e,n){var r=new XMLHttpRequest;r.open("POST",t),r.onreadystatechange=function(){if(4===r.readyState&&200===r.status){var t=r.getResponseHeader("Content-Type");n("text/xml; charset=utf-8"===t?r.responseXML:"application/json; charset=utf-8"===t?JSON.parse(r.responseText):r.responseText)}},r.setRequestHeader("Content-Type","text/xml; charset=UTF-8");for(var i in e.head)r.setRequestHeader(i,e.head[i]);r.send(e.body)};t.exports.postXML=a;var s=function(t,e,n){var r=new XMLHttpRequest;r.open("POST",t),r.onreadystatechange=function(){4===r.readyState&&n&&n(r)},r.setRequestHeader("Content-Type","application/json"),r.send(JSON.stringify(e))};t.exports.postJSON=s},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(113),u=n(114),l=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),p=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),l(e,[{key:"render",value:function(){return s.a.createElement("div",{className:"pane-group"},s.a.createElement(c.a,null),s.a.createElement(u.a,{config:this.props.config}))}}]),e}(s.a.Component);e.a=p},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=(n(30),n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),u=function(t){function e(t){r(this,e);var n=i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return n.state=Object.assign({},t.config),n}return o(e,t),c(e,[{key:"render",value:function(){return s.a.createElement("div",{className:"pane pane-sm sidebar"},s.a.createElement("nav",{className:"nav-group"},s.a.createElement("h5",{className:"nav-group-title"},"My account"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("span",{className:"icon icon-key"}),"Application keyset")))}}]),e}(s.a.Component);e.a=u},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(30),u=n(1),l=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),p=function(t){function e(t){r(this,e);var n=i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return n.state=Object.assign({},t.config),n}return o(e,t),l(e,[{key:"handleChangeSave",value:function(t){u.a.info("AppFormView>","Request: handleChangeSave"),u.a.trace("AppFormView>",this.props.config),t.preventDefault(),c.a.writeConfig(this.state)}},{key:"handleChangeText",value:function(t,e){var n={};n[t]=e.target.value,this.setState(n)}},{key:"render",value:function(){return s.a.createElement("div",{className:"pane"},s.a.createElement("form",{className:"padded-less"},s.a.createElement("div",{className:"form-group"},s.a.createElement("label",null,"Application Key ID"),s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Key ID",value:this.state.appid,onChange:this.handleChangeText.bind(this,"appid")})),s.a.createElement("div",{className:"form-group"},s.a.createElement("label",null,"User Token"),s.a.createElement("textarea",{className:"form-control",placeholder:"Token",value:this.state.token,onChange:this.handleChangeText.bind(this,"token")})),s.a.createElement("div",{className:"form-group"},s.a.createElement("label",null,"Finding API URL"),s.a.createElement("input",{type:"text",className:"form-control",placeholder:"URL",value:this.state.findingApi,onChange:this.handleChangeText.bind(this,"findingApi")})),s.a.createElement("div",{className:"form-group"},s.a.createElement("label",null,"Trading API URL"),s.a.createElement("input",{type:"text",className:"form-control",placeholder:"URL",value:this.state.tradingApi,onChange:this.handleChangeText.bind(this,"tradingApi")})),s.a.createElement("div",{className:"form-actions"},s.a.createElement("button",{type:"submit",className:"btn btn-large btn-form btn-primary",onClick:this.handleChangeSave.bind(this)},"Save"))))}}]),e}(s.a.Component);e.a=p},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(8),u=(n.n(c),n(17)),l=n.n(u),p=n(116),h=n(117),f=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),m=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),f(e,[{key:"render",value:function(){return s.a.createElement(h.a,{page:this.state.page,items:this.state.items,options:this.state.options})}}],[{key:"getStores",value:function(){return[p.a]}},{key:"calculateState",value:function(){return p.a.getState()}}]),e}(s.a.Component);e.a=c.Container.create(l.a.convert(m))},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(8),s=(n.n(a),n(9)),c=n(1),u=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),l=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),u(e,[{key:"getInitialState",value:function(){return{page:0,items:null,options:{searchString:"",pages:"",highestPrice:"",lowestPrice:"",shipping:[],condition:[],status:[],itemId:[],categoryPath:[],seller:[],startDate:"",endDate:""}}}},{key:"reduce",value:function(t,e){switch(c.a.info("noteStore> Request: "+e.type),e.type){case"item/fetch/note":return Object.assign({},t,{items:e.items,options:e.options,page:e.page});case"item/write/note":return Object.assign({},t,{options:e.options});default:return t}}}]),e}(a.ReduceStore);e.a=new l(s.a)},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(118),u=n(120),l=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),p=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),l(e,[{key:"render",value:function(){return s.a.createElement("div",{className:"pane-group"},s.a.createElement(c.a,{page:this.props.page,items:this.props.items,options:this.props.options}),s.a.createElement(u.a,{items:this.props.items,options:this.props.options}))}}]),e}(s.a.Component);e.a=p},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(119),u=(n(40),n(1)),l=n(11),p=n.n(l),h=n(41),f=n.n(h),m=n(32),d=n.n(m),y=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),g=d.a.remote,b=d.a.remote.dialog,v="NoteSidebarView",E=function(t){function e(t){r(this,e);var n=i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return n.state=Object.assign({},t.options),n}return o(e,t),y(e,[{key:"saveFile",value:function(t,e){return new Promise(function(n,r){f.a.appendFile(t,e,function(t){t&&r(t),n("File has been saved!")})})}},{key:"touchFile",value:function(t){return new Promise(function(e){f.a.closeSync(f.a.openSync(t,"w",438)),e("File has been touched!")})}},{key:"showSaveDialog",value:function(t){var e=g.getCurrentWindow(),n={title:"Save",filters:[{name:"CSV File",extensions:["csv"]},{name:"All Files",extensions:["*"]}]};b.showSaveDialog(e,n,t)}},{key:"showErrorBox",value:function(t){b.showErrorBox("Error",t)}},{key:"showSaveMessageBox",value:function(){var t=g.getCurrentWindow(),e={type:"info",buttons:["OK"],title:"Save file",message:"Save file",detail:"CSV file saved."};b.showMessageBox(t,e)}},{key:"csvHeader",value:function(){return{Image:"",Url:"",Title:"",StartTime:"",EndTime:"",Condition:"",Seller:"",ItemID:"","ProductID(UPC)":"","ProductID(EAN)":"","ProductID(ISBN)":"",Category:"",Shipping:"",CurrentPrice:"",CurrentCurrency:"",ConvertedPrice:"",ConvertedCurrency:"",Status:"",LeftTime:""}}},{key:"handleChangeSave",value:function(){var t=this;if(u.a.info(v+">","Request: handleChangeSave"),!Number(this.state.pages))return this.showErrorBox("Pages is not a number!");this.showSaveDialog(function(e){if(!e)return u.a.info("File save canceled!");u.a.trace(v+">","Save file:",e),t.touchFile(e).then(function(){return t.saveFile(e,u.d.getCSVHeader(t.csvHeader()))}).then(function(){u.b.spin(),c.a.writeItems(t.state).subscribe(function(n){return t.saveFile(e,n)},function(e){return t.showErrorBox(e.message)},function(){t.showSaveMessageBox(),u.a.info("File has been saved!"),u.b.stop()})})})}},{key:"handleChangeHome",value:function(){u.a.info(v+">","Request: handleChangeHome"),u.a.trace(v+">",this.props.options),c.a.increment(this.props.options,0)}},{key:"handleIncrement",value:function(){u.a.info(v+">","Request: handleIncrement"),u.a.trace(v+">",this.props.options),c.a.increment(this.props.options,this.props.page)}},{key:"handleDecrement",value:function(){u.a.info(v+"> Request: handleDecrement"),u.a.trace(v+">",this.props.options),c.a.decrement(this.props.options,this.props.page)}},{key:"handleChangeSearch",value:function(t){u.a.info(v+">","Request: handleChangeSearch"),u.a.trace(v+">",this.state),t.preventDefault(),c.a.increment(this.state,0)}},{key:"handleChangeReset",value:function(){u.a.info(v+">","Request: handleChangeReset"),u.a.trace(v+">",this.state),this.setState({highestPrice:"",lowestPrice:"",shipping:[],condition:[],status:[],itemId:[],categoryPath:[],seller:[],startDate:"",endDate:""})}},{key:"handleChangeText",value:function(t,e){var n={};n[t]=e.target.value,this.setState(n)}},{key:"handleChangeCheckbox",value:function(t,e){var n={};n[t]=e.target.checked,this.setState(n)}},{key:"handleChangeRadio",value:function(t,e){var n={};n[t]=e.target.value,this.setState(n)}},{key:"handleChangeSelect",value:function(t,e){for(var n={},r=e.target.options,i=[],o=0;o<r.length;o++)r[o].selected&&i.push(r[o].value);n[t]=i,this.setState(n)}},{key:"renderOption",value:function(t,e,n){if(!t)return null;var r=arguments.length,i=t.map(function(t){return 2===r?t[e][0]:t[e][0][n][0]});return p.a.dst(i).map(function(t,e){return s.a.createElement("option",{key:"choice-"+e,value:t},t)})}},{key:"render",value:function(){var t=this.props.page,e=this.renderOption(this.props.items,"primaryCategory","categoryName"),n=this.renderOption(this.props.items,"sellerInfo","sellerUserName"),r=this.renderOption(this.props.items,"itemId"),i=this.renderOption(this.props.items,"shippingInfo","shipToLocations"),o=this.renderOption(this.props.items,"sellingStatus","sellingState");return s.a.createElement("div",{className:"pane pane-sm sidebar"},s.a.createElement("nav",{className:"nav-group"},s.a.createElement("h5",{className:"nav-group-title"},"Title"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Search of items",value:this.state.searchString,onChange:this.handleChangeText.bind(this,"searchString")}))),s.a.createElement("h5",{className:"nav-group-title"},"End time"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"From date (yyyy/mm/dd)",value:this.state.startDate,onChange:this.handleChangeText.bind(this,"startDate")})),s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"To date (yyyy/mm/dd)",value:this.state.endDate,onChange:this.handleChangeText.bind(this,"endDate")}))),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-actions"},s.a.createElement("button",{className:"btn btn-mini btn-default",onClick:this.handleChangeReset.bind(this)},"Reset"),s.a.createElement("button",{className:"btn btn-mini btn-primary",onClick:this.handleChangeSearch.bind(this)},"Search"))),s.a.createElement("h5",{className:"nav-group-title"},"Functions"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleChangeHome.bind(this)},s.a.createElement("span",{className:"icon icon-home"}),"Home (",t," page)"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleIncrement.bind(this)},s.a.createElement("span",{className:"icon icon-right-bold"}),"Next"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleDecrement.bind(this)},s.a.createElement("span",{className:"icon icon-left-bold"}),"Previous"),s.a.createElement("h5",{className:"nav-group-title"},"Output"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Number of pages",value:this.state.pages,onChange:this.handleChangeText.bind(this,"pages")}))),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-actions"},s.a.createElement("button",{className:"btn btn-mini btn-primary",onClick:this.handleChangeSave.bind(this)},"Save"))),s.a.createElement("h5",{className:"nav-group-title"},"Category"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.categoryPath,onChange:this.handleChangeSelect.bind(this,"categoryPath")},e)),s.a.createElement("h5",{className:"nav-group-title"},"Seller"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.seller,onChange:this.handleChangeSelect.bind(this,"seller")},n)),s.a.createElement("h5",{className:"nav-group-title"},"ItemID"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.itemId,onChange:this.handleChangeSelect.bind(this,"itemId")},r)),s.a.createElement("h5",{className:"nav-group-title"},"Price"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Highest price",value:this.state.highestPrice,onChange:this.handleChangeText.bind(this,"highestPrice")})),s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Lowest price",value:this.state.lowestPrice,onChange:this.handleChangeText.bind(this,"lowestPrice")}))),s.a.createElement("h5",{className:"nav-group-title"},"Shipping"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.shipping,onChange:this.handleChangeSelect.bind(this,"shipping")},i)),s.a.createElement("h5",{className:"nav-group-title"},"Condition"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.condition,onChange:this.handleChangeSelect.bind(this,"condition")},s.a.createElement("option",{value:"1000"},"New"),s.a.createElement("option",{value:"1500"},"New other (see details)"),s.a.createElement("option",{value:"1750"},"New with defects"),s.a.createElement("option",{value:"2000"},"Manufacturer refurbished"),s.a.createElement("option",{value:"2500"},"Seller refurbished"),s.a.createElement("option",{value:"3000"},"Used"),s.a.createElement("option",{value:"4000"},"Very Good"),s.a.createElement("option",{value:"5000"},"Good"),s.a.createElement("option",{value:"6000"},"Acceptable"),s.a.createElement("option",{value:"7000"},"For parts or not working"))),s.a.createElement("h5",{className:"nav-group-title"},"Status"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.status,onChange:this.handleChangeSelect.bind(this,"status")},o))))}}]),e}(s.a.Component);e.a=E},function(t,e,n){"use strict";var r=n(9),i=n(31),o=n(1),a="NoteAction";e.a={increment:function(t,e){return o.a.trace(a+">",t),e=++e>0?e:1,o.b.spin(),i.a.fetchItems(t,e).then(function(n){Object(r.b)({type:"item/fetch/note",items:n,options:t,page:e}),o.a.info(a+">","Response: item/fetch/note"),o.b.stop()})},decrement:function(t,e){return e=--e>0?e:1,o.b.spin(),i.a.fetchItems(t,e).then(function(n){Object(r.b)({type:"item/fetch/note",items:n,options:t,page:e}),o.a.info(a+"> Response: item/fetch/note"),o.b.stop()})},writeItems:function(t){return o.b.spin(),i.a.writeItems(t).map(function(e){return Object(r.b)({type:"item/write/note",options:t}),o.a.info(a+">","Response: item/write/note"),e})}}},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(11),u=n.n(c),l=n(1),p=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),h=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),p(e,[{key:"renderStatus",value:function(t){var e=void 0;switch(t){case 0:return e={fontWeight:"bold",color:"blue"},s.a.createElement("div",{style:e},"Now available.");case 1:return e={fontWeight:"bold",color:"orange"},s.a.createElement("div",{style:e},"New added.");case 2:return e={fontWeight:"bold",color:"red"},s.a.createElement("div",{style:e},"Removed.")}}},{key:"renderExtension",value:function(t){return s.a.createElement("div",null,"( ",l.d.toLeftDays(t)," )")}},{key:"renderItem",value:function(t,e){var n=t,r=n.hasOwnProperty("galleryURL")?n.galleryURL[0]:"",i=n.itemId[0],o=n.hasOwnProperty("productId")?n.productId.map(function(t){return t.__value__+" ( "+t["@type"]+" )"}):["---"],a=n.sellerInfo[0].sellerUserName[0],c=u.a.getLocalTimeStamp(n.listingInfo[0].startTime[0]),l=u.a.getLocalTimeStamp(n.listingInfo[0].endTime[0]),p=n.viewItemURL[0],h=n.title[0],f=n.sellingStatus[0].currentPrice[0].__value__,m=n.sellingStatus[0].currentPrice[0]["@currencyId"],d=n.sellingStatus[0].convertedCurrentPrice[0].__value__,y=n.sellingStatus[0].convertedCurrentPrice[0]["@currencyId"],g=n.hasOwnProperty("condition")?n.condition[0].conditionDisplayName[0]:"---",b=n.primaryCategory[0].categoryName[0],v=n.shippingInfo[0].shipToLocations[0],E=n.sellingStatus[0].sellingState[0],w=n.sellingStatus[0].hasOwnProperty("timeLeft")?this.renderExtension(n.sellingStatus[0].timeLeft[0]):"",_=this.renderStatus(0),S=u.a.getLocalTimeStamp(Date.now());return s.a.createElement("tbody",{key:e},s.a.createElement("tr",null,s.a.createElement("td",null,s.a.createElement("img",{src:r,width:"128",height:"128"})),s.a.createElement("td",null,s.a.createElement("span",null,s.a.createElement("a",{href:p,target:"_blank"},h),s.a.createElement("br",null)),s.a.createElement("span",null,"Sell period : ",c," ~ ",l,s.a.createElement("br",null),"Condition : ",g,s.a.createElement("br",null),"Seller : ",a,s.a.createElement("br",null),"ItemID : ",i,s.a.createElement("br",null),"ProductID : ",o.join(" "),s.a.createElement("br",null),"Category : ",b)),s.a.createElement("td",null,v),s.a.createElement("td",null,s.a.createElement("span",null,f," ",m),s.a.createElement("br",null),s.a.createElement("span",null,"( ",d," ",y," )")),s.a.createElement("td",null,s.a.createElement("span",null,E),s.a.createElement("br",null),s.a.createElement("span",null,w)),s.a.createElement("td",null,s.a.createElement("span",null,_),s.a.createElement("br",null),s.a.createElement("span",null,S))))}},{key:"filterItems",value:function(t,e){return l.a.trace("NoteTableView>",e),t.filter(function(t){var n=t;if(null!=e){if(!e.shipping.some(function(t){return t===n.shippingInfo[0].shipToLocations[0]})&&e.shipping.length)return!1;if(!e.condition.some(function(t){return t===n.condition[0].conditionId[0]})&&e.condition.length)return!1;if(!e.status.some(function(t){return t===n.sellingStatus[0].sellingState[0]})&&e.status.length)return!1;if(!e.categoryPath.some(function(t){return t===n.primaryCategory[0].categoryName[0]})&&e.categoryPath.length)return!1;if(!e.seller.some(function(t){return t===n.sellerInfo[0].sellerUserName[0]})&&e.seller.length)return!1;if(!e.itemId.some(function(t){return t===n.itemId[0]})&&e.itemId.length)return!1;if(!isFinite(e.lowestPrice)||!isFinite(e.highestPrice))return!1;if(Number(e.lowestPrice)>n.sellingStatus[0].convertedCurrentPrice[0].__value__&&""!==e.lowestPrice)return!1;if(Number(e.highestPrice)<n.sellingStatus[0].convertedCurrentPrice[0].__value__&&""!==e.highestPrice)return!1}return!0})}},{key:"render",value:function(){var t=this,e=this.props.options,n=this.props.items?this.filterItems(this.props.items,e).map(function(e,n){return t.renderItem(e,n)}):null;return s.a.createElement("div",{className:"pane"},s.a.createElement("table",{className:"table-striped"},s.a.createElement("thead",null,s.a.createElement("tr",null,s.a.createElement("th",null,"Image"),s.a.createElement("th",null,"Detail"),s.a.createElement("th",null,"Shipping"),s.a.createElement("th",null,"Price"),s.a.createElement("th",null,"Status"),s.a.createElement("th",null,"Update"))),n))}}]),e}(s.a.Component);e.a=h},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(8),u=(n.n(c),n(17)),l=n.n(u),p=n(122),h=n(123),f=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),m=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),f(e,[{key:"render",value:function(){return s.a.createElement(h.a,{page:this.state.page,items:this.state.items,options:this.state.options})}}],[{key:"getStores",value:function(){return[p.a]}},{key:"calculateState",value:function(){return p.a.getState()}}]),e}(s.a.Component);e.a=c.Container.create(l.a.convert(m))},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(8),s=(n.n(a),n(9)),c=n(1),u=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),l=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),u(e,[{key:"getInitialState",value:function(){return{page:0,items:null,options:{searchString:"",pages:"",highestPrice:"",lowestPrice:"",shipping:[],condition:[],status:[],itemId:[],categoryPath:[],seller:[],soldItemOnly:!1,startDate:"",endDate:""}}}},{key:"reduce",value:function(t,e){switch(c.a.info("completeStore> Request: "+e.type),e.type){case"item/fetch/complete":return Object.assign({},t,{items:e.items,options:e.options,page:e.page});case"item/write/complete":return Object.assign({},t,{options:e.options});default:return t}}}]),e}(a.ReduceStore);e.a=new l(s.a)},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(124),u=n(126),l=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),p=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),l(e,[{key:"render",value:function(){return s.a.createElement("div",{className:"pane-group"},s.a.createElement(c.a,{page:this.props.page,items:this.props.items,options:this.props.options}),s.a.createElement(u.a,{items:this.props.items,options:this.props.options}))}}]),e}(s.a.Component);e.a=p},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(125),u=(n(40),n(1)),l=n(11),p=n.n(l),h=n(41),f=n.n(h),m=n(32),d=n.n(m),y=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),g=d.a.remote,b=d.a.remote.dialog,v="CompleteSidebarView",E=function(t){function e(t){r(this,e);var n=i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return n.state=Object.assign({},t.options),n}return o(e,t),y(e,[{key:"saveFile",value:function(t,e){return new Promise(function(n,r){f.a.appendFile(t,e,function(t){t&&r(t),n("File has been saved!")})})}},{key:"touchFile",value:function(t){return new Promise(function(e){f.a.closeSync(f.a.openSync(t,"w",438)),e("File has been touched!")})}},{key:"showSaveDialog",value:function(t){var e=g.getCurrentWindow(),n={title:"Save",filters:[{name:"CSV File",extensions:["csv"]},{name:"All Files",extensions:["*"]}]};b.showSaveDialog(e,n,t)}},{key:"showErrorBox",value:function(t){b.showErrorBox("Error",t)}},{key:"showSaveMessageBox",value:function(){var t=g.getCurrentWindow(),e={type:"info",buttons:["OK"],title:"Save file",message:"Save file",detail:"CSV file saved."};b.showMessageBox(t,e)}},{key:"csvHeader",value:function(){return{Image:"",Url:"",Title:"",StartTime:"",EndTime:"",Condition:"",Seller:"",ItemID:"","ProductID(UPC)":"","ProductID(EAN)":"","ProductID(ISBN)":"",Category:"",Shipping:"",CurrentPrice:"",CurrentCurrency:"",ConvertedPrice:"",ConvertedCurrency:"",Status:"",LeftTime:""}}},{key:"handleChangeSave",value:function(){var t=this;if(u.a.info(v+">","Request: handleChangeSave"),!Number(this.state.pages))return this.showErrorBox("Pages is not a number!");this.showSaveDialog(function(e){if(!e)return u.a.info("File save canceled!");u.a.trace(v+">","Save file:",e),t.touchFile(e).then(function(){return t.saveFile(e,u.d.getCSVHeader(t.csvHeader()))}).then(function(){u.b.spin(),c.a.writeCompleteItems(t.state).subscribe(function(n){return t.saveFile(e,n)},function(e){return t.showErrorBox(e.message)},function(){t.showSaveMessageBox(),u.a.info("File has been saved!"),u.b.stop()})})})}},{key:"handleChangeHome",value:function(){u.a.info(v+">","Request: handleChangeHome"),u.a.trace(v+">",this.props.options),c.a.increment(this.props.options,0)}},{key:"handleIncrement",value:function(){u.a.info(v+">","Request: handleIncrement"),u.a.trace(v+">",this.props.options),c.a.increment(this.props.options,this.props.page)}},{key:"handleDecrement",value:function(){u.a.info(v+"> Request: handleDecrement"),u.a.trace(v+">",this.props.options),c.a.decrement(this.props.options,this.props.page)}},{key:"handleChangeSearch",value:function(t){u.a.info(v+">","Request: handleChangeSearch"),u.a.trace(v+">",this.state),t.preventDefault(),c.a.increment(this.state,0)}},{key:"handleChangeReset",value:function(){u.a.info(v+">","Request: handleChangeReset"),u.a.trace(v+">",this.state),this.setState({highestPrice:"",lowestPrice:"",shipping:[],condition:[],status:[],itemId:[],categoryPath:[],seller:[],startDate:"",endDate:""})}},{key:"handleChangeText",value:function(t,e){var n={};n[t]=e.target.value,this.setState(n)}},{key:"handleChangeCheckbox",value:function(t,e){var n={};n[t]=e.target.checked,this.setState(n)}},{key:"handleChangeRadio",value:function(t,e){var n={};n[t]=e.target.value,this.setState(n)}},{key:"handleChangeSelect",value:function(t,e){for(var n={},r=e.target.options,i=[],o=0;o<r.length;o++)r[o].selected&&i.push(r[o].value);n[t]=i,this.setState(n)}},{key:"renderOption",value:function(t,e,n){if(!t)return null;var r=arguments.length,i=t.map(function(t){return 2===r?t[e][0]:t[e][0][n][0]});return p.a.dst(i).map(function(t,e){return s.a.createElement("option",{key:"choice-"+e,value:t},t)})}},{key:"render",value:function(){var t=this.props.page,e=this.renderOption(this.props.items,"primaryCategory","categoryName"),n=this.renderOption(this.props.items,"sellerInfo","sellerUserName"),r=this.renderOption(this.props.items,"itemId"),i=this.renderOption(this.props.items,"shippingInfo","shipToLocations"),o=this.renderOption(this.props.items,"sellingStatus","sellingState");return s.a.createElement("div",{className:"pane pane-sm sidebar"},s.a.createElement("nav",{className:"nav-group"},s.a.createElement("h5",{className:"nav-group-title"},"Title"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Search of items",value:this.state.searchString,onChange:this.handleChangeText.bind(this,"searchString")}))),s.a.createElement("h5",{className:"nav-group-title"},"Sold listing"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"checkbox"},s.a.createElement("label",null,s.a.createElement("input",{type:"checkbox",value:"soldItemOnly",checked:this.state.soldItemOnly,onChange:this.handleChangeCheckbox.bind(this,"soldItemOnly")}),"Sold items only."))),s.a.createElement("h5",{className:"nav-group-title"},"End time"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"From Date (yyyy/mm/dd)",value:this.state.startDate,onChange:this.handleChangeText.bind(this,"startDate")})),s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"To Date (yyyy/mm/dd)",value:this.state.endDate,onChange:this.handleChangeText.bind(this,"endDate")}))),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-actions"},s.a.createElement("button",{className:"btn btn-mini btn-default",onClick:this.handleChangeReset.bind(this)},"Reset"),s.a.createElement("button",{className:"btn btn-mini btn-primary",onClick:this.handleChangeSearch.bind(this)},"Search"))),s.a.createElement("h5",{className:"nav-group-title"},"Functions"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleChangeHome.bind(this)},s.a.createElement("span",{className:"icon icon-home"}),"Home (",t," page)"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleIncrement.bind(this)},s.a.createElement("span",{className:"icon icon-right-bold"}),"Next"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleDecrement.bind(this)},s.a.createElement("span",{className:"icon icon-left-bold"}),"Previous"),s.a.createElement("h5",{className:"nav-group-title"},"Output"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Number of pages",value:this.state.pages,onChange:this.handleChangeText.bind(this,"pages")}))),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-actions"},s.a.createElement("button",{className:"btn btn-mini btn-primary",onClick:this.handleChangeSave.bind(this)},"Save"))),s.a.createElement("h5",{className:"nav-group-title"},"Category"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.categoryPath,onChange:this.handleChangeSelect.bind(this,"categoryPath")},e)),s.a.createElement("h5",{className:"nav-group-title"},"Seller"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.seller,onChange:this.handleChangeSelect.bind(this,"seller")},n)),s.a.createElement("h5",{className:"nav-group-title"},"ItemID"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.itemId,onChange:this.handleChangeSelect.bind(this,"itemId")},r)),s.a.createElement("h5",{className:"nav-group-title"},"Price"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Highest price",value:this.state.highestPrice,onChange:this.handleChangeText.bind(this,"highestPrice")})),s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Lowest price",value:this.state.lowestPrice,onChange:this.handleChangeText.bind(this,"lowestPrice")}))),s.a.createElement("h5",{className:"nav-group-title"},"Shipping"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.shipping,onChange:this.handleChangeSelect.bind(this,"shipping")},i)),s.a.createElement("h5",{className:"nav-group-title"},"Condition"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.condition,onChange:this.handleChangeSelect.bind(this,"condition")},s.a.createElement("option",{value:"1000"},"New"),s.a.createElement("option",{value:"1500"},"New other (see details)"),s.a.createElement("option",{value:"1750"},"New with defects"),s.a.createElement("option",{value:"2000"},"Manufacturer refurbished"),s.a.createElement("option",{value:"2500"},"Seller refurbished"),s.a.createElement("option",{value:"3000"},"Used"),s.a.createElement("option",{value:"4000"},"Very Good"),s.a.createElement("option",{value:"5000"},"Good"),s.a.createElement("option",{value:"6000"},"Acceptable"),s.a.createElement("option",{value:"7000"},"For parts or not working"))),s.a.createElement("h5",{className:"nav-group-title"},"Status"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.status,onChange:this.handleChangeSelect.bind(this,"status")},o))))}}]),e}(s.a.Component);e.a=E},function(t,e,n){"use strict";var r=n(9),i=n(31),o=n(1),a="CompleteAction";e.a={increment:function(t,e){return o.a.trace(a+">",t),e=++e>0?e:1,o.b.spin(),i.a.fetchCompleteItems(t,e).then(function(n){Object(r.b)({type:"item/fetch/complete",items:n,options:t,page:e}),o.a.info(a+">","Response: item/fetch/complete"),o.b.stop()})},decrement:function(t,e){return e=--e>0?e:1,o.b.spin(),i.a.fetchCompleteItems(t,e).then(function(n){Object(r.b)({type:"item/fetch/complete",items:n,options:t,page:e}),o.a.info(a+"> Response: item/fetch/complete"),o.b.stop()})},writeCompleteItems:function(t){return o.b.spin(),i.a.writeCompleteItems(t).map(function(e){return Object(r.b)({type:"item/write/complete",options:t}),o.a.info(a+">","Response: item/write/complete"),e})}}},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(11),u=n.n(c),l=n(1),p=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),h=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),p(e,[{key:"renderStatus",value:function(t){var e=void 0;switch(t){case 0:return e={fontWeight:"bold",color:"blue"},s.a.createElement("div",{style:e},"Now available.");case 1:return e={fontWeight:"bold",color:"orange"},s.a.createElement("div",{style:e},"New added.");case 2:return e={fontWeight:"bold",color:"red"},s.a.createElement("div",{style:e},"Removed.")}}},{key:"renderExtension",value:function(t){return s.a.createElement("div",null,"( ",l.d.toLeftDays(t)," )")}},{key:"renderItem",value:function(t,e){var n=t,r=n.hasOwnProperty("galleryURL")?n.galleryURL[0]:"",i=n.itemId[0],o=n.hasOwnProperty("productId")?n.productId.map(function(t){return t.__value__+" ( "+t["@type"]+" )"}):["---"],a=n.sellerInfo[0].sellerUserName[0],c=u.a.getLocalTimeStamp(n.listingInfo[0].startTime[0]),l=u.a.getLocalTimeStamp(n.listingInfo[0].endTime[0]),p=n.viewItemURL[0],h=n.title[0],f=n.sellingStatus[0].currentPrice[0].__value__,m=n.sellingStatus[0].currentPrice[0]["@currencyId"],d=n.sellingStatus[0].convertedCurrentPrice[0].__value__,y=n.sellingStatus[0].convertedCurrentPrice[0]["@currencyId"],g=n.hasOwnProperty("condition")?n.condition[0].conditionDisplayName[0]:"---",b=n.primaryCategory[0].categoryName[0],v=n.shippingInfo[0].shipToLocations[0],E=n.sellingStatus[0].sellingState[0],w=n.sellingStatus[0].hasOwnProperty("timeLeft")?this.renderExtension(n.sellingStatus[0].timeLeft[0]):"",_=this.renderStatus(0),S=u.a.getLocalTimeStamp(Date.now());return s.a.createElement("tbody",{key:e},s.a.createElement("tr",null,s.a.createElement("td",null,s.a.createElement("img",{src:r,width:"128",height:"128"})),s.a.createElement("td",null,s.a.createElement("span",null,s.a.createElement("a",{href:p,target:"_blank"},h),s.a.createElement("br",null)),s.a.createElement("span",null,"Sell period : ",c," ~ ",l,s.a.createElement("br",null),"Condition : ",g,s.a.createElement("br",null),"Seller : ",a,s.a.createElement("br",null),"ItemID : ",i,s.a.createElement("br",null),"ProductID : ",o.join(" "),s.a.createElement("br",null),"Category : ",b)),s.a.createElement("td",null,v),s.a.createElement("td",null,s.a.createElement("span",null,f," ",m),s.a.createElement("br",null),s.a.createElement("span",null,"( ",d," ",y," )")),s.a.createElement("td",null,s.a.createElement("span",null,E),s.a.createElement("br",null),s.a.createElement("span",null,w)),s.a.createElement("td",null,s.a.createElement("span",null,_),s.a.createElement("br",null),s.a.createElement("span",null,S))))}},{key:"filterItems",value:function(t,e){return l.a.trace("CompleteTableView>",e),t.filter(function(t){var n=t;if(null!=e){if(!e.shipping.some(function(t){return t===n.shippingInfo[0].shipToLocations[0]})&&e.shipping.length)return!1;if(!e.condition.some(function(t){return t===n.condition[0].conditionId[0]})&&e.condition.length)return!1;if(!e.status.some(function(t){return t===n.sellingStatus[0].sellingState[0]})&&e.status.length)return!1;if(!e.categoryPath.some(function(t){return t===n.primaryCategory[0].categoryName[0]})&&e.categoryPath.length)return!1;if(!e.seller.some(function(t){return t===n.sellerInfo[0].sellerUserName[0]})&&e.seller.length)return!1;if(!e.itemId.some(function(t){return t===n.itemId[0]})&&e.itemId.length)return!1;if(!isFinite(e.lowestPrice)||!isFinite(e.highestPrice))return!1;if(Number(e.lowestPrice)>n.sellingStatus[0].convertedCurrentPrice[0].__value__&&""!==e.lowestPrice)return!1;if(Number(e.highestPrice)<n.sellingStatus[0].convertedCurrentPrice[0].__value__&&""!==e.highestPrice)return!1}return!0})}},{key:"render",value:function(){var t=this,e=this.props.options,n=this.props.items?this.filterItems(this.props.items,e).map(function(e,n){return t.renderItem(e,n)}):null;return s.a.createElement("div",{className:"pane"},s.a.createElement("table",{className:"table-striped"},s.a.createElement("thead",null,s.a.createElement("tr",null,s.a.createElement("th",null,"Image"),s.a.createElement("th",null,"Detail"),s.a.createElement("th",null,"Shipping"),s.a.createElement("th",null,"Price"),s.a.createElement("th",null,"Status"),s.a.createElement("th",null,"Update"))),n))}}]),e}(s.a.Component);e.a=h},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(8),u=(n.n(c),n(17)),l=n.n(u),p=n(128),h=n(129),f=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),m=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),f(e,[{key:"render",value:function(){return s.a.createElement(h.a,{page:this.state.page,items:this.state.items,options:this.state.options})}}],[{key:"getStores",value:function(){return[p.a]}},{key:"calculateState",value:function(){return p.a.getState()}}]),e}(s.a.Component);e.a=c.Container.create(l.a.convert(m))},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(8),s=(n.n(a),n(9)),c=n(1),u=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),l=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),u(e,[{key:"getInitialState",value:function(){return{page:0,items:null,options:{productId:"",productType:"",pages:"",highestPrice:"",lowestPrice:"",shipping:[],condition:[],status:[],itemId:[],categoryPath:[],seller:[]}}}},{key:"reduce",value:function(t,e){switch(c.a.info("productsStore> Request: "+e.type),e.type){case"item/fetch/products":return Object.assign({},t,{items:e.items,options:e.options,page:e.page});case"item/write/products":return Object.assign({},t,{options:e.options});default:return t}}}]),e}(a.ReduceStore);e.a=new l(s.a)},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(130),u=n(132),l=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),p=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),l(e,[{key:"render",value:function(){return s.a.createElement("div",{className:"pane-group"},s.a.createElement(c.a,{page:this.props.page,items:this.props.items,options:this.props.options}),s.a.createElement(u.a,{items:this.props.items,options:this.props.options}))}}]),e}(s.a.Component);e.a=p},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(131),u=n(40),l=n(1),p=n(11),h=n.n(p),f=n(41),m=n.n(f),d=n(32),y=n.n(d),g=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),b=y.a.remote,v=y.a.remote.dialog,E="ProductsSidebarView",w=function(t){function e(t){r(this,e);var n=i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return n.state=Object.assign({},t.options),n}return o(e,t),g(e,[{key:"saveFile",value:function(t,e){return new Promise(function(n,r){m.a.appendFile(t,e,function(t){t&&r(t),n("File has been saved!")})})}},{key:"touchFile",value:function(t){return new Promise(function(e){m.a.closeSync(m.a.openSync(t,"w",438)),e("File has been touched!")})}},{key:"showSaveDialog",value:function(t){var e=b.getCurrentWindow(),n={title:"Save",filters:[{name:"CSV File",extensions:["csv"]},{name:"All Files",extensions:["*"]}]};v.showSaveDialog(e,n,t)}},{key:"showErrorBox",value:function(t){v.showErrorBox("Error",t)}},{key:"showSaveMessageBox",value:function(){var t=b.getCurrentWindow(),e={type:"info",buttons:["OK"],title:"Save file",message:"Save file",detail:"CSV file saved."};v.showMessageBox(t,e)}},{key:"csvHeader",value:function(){return{Image:"",Url:"",Title:"",StartTime:"",EndTime:"",Condition:"",Seller:"",ItemID:"","ProductID(UPC)":"","ProductID(EAN)":"","ProductID(ISBN)":"",Category:"",Shipping:"",CurrentPrice:"",CurrentCurrency:"",ConvertedPrice:"",ConvertedCurrency:"",Status:"",LeftTime:""}}},{key:"handleChangeSave",value:function(){var t=this;if(l.a.info(E+">","Request: handleChangeSave"),!Number(this.state.pages))return this.showErrorBox("Pages is not a number!");this.showSaveDialog(function(e){if(!e)return l.a.info("File save canceled!");l.a.trace(E+">","Save file:",e),t.touchFile(e).then(function(){return t.saveFile(e,l.d.getCSVHeader(t.csvHeader()))}).then(function(){l.b.spin(),c.a.writeProductsItems(t.state).subscribe(function(n){return t.saveFile(e,n)},function(e){return t.showErrorBox(e.message)},function(){t.showSaveMessageBox(),l.a.info("File has been saved!"),l.b.stop()})})})}},{key:"handleChangeHome",value:function(){l.a.info(E+">","Request: handleChangeHome"),l.a.trace(E+">",this.props.options),c.a.increment(this.props.options,0)}},{key:"handleIncrement",value:function(){l.a.info(E+">","Request: handleIncrement"),l.a.trace(E+">",this.props.options),c.a.increment(this.props.options,this.props.page)}},{key:"handleDecrement",value:function(){l.a.info(E+"> Request: handleDecrement"),l.a.trace(E+">",this.props.options),c.a.decrement(this.props.options,this.props.page)}},{key:"handleChangeSearch",value:function(t){l.a.info(E+">","Request: handleChangeSearch"),l.a.trace(E+">",this.state),t.preventDefault(),c.a.increment(this.state,0)}},{key:"handleChangeReset",value:function(){l.a.info(E+">","Request: handleChangeReset"),l.a.trace(E+">",this.state),this.setState({highestPrice:"",lowestPrice:"",shipping:[],condition:[],status:[],itemId:[],categoryPath:[],seller:[]})}},{key:"handleChangeText",value:function(t,e){var n={};n[t]=e.target.value,this.setState(n)}},{key:"handleChangeCheckbox",value:function(t,e){var n={};n[t]=e.target.checked,this.setState(n)}},{key:"handleChangeRadio",value:function(t,e){var n={};n[t]=e.target.value,this.setState(n)}},{key:"handleChangeSelect",value:function(t,e){for(var n={},r=e.target.options,i=[],o=0;o<r.length;o++)r[o].selected&&i.push(r[o].value);n[t]=i,this.setState(n)}},{key:"renderOption",value:function(t,e,n){if(!t)return null;var r=arguments.length,i=t.map(function(t){return 2===r?t[e][0]:t[e][0][n][0]});return h.a.dst(i).map(function(t,e){return s.a.createElement("option",{key:"choice-"+e,value:t},t)})}},{key:"render",value:function(){var t=this.props.page,e=this.renderOption(this.props.items,"primaryCategory","categoryName"),n=this.renderOption(this.props.items,"sellerInfo","sellerUserName"),r=this.renderOption(this.props.items,"itemId"),i=this.renderOption(this.props.items,"shippingInfo","shipToLocations"),o=this.renderOption(this.props.items,"sellingStatus","sellingState");return s.a.createElement("div",{className:"pane pane-sm sidebar"},s.a.createElement("nav",{className:"nav-group"},s.a.createElement("h5",{className:"nav-group-title"},"ProductID"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Search of items",value:this.state.productId,onChange:this.handleChangeText.bind(this,"productId")}))),s.a.createElement("h5",{className:"nav-group-title"},"ProductType"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement(u.a,{name:"productType",value:this.state.productType,onChange:this.handleChangeRadio.bind(this,"productType")},s.a.createElement("option",{value:"ReferenceID"},"ReferenceID"),s.a.createElement("option",{value:"ISBN"},"ISBN"),s.a.createElement("option",{value:"UPC"},"UPC"),s.a.createElement("option",{value:"EAN"},"EAN"))),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-actions"},s.a.createElement("button",{className:"btn btn-mini btn-default",onClick:this.handleChangeReset.bind(this)},"Reset"),s.a.createElement("button",{className:"btn btn-mini btn-primary",onClick:this.handleChangeSearch.bind(this)},"Search"))),s.a.createElement("h5",{className:"nav-group-title"},"Functions"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleChangeHome.bind(this)},s.a.createElement("span",{className:"icon icon-home"}),"Home (",t," page)"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleIncrement.bind(this)},s.a.createElement("span",{className:"icon icon-right-bold"}),"Next"),s.a.createElement("span",{className:"nav-group-item",onClick:this.handleDecrement.bind(this)},s.a.createElement("span",{className:"icon icon-left-bold"}),"Previous"),s.a.createElement("h5",{className:"nav-group-title"},"Output"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Number of pages",value:this.state.pages,onChange:this.handleChangeText.bind(this,"pages")}))),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-actions"},s.a.createElement("button",{className:"btn btn-mini btn-primary",onClick:this.handleChangeSave.bind(this)},"Save"))),s.a.createElement("h5",{className:"nav-group-title"},"Category"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.categoryPath,onChange:this.handleChangeSelect.bind(this,"categoryPath")},e)),s.a.createElement("h5",{className:"nav-group-title"},"Seller"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.seller,onChange:this.handleChangeSelect.bind(this,"seller")},n)),s.a.createElement("h5",{className:"nav-group-title"},"ItemID"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.itemId,onChange:this.handleChangeSelect.bind(this,"itemId")},r)),s.a.createElement("h5",{className:"nav-group-title"},"Price"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Highest price",value:this.state.highestPrice,onChange:this.handleChangeText.bind(this,"highestPrice")})),s.a.createElement("div",{className:"form-group"},s.a.createElement("input",{type:"text",className:"form-control",placeholder:"Lowest price",value:this.state.lowestPrice,onChange:this.handleChangeText.bind(this,"lowestPrice")}))),s.a.createElement("h5",{className:"nav-group-title"},"Shipping"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.shipping,onChange:this.handleChangeSelect.bind(this,"shipping")},i)),s.a.createElement("h5",{className:"nav-group-title"},"Condition"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.condition,onChange:this.handleChangeSelect.bind(this,"condition")},s.a.createElement("option",{value:"1000"},"New"),s.a.createElement("option",{value:"1500"},"New other (see details)"),s.a.createElement("option",{value:"1750"},"New with defects"),s.a.createElement("option",{value:"2000"},"Manufacturer refurbished"),s.a.createElement("option",{value:"2500"},"Seller refurbished"),s.a.createElement("option",{value:"3000"},"Used"),s.a.createElement("option",{value:"4000"},"Very Good"),s.a.createElement("option",{value:"5000"},"Good"),s.a.createElement("option",{value:"6000"},"Acceptable"),s.a.createElement("option",{value:"7000"},"For parts or not working"))),s.a.createElement("h5",{className:"nav-group-title"},"Status"),s.a.createElement("span",{className:"nav-group-item"},s.a.createElement("select",{className:"form-control",multiple:!0,value:this.state.status,onChange:this.handleChangeSelect.bind(this,"status")},o))))}}]),e}(s.a.Component);e.a=w},function(t,e,n){"use strict";var r=n(9),i=n(31),o=n(1),a="ProductsAction";e.a={increment:function(t,e){return o.a.trace(a+">",t),e=++e>0?e:1,o.b.spin(),i.a.fetchProductsItems(t,e).then(function(n){Object(r.b)({type:"item/fetch/products",items:n,options:t,page:e}),o.a.info(a+">","Response: item/fetch/products"),o.b.stop()})},decrement:function(t,e){return e=--e>0?e:1,o.b.spin(),i.a.fetchProductsItems(t,e).then(function(n){Object(r.b)({type:"item/fetch/products",items:n,options:t,page:e}),o.a.info(a+"> Response: item/fetch/products"),o.b.stop()})},writeProductsItems:function(t){return o.b.spin(),i.a.writeProductsItems(t).map(function(e){return Object(r.b)({type:"item/write/products",options:t}),o.a.info(a+">","Response: item/write/products"),e})}}},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(11),u=n.n(c),l=n(1),p=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),h=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),p(e,[{key:"renderStatus",value:function(t){var e=void 0;switch(t){case 0:return e={fontWeight:"bold",color:"blue"},s.a.createElement("div",{style:e},"Now available.");case 1:return e={fontWeight:"bold",color:"orange"},s.a.createElement("div",{style:e},"New added.");case 2:return e={fontWeight:"bold",color:"red"},s.a.createElement("div",{style:e},"Removed.")}}},{key:"renderExtension",value:function(t){return s.a.createElement("div",null,"( ",l.d.toLeftDays(t)," )")}},{key:"renderItem",value:function(t,e){var n=t,r=n.hasOwnProperty("galleryURL")?n.galleryURL[0]:"",i=n.itemId[0],o=n.hasOwnProperty("productId")?n.productId.map(function(t){return t.__value__+" ( "+t["@type"]+" )"}):["---"],a=n.sellerInfo[0].sellerUserName[0],c=u.a.getLocalTimeStamp(n.listingInfo[0].startTime[0]),l=u.a.getLocalTimeStamp(n.listingInfo[0].endTime[0]),p=n.viewItemURL[0],h=n.title[0],f=n.sellingStatus[0].currentPrice[0].__value__,m=n.sellingStatus[0].currentPrice[0]["@currencyId"],d=n.sellingStatus[0].convertedCurrentPrice[0].__value__,y=n.sellingStatus[0].convertedCurrentPrice[0]["@currencyId"],g=n.hasOwnProperty("condition")?n.condition[0].conditionDisplayName[0]:"---",b=n.primaryCategory[0].categoryName[0],v=n.shippingInfo[0].shipToLocations[0],E=n.sellingStatus[0].sellingState[0],w=n.sellingStatus[0].hasOwnProperty("timeLeft")?this.renderExtension(n.sellingStatus[0].timeLeft[0]):"",_=this.renderStatus(0),S=u.a.getLocalTimeStamp(Date.now());return s.a.createElement("tbody",{key:e},s.a.createElement("tr",null,s.a.createElement("td",null,s.a.createElement("img",{src:r,width:"128",height:"128"})),s.a.createElement("td",null,s.a.createElement("span",null,s.a.createElement("a",{href:p,target:"_blank"},h),s.a.createElement("br",null)),s.a.createElement("span",null,"Sell period : ",c," ~ ",l,s.a.createElement("br",null),"Condition : ",g,s.a.createElement("br",null),"Seller : ",a,s.a.createElement("br",null),"ItemID : ",i,s.a.createElement("br",null),"ProductID : ",o.join(" "),s.a.createElement("br",null),"Category : ",b)),s.a.createElement("td",null,v),s.a.createElement("td",null,s.a.createElement("span",null,f," ",m),s.a.createElement("br",null),s.a.createElement("span",null,"( ",d," ",y," )")),s.a.createElement("td",null,s.a.createElement("span",null,E),s.a.createElement("br",null),s.a.createElement("span",null,w)),s.a.createElement("td",null,s.a.createElement("span",null,_),s.a.createElement("br",null),s.a.createElement("span",null,S))))}},{key:"filterItems",value:function(t,e){return l.a.trace("ProductsTableView>",e),t.filter(function(t){var n=t;if(null!=e){if(!e.shipping.some(function(t){return t===n.shippingInfo[0].shipToLocations[0]})&&e.shipping.length)return!1;if(!e.condition.some(function(t){return t===n.condition[0].conditionId[0]})&&e.condition.length)return!1;if(!e.status.some(function(t){return t===n.sellingStatus[0].sellingState[0]})&&e.status.length)return!1;if(!e.categoryPath.some(function(t){return t===n.primaryCategory[0].categoryName[0]})&&e.categoryPath.length)return!1;if(!e.seller.some(function(t){return t===n.sellerInfo[0].sellerUserName[0]})&&e.seller.length)return!1;if(!e.itemId.some(function(t){return t===n.itemId[0]})&&e.itemId.length)return!1;if(!isFinite(e.lowestPrice)||!isFinite(e.highestPrice))return!1;if(Number(e.lowestPrice)>n.sellingStatus[0].convertedCurrentPrice[0].__value__&&""!==e.lowestPrice)return!1;if(Number(e.highestPrice)<n.sellingStatus[0].convertedCurrentPrice[0].__value__&&""!==e.highestPrice)return!1}return!0})}},{key:"render",value:function(){var t=this,e=this.props.options,n=this.props.items?this.filterItems(this.props.items,e).map(function(e,n){return t.renderItem(e,n)}):null;return s.a.createElement("div",{className:"pane"},s.a.createElement("table",{className:"table-striped"},s.a.createElement("thead",null,s.a.createElement("tr",null,s.a.createElement("th",null,"Image"),s.a.createElement("th",null,"Detail"),s.a.createElement("th",null,"Shipping"),s.a.createElement("th",null,"Price"),s.a.createElement("th",null,"Status"),s.a.createElement("th",null,"Update"))),n))}}]),e}(s.a.Component);e.a=h},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(30),u=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),l=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),u(e,[{key:"componentDidMount",value:function(){c.a.selectedContent(0,this.props.children[0].props.label)}},{key:"handleClickTab",value:function(t,e,n){n.preventDefault(),c.a.selectedContent(t,e)}},{key:"renderTitles",value:function(t,e){var n=this.props.selected==e?"active":"",r=["tab-item"];return r.push(n),s.a.createElement("div",{key:e,className:r.join(" "),onClick:this.handleClickTab.bind(this,e,t.props.label)},t.props.label)}},{key:"render",value:function(){var t=this.props.children.map(this.renderTitles.bind(this));return s.a.createElement("div",{className:"tab-group"},t)}}]),e}(s.a.Component);e.a=l},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),u=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),c(e,[{key:"render",value:function(){var t=this.props.children[this.props.selected];return s.a.createElement("div",{className:"window-content"},t)}}]),e}(s.a.Component);e.a=u},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=(n(1),function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}()),u=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),c(e,[{key:"render",value:function(){return s.a.createElement("header",{className:"toolbar toolbar-header"},s.a.createElement("h1",{className:"title"},this.props.title),s.a.createElement("div",{className:"toolbar-actions"},s.a.createElement("button",{className:"btn btn-default btn-dropdown pull-right"},s.a.createElement("span",{className:"icon icon-megaphone"}))))}}]),e}(s.a.Component);e.a=u},function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var a=n(0),s=n.n(a),c=n(1),u=n(32),l=n.n(u),p=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),h=l.a.remote,f=l.a.remote.dialog,m=function(t){function e(){return r(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).apply(this,arguments))}return o(e,t),p(e,[{key:"showCloseMessageBox",value:function(t){var e=h.getCurrentWindow(),n={type:"info",buttons:["OK","Cancel"],title:"Quit",message:"Would you like to close this window?",detail:"Close this window."};f.showMessageBox(e,n,t)}},{key:"close",value:function(){h.getCurrentWindow().close()}},{key:"handleClickClose",value:function(){var t=this;this.showCloseMessageBox(function(e){c.a.trace("GlobalFooterView>","Click button:",e),e||t.close()})}},{key:"render",value:function(){return s.a.createElement("footer",{className:"toolbar toolbar-footer"},s.a.createElement("div",{className:"toolbar-actions"},s.a.createElement("button",{onClick:this.handleClickClose.bind(this),className:"btn btn-default"},"Close")))}}]),e}(s.a.Component);e.a=m}],[68]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/ 		var executeModules = data[2];
+/******/
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 		// add entry modules from loaded chunk to deferred list
+/******/ 		deferredModules.push.apply(deferredModules, executeModules || []);
+/******/
+/******/ 		// run deferred modules when all chunks ready
+/******/ 		return checkDeferredModules();
+/******/ 	};
+/******/ 	function checkDeferredModules() {
+/******/ 		var result;
+/******/ 		for(var i = 0; i < deferredModules.length; i++) {
+/******/ 			var deferredModule = deferredModules[i];
+/******/ 			var fulfilled = true;
+/******/ 			for(var j = 1; j < deferredModule.length; j++) {
+/******/ 				var depId = deferredModule[j];
+/******/ 				if(installedChunks[depId] !== 0) fulfilled = false;
+/******/ 			}
+/******/ 			if(fulfilled) {
+/******/ 				deferredModules.splice(i--, 1);
+/******/ 				result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+/******/ 			}
+/******/ 		}
+/******/ 		return result;
+/******/ 	}
+/******/ 	function hotDisposeChunk(chunkId) {
+/******/ 		delete installedChunks[chunkId];
+/******/ 	}
+/******/ 	var parentHotUpdateCallback = window["webpackHotUpdate"];
+/******/ 	window["webpackHotUpdate"] = // eslint-disable-next-line no-unused-vars
+/******/ 	function webpackHotUpdateCallback(chunkId, moreModules) {
+/******/ 		hotAddUpdateChunk(chunkId, moreModules);
+/******/ 		if (parentHotUpdateCallback) parentHotUpdateCallback(chunkId, moreModules);
+/******/ 	} ;
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotDownloadUpdateChunk(chunkId) {
+/******/ 		var head = document.getElementsByTagName("head")[0];
+/******/ 		var script = document.createElement("script");
+/******/ 		script.charset = "utf-8";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + "." + hotCurrentHash + ".hot-update.js";
+/******/ 		;
+/******/ 		head.appendChild(script);
+/******/ 	}
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotDownloadManifest(requestTimeout) {
+/******/ 		requestTimeout = requestTimeout || 10000;
+/******/ 		return new Promise(function(resolve, reject) {
+/******/ 			if (typeof XMLHttpRequest === "undefined") {
+/******/ 				return reject(new Error("No browser support"));
+/******/ 			}
+/******/ 			try {
+/******/ 				var request = new XMLHttpRequest();
+/******/ 				var requestPath = __webpack_require__.p + "" + hotCurrentHash + ".hot-update.json";
+/******/ 				request.open("GET", requestPath, true);
+/******/ 				request.timeout = requestTimeout;
+/******/ 				request.send(null);
+/******/ 			} catch (err) {
+/******/ 				return reject(err);
+/******/ 			}
+/******/ 			request.onreadystatechange = function() {
+/******/ 				if (request.readyState !== 4) return;
+/******/ 				if (request.status === 0) {
+/******/ 					// timeout
+/******/ 					reject(
+/******/ 						new Error("Manifest request to " + requestPath + " timed out.")
+/******/ 					);
+/******/ 				} else if (request.status === 404) {
+/******/ 					// no update available
+/******/ 					resolve();
+/******/ 				} else if (request.status !== 200 && request.status !== 304) {
+/******/ 					// other failure
+/******/ 					reject(new Error("Manifest request to " + requestPath + " failed."));
+/******/ 				} else {
+/******/ 					// success
+/******/ 					try {
+/******/ 						var update = JSON.parse(request.responseText);
+/******/ 					} catch (e) {
+/******/ 						reject(e);
+/******/ 						return;
+/******/ 					}
+/******/ 					resolve(update);
+/******/ 				}
+/******/ 			};
+/******/ 		});
+/******/ 	}
+/******/
+/******/ 	var hotApplyOnUpdate = true;
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	var hotCurrentHash = "ddebd33c9d47461d9523";
+/******/ 	var hotRequestTimeout = 10000;
+/******/ 	var hotCurrentModuleData = {};
+/******/ 	var hotCurrentChildModule;
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	var hotCurrentParents = [];
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	var hotCurrentParentsTemp = [];
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotCreateRequire(moduleId) {
+/******/ 		var me = installedModules[moduleId];
+/******/ 		if (!me) return __webpack_require__;
+/******/ 		var fn = function(request) {
+/******/ 			if (me.hot.active) {
+/******/ 				if (installedModules[request]) {
+/******/ 					if (installedModules[request].parents.indexOf(moduleId) === -1) {
+/******/ 						installedModules[request].parents.push(moduleId);
+/******/ 					}
+/******/ 				} else {
+/******/ 					hotCurrentParents = [moduleId];
+/******/ 					hotCurrentChildModule = request;
+/******/ 				}
+/******/ 				if (me.children.indexOf(request) === -1) {
+/******/ 					me.children.push(request);
+/******/ 				}
+/******/ 			} else {
+/******/ 				console.warn(
+/******/ 					"[HMR] unexpected require(" +
+/******/ 						request +
+/******/ 						") from disposed module " +
+/******/ 						moduleId
+/******/ 				);
+/******/ 				hotCurrentParents = [];
+/******/ 			}
+/******/ 			return __webpack_require__(request);
+/******/ 		};
+/******/ 		var ObjectFactory = function ObjectFactory(name) {
+/******/ 			return {
+/******/ 				configurable: true,
+/******/ 				enumerable: true,
+/******/ 				get: function() {
+/******/ 					return __webpack_require__[name];
+/******/ 				},
+/******/ 				set: function(value) {
+/******/ 					__webpack_require__[name] = value;
+/******/ 				}
+/******/ 			};
+/******/ 		};
+/******/ 		for (var name in __webpack_require__) {
+/******/ 			if (
+/******/ 				Object.prototype.hasOwnProperty.call(__webpack_require__, name) &&
+/******/ 				name !== "e" &&
+/******/ 				name !== "t"
+/******/ 			) {
+/******/ 				Object.defineProperty(fn, name, ObjectFactory(name));
+/******/ 			}
+/******/ 		}
+/******/ 		fn.e = function(chunkId) {
+/******/ 			if (hotStatus === "ready") hotSetStatus("prepare");
+/******/ 			hotChunksLoading++;
+/******/ 			return __webpack_require__.e(chunkId).then(finishChunkLoading, function(err) {
+/******/ 				finishChunkLoading();
+/******/ 				throw err;
+/******/ 			});
+/******/
+/******/ 			function finishChunkLoading() {
+/******/ 				hotChunksLoading--;
+/******/ 				if (hotStatus === "prepare") {
+/******/ 					if (!hotWaitingFilesMap[chunkId]) {
+/******/ 						hotEnsureUpdateChunk(chunkId);
+/******/ 					}
+/******/ 					if (hotChunksLoading === 0 && hotWaitingFiles === 0) {
+/******/ 						hotUpdateDownloaded();
+/******/ 					}
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 		fn.t = function(value, mode) {
+/******/ 			if (mode & 1) value = fn(value);
+/******/ 			return __webpack_require__.t(value, mode & ~1);
+/******/ 		};
+/******/ 		return fn;
+/******/ 	}
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotCreateModule(moduleId) {
+/******/ 		var hot = {
+/******/ 			// private stuff
+/******/ 			_acceptedDependencies: {},
+/******/ 			_declinedDependencies: {},
+/******/ 			_selfAccepted: false,
+/******/ 			_selfDeclined: false,
+/******/ 			_disposeHandlers: [],
+/******/ 			_main: hotCurrentChildModule !== moduleId,
+/******/
+/******/ 			// Module API
+/******/ 			active: true,
+/******/ 			accept: function(dep, callback) {
+/******/ 				if (typeof dep === "undefined") hot._selfAccepted = true;
+/******/ 				else if (typeof dep === "function") hot._selfAccepted = dep;
+/******/ 				else if (typeof dep === "object")
+/******/ 					for (var i = 0; i < dep.length; i++)
+/******/ 						hot._acceptedDependencies[dep[i]] = callback || function() {};
+/******/ 				else hot._acceptedDependencies[dep] = callback || function() {};
+/******/ 			},
+/******/ 			decline: function(dep) {
+/******/ 				if (typeof dep === "undefined") hot._selfDeclined = true;
+/******/ 				else if (typeof dep === "object")
+/******/ 					for (var i = 0; i < dep.length; i++)
+/******/ 						hot._declinedDependencies[dep[i]] = true;
+/******/ 				else hot._declinedDependencies[dep] = true;
+/******/ 			},
+/******/ 			dispose: function(callback) {
+/******/ 				hot._disposeHandlers.push(callback);
+/******/ 			},
+/******/ 			addDisposeHandler: function(callback) {
+/******/ 				hot._disposeHandlers.push(callback);
+/******/ 			},
+/******/ 			removeDisposeHandler: function(callback) {
+/******/ 				var idx = hot._disposeHandlers.indexOf(callback);
+/******/ 				if (idx >= 0) hot._disposeHandlers.splice(idx, 1);
+/******/ 			},
+/******/
+/******/ 			// Management API
+/******/ 			check: hotCheck,
+/******/ 			apply: hotApply,
+/******/ 			status: function(l) {
+/******/ 				if (!l) return hotStatus;
+/******/ 				hotStatusHandlers.push(l);
+/******/ 			},
+/******/ 			addStatusHandler: function(l) {
+/******/ 				hotStatusHandlers.push(l);
+/******/ 			},
+/******/ 			removeStatusHandler: function(l) {
+/******/ 				var idx = hotStatusHandlers.indexOf(l);
+/******/ 				if (idx >= 0) hotStatusHandlers.splice(idx, 1);
+/******/ 			},
+/******/
+/******/ 			//inherit from previous dispose call
+/******/ 			data: hotCurrentModuleData[moduleId]
+/******/ 		};
+/******/ 		hotCurrentChildModule = undefined;
+/******/ 		return hot;
+/******/ 	}
+/******/
+/******/ 	var hotStatusHandlers = [];
+/******/ 	var hotStatus = "idle";
+/******/
+/******/ 	function hotSetStatus(newStatus) {
+/******/ 		hotStatus = newStatus;
+/******/ 		for (var i = 0; i < hotStatusHandlers.length; i++)
+/******/ 			hotStatusHandlers[i].call(null, newStatus);
+/******/ 	}
+/******/
+/******/ 	// while downloading
+/******/ 	var hotWaitingFiles = 0;
+/******/ 	var hotChunksLoading = 0;
+/******/ 	var hotWaitingFilesMap = {};
+/******/ 	var hotRequestedFilesMap = {};
+/******/ 	var hotAvailableFilesMap = {};
+/******/ 	var hotDeferred;
+/******/
+/******/ 	// The update info
+/******/ 	var hotUpdate, hotUpdateNewHash;
+/******/
+/******/ 	function toModuleId(id) {
+/******/ 		var isNumber = +id + "" === id;
+/******/ 		return isNumber ? +id : id;
+/******/ 	}
+/******/
+/******/ 	function hotCheck(apply) {
+/******/ 		if (hotStatus !== "idle") {
+/******/ 			throw new Error("check() is only allowed in idle status");
+/******/ 		}
+/******/ 		hotApplyOnUpdate = apply;
+/******/ 		hotSetStatus("check");
+/******/ 		return hotDownloadManifest(hotRequestTimeout).then(function(update) {
+/******/ 			if (!update) {
+/******/ 				hotSetStatus("idle");
+/******/ 				return null;
+/******/ 			}
+/******/ 			hotRequestedFilesMap = {};
+/******/ 			hotWaitingFilesMap = {};
+/******/ 			hotAvailableFilesMap = update.c;
+/******/ 			hotUpdateNewHash = update.h;
+/******/
+/******/ 			hotSetStatus("prepare");
+/******/ 			var promise = new Promise(function(resolve, reject) {
+/******/ 				hotDeferred = {
+/******/ 					resolve: resolve,
+/******/ 					reject: reject
+/******/ 				};
+/******/ 			});
+/******/ 			hotUpdate = {};
+/******/ 			for(var chunkId in installedChunks)
+/******/ 			// eslint-disable-next-line no-lone-blocks
+/******/ 			{
+/******/ 				/*globals chunkId */
+/******/ 				hotEnsureUpdateChunk(chunkId);
+/******/ 			}
+/******/ 			if (
+/******/ 				hotStatus === "prepare" &&
+/******/ 				hotChunksLoading === 0 &&
+/******/ 				hotWaitingFiles === 0
+/******/ 			) {
+/******/ 				hotUpdateDownloaded();
+/******/ 			}
+/******/ 			return promise;
+/******/ 		});
+/******/ 	}
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotAddUpdateChunk(chunkId, moreModules) {
+/******/ 		if (!hotAvailableFilesMap[chunkId] || !hotRequestedFilesMap[chunkId])
+/******/ 			return;
+/******/ 		hotRequestedFilesMap[chunkId] = false;
+/******/ 		for (var moduleId in moreModules) {
+/******/ 			if (Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				hotUpdate[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if (--hotWaitingFiles === 0 && hotChunksLoading === 0) {
+/******/ 			hotUpdateDownloaded();
+/******/ 		}
+/******/ 	}
+/******/
+/******/ 	function hotEnsureUpdateChunk(chunkId) {
+/******/ 		if (!hotAvailableFilesMap[chunkId]) {
+/******/ 			hotWaitingFilesMap[chunkId] = true;
+/******/ 		} else {
+/******/ 			hotRequestedFilesMap[chunkId] = true;
+/******/ 			hotWaitingFiles++;
+/******/ 			hotDownloadUpdateChunk(chunkId);
+/******/ 		}
+/******/ 	}
+/******/
+/******/ 	function hotUpdateDownloaded() {
+/******/ 		hotSetStatus("ready");
+/******/ 		var deferred = hotDeferred;
+/******/ 		hotDeferred = null;
+/******/ 		if (!deferred) return;
+/******/ 		if (hotApplyOnUpdate) {
+/******/ 			// Wrap deferred object in Promise to mark it as a well-handled Promise to
+/******/ 			// avoid triggering uncaught exception warning in Chrome.
+/******/ 			// See https://bugs.chromium.org/p/chromium/issues/detail?id=465666
+/******/ 			Promise.resolve()
+/******/ 				.then(function() {
+/******/ 					return hotApply(hotApplyOnUpdate);
+/******/ 				})
+/******/ 				.then(
+/******/ 					function(result) {
+/******/ 						deferred.resolve(result);
+/******/ 					},
+/******/ 					function(err) {
+/******/ 						deferred.reject(err);
+/******/ 					}
+/******/ 				);
+/******/ 		} else {
+/******/ 			var outdatedModules = [];
+/******/ 			for (var id in hotUpdate) {
+/******/ 				if (Object.prototype.hasOwnProperty.call(hotUpdate, id)) {
+/******/ 					outdatedModules.push(toModuleId(id));
+/******/ 				}
+/******/ 			}
+/******/ 			deferred.resolve(outdatedModules);
+/******/ 		}
+/******/ 	}
+/******/
+/******/ 	function hotApply(options) {
+/******/ 		if (hotStatus !== "ready")
+/******/ 			throw new Error("apply() is only allowed in ready status");
+/******/ 		options = options || {};
+/******/
+/******/ 		var cb;
+/******/ 		var i;
+/******/ 		var j;
+/******/ 		var module;
+/******/ 		var moduleId;
+/******/
+/******/ 		function getAffectedStuff(updateModuleId) {
+/******/ 			var outdatedModules = [updateModuleId];
+/******/ 			var outdatedDependencies = {};
+/******/
+/******/ 			var queue = outdatedModules.slice().map(function(id) {
+/******/ 				return {
+/******/ 					chain: [id],
+/******/ 					id: id
+/******/ 				};
+/******/ 			});
+/******/ 			while (queue.length > 0) {
+/******/ 				var queueItem = queue.pop();
+/******/ 				var moduleId = queueItem.id;
+/******/ 				var chain = queueItem.chain;
+/******/ 				module = installedModules[moduleId];
+/******/ 				if (!module || module.hot._selfAccepted) continue;
+/******/ 				if (module.hot._selfDeclined) {
+/******/ 					return {
+/******/ 						type: "self-declined",
+/******/ 						chain: chain,
+/******/ 						moduleId: moduleId
+/******/ 					};
+/******/ 				}
+/******/ 				if (module.hot._main) {
+/******/ 					return {
+/******/ 						type: "unaccepted",
+/******/ 						chain: chain,
+/******/ 						moduleId: moduleId
+/******/ 					};
+/******/ 				}
+/******/ 				for (var i = 0; i < module.parents.length; i++) {
+/******/ 					var parentId = module.parents[i];
+/******/ 					var parent = installedModules[parentId];
+/******/ 					if (!parent) continue;
+/******/ 					if (parent.hot._declinedDependencies[moduleId]) {
+/******/ 						return {
+/******/ 							type: "declined",
+/******/ 							chain: chain.concat([parentId]),
+/******/ 							moduleId: moduleId,
+/******/ 							parentId: parentId
+/******/ 						};
+/******/ 					}
+/******/ 					if (outdatedModules.indexOf(parentId) !== -1) continue;
+/******/ 					if (parent.hot._acceptedDependencies[moduleId]) {
+/******/ 						if (!outdatedDependencies[parentId])
+/******/ 							outdatedDependencies[parentId] = [];
+/******/ 						addAllToSet(outdatedDependencies[parentId], [moduleId]);
+/******/ 						continue;
+/******/ 					}
+/******/ 					delete outdatedDependencies[parentId];
+/******/ 					outdatedModules.push(parentId);
+/******/ 					queue.push({
+/******/ 						chain: chain.concat([parentId]),
+/******/ 						id: parentId
+/******/ 					});
+/******/ 				}
+/******/ 			}
+/******/
+/******/ 			return {
+/******/ 				type: "accepted",
+/******/ 				moduleId: updateModuleId,
+/******/ 				outdatedModules: outdatedModules,
+/******/ 				outdatedDependencies: outdatedDependencies
+/******/ 			};
+/******/ 		}
+/******/
+/******/ 		function addAllToSet(a, b) {
+/******/ 			for (var i = 0; i < b.length; i++) {
+/******/ 				var item = b[i];
+/******/ 				if (a.indexOf(item) === -1) a.push(item);
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// at begin all updates modules are outdated
+/******/ 		// the "outdated" status can propagate to parents if they don't accept the children
+/******/ 		var outdatedDependencies = {};
+/******/ 		var outdatedModules = [];
+/******/ 		var appliedUpdate = {};
+/******/
+/******/ 		var warnUnexpectedRequire = function warnUnexpectedRequire() {
+/******/ 			console.warn(
+/******/ 				"[HMR] unexpected require(" + result.moduleId + ") to disposed module"
+/******/ 			);
+/******/ 		};
+/******/
+/******/ 		for (var id in hotUpdate) {
+/******/ 			if (Object.prototype.hasOwnProperty.call(hotUpdate, id)) {
+/******/ 				moduleId = toModuleId(id);
+/******/ 				/** @type {TODO} */
+/******/ 				var result;
+/******/ 				if (hotUpdate[id]) {
+/******/ 					result = getAffectedStuff(moduleId);
+/******/ 				} else {
+/******/ 					result = {
+/******/ 						type: "disposed",
+/******/ 						moduleId: id
+/******/ 					};
+/******/ 				}
+/******/ 				/** @type {Error|false} */
+/******/ 				var abortError = false;
+/******/ 				var doApply = false;
+/******/ 				var doDispose = false;
+/******/ 				var chainInfo = "";
+/******/ 				if (result.chain) {
+/******/ 					chainInfo = "\nUpdate propagation: " + result.chain.join(" -> ");
+/******/ 				}
+/******/ 				switch (result.type) {
+/******/ 					case "self-declined":
+/******/ 						if (options.onDeclined) options.onDeclined(result);
+/******/ 						if (!options.ignoreDeclined)
+/******/ 							abortError = new Error(
+/******/ 								"Aborted because of self decline: " +
+/******/ 									result.moduleId +
+/******/ 									chainInfo
+/******/ 							);
+/******/ 						break;
+/******/ 					case "declined":
+/******/ 						if (options.onDeclined) options.onDeclined(result);
+/******/ 						if (!options.ignoreDeclined)
+/******/ 							abortError = new Error(
+/******/ 								"Aborted because of declined dependency: " +
+/******/ 									result.moduleId +
+/******/ 									" in " +
+/******/ 									result.parentId +
+/******/ 									chainInfo
+/******/ 							);
+/******/ 						break;
+/******/ 					case "unaccepted":
+/******/ 						if (options.onUnaccepted) options.onUnaccepted(result);
+/******/ 						if (!options.ignoreUnaccepted)
+/******/ 							abortError = new Error(
+/******/ 								"Aborted because " + moduleId + " is not accepted" + chainInfo
+/******/ 							);
+/******/ 						break;
+/******/ 					case "accepted":
+/******/ 						if (options.onAccepted) options.onAccepted(result);
+/******/ 						doApply = true;
+/******/ 						break;
+/******/ 					case "disposed":
+/******/ 						if (options.onDisposed) options.onDisposed(result);
+/******/ 						doDispose = true;
+/******/ 						break;
+/******/ 					default:
+/******/ 						throw new Error("Unexception type " + result.type);
+/******/ 				}
+/******/ 				if (abortError) {
+/******/ 					hotSetStatus("abort");
+/******/ 					return Promise.reject(abortError);
+/******/ 				}
+/******/ 				if (doApply) {
+/******/ 					appliedUpdate[moduleId] = hotUpdate[moduleId];
+/******/ 					addAllToSet(outdatedModules, result.outdatedModules);
+/******/ 					for (moduleId in result.outdatedDependencies) {
+/******/ 						if (
+/******/ 							Object.prototype.hasOwnProperty.call(
+/******/ 								result.outdatedDependencies,
+/******/ 								moduleId
+/******/ 							)
+/******/ 						) {
+/******/ 							if (!outdatedDependencies[moduleId])
+/******/ 								outdatedDependencies[moduleId] = [];
+/******/ 							addAllToSet(
+/******/ 								outdatedDependencies[moduleId],
+/******/ 								result.outdatedDependencies[moduleId]
+/******/ 							);
+/******/ 						}
+/******/ 					}
+/******/ 				}
+/******/ 				if (doDispose) {
+/******/ 					addAllToSet(outdatedModules, [result.moduleId]);
+/******/ 					appliedUpdate[moduleId] = warnUnexpectedRequire;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// Store self accepted outdated modules to require them later by the module system
+/******/ 		var outdatedSelfAcceptedModules = [];
+/******/ 		for (i = 0; i < outdatedModules.length; i++) {
+/******/ 			moduleId = outdatedModules[i];
+/******/ 			if (
+/******/ 				installedModules[moduleId] &&
+/******/ 				installedModules[moduleId].hot._selfAccepted
+/******/ 			)
+/******/ 				outdatedSelfAcceptedModules.push({
+/******/ 					module: moduleId,
+/******/ 					errorHandler: installedModules[moduleId].hot._selfAccepted
+/******/ 				});
+/******/ 		}
+/******/
+/******/ 		// Now in "dispose" phase
+/******/ 		hotSetStatus("dispose");
+/******/ 		Object.keys(hotAvailableFilesMap).forEach(function(chunkId) {
+/******/ 			if (hotAvailableFilesMap[chunkId] === false) {
+/******/ 				hotDisposeChunk(chunkId);
+/******/ 			}
+/******/ 		});
+/******/
+/******/ 		var idx;
+/******/ 		var queue = outdatedModules.slice();
+/******/ 		while (queue.length > 0) {
+/******/ 			moduleId = queue.pop();
+/******/ 			module = installedModules[moduleId];
+/******/ 			if (!module) continue;
+/******/
+/******/ 			var data = {};
+/******/
+/******/ 			// Call dispose handlers
+/******/ 			var disposeHandlers = module.hot._disposeHandlers;
+/******/ 			for (j = 0; j < disposeHandlers.length; j++) {
+/******/ 				cb = disposeHandlers[j];
+/******/ 				cb(data);
+/******/ 			}
+/******/ 			hotCurrentModuleData[moduleId] = data;
+/******/
+/******/ 			// disable module (this disables requires from this module)
+/******/ 			module.hot.active = false;
+/******/
+/******/ 			// remove module from cache
+/******/ 			delete installedModules[moduleId];
+/******/
+/******/ 			// when disposing there is no need to call dispose handler
+/******/ 			delete outdatedDependencies[moduleId];
+/******/
+/******/ 			// remove "parents" references from all children
+/******/ 			for (j = 0; j < module.children.length; j++) {
+/******/ 				var child = installedModules[module.children[j]];
+/******/ 				if (!child) continue;
+/******/ 				idx = child.parents.indexOf(moduleId);
+/******/ 				if (idx >= 0) {
+/******/ 					child.parents.splice(idx, 1);
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// remove outdated dependency from module children
+/******/ 		var dependency;
+/******/ 		var moduleOutdatedDependencies;
+/******/ 		for (moduleId in outdatedDependencies) {
+/******/ 			if (
+/******/ 				Object.prototype.hasOwnProperty.call(outdatedDependencies, moduleId)
+/******/ 			) {
+/******/ 				module = installedModules[moduleId];
+/******/ 				if (module) {
+/******/ 					moduleOutdatedDependencies = outdatedDependencies[moduleId];
+/******/ 					for (j = 0; j < moduleOutdatedDependencies.length; j++) {
+/******/ 						dependency = moduleOutdatedDependencies[j];
+/******/ 						idx = module.children.indexOf(dependency);
+/******/ 						if (idx >= 0) module.children.splice(idx, 1);
+/******/ 					}
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// Not in "apply" phase
+/******/ 		hotSetStatus("apply");
+/******/
+/******/ 		hotCurrentHash = hotUpdateNewHash;
+/******/
+/******/ 		// insert new code
+/******/ 		for (moduleId in appliedUpdate) {
+/******/ 			if (Object.prototype.hasOwnProperty.call(appliedUpdate, moduleId)) {
+/******/ 				modules[moduleId] = appliedUpdate[moduleId];
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// call accept handlers
+/******/ 		var error = null;
+/******/ 		for (moduleId in outdatedDependencies) {
+/******/ 			if (
+/******/ 				Object.prototype.hasOwnProperty.call(outdatedDependencies, moduleId)
+/******/ 			) {
+/******/ 				module = installedModules[moduleId];
+/******/ 				if (module) {
+/******/ 					moduleOutdatedDependencies = outdatedDependencies[moduleId];
+/******/ 					var callbacks = [];
+/******/ 					for (i = 0; i < moduleOutdatedDependencies.length; i++) {
+/******/ 						dependency = moduleOutdatedDependencies[i];
+/******/ 						cb = module.hot._acceptedDependencies[dependency];
+/******/ 						if (cb) {
+/******/ 							if (callbacks.indexOf(cb) !== -1) continue;
+/******/ 							callbacks.push(cb);
+/******/ 						}
+/******/ 					}
+/******/ 					for (i = 0; i < callbacks.length; i++) {
+/******/ 						cb = callbacks[i];
+/******/ 						try {
+/******/ 							cb(moduleOutdatedDependencies);
+/******/ 						} catch (err) {
+/******/ 							if (options.onErrored) {
+/******/ 								options.onErrored({
+/******/ 									type: "accept-errored",
+/******/ 									moduleId: moduleId,
+/******/ 									dependencyId: moduleOutdatedDependencies[i],
+/******/ 									error: err
+/******/ 								});
+/******/ 							}
+/******/ 							if (!options.ignoreErrored) {
+/******/ 								if (!error) error = err;
+/******/ 							}
+/******/ 						}
+/******/ 					}
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// Load self accepted modules
+/******/ 		for (i = 0; i < outdatedSelfAcceptedModules.length; i++) {
+/******/ 			var item = outdatedSelfAcceptedModules[i];
+/******/ 			moduleId = item.module;
+/******/ 			hotCurrentParents = [moduleId];
+/******/ 			try {
+/******/ 				__webpack_require__(moduleId);
+/******/ 			} catch (err) {
+/******/ 				if (typeof item.errorHandler === "function") {
+/******/ 					try {
+/******/ 						item.errorHandler(err);
+/******/ 					} catch (err2) {
+/******/ 						if (options.onErrored) {
+/******/ 							options.onErrored({
+/******/ 								type: "self-accept-error-handler-errored",
+/******/ 								moduleId: moduleId,
+/******/ 								error: err2,
+/******/ 								originalError: err
+/******/ 							});
+/******/ 						}
+/******/ 						if (!options.ignoreErrored) {
+/******/ 							if (!error) error = err2;
+/******/ 						}
+/******/ 						if (!error) error = err;
+/******/ 					}
+/******/ 				} else {
+/******/ 					if (options.onErrored) {
+/******/ 						options.onErrored({
+/******/ 							type: "self-accept-errored",
+/******/ 							moduleId: moduleId,
+/******/ 							error: err
+/******/ 						});
+/******/ 					}
+/******/ 					if (!options.ignoreErrored) {
+/******/ 						if (!error) error = err;
+/******/ 					}
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// handle errors in accept handlers and self accepted module load
+/******/ 		if (error) {
+/******/ 			hotSetStatus("fail");
+/******/ 			return Promise.reject(error);
+/******/ 		}
+/******/
+/******/ 		hotSetStatus("idle");
+/******/ 		return new Promise(function(resolve) {
+/******/ 			resolve(outdatedModules);
+/******/ 		});
+/******/ 	}
+/******/
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"app": 0
+/******/ 	};
+/******/
+/******/ 	var deferredModules = [];
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {},
+/******/ 			hot: hotCreateModule(moduleId),
+/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),
+/******/ 			children: []
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// __webpack_hash__
+/******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
+/******/
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
+/******/
+/******/
+/******/ 	// add entry module to deferred list
+/******/ 	deferredModules.push(["./main.js","common"]);
+/******/ 	// run deferred modules when ready
+/******/ 	return checkDeferredModules();
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "../node_modules/fbemitter/index.js":
+/*!******************************************!*\
+  !*** ../node_modules/fbemitter/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+var fbemitter = {
+  EventEmitter: __webpack_require__(/*! ./lib/BaseEventEmitter */ "../node_modules/fbemitter/lib/BaseEventEmitter.js"),
+  EmitterSubscription : __webpack_require__(/*! ./lib/EmitterSubscription */ "../node_modules/fbemitter/lib/EmitterSubscription.js")
+};
+
+module.exports = fbemitter;
+
+
+/***/ }),
+
+/***/ "../node_modules/fbemitter/lib/BaseEventEmitter.js":
+/*!*********************************************************!*\
+  !*** ../node_modules/fbemitter/lib/BaseEventEmitter.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule BaseEventEmitter
+ * @typechecks
+ */
+
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var EmitterSubscription = __webpack_require__(/*! ./EmitterSubscription */ "../node_modules/fbemitter/lib/EmitterSubscription.js");
+var EventSubscriptionVendor = __webpack_require__(/*! ./EventSubscriptionVendor */ "../node_modules/fbemitter/lib/EventSubscriptionVendor.js");
+
+var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ "../node_modules/fbjs/lib/emptyFunction.js");
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../node_modules/fbjs/lib/invariant.js");
+
+/**
+ * @class BaseEventEmitter
+ * @description
+ * An EventEmitter is responsible for managing a set of listeners and publishing
+ * events to them when it is told that such events happened. In addition to the
+ * data for the given event it also sends a event control object which allows
+ * the listeners/handlers to prevent the default behavior of the given event.
+ *
+ * The emitter is designed to be generic enough to support all the different
+ * contexts in which one might want to emit events. It is a simple multicast
+ * mechanism on top of which extra functionality can be composed. For example, a
+ * more advanced emitter may use an EventHolder and EventFactory.
+ */
+
+var BaseEventEmitter = (function () {
+  /**
+   * @constructor
+   */
+
+  function BaseEventEmitter() {
+    _classCallCheck(this, BaseEventEmitter);
+
+    this._subscriber = new EventSubscriptionVendor();
+    this._currentSubscription = null;
+  }
+
+  /**
+   * Adds a listener to be invoked when events of the specified type are
+   * emitted. An optional calling context may be provided. The data arguments
+   * emitted will be passed to the listener function.
+   *
+   * TODO: Annotate the listener arg's type. This is tricky because listeners
+   *       can be invoked with varargs.
+   *
+   * @param {string} eventType - Name of the event to listen to
+   * @param {function} listener - Function to invoke when the specified event is
+   *   emitted
+   * @param {*} context - Optional context object to use when invoking the
+   *   listener
+   */
+
+  BaseEventEmitter.prototype.addListener = function addListener(eventType, listener, context) {
+    return this._subscriber.addSubscription(eventType, new EmitterSubscription(this._subscriber, listener, context));
+  };
+
+  /**
+   * Similar to addListener, except that the listener is removed after it is
+   * invoked once.
+   *
+   * @param {string} eventType - Name of the event to listen to
+   * @param {function} listener - Function to invoke only once when the
+   *   specified event is emitted
+   * @param {*} context - Optional context object to use when invoking the
+   *   listener
+   */
+
+  BaseEventEmitter.prototype.once = function once(eventType, listener, context) {
+    var emitter = this;
+    return this.addListener(eventType, function () {
+      emitter.removeCurrentListener();
+      listener.apply(context, arguments);
+    });
+  };
+
+  /**
+   * Removes all of the registered listeners, including those registered as
+   * listener maps.
+   *
+   * @param {?string} eventType - Optional name of the event whose registered
+   *   listeners to remove
+   */
+
+  BaseEventEmitter.prototype.removeAllListeners = function removeAllListeners(eventType) {
+    this._subscriber.removeAllSubscriptions(eventType);
+  };
+
+  /**
+   * Provides an API that can be called during an eventing cycle to remove the
+   * last listener that was invoked. This allows a developer to provide an event
+   * object that can remove the listener (or listener map) during the
+   * invocation.
+   *
+   * If it is called when not inside of an emitting cycle it will throw.
+   *
+   * @throws {Error} When called not during an eventing cycle
+   *
+   * @example
+   *   var subscription = emitter.addListenerMap({
+   *     someEvent: function(data, event) {
+   *       console.log(data);
+   *       emitter.removeCurrentListener();
+   *     }
+   *   });
+   *
+   *   emitter.emit('someEvent', 'abc'); // logs 'abc'
+   *   emitter.emit('someEvent', 'def'); // does not log anything
+   */
+
+  BaseEventEmitter.prototype.removeCurrentListener = function removeCurrentListener() {
+    !!!this._currentSubscription ?  true ? invariant(false, 'Not in an emitting cycle; there is no current subscription') : undefined : undefined;
+    this._subscriber.removeSubscription(this._currentSubscription);
+  };
+
+  /**
+   * Returns an array of listeners that are currently registered for the given
+   * event.
+   *
+   * @param {string} eventType - Name of the event to query
+   * @return {array}
+   */
+
+  BaseEventEmitter.prototype.listeners = function listeners(eventType) /* TODO: Array<EventSubscription> */{
+    var subscriptions = this._subscriber.getSubscriptionsForType(eventType);
+    return subscriptions ? subscriptions.filter(emptyFunction.thatReturnsTrue).map(function (subscription) {
+      return subscription.listener;
+    }) : [];
+  };
+
+  /**
+   * Emits an event of the given type with the given data. All handlers of that
+   * particular type will be notified.
+   *
+   * @param {string} eventType - Name of the event to emit
+   * @param {*} Arbitrary arguments to be passed to each registered listener
+   *
+   * @example
+   *   emitter.addListener('someEvent', function(message) {
+   *     console.log(message);
+   *   });
+   *
+   *   emitter.emit('someEvent', 'abc'); // logs 'abc'
+   */
+
+  BaseEventEmitter.prototype.emit = function emit(eventType) {
+    var subscriptions = this._subscriber.getSubscriptionsForType(eventType);
+    if (subscriptions) {
+      var keys = Object.keys(subscriptions);
+      for (var ii = 0; ii < keys.length; ii++) {
+        var key = keys[ii];
+        var subscription = subscriptions[key];
+        // The subscription may have been removed during this event loop.
+        if (subscription) {
+          this._currentSubscription = subscription;
+          this.__emitToSubscription.apply(this, [subscription].concat(Array.prototype.slice.call(arguments)));
+        }
+      }
+      this._currentSubscription = null;
+    }
+  };
+
+  /**
+   * Provides a hook to override how the emitter emits an event to a specific
+   * subscription. This allows you to set up logging and error boundaries
+   * specific to your environment.
+   *
+   * @param {EmitterSubscription} subscription
+   * @param {string} eventType
+   * @param {*} Arbitrary arguments to be passed to each registered listener
+   */
+
+  BaseEventEmitter.prototype.__emitToSubscription = function __emitToSubscription(subscription, eventType) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    subscription.listener.apply(subscription.context, args);
+  };
+
+  return BaseEventEmitter;
+})();
+
+module.exports = BaseEventEmitter;
+
+/***/ }),
+
+/***/ "../node_modules/fbemitter/lib/EmitterSubscription.js":
+/*!************************************************************!*\
+  !*** ../node_modules/fbemitter/lib/EmitterSubscription.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ * 
+ * @providesModule EmitterSubscription
+ * @typechecks
+ */
+
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EventSubscription = __webpack_require__(/*! ./EventSubscription */ "../node_modules/fbemitter/lib/EventSubscription.js");
+
+/**
+ * EmitterSubscription represents a subscription with listener and context data.
+ */
+
+var EmitterSubscription = (function (_EventSubscription) {
+  _inherits(EmitterSubscription, _EventSubscription);
+
+  /**
+   * @param {EventSubscriptionVendor} subscriber - The subscriber that controls
+   *   this subscription
+   * @param {function} listener - Function to invoke when the specified event is
+   *   emitted
+   * @param {*} context - Optional context object to use when invoking the
+   *   listener
+   */
+
+  function EmitterSubscription(subscriber, listener, context) {
+    _classCallCheck(this, EmitterSubscription);
+
+    _EventSubscription.call(this, subscriber);
+    this.listener = listener;
+    this.context = context;
+  }
+
+  return EmitterSubscription;
+})(EventSubscription);
+
+module.exports = EmitterSubscription;
+
+/***/ }),
+
+/***/ "../node_modules/fbemitter/lib/EventSubscription.js":
+/*!**********************************************************!*\
+  !*** ../node_modules/fbemitter/lib/EventSubscription.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule EventSubscription
+ * @typechecks
+ */
+
+
+
+/**
+ * EventSubscription represents a subscription to a particular event. It can
+ * remove its own subscription.
+ */
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var EventSubscription = (function () {
+
+  /**
+   * @param {EventSubscriptionVendor} subscriber the subscriber that controls
+   *   this subscription.
+   */
+
+  function EventSubscription(subscriber) {
+    _classCallCheck(this, EventSubscription);
+
+    this.subscriber = subscriber;
+  }
+
+  /**
+   * Removes this subscription from the subscriber that controls it.
+   */
+
+  EventSubscription.prototype.remove = function remove() {
+    if (this.subscriber) {
+      this.subscriber.removeSubscription(this);
+      this.subscriber = null;
+    }
+  };
+
+  return EventSubscription;
+})();
+
+module.exports = EventSubscription;
+
+/***/ }),
+
+/***/ "../node_modules/fbemitter/lib/EventSubscriptionVendor.js":
+/*!****************************************************************!*\
+  !*** ../node_modules/fbemitter/lib/EventSubscriptionVendor.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ * 
+ * @providesModule EventSubscriptionVendor
+ * @typechecks
+ */
+
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var invariant = __webpack_require__(/*! fbjs/lib/invariant */ "../node_modules/fbjs/lib/invariant.js");
+
+/**
+ * EventSubscriptionVendor stores a set of EventSubscriptions that are
+ * subscribed to a particular event type.
+ */
+
+var EventSubscriptionVendor = (function () {
+  function EventSubscriptionVendor() {
+    _classCallCheck(this, EventSubscriptionVendor);
+
+    this._subscriptionsForType = {};
+    this._currentSubscription = null;
+  }
+
+  /**
+   * Adds a subscription keyed by an event type.
+   *
+   * @param {string} eventType
+   * @param {EventSubscription} subscription
+   */
+
+  EventSubscriptionVendor.prototype.addSubscription = function addSubscription(eventType, subscription) {
+    !(subscription.subscriber === this) ?  true ? invariant(false, 'The subscriber of the subscription is incorrectly set.') : undefined : undefined;
+    if (!this._subscriptionsForType[eventType]) {
+      this._subscriptionsForType[eventType] = [];
+    }
+    var key = this._subscriptionsForType[eventType].length;
+    this._subscriptionsForType[eventType].push(subscription);
+    subscription.eventType = eventType;
+    subscription.key = key;
+    return subscription;
+  };
+
+  /**
+   * Removes a bulk set of the subscriptions.
+   *
+   * @param {?string} eventType - Optional name of the event type whose
+   *   registered supscriptions to remove, if null remove all subscriptions.
+   */
+
+  EventSubscriptionVendor.prototype.removeAllSubscriptions = function removeAllSubscriptions(eventType) {
+    if (eventType === undefined) {
+      this._subscriptionsForType = {};
+    } else {
+      delete this._subscriptionsForType[eventType];
+    }
+  };
+
+  /**
+   * Removes a specific subscription. Instead of calling this function, call
+   * `subscription.remove()` directly.
+   *
+   * @param {object} subscription
+   */
+
+  EventSubscriptionVendor.prototype.removeSubscription = function removeSubscription(subscription) {
+    var eventType = subscription.eventType;
+    var key = subscription.key;
+
+    var subscriptionsForType = this._subscriptionsForType[eventType];
+    if (subscriptionsForType) {
+      delete subscriptionsForType[key];
+    }
+  };
+
+  /**
+   * Returns the array of subscriptions that are currently registered for the
+   * given event type.
+   *
+   * Note: This array can be potentially sparse as subscriptions are deleted
+   * from it when they are removed.
+   *
+   * TODO: This returns a nullable array. wat?
+   *
+   * @param {string} eventType
+   * @return {?array}
+   */
+
+  EventSubscriptionVendor.prototype.getSubscriptionsForType = function getSubscriptionsForType(eventType) {
+    return this._subscriptionsForType[eventType];
+  };
+
+  return EventSubscriptionVendor;
+})();
+
+module.exports = EventSubscriptionVendor;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/ExecutionEnvironment.js":
+/*!********************************************************!*\
+  !*** ../node_modules/fbjs/lib/ExecutionEnvironment.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+/**
+ * Simple, lightweight module assisting with the detection and context of
+ * Worker. Helps avoid circular dependencies and allows code to reason about
+ * whether or not they are in a Worker, even if they never include the main
+ * `ReactWorker` dependency.
+ */
+var ExecutionEnvironment = {
+
+  canUseDOM: canUseDOM,
+
+  canUseWorkers: typeof Worker !== 'undefined',
+
+  canUseEventListeners: canUseDOM && !!(window.addEventListener || window.attachEvent),
+
+  canUseViewport: canUseDOM && !!window.screen,
+
+  isInWorker: !canUseDOM // For now, this is true - might change in the future.
+
+};
+
+module.exports = ExecutionEnvironment;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/camelize.js":
+/*!********************************************!*\
+  !*** ../node_modules/fbjs/lib/camelize.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+var _hyphenPattern = /-(.)/g;
+
+/**
+ * Camelcases a hyphenated string, for example:
+ *
+ *   > camelize('background-color')
+ *   < "backgroundColor"
+ *
+ * @param {string} string
+ * @return {string}
+ */
+function camelize(string) {
+  return string.replace(_hyphenPattern, function (_, character) {
+    return character.toUpperCase();
+  });
+}
+
+module.exports = camelize;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/camelizeStyleName.js":
+/*!*****************************************************!*\
+  !*** ../node_modules/fbjs/lib/camelizeStyleName.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+
+
+var camelize = __webpack_require__(/*! ./camelize */ "../node_modules/fbjs/lib/camelize.js");
+
+var msPattern = /^-ms-/;
+
+/**
+ * Camelcases a hyphenated CSS property name, for example:
+ *
+ *   > camelizeStyleName('background-color')
+ *   < "backgroundColor"
+ *   > camelizeStyleName('-moz-transition')
+ *   < "MozTransition"
+ *   > camelizeStyleName('-ms-transition')
+ *   < "msTransition"
+ *
+ * As Andi Smith suggests
+ * (http://www.andismith.com/blog/2012/02/modernizr-prefixed/), an `-ms` prefix
+ * is converted to lowercase `ms`.
+ *
+ * @param {string} string
+ * @return {string}
+ */
+function camelizeStyleName(string) {
+  return camelize(string.replace(msPattern, 'ms-'));
+}
+
+module.exports = camelizeStyleName;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/containsNode.js":
+/*!************************************************!*\
+  !*** ../node_modules/fbjs/lib/containsNode.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+var isTextNode = __webpack_require__(/*! ./isTextNode */ "../node_modules/fbjs/lib/isTextNode.js");
+
+/*eslint-disable no-bitwise */
+
+/**
+ * Checks if a given DOM node contains or is another DOM node.
+ */
+function containsNode(outerNode, innerNode) {
+  if (!outerNode || !innerNode) {
+    return false;
+  } else if (outerNode === innerNode) {
+    return true;
+  } else if (isTextNode(outerNode)) {
+    return false;
+  } else if (isTextNode(innerNode)) {
+    return containsNode(outerNode, innerNode.parentNode);
+  } else if ('contains' in outerNode) {
+    return outerNode.contains(innerNode);
+  } else if (outerNode.compareDocumentPosition) {
+    return !!(outerNode.compareDocumentPosition(innerNode) & 16);
+  } else {
+    return false;
+  }
+}
+
+module.exports = containsNode;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/emptyFunction.js":
+/*!*************************************************!*\
+  !*** ../node_modules/fbjs/lib/emptyFunction.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/emptyObject.js":
+/*!***********************************************!*\
+  !*** ../node_modules/fbjs/lib/emptyObject.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyObject = {};
+
+if (true) {
+  Object.freeze(emptyObject);
+}
+
+module.exports = emptyObject;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/getActiveElement.js":
+/*!****************************************************!*\
+  !*** ../node_modules/fbjs/lib/getActiveElement.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+/* eslint-disable fb-www/typeof-undefined */
+
+/**
+ * Same as document.activeElement but wraps in a try-catch block. In IE it is
+ * not safe to call document.activeElement if there is nothing focused.
+ *
+ * The activeElement will be null only if the document or document body is not
+ * yet defined.
+ *
+ * @param {?DOMDocument} doc Defaults to current document.
+ * @return {?DOMElement}
+ */
+function getActiveElement(doc) /*?DOMElement*/{
+  doc = doc || (typeof document !== 'undefined' ? document : undefined);
+  if (typeof doc === 'undefined') {
+    return null;
+  }
+  try {
+    return doc.activeElement || doc.body;
+  } catch (e) {
+    return doc.body;
+  }
+}
+
+module.exports = getActiveElement;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/hyphenate.js":
+/*!*********************************************!*\
+  !*** ../node_modules/fbjs/lib/hyphenate.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+var _uppercasePattern = /([A-Z])/g;
+
+/**
+ * Hyphenates a camelcased string, for example:
+ *
+ *   > hyphenate('backgroundColor')
+ *   < "background-color"
+ *
+ * For CSS style names, use `hyphenateStyleName` instead which works properly
+ * with all vendor prefixes, including `ms`.
+ *
+ * @param {string} string
+ * @return {string}
+ */
+function hyphenate(string) {
+  return string.replace(_uppercasePattern, '-$1').toLowerCase();
+}
+
+module.exports = hyphenate;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/hyphenateStyleName.js":
+/*!******************************************************!*\
+  !*** ../node_modules/fbjs/lib/hyphenateStyleName.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+
+
+var hyphenate = __webpack_require__(/*! ./hyphenate */ "../node_modules/fbjs/lib/hyphenate.js");
+
+var msPattern = /^ms-/;
+
+/**
+ * Hyphenates a camelcased CSS property name, for example:
+ *
+ *   > hyphenateStyleName('backgroundColor')
+ *   < "background-color"
+ *   > hyphenateStyleName('MozTransition')
+ *   < "-moz-transition"
+ *   > hyphenateStyleName('msTransition')
+ *   < "-ms-transition"
+ *
+ * As Modernizr suggests (http://modernizr.com/docs/#prefixed), an `ms` prefix
+ * is converted to `-ms-`.
+ *
+ * @param {string} string
+ * @return {string}
+ */
+function hyphenateStyleName(string) {
+  return hyphenate(string).replace(msPattern, '-ms-');
+}
+
+module.exports = hyphenateStyleName;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/invariant.js":
+/*!*********************************************!*\
+  !*** ../node_modules/fbjs/lib/invariant.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (true) {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/isNode.js":
+/*!******************************************!*\
+  !*** ../node_modules/fbjs/lib/isNode.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+/**
+ * @param {*} object The object to check.
+ * @return {boolean} Whether or not the object is a DOM node.
+ */
+function isNode(object) {
+  var doc = object ? object.ownerDocument || object : document;
+  var defaultView = doc.defaultView || window;
+  return !!(object && (typeof defaultView.Node === 'function' ? object instanceof defaultView.Node : typeof object === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
+}
+
+module.exports = isNode;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/isTextNode.js":
+/*!**********************************************!*\
+  !*** ../node_modules/fbjs/lib/isTextNode.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+var isNode = __webpack_require__(/*! ./isNode */ "../node_modules/fbjs/lib/isNode.js");
+
+/**
+ * @param {*} object The object to check.
+ * @return {boolean} Whether or not the object is a DOM text node.
+ */
+function isTextNode(object) {
+  return isNode(object) && object.nodeType == 3;
+}
+
+module.exports = isTextNode;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/shallowEqual.js":
+/*!************************************************!*\
+  !*** ../node_modules/fbjs/lib/shallowEqual.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ * 
+ */
+
+/*eslint-disable no-self-compare */
+
+
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/**
+ * inlined Object.is polyfill to avoid requiring consumers ship their own
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+ */
+function is(x, y) {
+  // SameValue algorithm
+  if (x === y) {
+    // Steps 1-5, 7-10
+    // Steps 6.b-6.e: +0 != -0
+    // Added the nonzero y check to make Flow happy, but it is redundant
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    // Step 6.a: NaN == NaN
+    return x !== x && y !== y;
+  }
+}
+
+/**
+ * Performs equality by iterating through keys on an object and returning false
+ * when any key has values which are not strictly equal between the arguments.
+ * Returns true when the values of all keys are strictly equal.
+ */
+function shallowEqual(objA, objB) {
+  if (is(objA, objB)) {
+    return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  for (var i = 0; i < keysA.length; i++) {
+    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+module.exports = shallowEqual;
+
+/***/ }),
+
+/***/ "../node_modules/fbjs/lib/warning.js":
+/*!*******************************************!*\
+  !*** ../node_modules/fbjs/lib/warning.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyFunction = __webpack_require__(/*! ./emptyFunction */ "../node_modules/fbjs/lib/emptyFunction.js");
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = emptyFunction;
+
+if (true) {
+  var printWarning = function printWarning(format) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    var argIndex = 0;
+    var message = 'Warning: ' + format.replace(/%s/g, function () {
+      return args[argIndex++];
+    });
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+
+  warning = function warning(condition, format) {
+    if (format === undefined) {
+      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+
+    if (format.indexOf('Failed Composite propType: ') === 0) {
+      return; // Ignore CompositeComponent proptype check.
+    }
+
+    if (!condition) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+        args[_key2 - 2] = arguments[_key2];
+      }
+
+      printWarning.apply(undefined, [format].concat(args));
+    }
+  };
+}
+
+module.exports = warning;
+
+/***/ }),
+
+/***/ "../node_modules/iso8601-duration/lib/index.js":
+/*!*****************************************************!*\
+  !*** ../node_modules/iso8601-duration/lib/index.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+/**
+ * @description A module for parsing ISO8601 durations
+ */
+
+/**
+ * The pattern used for parsing ISO8601 duration (PnYnMnDTnHnMnS).
+ * This does not cover the week format PnW.
+ */
+
+// PnYnMnDTnHnMnS
+var numbers = '\\d+(?:[\\.,]\\d{0,3})?';
+var weekPattern = '(' + numbers + 'W)';
+var datePattern = '(' + numbers + 'Y)?(' + numbers + 'M)?(' + numbers + 'D)?';
+var timePattern = 'T(' + numbers + 'H)?(' + numbers + 'M)?(' + numbers + 'S)?';
+
+var iso8601 = 'P(?:' + weekPattern + '|' + datePattern + '(?:' + timePattern + ')?)';
+var objMap = ['weeks', 'years', 'months', 'days', 'hours', 'minutes', 'seconds'];
+
+/**
+ * The ISO8601 regex for matching / testing durations
+ */
+var pattern = exports.pattern = new RegExp(iso8601);
+
+/** Parse PnYnMnDTnHnMnS format to object
+ * @param {string} durationString - PnYnMnDTnHnMnS formatted string
+ * @return {Object} - With a property for each part of the pattern
+ */
+var parse = exports.parse = function parse(durationString) {
+	// slice away first entry in match-array
+	return durationString.match(pattern).slice(1).reduce(function (prev, next, idx) {
+		prev[objMap[idx]] = parseFloat(next) || 0;
+		return prev;
+	}, {});
+};
+
+/**
+ * Convert ISO8601 duration object to an end Date.
+ *
+ * @param {Object} duration - The duration object
+ * @param {Date} startDate - The starting Date for calculating the duration
+ * @return {Date} - The resulting end Date
+ */
+var end = exports.end = function end(duration, startDate) {
+	// create two equal timestamps, add duration to 'then' and return time difference
+	var timestamp = startDate ? startDate.getTime() : Date.now();
+	var then = new Date(timestamp);
+
+	then.setFullYear(then.getFullYear() + duration.years);
+	then.setMonth(then.getMonth() + duration.months);
+	then.setDate(then.getDate() + duration.days);
+	then.setHours(then.getHours() + duration.hours);
+	then.setMinutes(then.getMinutes() + duration.minutes);
+	// then.setSeconds(then.getSeconds() + duration.seconds);
+	then.setMilliseconds(then.getMilliseconds() + duration.seconds * 1000);
+	// special case weeks
+	then.setDate(then.getDate() + duration.weeks * 7);
+
+	return then;
+};
+
+/**
+ * Convert ISO8601 duration object to seconds
+ *
+ * @param {Object} duration - The duration object
+ * @param {Date} startDate - The starting point for calculating the duration
+ * @return {Number}
+ */
+var toSeconds = exports.toSeconds = function toSeconds(duration, startDate) {
+	var timestamp = startDate ? startDate.getTime() : Date.now();
+	var now = new Date(timestamp);
+	var then = end(duration, startDate);
+
+	var seconds = (then.getTime() - now.getTime()) / 1000;
+	return seconds;
+};
+
+exports.default = {
+	end: end,
+	toSeconds: toSeconds,
+	pattern: pattern,
+	parse: parse
+};
+
+/***/ }),
+
+/***/ "../node_modules/object-assign/index.js":
+/*!**********************************************!*\
+  !*** ../node_modules/object-assign/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+
+/***/ "../node_modules/prop-types/checkPropTypes.js":
+/*!****************************************************!*\
+  !*** ../node_modules/prop-types/checkPropTypes.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var printWarning = function() {};
+
+if (true) {
+  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "../node_modules/prop-types/lib/ReactPropTypesSecret.js");
+  var loggedTypeFailures = {};
+
+  printWarning = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+/**
+ * Assert that the values match with the type specs.
+ * Error messages are memorized and will only be shown once.
+ *
+ * @param {object} typeSpecs Map of name to a ReactPropType
+ * @param {object} values Runtime values that need to be type-checked
+ * @param {string} location e.g. "prop", "context", "child context"
+ * @param {string} componentName Name of the component for error messages.
+ * @param {?Function} getStack Returns the component stack.
+ * @private
+ */
+function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+  if (true) {
+    for (var typeSpecName in typeSpecs) {
+      if (typeSpecs.hasOwnProperty(typeSpecName)) {
+        var error;
+        // Prop type validation may throw. In case they do, we don't want to
+        // fail the render phase where it didn't fail before. So we log it.
+        // After these have been cleaned up, we'll let them throw.
+        try {
+          // This is intentionally an invariant that gets caught. It's the same
+          // behavior as without this statement except with a better message.
+          if (typeof typeSpecs[typeSpecName] !== 'function') {
+            var err = Error(
+              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
+              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
+            );
+            err.name = 'Invariant Violation';
+            throw err;
+          }
+          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+        } catch (ex) {
+          error = ex;
+        }
+        if (error && !(error instanceof Error)) {
+          printWarning(
+            (componentName || 'React class') + ': type specification of ' +
+            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
+            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
+            'You may have forgotten to pass an argument to the type checker ' +
+            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
+            'shape all require an argument).'
+          )
+
+        }
+        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+          // Only monitor this failure once because there tends to be a lot of the
+          // same error.
+          loggedTypeFailures[error.message] = true;
+
+          var stack = getStack ? getStack() : '';
+
+          printWarning(
+            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
+          );
+        }
+      }
+    }
+  }
+}
+
+module.exports = checkPropTypes;
+
+
+/***/ }),
+
+/***/ "../node_modules/prop-types/lib/ReactPropTypesSecret.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+
+/***/ "../node_modules/sax/lib/sax.js":
+/*!**************************************!*\
+  !*** ../node_modules/sax/lib/sax.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+;(function (sax) { // wrapper for non-node envs
+  sax.parser = function (strict, opt) { return new SAXParser(strict, opt) }
+  sax.SAXParser = SAXParser
+  sax.SAXStream = SAXStream
+  sax.createStream = createStream
+
+  // When we pass the MAX_BUFFER_LENGTH position, start checking for buffer overruns.
+  // When we check, schedule the next check for MAX_BUFFER_LENGTH - (max(buffer lengths)),
+  // since that's the earliest that a buffer overrun could occur.  This way, checks are
+  // as rare as required, but as often as necessary to ensure never crossing this bound.
+  // Furthermore, buffers are only tested at most once per write(), so passing a very
+  // large string into write() might have undesirable effects, but this is manageable by
+  // the caller, so it is assumed to be safe.  Thus, a call to write() may, in the extreme
+  // edge case, result in creating at most one complete copy of the string passed in.
+  // Set to Infinity to have unlimited buffers.
+  sax.MAX_BUFFER_LENGTH = 64 * 1024
+
+  var buffers = [
+    'comment', 'sgmlDecl', 'textNode', 'tagName', 'doctype',
+    'procInstName', 'procInstBody', 'entity', 'attribName',
+    'attribValue', 'cdata', 'script'
+  ]
+
+  sax.EVENTS = [
+    'text',
+    'processinginstruction',
+    'sgmldeclaration',
+    'doctype',
+    'comment',
+    'opentagstart',
+    'attribute',
+    'opentag',
+    'closetag',
+    'opencdata',
+    'cdata',
+    'closecdata',
+    'error',
+    'end',
+    'ready',
+    'script',
+    'opennamespace',
+    'closenamespace'
+  ]
+
+  function SAXParser (strict, opt) {
+    if (!(this instanceof SAXParser)) {
+      return new SAXParser(strict, opt)
+    }
+
+    var parser = this
+    clearBuffers(parser)
+    parser.q = parser.c = ''
+    parser.bufferCheckPosition = sax.MAX_BUFFER_LENGTH
+    parser.opt = opt || {}
+    parser.opt.lowercase = parser.opt.lowercase || parser.opt.lowercasetags
+    parser.looseCase = parser.opt.lowercase ? 'toLowerCase' : 'toUpperCase'
+    parser.tags = []
+    parser.closed = parser.closedRoot = parser.sawRoot = false
+    parser.tag = parser.error = null
+    parser.strict = !!strict
+    parser.noscript = !!(strict || parser.opt.noscript)
+    parser.state = S.BEGIN
+    parser.strictEntities = parser.opt.strictEntities
+    parser.ENTITIES = parser.strictEntities ? Object.create(sax.XML_ENTITIES) : Object.create(sax.ENTITIES)
+    parser.attribList = []
+
+    // namespaces form a prototype chain.
+    // it always points at the current tag,
+    // which protos to its parent tag.
+    if (parser.opt.xmlns) {
+      parser.ns = Object.create(rootNS)
+    }
+
+    // mostly just for error reporting
+    parser.trackPosition = parser.opt.position !== false
+    if (parser.trackPosition) {
+      parser.position = parser.line = parser.column = 0
+    }
+    emit(parser, 'onready')
+  }
+
+  if (!Object.create) {
+    Object.create = function (o) {
+      function F () {}
+      F.prototype = o
+      var newf = new F()
+      return newf
+    }
+  }
+
+  if (!Object.keys) {
+    Object.keys = function (o) {
+      var a = []
+      for (var i in o) if (o.hasOwnProperty(i)) a.push(i)
+      return a
+    }
+  }
+
+  function checkBufferLength (parser) {
+    var maxAllowed = Math.max(sax.MAX_BUFFER_LENGTH, 10)
+    var maxActual = 0
+    for (var i = 0, l = buffers.length; i < l; i++) {
+      var len = parser[buffers[i]].length
+      if (len > maxAllowed) {
+        // Text/cdata nodes can get big, and since they're buffered,
+        // we can get here under normal conditions.
+        // Avoid issues by emitting the text node now,
+        // so at least it won't get any bigger.
+        switch (buffers[i]) {
+          case 'textNode':
+            closeText(parser)
+            break
+
+          case 'cdata':
+            emitNode(parser, 'oncdata', parser.cdata)
+            parser.cdata = ''
+            break
+
+          case 'script':
+            emitNode(parser, 'onscript', parser.script)
+            parser.script = ''
+            break
+
+          default:
+            error(parser, 'Max buffer length exceeded: ' + buffers[i])
+        }
+      }
+      maxActual = Math.max(maxActual, len)
+    }
+    // schedule the next check for the earliest possible buffer overrun.
+    var m = sax.MAX_BUFFER_LENGTH - maxActual
+    parser.bufferCheckPosition = m + parser.position
+  }
+
+  function clearBuffers (parser) {
+    for (var i = 0, l = buffers.length; i < l; i++) {
+      parser[buffers[i]] = ''
+    }
+  }
+
+  function flushBuffers (parser) {
+    closeText(parser)
+    if (parser.cdata !== '') {
+      emitNode(parser, 'oncdata', parser.cdata)
+      parser.cdata = ''
+    }
+    if (parser.script !== '') {
+      emitNode(parser, 'onscript', parser.script)
+      parser.script = ''
+    }
+  }
+
+  SAXParser.prototype = {
+    end: function () { end(this) },
+    write: write,
+    resume: function () { this.error = null; return this },
+    close: function () { return this.write(null) },
+    flush: function () { flushBuffers(this) }
+  }
+
+  var Stream
+  try {
+    Stream = __webpack_require__(/*! stream */ "stream").Stream
+  } catch (ex) {
+    Stream = function () {}
+  }
+
+  var streamWraps = sax.EVENTS.filter(function (ev) {
+    return ev !== 'error' && ev !== 'end'
+  })
+
+  function createStream (strict, opt) {
+    return new SAXStream(strict, opt)
+  }
+
+  function SAXStream (strict, opt) {
+    if (!(this instanceof SAXStream)) {
+      return new SAXStream(strict, opt)
+    }
+
+    Stream.apply(this)
+
+    this._parser = new SAXParser(strict, opt)
+    this.writable = true
+    this.readable = true
+
+    var me = this
+
+    this._parser.onend = function () {
+      me.emit('end')
+    }
+
+    this._parser.onerror = function (er) {
+      me.emit('error', er)
+
+      // if didn't throw, then means error was handled.
+      // go ahead and clear error, so we can write again.
+      me._parser.error = null
+    }
+
+    this._decoder = null
+
+    streamWraps.forEach(function (ev) {
+      Object.defineProperty(me, 'on' + ev, {
+        get: function () {
+          return me._parser['on' + ev]
+        },
+        set: function (h) {
+          if (!h) {
+            me.removeAllListeners(ev)
+            me._parser['on' + ev] = h
+            return h
+          }
+          me.on(ev, h)
+        },
+        enumerable: true,
+        configurable: false
+      })
+    })
+  }
+
+  SAXStream.prototype = Object.create(Stream.prototype, {
+    constructor: {
+      value: SAXStream
+    }
+  })
+
+  SAXStream.prototype.write = function (data) {
+    if (typeof Buffer === 'function' &&
+      typeof Buffer.isBuffer === 'function' &&
+      Buffer.isBuffer(data)) {
+      if (!this._decoder) {
+        var SD = __webpack_require__(/*! string_decoder */ "string_decoder").StringDecoder
+        this._decoder = new SD('utf8')
+      }
+      data = this._decoder.write(data)
+    }
+
+    this._parser.write(data.toString())
+    this.emit('data', data)
+    return true
+  }
+
+  SAXStream.prototype.end = function (chunk) {
+    if (chunk && chunk.length) {
+      this.write(chunk)
+    }
+    this._parser.end()
+    return true
+  }
+
+  SAXStream.prototype.on = function (ev, handler) {
+    var me = this
+    if (!me._parser['on' + ev] && streamWraps.indexOf(ev) !== -1) {
+      me._parser['on' + ev] = function () {
+        var args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments)
+        args.splice(0, 0, ev)
+        me.emit.apply(me, args)
+      }
+    }
+
+    return Stream.prototype.on.call(me, ev, handler)
+  }
+
+  // this really needs to be replaced with character classes.
+  // XML allows all manner of ridiculous numbers and digits.
+  var CDATA = '[CDATA['
+  var DOCTYPE = 'DOCTYPE'
+  var XML_NAMESPACE = 'http://www.w3.org/XML/1998/namespace'
+  var XMLNS_NAMESPACE = 'http://www.w3.org/2000/xmlns/'
+  var rootNS = { xml: XML_NAMESPACE, xmlns: XMLNS_NAMESPACE }
+
+  // http://www.w3.org/TR/REC-xml/#NT-NameStartChar
+  // This implementation works on strings, a single character at a time
+  // as such, it cannot ever support astral-plane characters (10000-EFFFF)
+  // without a significant breaking change to either this  parser, or the
+  // JavaScript language.  Implementation of an emoji-capable xml parser
+  // is left as an exercise for the reader.
+  var nameStart = /[:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/
+
+  var nameBody = /[:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u00B7\u0300-\u036F\u203F-\u2040.\d-]/
+
+  var entityStart = /[#:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/
+  var entityBody = /[#:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u00B7\u0300-\u036F\u203F-\u2040.\d-]/
+
+  function isWhitespace (c) {
+    return c === ' ' || c === '\n' || c === '\r' || c === '\t'
+  }
+
+  function isQuote (c) {
+    return c === '"' || c === '\''
+  }
+
+  function isAttribEnd (c) {
+    return c === '>' || isWhitespace(c)
+  }
+
+  function isMatch (regex, c) {
+    return regex.test(c)
+  }
+
+  function notMatch (regex, c) {
+    return !isMatch(regex, c)
+  }
+
+  var S = 0
+  sax.STATE = {
+    BEGIN: S++, // leading byte order mark or whitespace
+    BEGIN_WHITESPACE: S++, // leading whitespace
+    TEXT: S++, // general stuff
+    TEXT_ENTITY: S++, // &amp and such.
+    OPEN_WAKA: S++, // <
+    SGML_DECL: S++, // <!BLARG
+    SGML_DECL_QUOTED: S++, // <!BLARG foo "bar
+    DOCTYPE: S++, // <!DOCTYPE
+    DOCTYPE_QUOTED: S++, // <!DOCTYPE "//blah
+    DOCTYPE_DTD: S++, // <!DOCTYPE "//blah" [ ...
+    DOCTYPE_DTD_QUOTED: S++, // <!DOCTYPE "//blah" [ "foo
+    COMMENT_STARTING: S++, // <!-
+    COMMENT: S++, // <!--
+    COMMENT_ENDING: S++, // <!-- blah -
+    COMMENT_ENDED: S++, // <!-- blah --
+    CDATA: S++, // <![CDATA[ something
+    CDATA_ENDING: S++, // ]
+    CDATA_ENDING_2: S++, // ]]
+    PROC_INST: S++, // <?hi
+    PROC_INST_BODY: S++, // <?hi there
+    PROC_INST_ENDING: S++, // <?hi "there" ?
+    OPEN_TAG: S++, // <strong
+    OPEN_TAG_SLASH: S++, // <strong /
+    ATTRIB: S++, // <a
+    ATTRIB_NAME: S++, // <a foo
+    ATTRIB_NAME_SAW_WHITE: S++, // <a foo _
+    ATTRIB_VALUE: S++, // <a foo=
+    ATTRIB_VALUE_QUOTED: S++, // <a foo="bar
+    ATTRIB_VALUE_CLOSED: S++, // <a foo="bar"
+    ATTRIB_VALUE_UNQUOTED: S++, // <a foo=bar
+    ATTRIB_VALUE_ENTITY_Q: S++, // <foo bar="&quot;"
+    ATTRIB_VALUE_ENTITY_U: S++, // <foo bar=&quot
+    CLOSE_TAG: S++, // </a
+    CLOSE_TAG_SAW_WHITE: S++, // </a   >
+    SCRIPT: S++, // <script> ...
+    SCRIPT_ENDING: S++ // <script> ... <
+  }
+
+  sax.XML_ENTITIES = {
+    'amp': '&',
+    'gt': '>',
+    'lt': '<',
+    'quot': '"',
+    'apos': "'"
+  }
+
+  sax.ENTITIES = {
+    'amp': '&',
+    'gt': '>',
+    'lt': '<',
+    'quot': '"',
+    'apos': "'",
+    'AElig': 198,
+    'Aacute': 193,
+    'Acirc': 194,
+    'Agrave': 192,
+    'Aring': 197,
+    'Atilde': 195,
+    'Auml': 196,
+    'Ccedil': 199,
+    'ETH': 208,
+    'Eacute': 201,
+    'Ecirc': 202,
+    'Egrave': 200,
+    'Euml': 203,
+    'Iacute': 205,
+    'Icirc': 206,
+    'Igrave': 204,
+    'Iuml': 207,
+    'Ntilde': 209,
+    'Oacute': 211,
+    'Ocirc': 212,
+    'Ograve': 210,
+    'Oslash': 216,
+    'Otilde': 213,
+    'Ouml': 214,
+    'THORN': 222,
+    'Uacute': 218,
+    'Ucirc': 219,
+    'Ugrave': 217,
+    'Uuml': 220,
+    'Yacute': 221,
+    'aacute': 225,
+    'acirc': 226,
+    'aelig': 230,
+    'agrave': 224,
+    'aring': 229,
+    'atilde': 227,
+    'auml': 228,
+    'ccedil': 231,
+    'eacute': 233,
+    'ecirc': 234,
+    'egrave': 232,
+    'eth': 240,
+    'euml': 235,
+    'iacute': 237,
+    'icirc': 238,
+    'igrave': 236,
+    'iuml': 239,
+    'ntilde': 241,
+    'oacute': 243,
+    'ocirc': 244,
+    'ograve': 242,
+    'oslash': 248,
+    'otilde': 245,
+    'ouml': 246,
+    'szlig': 223,
+    'thorn': 254,
+    'uacute': 250,
+    'ucirc': 251,
+    'ugrave': 249,
+    'uuml': 252,
+    'yacute': 253,
+    'yuml': 255,
+    'copy': 169,
+    'reg': 174,
+    'nbsp': 160,
+    'iexcl': 161,
+    'cent': 162,
+    'pound': 163,
+    'curren': 164,
+    'yen': 165,
+    'brvbar': 166,
+    'sect': 167,
+    'uml': 168,
+    'ordf': 170,
+    'laquo': 171,
+    'not': 172,
+    'shy': 173,
+    'macr': 175,
+    'deg': 176,
+    'plusmn': 177,
+    'sup1': 185,
+    'sup2': 178,
+    'sup3': 179,
+    'acute': 180,
+    'micro': 181,
+    'para': 182,
+    'middot': 183,
+    'cedil': 184,
+    'ordm': 186,
+    'raquo': 187,
+    'frac14': 188,
+    'frac12': 189,
+    'frac34': 190,
+    'iquest': 191,
+    'times': 215,
+    'divide': 247,
+    'OElig': 338,
+    'oelig': 339,
+    'Scaron': 352,
+    'scaron': 353,
+    'Yuml': 376,
+    'fnof': 402,
+    'circ': 710,
+    'tilde': 732,
+    'Alpha': 913,
+    'Beta': 914,
+    'Gamma': 915,
+    'Delta': 916,
+    'Epsilon': 917,
+    'Zeta': 918,
+    'Eta': 919,
+    'Theta': 920,
+    'Iota': 921,
+    'Kappa': 922,
+    'Lambda': 923,
+    'Mu': 924,
+    'Nu': 925,
+    'Xi': 926,
+    'Omicron': 927,
+    'Pi': 928,
+    'Rho': 929,
+    'Sigma': 931,
+    'Tau': 932,
+    'Upsilon': 933,
+    'Phi': 934,
+    'Chi': 935,
+    'Psi': 936,
+    'Omega': 937,
+    'alpha': 945,
+    'beta': 946,
+    'gamma': 947,
+    'delta': 948,
+    'epsilon': 949,
+    'zeta': 950,
+    'eta': 951,
+    'theta': 952,
+    'iota': 953,
+    'kappa': 954,
+    'lambda': 955,
+    'mu': 956,
+    'nu': 957,
+    'xi': 958,
+    'omicron': 959,
+    'pi': 960,
+    'rho': 961,
+    'sigmaf': 962,
+    'sigma': 963,
+    'tau': 964,
+    'upsilon': 965,
+    'phi': 966,
+    'chi': 967,
+    'psi': 968,
+    'omega': 969,
+    'thetasym': 977,
+    'upsih': 978,
+    'piv': 982,
+    'ensp': 8194,
+    'emsp': 8195,
+    'thinsp': 8201,
+    'zwnj': 8204,
+    'zwj': 8205,
+    'lrm': 8206,
+    'rlm': 8207,
+    'ndash': 8211,
+    'mdash': 8212,
+    'lsquo': 8216,
+    'rsquo': 8217,
+    'sbquo': 8218,
+    'ldquo': 8220,
+    'rdquo': 8221,
+    'bdquo': 8222,
+    'dagger': 8224,
+    'Dagger': 8225,
+    'bull': 8226,
+    'hellip': 8230,
+    'permil': 8240,
+    'prime': 8242,
+    'Prime': 8243,
+    'lsaquo': 8249,
+    'rsaquo': 8250,
+    'oline': 8254,
+    'frasl': 8260,
+    'euro': 8364,
+    'image': 8465,
+    'weierp': 8472,
+    'real': 8476,
+    'trade': 8482,
+    'alefsym': 8501,
+    'larr': 8592,
+    'uarr': 8593,
+    'rarr': 8594,
+    'darr': 8595,
+    'harr': 8596,
+    'crarr': 8629,
+    'lArr': 8656,
+    'uArr': 8657,
+    'rArr': 8658,
+    'dArr': 8659,
+    'hArr': 8660,
+    'forall': 8704,
+    'part': 8706,
+    'exist': 8707,
+    'empty': 8709,
+    'nabla': 8711,
+    'isin': 8712,
+    'notin': 8713,
+    'ni': 8715,
+    'prod': 8719,
+    'sum': 8721,
+    'minus': 8722,
+    'lowast': 8727,
+    'radic': 8730,
+    'prop': 8733,
+    'infin': 8734,
+    'ang': 8736,
+    'and': 8743,
+    'or': 8744,
+    'cap': 8745,
+    'cup': 8746,
+    'int': 8747,
+    'there4': 8756,
+    'sim': 8764,
+    'cong': 8773,
+    'asymp': 8776,
+    'ne': 8800,
+    'equiv': 8801,
+    'le': 8804,
+    'ge': 8805,
+    'sub': 8834,
+    'sup': 8835,
+    'nsub': 8836,
+    'sube': 8838,
+    'supe': 8839,
+    'oplus': 8853,
+    'otimes': 8855,
+    'perp': 8869,
+    'sdot': 8901,
+    'lceil': 8968,
+    'rceil': 8969,
+    'lfloor': 8970,
+    'rfloor': 8971,
+    'lang': 9001,
+    'rang': 9002,
+    'loz': 9674,
+    'spades': 9824,
+    'clubs': 9827,
+    'hearts': 9829,
+    'diams': 9830
+  }
+
+  Object.keys(sax.ENTITIES).forEach(function (key) {
+    var e = sax.ENTITIES[key]
+    var s = typeof e === 'number' ? String.fromCharCode(e) : e
+    sax.ENTITIES[key] = s
+  })
+
+  for (var s in sax.STATE) {
+    sax.STATE[sax.STATE[s]] = s
+  }
+
+  // shorthand
+  S = sax.STATE
+
+  function emit (parser, event, data) {
+    parser[event] && parser[event](data)
+  }
+
+  function emitNode (parser, nodeType, data) {
+    if (parser.textNode) closeText(parser)
+    emit(parser, nodeType, data)
+  }
+
+  function closeText (parser) {
+    parser.textNode = textopts(parser.opt, parser.textNode)
+    if (parser.textNode) emit(parser, 'ontext', parser.textNode)
+    parser.textNode = ''
+  }
+
+  function textopts (opt, text) {
+    if (opt.trim) text = text.trim()
+    if (opt.normalize) text = text.replace(/\s+/g, ' ')
+    return text
+  }
+
+  function error (parser, er) {
+    closeText(parser)
+    if (parser.trackPosition) {
+      er += '\nLine: ' + parser.line +
+        '\nColumn: ' + parser.column +
+        '\nChar: ' + parser.c
+    }
+    er = new Error(er)
+    parser.error = er
+    emit(parser, 'onerror', er)
+    return parser
+  }
+
+  function end (parser) {
+    if (parser.sawRoot && !parser.closedRoot) strictFail(parser, 'Unclosed root tag')
+    if ((parser.state !== S.BEGIN) &&
+      (parser.state !== S.BEGIN_WHITESPACE) &&
+      (parser.state !== S.TEXT)) {
+      error(parser, 'Unexpected end')
+    }
+    closeText(parser)
+    parser.c = ''
+    parser.closed = true
+    emit(parser, 'onend')
+    SAXParser.call(parser, parser.strict, parser.opt)
+    return parser
+  }
+
+  function strictFail (parser, message) {
+    if (typeof parser !== 'object' || !(parser instanceof SAXParser)) {
+      throw new Error('bad call to strictFail')
+    }
+    if (parser.strict) {
+      error(parser, message)
+    }
+  }
+
+  function newTag (parser) {
+    if (!parser.strict) parser.tagName = parser.tagName[parser.looseCase]()
+    var parent = parser.tags[parser.tags.length - 1] || parser
+    var tag = parser.tag = { name: parser.tagName, attributes: {} }
+
+    // will be overridden if tag contails an xmlns="foo" or xmlns:foo="bar"
+    if (parser.opt.xmlns) {
+      tag.ns = parent.ns
+    }
+    parser.attribList.length = 0
+    emitNode(parser, 'onopentagstart', tag)
+  }
+
+  function qname (name, attribute) {
+    var i = name.indexOf(':')
+    var qualName = i < 0 ? [ '', name ] : name.split(':')
+    var prefix = qualName[0]
+    var local = qualName[1]
+
+    // <x "xmlns"="http://foo">
+    if (attribute && name === 'xmlns') {
+      prefix = 'xmlns'
+      local = ''
+    }
+
+    return { prefix: prefix, local: local }
+  }
+
+  function attrib (parser) {
+    if (!parser.strict) {
+      parser.attribName = parser.attribName[parser.looseCase]()
+    }
+
+    if (parser.attribList.indexOf(parser.attribName) !== -1 ||
+      parser.tag.attributes.hasOwnProperty(parser.attribName)) {
+      parser.attribName = parser.attribValue = ''
+      return
+    }
+
+    if (parser.opt.xmlns) {
+      var qn = qname(parser.attribName, true)
+      var prefix = qn.prefix
+      var local = qn.local
+
+      if (prefix === 'xmlns') {
+        // namespace binding attribute. push the binding into scope
+        if (local === 'xml' && parser.attribValue !== XML_NAMESPACE) {
+          strictFail(parser,
+            'xml: prefix must be bound to ' + XML_NAMESPACE + '\n' +
+            'Actual: ' + parser.attribValue)
+        } else if (local === 'xmlns' && parser.attribValue !== XMLNS_NAMESPACE) {
+          strictFail(parser,
+            'xmlns: prefix must be bound to ' + XMLNS_NAMESPACE + '\n' +
+            'Actual: ' + parser.attribValue)
+        } else {
+          var tag = parser.tag
+          var parent = parser.tags[parser.tags.length - 1] || parser
+          if (tag.ns === parent.ns) {
+            tag.ns = Object.create(parent.ns)
+          }
+          tag.ns[local] = parser.attribValue
+        }
+      }
+
+      // defer onattribute events until all attributes have been seen
+      // so any new bindings can take effect. preserve attribute order
+      // so deferred events can be emitted in document order
+      parser.attribList.push([parser.attribName, parser.attribValue])
+    } else {
+      // in non-xmlns mode, we can emit the event right away
+      parser.tag.attributes[parser.attribName] = parser.attribValue
+      emitNode(parser, 'onattribute', {
+        name: parser.attribName,
+        value: parser.attribValue
+      })
+    }
+
+    parser.attribName = parser.attribValue = ''
+  }
+
+  function openTag (parser, selfClosing) {
+    if (parser.opt.xmlns) {
+      // emit namespace binding events
+      var tag = parser.tag
+
+      // add namespace info to tag
+      var qn = qname(parser.tagName)
+      tag.prefix = qn.prefix
+      tag.local = qn.local
+      tag.uri = tag.ns[qn.prefix] || ''
+
+      if (tag.prefix && !tag.uri) {
+        strictFail(parser, 'Unbound namespace prefix: ' +
+          JSON.stringify(parser.tagName))
+        tag.uri = qn.prefix
+      }
+
+      var parent = parser.tags[parser.tags.length - 1] || parser
+      if (tag.ns && parent.ns !== tag.ns) {
+        Object.keys(tag.ns).forEach(function (p) {
+          emitNode(parser, 'onopennamespace', {
+            prefix: p,
+            uri: tag.ns[p]
+          })
+        })
+      }
+
+      // handle deferred onattribute events
+      // Note: do not apply default ns to attributes:
+      //   http://www.w3.org/TR/REC-xml-names/#defaulting
+      for (var i = 0, l = parser.attribList.length; i < l; i++) {
+        var nv = parser.attribList[i]
+        var name = nv[0]
+        var value = nv[1]
+        var qualName = qname(name, true)
+        var prefix = qualName.prefix
+        var local = qualName.local
+        var uri = prefix === '' ? '' : (tag.ns[prefix] || '')
+        var a = {
+          name: name,
+          value: value,
+          prefix: prefix,
+          local: local,
+          uri: uri
+        }
+
+        // if there's any attributes with an undefined namespace,
+        // then fail on them now.
+        if (prefix && prefix !== 'xmlns' && !uri) {
+          strictFail(parser, 'Unbound namespace prefix: ' +
+            JSON.stringify(prefix))
+          a.uri = prefix
+        }
+        parser.tag.attributes[name] = a
+        emitNode(parser, 'onattribute', a)
+      }
+      parser.attribList.length = 0
+    }
+
+    parser.tag.isSelfClosing = !!selfClosing
+
+    // process the tag
+    parser.sawRoot = true
+    parser.tags.push(parser.tag)
+    emitNode(parser, 'onopentag', parser.tag)
+    if (!selfClosing) {
+      // special case for <script> in non-strict mode.
+      if (!parser.noscript && parser.tagName.toLowerCase() === 'script') {
+        parser.state = S.SCRIPT
+      } else {
+        parser.state = S.TEXT
+      }
+      parser.tag = null
+      parser.tagName = ''
+    }
+    parser.attribName = parser.attribValue = ''
+    parser.attribList.length = 0
+  }
+
+  function closeTag (parser) {
+    if (!parser.tagName) {
+      strictFail(parser, 'Weird empty close tag.')
+      parser.textNode += '</>'
+      parser.state = S.TEXT
+      return
+    }
+
+    if (parser.script) {
+      if (parser.tagName !== 'script') {
+        parser.script += '</' + parser.tagName + '>'
+        parser.tagName = ''
+        parser.state = S.SCRIPT
+        return
+      }
+      emitNode(parser, 'onscript', parser.script)
+      parser.script = ''
+    }
+
+    // first make sure that the closing tag actually exists.
+    // <a><b></c></b></a> will close everything, otherwise.
+    var t = parser.tags.length
+    var tagName = parser.tagName
+    if (!parser.strict) {
+      tagName = tagName[parser.looseCase]()
+    }
+    var closeTo = tagName
+    while (t--) {
+      var close = parser.tags[t]
+      if (close.name !== closeTo) {
+        // fail the first time in strict mode
+        strictFail(parser, 'Unexpected close tag')
+      } else {
+        break
+      }
+    }
+
+    // didn't find it.  we already failed for strict, so just abort.
+    if (t < 0) {
+      strictFail(parser, 'Unmatched closing tag: ' + parser.tagName)
+      parser.textNode += '</' + parser.tagName + '>'
+      parser.state = S.TEXT
+      return
+    }
+    parser.tagName = tagName
+    var s = parser.tags.length
+    while (s-- > t) {
+      var tag = parser.tag = parser.tags.pop()
+      parser.tagName = parser.tag.name
+      emitNode(parser, 'onclosetag', parser.tagName)
+
+      var x = {}
+      for (var i in tag.ns) {
+        x[i] = tag.ns[i]
+      }
+
+      var parent = parser.tags[parser.tags.length - 1] || parser
+      if (parser.opt.xmlns && tag.ns !== parent.ns) {
+        // remove namespace bindings introduced by tag
+        Object.keys(tag.ns).forEach(function (p) {
+          var n = tag.ns[p]
+          emitNode(parser, 'onclosenamespace', { prefix: p, uri: n })
+        })
+      }
+    }
+    if (t === 0) parser.closedRoot = true
+    parser.tagName = parser.attribValue = parser.attribName = ''
+    parser.attribList.length = 0
+    parser.state = S.TEXT
+  }
+
+  function parseEntity (parser) {
+    var entity = parser.entity
+    var entityLC = entity.toLowerCase()
+    var num
+    var numStr = ''
+
+    if (parser.ENTITIES[entity]) {
+      return parser.ENTITIES[entity]
+    }
+    if (parser.ENTITIES[entityLC]) {
+      return parser.ENTITIES[entityLC]
+    }
+    entity = entityLC
+    if (entity.charAt(0) === '#') {
+      if (entity.charAt(1) === 'x') {
+        entity = entity.slice(2)
+        num = parseInt(entity, 16)
+        numStr = num.toString(16)
+      } else {
+        entity = entity.slice(1)
+        num = parseInt(entity, 10)
+        numStr = num.toString(10)
+      }
+    }
+    entity = entity.replace(/^0+/, '')
+    if (isNaN(num) || numStr.toLowerCase() !== entity) {
+      strictFail(parser, 'Invalid character entity')
+      return '&' + parser.entity + ';'
+    }
+
+    return String.fromCodePoint(num)
+  }
+
+  function beginWhiteSpace (parser, c) {
+    if (c === '<') {
+      parser.state = S.OPEN_WAKA
+      parser.startTagPosition = parser.position
+    } else if (!isWhitespace(c)) {
+      // have to process this as a text node.
+      // weird, but happens.
+      strictFail(parser, 'Non-whitespace before first tag.')
+      parser.textNode = c
+      parser.state = S.TEXT
+    }
+  }
+
+  function charAt (chunk, i) {
+    var result = ''
+    if (i < chunk.length) {
+      result = chunk.charAt(i)
+    }
+    return result
+  }
+
+  function write (chunk) {
+    var parser = this
+    if (this.error) {
+      throw this.error
+    }
+    if (parser.closed) {
+      return error(parser,
+        'Cannot write after close. Assign an onready handler.')
+    }
+    if (chunk === null) {
+      return end(parser)
+    }
+    if (typeof chunk === 'object') {
+      chunk = chunk.toString()
+    }
+    var i = 0
+    var c = ''
+    while (true) {
+      c = charAt(chunk, i++)
+      parser.c = c
+
+      if (!c) {
+        break
+      }
+
+      if (parser.trackPosition) {
+        parser.position++
+        if (c === '\n') {
+          parser.line++
+          parser.column = 0
+        } else {
+          parser.column++
+        }
+      }
+
+      switch (parser.state) {
+        case S.BEGIN:
+          parser.state = S.BEGIN_WHITESPACE
+          if (c === '\uFEFF') {
+            continue
+          }
+          beginWhiteSpace(parser, c)
+          continue
+
+        case S.BEGIN_WHITESPACE:
+          beginWhiteSpace(parser, c)
+          continue
+
+        case S.TEXT:
+          if (parser.sawRoot && !parser.closedRoot) {
+            var starti = i - 1
+            while (c && c !== '<' && c !== '&') {
+              c = charAt(chunk, i++)
+              if (c && parser.trackPosition) {
+                parser.position++
+                if (c === '\n') {
+                  parser.line++
+                  parser.column = 0
+                } else {
+                  parser.column++
+                }
+              }
+            }
+            parser.textNode += chunk.substring(starti, i - 1)
+          }
+          if (c === '<' && !(parser.sawRoot && parser.closedRoot && !parser.strict)) {
+            parser.state = S.OPEN_WAKA
+            parser.startTagPosition = parser.position
+          } else {
+            if (!isWhitespace(c) && (!parser.sawRoot || parser.closedRoot)) {
+              strictFail(parser, 'Text data outside of root node.')
+            }
+            if (c === '&') {
+              parser.state = S.TEXT_ENTITY
+            } else {
+              parser.textNode += c
+            }
+          }
+          continue
+
+        case S.SCRIPT:
+          // only non-strict
+          if (c === '<') {
+            parser.state = S.SCRIPT_ENDING
+          } else {
+            parser.script += c
+          }
+          continue
+
+        case S.SCRIPT_ENDING:
+          if (c === '/') {
+            parser.state = S.CLOSE_TAG
+          } else {
+            parser.script += '<' + c
+            parser.state = S.SCRIPT
+          }
+          continue
+
+        case S.OPEN_WAKA:
+          // either a /, ?, !, or text is coming next.
+          if (c === '!') {
+            parser.state = S.SGML_DECL
+            parser.sgmlDecl = ''
+          } else if (isWhitespace(c)) {
+            // wait for it...
+          } else if (isMatch(nameStart, c)) {
+            parser.state = S.OPEN_TAG
+            parser.tagName = c
+          } else if (c === '/') {
+            parser.state = S.CLOSE_TAG
+            parser.tagName = ''
+          } else if (c === '?') {
+            parser.state = S.PROC_INST
+            parser.procInstName = parser.procInstBody = ''
+          } else {
+            strictFail(parser, 'Unencoded <')
+            // if there was some whitespace, then add that in.
+            if (parser.startTagPosition + 1 < parser.position) {
+              var pad = parser.position - parser.startTagPosition
+              c = new Array(pad).join(' ') + c
+            }
+            parser.textNode += '<' + c
+            parser.state = S.TEXT
+          }
+          continue
+
+        case S.SGML_DECL:
+          if ((parser.sgmlDecl + c).toUpperCase() === CDATA) {
+            emitNode(parser, 'onopencdata')
+            parser.state = S.CDATA
+            parser.sgmlDecl = ''
+            parser.cdata = ''
+          } else if (parser.sgmlDecl + c === '--') {
+            parser.state = S.COMMENT
+            parser.comment = ''
+            parser.sgmlDecl = ''
+          } else if ((parser.sgmlDecl + c).toUpperCase() === DOCTYPE) {
+            parser.state = S.DOCTYPE
+            if (parser.doctype || parser.sawRoot) {
+              strictFail(parser,
+                'Inappropriately located doctype declaration')
+            }
+            parser.doctype = ''
+            parser.sgmlDecl = ''
+          } else if (c === '>') {
+            emitNode(parser, 'onsgmldeclaration', parser.sgmlDecl)
+            parser.sgmlDecl = ''
+            parser.state = S.TEXT
+          } else if (isQuote(c)) {
+            parser.state = S.SGML_DECL_QUOTED
+            parser.sgmlDecl += c
+          } else {
+            parser.sgmlDecl += c
+          }
+          continue
+
+        case S.SGML_DECL_QUOTED:
+          if (c === parser.q) {
+            parser.state = S.SGML_DECL
+            parser.q = ''
+          }
+          parser.sgmlDecl += c
+          continue
+
+        case S.DOCTYPE:
+          if (c === '>') {
+            parser.state = S.TEXT
+            emitNode(parser, 'ondoctype', parser.doctype)
+            parser.doctype = true // just remember that we saw it.
+          } else {
+            parser.doctype += c
+            if (c === '[') {
+              parser.state = S.DOCTYPE_DTD
+            } else if (isQuote(c)) {
+              parser.state = S.DOCTYPE_QUOTED
+              parser.q = c
+            }
+          }
+          continue
+
+        case S.DOCTYPE_QUOTED:
+          parser.doctype += c
+          if (c === parser.q) {
+            parser.q = ''
+            parser.state = S.DOCTYPE
+          }
+          continue
+
+        case S.DOCTYPE_DTD:
+          parser.doctype += c
+          if (c === ']') {
+            parser.state = S.DOCTYPE
+          } else if (isQuote(c)) {
+            parser.state = S.DOCTYPE_DTD_QUOTED
+            parser.q = c
+          }
+          continue
+
+        case S.DOCTYPE_DTD_QUOTED:
+          parser.doctype += c
+          if (c === parser.q) {
+            parser.state = S.DOCTYPE_DTD
+            parser.q = ''
+          }
+          continue
+
+        case S.COMMENT:
+          if (c === '-') {
+            parser.state = S.COMMENT_ENDING
+          } else {
+            parser.comment += c
+          }
+          continue
+
+        case S.COMMENT_ENDING:
+          if (c === '-') {
+            parser.state = S.COMMENT_ENDED
+            parser.comment = textopts(parser.opt, parser.comment)
+            if (parser.comment) {
+              emitNode(parser, 'oncomment', parser.comment)
+            }
+            parser.comment = ''
+          } else {
+            parser.comment += '-' + c
+            parser.state = S.COMMENT
+          }
+          continue
+
+        case S.COMMENT_ENDED:
+          if (c !== '>') {
+            strictFail(parser, 'Malformed comment')
+            // allow <!-- blah -- bloo --> in non-strict mode,
+            // which is a comment of " blah -- bloo "
+            parser.comment += '--' + c
+            parser.state = S.COMMENT
+          } else {
+            parser.state = S.TEXT
+          }
+          continue
+
+        case S.CDATA:
+          if (c === ']') {
+            parser.state = S.CDATA_ENDING
+          } else {
+            parser.cdata += c
+          }
+          continue
+
+        case S.CDATA_ENDING:
+          if (c === ']') {
+            parser.state = S.CDATA_ENDING_2
+          } else {
+            parser.cdata += ']' + c
+            parser.state = S.CDATA
+          }
+          continue
+
+        case S.CDATA_ENDING_2:
+          if (c === '>') {
+            if (parser.cdata) {
+              emitNode(parser, 'oncdata', parser.cdata)
+            }
+            emitNode(parser, 'onclosecdata')
+            parser.cdata = ''
+            parser.state = S.TEXT
+          } else if (c === ']') {
+            parser.cdata += ']'
+          } else {
+            parser.cdata += ']]' + c
+            parser.state = S.CDATA
+          }
+          continue
+
+        case S.PROC_INST:
+          if (c === '?') {
+            parser.state = S.PROC_INST_ENDING
+          } else if (isWhitespace(c)) {
+            parser.state = S.PROC_INST_BODY
+          } else {
+            parser.procInstName += c
+          }
+          continue
+
+        case S.PROC_INST_BODY:
+          if (!parser.procInstBody && isWhitespace(c)) {
+            continue
+          } else if (c === '?') {
+            parser.state = S.PROC_INST_ENDING
+          } else {
+            parser.procInstBody += c
+          }
+          continue
+
+        case S.PROC_INST_ENDING:
+          if (c === '>') {
+            emitNode(parser, 'onprocessinginstruction', {
+              name: parser.procInstName,
+              body: parser.procInstBody
+            })
+            parser.procInstName = parser.procInstBody = ''
+            parser.state = S.TEXT
+          } else {
+            parser.procInstBody += '?' + c
+            parser.state = S.PROC_INST_BODY
+          }
+          continue
+
+        case S.OPEN_TAG:
+          if (isMatch(nameBody, c)) {
+            parser.tagName += c
+          } else {
+            newTag(parser)
+            if (c === '>') {
+              openTag(parser)
+            } else if (c === '/') {
+              parser.state = S.OPEN_TAG_SLASH
+            } else {
+              if (!isWhitespace(c)) {
+                strictFail(parser, 'Invalid character in tag name')
+              }
+              parser.state = S.ATTRIB
+            }
+          }
+          continue
+
+        case S.OPEN_TAG_SLASH:
+          if (c === '>') {
+            openTag(parser, true)
+            closeTag(parser)
+          } else {
+            strictFail(parser, 'Forward-slash in opening tag not followed by >')
+            parser.state = S.ATTRIB
+          }
+          continue
+
+        case S.ATTRIB:
+          // haven't read the attribute name yet.
+          if (isWhitespace(c)) {
+            continue
+          } else if (c === '>') {
+            openTag(parser)
+          } else if (c === '/') {
+            parser.state = S.OPEN_TAG_SLASH
+          } else if (isMatch(nameStart, c)) {
+            parser.attribName = c
+            parser.attribValue = ''
+            parser.state = S.ATTRIB_NAME
+          } else {
+            strictFail(parser, 'Invalid attribute name')
+          }
+          continue
+
+        case S.ATTRIB_NAME:
+          if (c === '=') {
+            parser.state = S.ATTRIB_VALUE
+          } else if (c === '>') {
+            strictFail(parser, 'Attribute without value')
+            parser.attribValue = parser.attribName
+            attrib(parser)
+            openTag(parser)
+          } else if (isWhitespace(c)) {
+            parser.state = S.ATTRIB_NAME_SAW_WHITE
+          } else if (isMatch(nameBody, c)) {
+            parser.attribName += c
+          } else {
+            strictFail(parser, 'Invalid attribute name')
+          }
+          continue
+
+        case S.ATTRIB_NAME_SAW_WHITE:
+          if (c === '=') {
+            parser.state = S.ATTRIB_VALUE
+          } else if (isWhitespace(c)) {
+            continue
+          } else {
+            strictFail(parser, 'Attribute without value')
+            parser.tag.attributes[parser.attribName] = ''
+            parser.attribValue = ''
+            emitNode(parser, 'onattribute', {
+              name: parser.attribName,
+              value: ''
+            })
+            parser.attribName = ''
+            if (c === '>') {
+              openTag(parser)
+            } else if (isMatch(nameStart, c)) {
+              parser.attribName = c
+              parser.state = S.ATTRIB_NAME
+            } else {
+              strictFail(parser, 'Invalid attribute name')
+              parser.state = S.ATTRIB
+            }
+          }
+          continue
+
+        case S.ATTRIB_VALUE:
+          if (isWhitespace(c)) {
+            continue
+          } else if (isQuote(c)) {
+            parser.q = c
+            parser.state = S.ATTRIB_VALUE_QUOTED
+          } else {
+            strictFail(parser, 'Unquoted attribute value')
+            parser.state = S.ATTRIB_VALUE_UNQUOTED
+            parser.attribValue = c
+          }
+          continue
+
+        case S.ATTRIB_VALUE_QUOTED:
+          if (c !== parser.q) {
+            if (c === '&') {
+              parser.state = S.ATTRIB_VALUE_ENTITY_Q
+            } else {
+              parser.attribValue += c
+            }
+            continue
+          }
+          attrib(parser)
+          parser.q = ''
+          parser.state = S.ATTRIB_VALUE_CLOSED
+          continue
+
+        case S.ATTRIB_VALUE_CLOSED:
+          if (isWhitespace(c)) {
+            parser.state = S.ATTRIB
+          } else if (c === '>') {
+            openTag(parser)
+          } else if (c === '/') {
+            parser.state = S.OPEN_TAG_SLASH
+          } else if (isMatch(nameStart, c)) {
+            strictFail(parser, 'No whitespace between attributes')
+            parser.attribName = c
+            parser.attribValue = ''
+            parser.state = S.ATTRIB_NAME
+          } else {
+            strictFail(parser, 'Invalid attribute name')
+          }
+          continue
+
+        case S.ATTRIB_VALUE_UNQUOTED:
+          if (!isAttribEnd(c)) {
+            if (c === '&') {
+              parser.state = S.ATTRIB_VALUE_ENTITY_U
+            } else {
+              parser.attribValue += c
+            }
+            continue
+          }
+          attrib(parser)
+          if (c === '>') {
+            openTag(parser)
+          } else {
+            parser.state = S.ATTRIB
+          }
+          continue
+
+        case S.CLOSE_TAG:
+          if (!parser.tagName) {
+            if (isWhitespace(c)) {
+              continue
+            } else if (notMatch(nameStart, c)) {
+              if (parser.script) {
+                parser.script += '</' + c
+                parser.state = S.SCRIPT
+              } else {
+                strictFail(parser, 'Invalid tagname in closing tag.')
+              }
+            } else {
+              parser.tagName = c
+            }
+          } else if (c === '>') {
+            closeTag(parser)
+          } else if (isMatch(nameBody, c)) {
+            parser.tagName += c
+          } else if (parser.script) {
+            parser.script += '</' + parser.tagName
+            parser.tagName = ''
+            parser.state = S.SCRIPT
+          } else {
+            if (!isWhitespace(c)) {
+              strictFail(parser, 'Invalid tagname in closing tag')
+            }
+            parser.state = S.CLOSE_TAG_SAW_WHITE
+          }
+          continue
+
+        case S.CLOSE_TAG_SAW_WHITE:
+          if (isWhitespace(c)) {
+            continue
+          }
+          if (c === '>') {
+            closeTag(parser)
+          } else {
+            strictFail(parser, 'Invalid characters in closing tag')
+          }
+          continue
+
+        case S.TEXT_ENTITY:
+        case S.ATTRIB_VALUE_ENTITY_Q:
+        case S.ATTRIB_VALUE_ENTITY_U:
+          var returnState
+          var buffer
+          switch (parser.state) {
+            case S.TEXT_ENTITY:
+              returnState = S.TEXT
+              buffer = 'textNode'
+              break
+
+            case S.ATTRIB_VALUE_ENTITY_Q:
+              returnState = S.ATTRIB_VALUE_QUOTED
+              buffer = 'attribValue'
+              break
+
+            case S.ATTRIB_VALUE_ENTITY_U:
+              returnState = S.ATTRIB_VALUE_UNQUOTED
+              buffer = 'attribValue'
+              break
+          }
+
+          if (c === ';') {
+            parser[buffer] += parseEntity(parser)
+            parser.entity = ''
+            parser.state = returnState
+          } else if (isMatch(parser.entity.length ? entityBody : entityStart, c)) {
+            parser.entity += c
+          } else {
+            strictFail(parser, 'Invalid character in entity name')
+            parser[buffer] += '&' + parser.entity + c
+            parser.entity = ''
+            parser.state = returnState
+          }
+
+          continue
+
+        default:
+          throw new Error(parser, 'Unknown state: ' + parser.state)
+      }
+    } // while
+
+    if (parser.position >= parser.bufferCheckPosition) {
+      checkBufferLength(parser)
+    }
+    return parser
+  }
+
+  /*! http://mths.be/fromcodepoint v0.1.0 by @mathias */
+  /* istanbul ignore next */
+  if (!String.fromCodePoint) {
+    (function () {
+      var stringFromCharCode = String.fromCharCode
+      var floor = Math.floor
+      var fromCodePoint = function () {
+        var MAX_SIZE = 0x4000
+        var codeUnits = []
+        var highSurrogate
+        var lowSurrogate
+        var index = -1
+        var length = arguments.length
+        if (!length) {
+          return ''
+        }
+        var result = ''
+        while (++index < length) {
+          var codePoint = Number(arguments[index])
+          if (
+            !isFinite(codePoint) || // `NaN`, `+Infinity`, or `-Infinity`
+            codePoint < 0 || // not a valid Unicode code point
+            codePoint > 0x10FFFF || // not a valid Unicode code point
+            floor(codePoint) !== codePoint // not an integer
+          ) {
+            throw RangeError('Invalid code point: ' + codePoint)
+          }
+          if (codePoint <= 0xFFFF) { // BMP code point
+            codeUnits.push(codePoint)
+          } else { // Astral code point; split in surrogate halves
+            // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+            codePoint -= 0x10000
+            highSurrogate = (codePoint >> 10) + 0xD800
+            lowSurrogate = (codePoint % 0x400) + 0xDC00
+            codeUnits.push(highSurrogate, lowSurrogate)
+          }
+          if (index + 1 === length || codeUnits.length > MAX_SIZE) {
+            result += stringFromCharCode.apply(null, codeUnits)
+            codeUnits.length = 0
+          }
+        }
+        return result
+      }
+      /* istanbul ignore next */
+      if (Object.defineProperty) {
+        Object.defineProperty(String, 'fromCodePoint', {
+          value: fromCodePoint,
+          configurable: true,
+          writable: true
+        })
+      } else {
+        String.fromCodePoint = fromCodePoint
+      }
+    }())
+  }
+})( false ? undefined : exports)
+
+
+/***/ }),
+
+/***/ "../node_modules/webpack/buildin/module.js":
+/*!*************************************************!*\
+  !*** ../node_modules/webpack/buildin/module.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if (!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/lib/bom.js":
+/*!*****************************************!*\
+  !*** ../node_modules/xml2js/lib/bom.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  "use strict";
+  exports.stripBOM = function(str) {
+    if (str[0] === '\uFEFF') {
+      return str.substring(1);
+    } else {
+      return str;
+    }
+  };
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/lib/builder.js":
+/*!*********************************************!*\
+  !*** ../node_modules/xml2js/lib/builder.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  "use strict";
+  var builder, defaults, escapeCDATA, requiresCDATA, wrapCDATA,
+    hasProp = {}.hasOwnProperty;
+
+  builder = __webpack_require__(/*! xmlbuilder */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/index.js");
+
+  defaults = __webpack_require__(/*! ./defaults */ "../node_modules/xml2js/lib/defaults.js").defaults;
+
+  requiresCDATA = function(entry) {
+    return typeof entry === "string" && (entry.indexOf('&') >= 0 || entry.indexOf('>') >= 0 || entry.indexOf('<') >= 0);
+  };
+
+  wrapCDATA = function(entry) {
+    return "<![CDATA[" + (escapeCDATA(entry)) + "]]>";
+  };
+
+  escapeCDATA = function(entry) {
+    return entry.replace(']]>', ']]]]><![CDATA[>');
+  };
+
+  exports.Builder = (function() {
+    function Builder(opts) {
+      var key, ref, value;
+      this.options = {};
+      ref = defaults["0.2"];
+      for (key in ref) {
+        if (!hasProp.call(ref, key)) continue;
+        value = ref[key];
+        this.options[key] = value;
+      }
+      for (key in opts) {
+        if (!hasProp.call(opts, key)) continue;
+        value = opts[key];
+        this.options[key] = value;
+      }
+    }
+
+    Builder.prototype.buildObject = function(rootObj) {
+      var attrkey, charkey, render, rootElement, rootName;
+      attrkey = this.options.attrkey;
+      charkey = this.options.charkey;
+      if ((Object.keys(rootObj).length === 1) && (this.options.rootName === defaults['0.2'].rootName)) {
+        rootName = Object.keys(rootObj)[0];
+        rootObj = rootObj[rootName];
+      } else {
+        rootName = this.options.rootName;
+      }
+      render = (function(_this) {
+        return function(element, obj) {
+          var attr, child, entry, index, key, value;
+          if (typeof obj !== 'object') {
+            if (_this.options.cdata && requiresCDATA(obj)) {
+              element.raw(wrapCDATA(obj));
+            } else {
+              element.txt(obj);
+            }
+          } else if (Array.isArray(obj)) {
+            for (index in obj) {
+              if (!hasProp.call(obj, index)) continue;
+              child = obj[index];
+              for (key in child) {
+                entry = child[key];
+                element = render(element.ele(key), entry).up();
+              }
+            }
+          } else {
+            for (key in obj) {
+              if (!hasProp.call(obj, key)) continue;
+              child = obj[key];
+              if (key === attrkey) {
+                if (typeof child === "object") {
+                  for (attr in child) {
+                    value = child[attr];
+                    element = element.att(attr, value);
+                  }
+                }
+              } else if (key === charkey) {
+                if (_this.options.cdata && requiresCDATA(child)) {
+                  element = element.raw(wrapCDATA(child));
+                } else {
+                  element = element.txt(child);
+                }
+              } else if (Array.isArray(child)) {
+                for (index in child) {
+                  if (!hasProp.call(child, index)) continue;
+                  entry = child[index];
+                  if (typeof entry === 'string') {
+                    if (_this.options.cdata && requiresCDATA(entry)) {
+                      element = element.ele(key).raw(wrapCDATA(entry)).up();
+                    } else {
+                      element = element.ele(key, entry).up();
+                    }
+                  } else {
+                    element = render(element.ele(key), entry).up();
+                  }
+                }
+              } else if (typeof child === "object") {
+                element = render(element.ele(key), child).up();
+              } else {
+                if (typeof child === 'string' && _this.options.cdata && requiresCDATA(child)) {
+                  element = element.ele(key).raw(wrapCDATA(child)).up();
+                } else {
+                  if (child == null) {
+                    child = '';
+                  }
+                  element = element.ele(key, child.toString()).up();
+                }
+              }
+            }
+          }
+          return element;
+        };
+      })(this);
+      rootElement = builder.create(rootName, this.options.xmldec, this.options.doctype, {
+        headless: this.options.headless,
+        allowSurrogateChars: this.options.allowSurrogateChars
+      });
+      return render(rootElement, rootObj).end(this.options.renderOpts);
+    };
+
+    return Builder;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/lib/defaults.js":
+/*!**********************************************!*\
+  !*** ../node_modules/xml2js/lib/defaults.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  exports.defaults = {
+    "0.1": {
+      explicitCharkey: false,
+      trim: true,
+      normalize: true,
+      normalizeTags: false,
+      attrkey: "@",
+      charkey: "#",
+      explicitArray: false,
+      ignoreAttrs: false,
+      mergeAttrs: false,
+      explicitRoot: false,
+      validator: null,
+      xmlns: false,
+      explicitChildren: false,
+      childkey: '@@',
+      charsAsChildren: false,
+      includeWhiteChars: false,
+      async: false,
+      strict: true,
+      attrNameProcessors: null,
+      attrValueProcessors: null,
+      tagNameProcessors: null,
+      valueProcessors: null,
+      emptyTag: ''
+    },
+    "0.2": {
+      explicitCharkey: false,
+      trim: false,
+      normalize: false,
+      normalizeTags: false,
+      attrkey: "$",
+      charkey: "_",
+      explicitArray: true,
+      ignoreAttrs: false,
+      mergeAttrs: false,
+      explicitRoot: true,
+      validator: null,
+      xmlns: false,
+      explicitChildren: false,
+      preserveChildrenOrder: false,
+      childkey: '$$',
+      charsAsChildren: false,
+      includeWhiteChars: false,
+      async: false,
+      strict: true,
+      attrNameProcessors: null,
+      attrValueProcessors: null,
+      tagNameProcessors: null,
+      valueProcessors: null,
+      rootName: 'root',
+      xmldec: {
+        'version': '1.0',
+        'encoding': 'UTF-8',
+        'standalone': true
+      },
+      doctype: null,
+      renderOpts: {
+        'pretty': true,
+        'indent': '  ',
+        'newline': '\n'
+      },
+      headless: false,
+      chunkSize: 10000,
+      emptyTag: '',
+      cdata: false
+    }
+  };
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/lib/parser.js":
+/*!********************************************!*\
+  !*** ../node_modules/xml2js/lib/parser.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  "use strict";
+  var bom, defaults, events, isEmpty, processItem, processors, sax, setImmediate,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  sax = __webpack_require__(/*! sax */ "../node_modules/sax/lib/sax.js");
+
+  events = __webpack_require__(/*! events */ "events");
+
+  bom = __webpack_require__(/*! ./bom */ "../node_modules/xml2js/lib/bom.js");
+
+  processors = __webpack_require__(/*! ./processors */ "../node_modules/xml2js/lib/processors.js");
+
+  setImmediate = __webpack_require__(/*! timers */ "timers").setImmediate;
+
+  defaults = __webpack_require__(/*! ./defaults */ "../node_modules/xml2js/lib/defaults.js").defaults;
+
+  isEmpty = function(thing) {
+    return typeof thing === "object" && (thing != null) && Object.keys(thing).length === 0;
+  };
+
+  processItem = function(processors, item, key) {
+    var i, len, process;
+    for (i = 0, len = processors.length; i < len; i++) {
+      process = processors[i];
+      item = process(item, key);
+    }
+    return item;
+  };
+
+  exports.Parser = (function(superClass) {
+    extend(Parser, superClass);
+
+    function Parser(opts) {
+      this.parseString = bind(this.parseString, this);
+      this.reset = bind(this.reset, this);
+      this.assignOrPush = bind(this.assignOrPush, this);
+      this.processAsync = bind(this.processAsync, this);
+      var key, ref, value;
+      if (!(this instanceof exports.Parser)) {
+        return new exports.Parser(opts);
+      }
+      this.options = {};
+      ref = defaults["0.2"];
+      for (key in ref) {
+        if (!hasProp.call(ref, key)) continue;
+        value = ref[key];
+        this.options[key] = value;
+      }
+      for (key in opts) {
+        if (!hasProp.call(opts, key)) continue;
+        value = opts[key];
+        this.options[key] = value;
+      }
+      if (this.options.xmlns) {
+        this.options.xmlnskey = this.options.attrkey + "ns";
+      }
+      if (this.options.normalizeTags) {
+        if (!this.options.tagNameProcessors) {
+          this.options.tagNameProcessors = [];
+        }
+        this.options.tagNameProcessors.unshift(processors.normalize);
+      }
+      this.reset();
+    }
+
+    Parser.prototype.processAsync = function() {
+      var chunk, err;
+      try {
+        if (this.remaining.length <= this.options.chunkSize) {
+          chunk = this.remaining;
+          this.remaining = '';
+          this.saxParser = this.saxParser.write(chunk);
+          return this.saxParser.close();
+        } else {
+          chunk = this.remaining.substr(0, this.options.chunkSize);
+          this.remaining = this.remaining.substr(this.options.chunkSize, this.remaining.length);
+          this.saxParser = this.saxParser.write(chunk);
+          return setImmediate(this.processAsync);
+        }
+      } catch (error1) {
+        err = error1;
+        if (!this.saxParser.errThrown) {
+          this.saxParser.errThrown = true;
+          return this.emit(err);
+        }
+      }
+    };
+
+    Parser.prototype.assignOrPush = function(obj, key, newValue) {
+      if (!(key in obj)) {
+        if (!this.options.explicitArray) {
+          return obj[key] = newValue;
+        } else {
+          return obj[key] = [newValue];
+        }
+      } else {
+        if (!(obj[key] instanceof Array)) {
+          obj[key] = [obj[key]];
+        }
+        return obj[key].push(newValue);
+      }
+    };
+
+    Parser.prototype.reset = function() {
+      var attrkey, charkey, ontext, stack;
+      this.removeAllListeners();
+      this.saxParser = sax.parser(this.options.strict, {
+        trim: false,
+        normalize: false,
+        xmlns: this.options.xmlns
+      });
+      this.saxParser.errThrown = false;
+      this.saxParser.onerror = (function(_this) {
+        return function(error) {
+          _this.saxParser.resume();
+          if (!_this.saxParser.errThrown) {
+            _this.saxParser.errThrown = true;
+            return _this.emit("error", error);
+          }
+        };
+      })(this);
+      this.saxParser.onend = (function(_this) {
+        return function() {
+          if (!_this.saxParser.ended) {
+            _this.saxParser.ended = true;
+            return _this.emit("end", _this.resultObject);
+          }
+        };
+      })(this);
+      this.saxParser.ended = false;
+      this.EXPLICIT_CHARKEY = this.options.explicitCharkey;
+      this.resultObject = null;
+      stack = [];
+      attrkey = this.options.attrkey;
+      charkey = this.options.charkey;
+      this.saxParser.onopentag = (function(_this) {
+        return function(node) {
+          var key, newValue, obj, processedKey, ref;
+          obj = {};
+          obj[charkey] = "";
+          if (!_this.options.ignoreAttrs) {
+            ref = node.attributes;
+            for (key in ref) {
+              if (!hasProp.call(ref, key)) continue;
+              if (!(attrkey in obj) && !_this.options.mergeAttrs) {
+                obj[attrkey] = {};
+              }
+              newValue = _this.options.attrValueProcessors ? processItem(_this.options.attrValueProcessors, node.attributes[key], key) : node.attributes[key];
+              processedKey = _this.options.attrNameProcessors ? processItem(_this.options.attrNameProcessors, key) : key;
+              if (_this.options.mergeAttrs) {
+                _this.assignOrPush(obj, processedKey, newValue);
+              } else {
+                obj[attrkey][processedKey] = newValue;
+              }
+            }
+          }
+          obj["#name"] = _this.options.tagNameProcessors ? processItem(_this.options.tagNameProcessors, node.name) : node.name;
+          if (_this.options.xmlns) {
+            obj[_this.options.xmlnskey] = {
+              uri: node.uri,
+              local: node.local
+            };
+          }
+          return stack.push(obj);
+        };
+      })(this);
+      this.saxParser.onclosetag = (function(_this) {
+        return function() {
+          var cdata, emptyStr, key, node, nodeName, obj, objClone, old, s, xpath;
+          obj = stack.pop();
+          nodeName = obj["#name"];
+          if (!_this.options.explicitChildren || !_this.options.preserveChildrenOrder) {
+            delete obj["#name"];
+          }
+          if (obj.cdata === true) {
+            cdata = obj.cdata;
+            delete obj.cdata;
+          }
+          s = stack[stack.length - 1];
+          if (obj[charkey].match(/^\s*$/) && !cdata) {
+            emptyStr = obj[charkey];
+            delete obj[charkey];
+          } else {
+            if (_this.options.trim) {
+              obj[charkey] = obj[charkey].trim();
+            }
+            if (_this.options.normalize) {
+              obj[charkey] = obj[charkey].replace(/\s{2,}/g, " ").trim();
+            }
+            obj[charkey] = _this.options.valueProcessors ? processItem(_this.options.valueProcessors, obj[charkey], nodeName) : obj[charkey];
+            if (Object.keys(obj).length === 1 && charkey in obj && !_this.EXPLICIT_CHARKEY) {
+              obj = obj[charkey];
+            }
+          }
+          if (isEmpty(obj)) {
+            obj = _this.options.emptyTag !== '' ? _this.options.emptyTag : emptyStr;
+          }
+          if (_this.options.validator != null) {
+            xpath = "/" + ((function() {
+              var i, len, results;
+              results = [];
+              for (i = 0, len = stack.length; i < len; i++) {
+                node = stack[i];
+                results.push(node["#name"]);
+              }
+              return results;
+            })()).concat(nodeName).join("/");
+            (function() {
+              var err;
+              try {
+                return obj = _this.options.validator(xpath, s && s[nodeName], obj);
+              } catch (error1) {
+                err = error1;
+                return _this.emit("error", err);
+              }
+            })();
+          }
+          if (_this.options.explicitChildren && !_this.options.mergeAttrs && typeof obj === 'object') {
+            if (!_this.options.preserveChildrenOrder) {
+              node = {};
+              if (_this.options.attrkey in obj) {
+                node[_this.options.attrkey] = obj[_this.options.attrkey];
+                delete obj[_this.options.attrkey];
+              }
+              if (!_this.options.charsAsChildren && _this.options.charkey in obj) {
+                node[_this.options.charkey] = obj[_this.options.charkey];
+                delete obj[_this.options.charkey];
+              }
+              if (Object.getOwnPropertyNames(obj).length > 0) {
+                node[_this.options.childkey] = obj;
+              }
+              obj = node;
+            } else if (s) {
+              s[_this.options.childkey] = s[_this.options.childkey] || [];
+              objClone = {};
+              for (key in obj) {
+                if (!hasProp.call(obj, key)) continue;
+                objClone[key] = obj[key];
+              }
+              s[_this.options.childkey].push(objClone);
+              delete obj["#name"];
+              if (Object.keys(obj).length === 1 && charkey in obj && !_this.EXPLICIT_CHARKEY) {
+                obj = obj[charkey];
+              }
+            }
+          }
+          if (stack.length > 0) {
+            return _this.assignOrPush(s, nodeName, obj);
+          } else {
+            if (_this.options.explicitRoot) {
+              old = obj;
+              obj = {};
+              obj[nodeName] = old;
+            }
+            _this.resultObject = obj;
+            _this.saxParser.ended = true;
+            return _this.emit("end", _this.resultObject);
+          }
+        };
+      })(this);
+      ontext = (function(_this) {
+        return function(text) {
+          var charChild, s;
+          s = stack[stack.length - 1];
+          if (s) {
+            s[charkey] += text;
+            if (_this.options.explicitChildren && _this.options.preserveChildrenOrder && _this.options.charsAsChildren && (_this.options.includeWhiteChars || text.replace(/\\n/g, '').trim() !== '')) {
+              s[_this.options.childkey] = s[_this.options.childkey] || [];
+              charChild = {
+                '#name': '__text__'
+              };
+              charChild[charkey] = text;
+              if (_this.options.normalize) {
+                charChild[charkey] = charChild[charkey].replace(/\s{2,}/g, " ").trim();
+              }
+              s[_this.options.childkey].push(charChild);
+            }
+            return s;
+          }
+        };
+      })(this);
+      this.saxParser.ontext = ontext;
+      return this.saxParser.oncdata = (function(_this) {
+        return function(text) {
+          var s;
+          s = ontext(text);
+          if (s) {
+            return s.cdata = true;
+          }
+        };
+      })(this);
+    };
+
+    Parser.prototype.parseString = function(str, cb) {
+      var err;
+      if ((cb != null) && typeof cb === "function") {
+        this.on("end", function(result) {
+          this.reset();
+          return cb(null, result);
+        });
+        this.on("error", function(err) {
+          this.reset();
+          return cb(err);
+        });
+      }
+      try {
+        str = str.toString();
+        if (str.trim() === '') {
+          this.emit("end", null);
+          return true;
+        }
+        str = bom.stripBOM(str);
+        if (this.options.async) {
+          this.remaining = str;
+          setImmediate(this.processAsync);
+          return this.saxParser;
+        }
+        return this.saxParser.write(str).close();
+      } catch (error1) {
+        err = error1;
+        if (!(this.saxParser.errThrown || this.saxParser.ended)) {
+          this.emit('error', err);
+          return this.saxParser.errThrown = true;
+        } else if (this.saxParser.ended) {
+          throw err;
+        }
+      }
+    };
+
+    return Parser;
+
+  })(events.EventEmitter);
+
+  exports.parseString = function(str, a, b) {
+    var cb, options, parser;
+    if (b != null) {
+      if (typeof b === 'function') {
+        cb = b;
+      }
+      if (typeof a === 'object') {
+        options = a;
+      }
+    } else {
+      if (typeof a === 'function') {
+        cb = a;
+      }
+      options = {};
+    }
+    parser = new exports.Parser(options);
+    return parser.parseString(str, cb);
+  };
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/lib/processors.js":
+/*!************************************************!*\
+  !*** ../node_modules/xml2js/lib/processors.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  "use strict";
+  var prefixMatch;
+
+  prefixMatch = new RegExp(/(?!xmlns)^.*:/);
+
+  exports.normalize = function(str) {
+    return str.toLowerCase();
+  };
+
+  exports.firstCharLowerCase = function(str) {
+    return str.charAt(0).toLowerCase() + str.slice(1);
+  };
+
+  exports.stripPrefix = function(str) {
+    return str.replace(prefixMatch, '');
+  };
+
+  exports.parseNumbers = function(str) {
+    if (!isNaN(str)) {
+      str = str % 1 === 0 ? parseInt(str, 10) : parseFloat(str);
+    }
+    return str;
+  };
+
+  exports.parseBooleans = function(str) {
+    if (/^(?:true|false)$/i.test(str)) {
+      str = str.toLowerCase() === 'true';
+    }
+    return str;
+  };
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/lib/xml2js.js":
+/*!********************************************!*\
+  !*** ../node_modules/xml2js/lib/xml2js.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  "use strict";
+  var builder, defaults, parser, processors,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  defaults = __webpack_require__(/*! ./defaults */ "../node_modules/xml2js/lib/defaults.js");
+
+  builder = __webpack_require__(/*! ./builder */ "../node_modules/xml2js/lib/builder.js");
+
+  parser = __webpack_require__(/*! ./parser */ "../node_modules/xml2js/lib/parser.js");
+
+  processors = __webpack_require__(/*! ./processors */ "../node_modules/xml2js/lib/processors.js");
+
+  exports.defaults = defaults.defaults;
+
+  exports.processors = processors;
+
+  exports.ValidationError = (function(superClass) {
+    extend(ValidationError, superClass);
+
+    function ValidationError(message) {
+      this.message = message;
+    }
+
+    return ValidationError;
+
+  })(Error);
+
+  exports.Builder = builder.Builder;
+
+  exports.Parser = parser.Parser;
+
+  exports.parseString = parser.parseString;
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js":
+/*!*********************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var assign, isArray, isEmpty, isFunction, isObject, isPlainObject,
+    slice = [].slice,
+    hasProp = {}.hasOwnProperty;
+
+  assign = function() {
+    var i, key, len, source, sources, target;
+    target = arguments[0], sources = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+    if (isFunction(Object.assign)) {
+      Object.assign.apply(null, arguments);
+    } else {
+      for (i = 0, len = sources.length; i < len; i++) {
+        source = sources[i];
+        if (source != null) {
+          for (key in source) {
+            if (!hasProp.call(source, key)) continue;
+            target[key] = source[key];
+          }
+        }
+      }
+    }
+    return target;
+  };
+
+  isFunction = function(val) {
+    return !!val && Object.prototype.toString.call(val) === '[object Function]';
+  };
+
+  isObject = function(val) {
+    var ref;
+    return !!val && ((ref = typeof val) === 'function' || ref === 'object');
+  };
+
+  isArray = function(val) {
+    if (isFunction(Array.isArray)) {
+      return Array.isArray(val);
+    } else {
+      return Object.prototype.toString.call(val) === '[object Array]';
+    }
+  };
+
+  isEmpty = function(val) {
+    var key;
+    if (isArray(val)) {
+      return !val.length;
+    } else {
+      for (key in val) {
+        if (!hasProp.call(val, key)) continue;
+        return false;
+      }
+      return true;
+    }
+  };
+
+  isPlainObject = function(val) {
+    var ctor, proto;
+    return isObject(val) && (proto = Object.getPrototypeOf(val)) && (ctor = proto.constructor) && (typeof ctor === 'function') && (ctor instanceof ctor) && (Function.prototype.toString.call(ctor) === Function.prototype.toString.call(Object));
+  };
+
+  module.exports.assign = assign;
+
+  module.exports.isFunction = isFunction;
+
+  module.exports.isObject = isObject;
+
+  module.exports.isArray = isArray;
+
+  module.exports.isEmpty = isEmpty;
+
+  module.exports.isPlainObject = isPlainObject;
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLAttribute.js":
+/*!**************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLAttribute.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLAttribute;
+
+  module.exports = XMLAttribute = (function() {
+    function XMLAttribute(parent, name, value) {
+      this.options = parent.options;
+      this.stringify = parent.stringify;
+      if (name == null) {
+        throw new Error("Missing attribute name of element " + parent.name);
+      }
+      if (value == null) {
+        throw new Error("Missing attribute value for attribute " + name + " of element " + parent.name);
+      }
+      this.name = this.stringify.attName(name);
+      this.value = this.stringify.attValue(value);
+    }
+
+    XMLAttribute.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLAttribute.prototype.toString = function(options) {
+      return this.options.writer.set(options).attribute(this);
+    };
+
+    return XMLAttribute;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLCData.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLCData.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLCData, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLCData = (function(superClass) {
+    extend(XMLCData, superClass);
+
+    function XMLCData(parent, text) {
+      XMLCData.__super__.constructor.call(this, parent);
+      if (text == null) {
+        throw new Error("Missing CDATA text");
+      }
+      this.text = this.stringify.cdata(text);
+    }
+
+    XMLCData.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLCData.prototype.toString = function(options) {
+      return this.options.writer.set(options).cdata(this);
+    };
+
+    return XMLCData;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLComment.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLComment.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLComment, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLComment = (function(superClass) {
+    extend(XMLComment, superClass);
+
+    function XMLComment(parent, text) {
+      XMLComment.__super__.constructor.call(this, parent);
+      if (text == null) {
+        throw new Error("Missing comment text");
+      }
+      this.text = this.stringify.comment(text);
+    }
+
+    XMLComment.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLComment.prototype.toString = function(options) {
+      return this.options.writer.set(options).comment(this);
+    };
+
+    return XMLComment;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDAttList.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDAttList.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDAttList, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDTDAttList = (function(superClass) {
+    extend(XMLDTDAttList, superClass);
+
+    function XMLDTDAttList(parent, elementName, attributeName, attributeType, defaultValueType, defaultValue) {
+      XMLDTDAttList.__super__.constructor.call(this, parent);
+      if (elementName == null) {
+        throw new Error("Missing DTD element name");
+      }
+      if (attributeName == null) {
+        throw new Error("Missing DTD attribute name");
+      }
+      if (!attributeType) {
+        throw new Error("Missing DTD attribute type");
+      }
+      if (!defaultValueType) {
+        throw new Error("Missing DTD attribute default");
+      }
+      if (defaultValueType.indexOf('#') !== 0) {
+        defaultValueType = '#' + defaultValueType;
+      }
+      if (!defaultValueType.match(/^(#REQUIRED|#IMPLIED|#FIXED|#DEFAULT)$/)) {
+        throw new Error("Invalid default value type; expected: #REQUIRED, #IMPLIED, #FIXED or #DEFAULT");
+      }
+      if (defaultValue && !defaultValueType.match(/^(#FIXED|#DEFAULT)$/)) {
+        throw new Error("Default value only applies to #FIXED or #DEFAULT");
+      }
+      this.elementName = this.stringify.eleName(elementName);
+      this.attributeName = this.stringify.attName(attributeName);
+      this.attributeType = this.stringify.dtdAttType(attributeType);
+      this.defaultValue = this.stringify.dtdAttDefault(defaultValue);
+      this.defaultValueType = defaultValueType;
+    }
+
+    XMLDTDAttList.prototype.toString = function(options) {
+      return this.options.writer.set(options).dtdAttList(this);
+    };
+
+    return XMLDTDAttList;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDElement.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDElement.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDElement, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDTDElement = (function(superClass) {
+    extend(XMLDTDElement, superClass);
+
+    function XMLDTDElement(parent, name, value) {
+      XMLDTDElement.__super__.constructor.call(this, parent);
+      if (name == null) {
+        throw new Error("Missing DTD element name");
+      }
+      if (!value) {
+        value = '(#PCDATA)';
+      }
+      if (Array.isArray(value)) {
+        value = '(' + value.join(',') + ')';
+      }
+      this.name = this.stringify.eleName(name);
+      this.value = this.stringify.dtdElementValue(value);
+    }
+
+    XMLDTDElement.prototype.toString = function(options) {
+      return this.options.writer.set(options).dtdElement(this);
+    };
+
+    return XMLDTDElement;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDEntity.js":
+/*!**************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDEntity.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDEntity, XMLNode, isObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  isObject = __webpack_require__(/*! ./Utility */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js").isObject;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDTDEntity = (function(superClass) {
+    extend(XMLDTDEntity, superClass);
+
+    function XMLDTDEntity(parent, pe, name, value) {
+      XMLDTDEntity.__super__.constructor.call(this, parent);
+      if (name == null) {
+        throw new Error("Missing entity name");
+      }
+      if (value == null) {
+        throw new Error("Missing entity value");
+      }
+      this.pe = !!pe;
+      this.name = this.stringify.eleName(name);
+      if (!isObject(value)) {
+        this.value = this.stringify.dtdEntityValue(value);
+      } else {
+        if (!value.pubID && !value.sysID) {
+          throw new Error("Public and/or system identifiers are required for an external entity");
+        }
+        if (value.pubID && !value.sysID) {
+          throw new Error("System identifier is required for a public external entity");
+        }
+        if (value.pubID != null) {
+          this.pubID = this.stringify.dtdPubID(value.pubID);
+        }
+        if (value.sysID != null) {
+          this.sysID = this.stringify.dtdSysID(value.sysID);
+        }
+        if (value.nData != null) {
+          this.nData = this.stringify.dtdNData(value.nData);
+        }
+        if (this.pe && this.nData) {
+          throw new Error("Notation declaration is not allowed in a parameter entity");
+        }
+      }
+    }
+
+    XMLDTDEntity.prototype.toString = function(options) {
+      return this.options.writer.set(options).dtdEntity(this);
+    };
+
+    return XMLDTDEntity;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDNotation.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDNotation.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDNotation, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDTDNotation = (function(superClass) {
+    extend(XMLDTDNotation, superClass);
+
+    function XMLDTDNotation(parent, name, value) {
+      XMLDTDNotation.__super__.constructor.call(this, parent);
+      if (name == null) {
+        throw new Error("Missing notation name");
+      }
+      if (!value.pubID && !value.sysID) {
+        throw new Error("Public or system identifiers are required for an external entity");
+      }
+      this.name = this.stringify.eleName(name);
+      if (value.pubID != null) {
+        this.pubID = this.stringify.dtdPubID(value.pubID);
+      }
+      if (value.sysID != null) {
+        this.sysID = this.stringify.dtdSysID(value.sysID);
+      }
+    }
+
+    XMLDTDNotation.prototype.toString = function(options) {
+      return this.options.writer.set(options).dtdNotation(this);
+    };
+
+    return XMLDTDNotation;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDeclaration.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDeclaration.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDeclaration, XMLNode, isObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  isObject = __webpack_require__(/*! ./Utility */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js").isObject;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDeclaration = (function(superClass) {
+    extend(XMLDeclaration, superClass);
+
+    function XMLDeclaration(parent, version, encoding, standalone) {
+      var ref;
+      XMLDeclaration.__super__.constructor.call(this, parent);
+      if (isObject(version)) {
+        ref = version, version = ref.version, encoding = ref.encoding, standalone = ref.standalone;
+      }
+      if (!version) {
+        version = '1.0';
+      }
+      this.version = this.stringify.xmlVersion(version);
+      if (encoding != null) {
+        this.encoding = this.stringify.xmlEncoding(encoding);
+      }
+      if (standalone != null) {
+        this.standalone = this.stringify.xmlStandalone(standalone);
+      }
+    }
+
+    XMLDeclaration.prototype.toString = function(options) {
+      return this.options.writer.set(options).declaration(this);
+    };
+
+    return XMLDeclaration;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocType.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocType.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDAttList, XMLDTDElement, XMLDTDEntity, XMLDTDNotation, XMLDocType, XMLNode, isObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  isObject = __webpack_require__(/*! ./Utility */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js").isObject;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  XMLDTDAttList = __webpack_require__(/*! ./XMLDTDAttList */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDAttList.js");
+
+  XMLDTDEntity = __webpack_require__(/*! ./XMLDTDEntity */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDEntity.js");
+
+  XMLDTDElement = __webpack_require__(/*! ./XMLDTDElement */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDElement.js");
+
+  XMLDTDNotation = __webpack_require__(/*! ./XMLDTDNotation */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDNotation.js");
+
+  module.exports = XMLDocType = (function(superClass) {
+    extend(XMLDocType, superClass);
+
+    function XMLDocType(parent, pubID, sysID) {
+      var ref, ref1;
+      XMLDocType.__super__.constructor.call(this, parent);
+      this.documentObject = parent;
+      if (isObject(pubID)) {
+        ref = pubID, pubID = ref.pubID, sysID = ref.sysID;
+      }
+      if (sysID == null) {
+        ref1 = [pubID, sysID], sysID = ref1[0], pubID = ref1[1];
+      }
+      if (pubID != null) {
+        this.pubID = this.stringify.dtdPubID(pubID);
+      }
+      if (sysID != null) {
+        this.sysID = this.stringify.dtdSysID(sysID);
+      }
+    }
+
+    XMLDocType.prototype.element = function(name, value) {
+      var child;
+      child = new XMLDTDElement(this, name, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.attList = function(elementName, attributeName, attributeType, defaultValueType, defaultValue) {
+      var child;
+      child = new XMLDTDAttList(this, elementName, attributeName, attributeType, defaultValueType, defaultValue);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.entity = function(name, value) {
+      var child;
+      child = new XMLDTDEntity(this, false, name, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.pEntity = function(name, value) {
+      var child;
+      child = new XMLDTDEntity(this, true, name, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.notation = function(name, value) {
+      var child;
+      child = new XMLDTDNotation(this, name, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.toString = function(options) {
+      return this.options.writer.set(options).docType(this);
+    };
+
+    XMLDocType.prototype.ele = function(name, value) {
+      return this.element(name, value);
+    };
+
+    XMLDocType.prototype.att = function(elementName, attributeName, attributeType, defaultValueType, defaultValue) {
+      return this.attList(elementName, attributeName, attributeType, defaultValueType, defaultValue);
+    };
+
+    XMLDocType.prototype.ent = function(name, value) {
+      return this.entity(name, value);
+    };
+
+    XMLDocType.prototype.pent = function(name, value) {
+      return this.pEntity(name, value);
+    };
+
+    XMLDocType.prototype.not = function(name, value) {
+      return this.notation(name, value);
+    };
+
+    XMLDocType.prototype.up = function() {
+      return this.root() || this.documentObject;
+    };
+
+    return XMLDocType;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocument.js":
+/*!*************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocument.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDocument, XMLNode, XMLStringWriter, XMLStringifier, isPlainObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  isPlainObject = __webpack_require__(/*! ./Utility */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js").isPlainObject;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  XMLStringifier = __webpack_require__(/*! ./XMLStringifier */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringifier.js");
+
+  XMLStringWriter = __webpack_require__(/*! ./XMLStringWriter */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringWriter.js");
+
+  module.exports = XMLDocument = (function(superClass) {
+    extend(XMLDocument, superClass);
+
+    function XMLDocument(options) {
+      XMLDocument.__super__.constructor.call(this, null);
+      options || (options = {});
+      if (!options.writer) {
+        options.writer = new XMLStringWriter();
+      }
+      this.options = options;
+      this.stringify = new XMLStringifier(options);
+      this.isDocument = true;
+    }
+
+    XMLDocument.prototype.end = function(writer) {
+      var writerOptions;
+      if (!writer) {
+        writer = this.options.writer;
+      } else if (isPlainObject(writer)) {
+        writerOptions = writer;
+        writer = this.options.writer.set(writerOptions);
+      }
+      return writer.document(this);
+    };
+
+    XMLDocument.prototype.toString = function(options) {
+      return this.options.writer.set(options).document(this);
+    };
+
+    return XMLDocument;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocumentCB.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocumentCB.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLAttribute, XMLCData, XMLComment, XMLDTDAttList, XMLDTDElement, XMLDTDEntity, XMLDTDNotation, XMLDeclaration, XMLDocType, XMLDocumentCB, XMLElement, XMLProcessingInstruction, XMLRaw, XMLStringWriter, XMLStringifier, XMLText, isFunction, isObject, isPlainObject, ref,
+    hasProp = {}.hasOwnProperty;
+
+  ref = __webpack_require__(/*! ./Utility */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js"), isObject = ref.isObject, isFunction = ref.isFunction, isPlainObject = ref.isPlainObject;
+
+  XMLElement = __webpack_require__(/*! ./XMLElement */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLElement.js");
+
+  XMLCData = __webpack_require__(/*! ./XMLCData */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLCData.js");
+
+  XMLComment = __webpack_require__(/*! ./XMLComment */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLComment.js");
+
+  XMLRaw = __webpack_require__(/*! ./XMLRaw */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLRaw.js");
+
+  XMLText = __webpack_require__(/*! ./XMLText */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLText.js");
+
+  XMLProcessingInstruction = __webpack_require__(/*! ./XMLProcessingInstruction */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLProcessingInstruction.js");
+
+  XMLDeclaration = __webpack_require__(/*! ./XMLDeclaration */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDeclaration.js");
+
+  XMLDocType = __webpack_require__(/*! ./XMLDocType */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocType.js");
+
+  XMLDTDAttList = __webpack_require__(/*! ./XMLDTDAttList */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDAttList.js");
+
+  XMLDTDEntity = __webpack_require__(/*! ./XMLDTDEntity */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDEntity.js");
+
+  XMLDTDElement = __webpack_require__(/*! ./XMLDTDElement */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDElement.js");
+
+  XMLDTDNotation = __webpack_require__(/*! ./XMLDTDNotation */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDNotation.js");
+
+  XMLAttribute = __webpack_require__(/*! ./XMLAttribute */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLAttribute.js");
+
+  XMLStringifier = __webpack_require__(/*! ./XMLStringifier */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringifier.js");
+
+  XMLStringWriter = __webpack_require__(/*! ./XMLStringWriter */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringWriter.js");
+
+  module.exports = XMLDocumentCB = (function() {
+    function XMLDocumentCB(options, onData, onEnd) {
+      var writerOptions;
+      options || (options = {});
+      if (!options.writer) {
+        options.writer = new XMLStringWriter(options);
+      } else if (isPlainObject(options.writer)) {
+        writerOptions = options.writer;
+        options.writer = new XMLStringWriter(writerOptions);
+      }
+      this.options = options;
+      this.writer = options.writer;
+      this.stringify = new XMLStringifier(options);
+      this.onDataCallback = onData || function() {};
+      this.onEndCallback = onEnd || function() {};
+      this.currentNode = null;
+      this.currentLevel = -1;
+      this.openTags = {};
+      this.documentStarted = false;
+      this.documentCompleted = false;
+      this.root = null;
+    }
+
+    XMLDocumentCB.prototype.node = function(name, attributes, text) {
+      var ref1;
+      if (name == null) {
+        throw new Error("Missing node name");
+      }
+      if (this.root && this.currentLevel === -1) {
+        throw new Error("Document can only have one root node");
+      }
+      this.openCurrent();
+      name = name.valueOf();
+      if (attributes == null) {
+        attributes = {};
+      }
+      attributes = attributes.valueOf();
+      if (!isObject(attributes)) {
+        ref1 = [attributes, text], text = ref1[0], attributes = ref1[1];
+      }
+      this.currentNode = new XMLElement(this, name, attributes);
+      this.currentNode.children = false;
+      this.currentLevel++;
+      this.openTags[this.currentLevel] = this.currentNode;
+      if (text != null) {
+        this.text(text);
+      }
+      return this;
+    };
+
+    XMLDocumentCB.prototype.element = function(name, attributes, text) {
+      if (this.currentNode && this.currentNode instanceof XMLDocType) {
+        return this.dtdElement.apply(this, arguments);
+      } else {
+        return this.node(name, attributes, text);
+      }
+    };
+
+    XMLDocumentCB.prototype.attribute = function(name, value) {
+      var attName, attValue;
+      if (!this.currentNode || this.currentNode.children) {
+        throw new Error("att() can only be used immediately after an ele() call in callback mode");
+      }
+      if (name != null) {
+        name = name.valueOf();
+      }
+      if (isObject(name)) {
+        for (attName in name) {
+          if (!hasProp.call(name, attName)) continue;
+          attValue = name[attName];
+          this.attribute(attName, attValue);
+        }
+      } else {
+        if (isFunction(value)) {
+          value = value.apply();
+        }
+        if (!this.options.skipNullAttributes || (value != null)) {
+          this.currentNode.attributes[name] = new XMLAttribute(this, name, value);
+        }
+      }
+      return this;
+    };
+
+    XMLDocumentCB.prototype.text = function(value) {
+      var node;
+      this.openCurrent();
+      node = new XMLText(this, value);
+      this.onData(this.writer.text(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.cdata = function(value) {
+      var node;
+      this.openCurrent();
+      node = new XMLCData(this, value);
+      this.onData(this.writer.cdata(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.comment = function(value) {
+      var node;
+      this.openCurrent();
+      node = new XMLComment(this, value);
+      this.onData(this.writer.comment(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.raw = function(value) {
+      var node;
+      this.openCurrent();
+      node = new XMLRaw(this, value);
+      this.onData(this.writer.raw(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.instruction = function(target, value) {
+      var i, insTarget, insValue, len, node;
+      this.openCurrent();
+      if (target != null) {
+        target = target.valueOf();
+      }
+      if (value != null) {
+        value = value.valueOf();
+      }
+      if (Array.isArray(target)) {
+        for (i = 0, len = target.length; i < len; i++) {
+          insTarget = target[i];
+          this.instruction(insTarget);
+        }
+      } else if (isObject(target)) {
+        for (insTarget in target) {
+          if (!hasProp.call(target, insTarget)) continue;
+          insValue = target[insTarget];
+          this.instruction(insTarget, insValue);
+        }
+      } else {
+        if (isFunction(value)) {
+          value = value.apply();
+        }
+        node = new XMLProcessingInstruction(this, target, value);
+        this.onData(this.writer.processingInstruction(node, this.currentLevel + 1));
+      }
+      return this;
+    };
+
+    XMLDocumentCB.prototype.declaration = function(version, encoding, standalone) {
+      var node;
+      this.openCurrent();
+      if (this.documentStarted) {
+        throw new Error("declaration() must be the first node");
+      }
+      node = new XMLDeclaration(this, version, encoding, standalone);
+      this.onData(this.writer.declaration(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.doctype = function(root, pubID, sysID) {
+      this.openCurrent();
+      if (root == null) {
+        throw new Error("Missing root node name");
+      }
+      if (this.root) {
+        throw new Error("dtd() must come before the root node");
+      }
+      this.currentNode = new XMLDocType(this, pubID, sysID);
+      this.currentNode.rootNodeName = root;
+      this.currentNode.children = false;
+      this.currentLevel++;
+      this.openTags[this.currentLevel] = this.currentNode;
+      return this;
+    };
+
+    XMLDocumentCB.prototype.dtdElement = function(name, value) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDElement(this, name, value);
+      this.onData(this.writer.dtdElement(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.attList = function(elementName, attributeName, attributeType, defaultValueType, defaultValue) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDAttList(this, elementName, attributeName, attributeType, defaultValueType, defaultValue);
+      this.onData(this.writer.dtdAttList(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.entity = function(name, value) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDEntity(this, false, name, value);
+      this.onData(this.writer.dtdEntity(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.pEntity = function(name, value) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDEntity(this, true, name, value);
+      this.onData(this.writer.dtdEntity(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.notation = function(name, value) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDNotation(this, name, value);
+      this.onData(this.writer.dtdNotation(node, this.currentLevel + 1));
+      return this;
+    };
+
+    XMLDocumentCB.prototype.up = function() {
+      if (this.currentLevel < 0) {
+        throw new Error("The document node has no parent");
+      }
+      if (this.currentNode) {
+        if (this.currentNode.children) {
+          this.closeNode(this.currentNode);
+        } else {
+          this.openNode(this.currentNode);
+        }
+        this.currentNode = null;
+      } else {
+        this.closeNode(this.openTags[this.currentLevel]);
+      }
+      delete this.openTags[this.currentLevel];
+      this.currentLevel--;
+      return this;
+    };
+
+    XMLDocumentCB.prototype.end = function() {
+      while (this.currentLevel >= 0) {
+        this.up();
+      }
+      return this.onEnd();
+    };
+
+    XMLDocumentCB.prototype.openCurrent = function() {
+      if (this.currentNode) {
+        this.currentNode.children = true;
+        return this.openNode(this.currentNode);
+      }
+    };
+
+    XMLDocumentCB.prototype.openNode = function(node) {
+      if (!node.isOpen) {
+        if (!this.root && this.currentLevel === 0 && node instanceof XMLElement) {
+          this.root = node;
+        }
+        this.onData(this.writer.openNode(node, this.currentLevel));
+        return node.isOpen = true;
+      }
+    };
+
+    XMLDocumentCB.prototype.closeNode = function(node) {
+      if (!node.isClosed) {
+        this.onData(this.writer.closeNode(node, this.currentLevel));
+        return node.isClosed = true;
+      }
+    };
+
+    XMLDocumentCB.prototype.onData = function(chunk) {
+      this.documentStarted = true;
+      return this.onDataCallback(chunk);
+    };
+
+    XMLDocumentCB.prototype.onEnd = function() {
+      this.documentCompleted = true;
+      return this.onEndCallback();
+    };
+
+    XMLDocumentCB.prototype.ele = function() {
+      return this.element.apply(this, arguments);
+    };
+
+    XMLDocumentCB.prototype.nod = function(name, attributes, text) {
+      return this.node(name, attributes, text);
+    };
+
+    XMLDocumentCB.prototype.txt = function(value) {
+      return this.text(value);
+    };
+
+    XMLDocumentCB.prototype.dat = function(value) {
+      return this.cdata(value);
+    };
+
+    XMLDocumentCB.prototype.com = function(value) {
+      return this.comment(value);
+    };
+
+    XMLDocumentCB.prototype.ins = function(target, value) {
+      return this.instruction(target, value);
+    };
+
+    XMLDocumentCB.prototype.dec = function(version, encoding, standalone) {
+      return this.declaration(version, encoding, standalone);
+    };
+
+    XMLDocumentCB.prototype.dtd = function(root, pubID, sysID) {
+      return this.doctype(root, pubID, sysID);
+    };
+
+    XMLDocumentCB.prototype.e = function(name, attributes, text) {
+      return this.element(name, attributes, text);
+    };
+
+    XMLDocumentCB.prototype.n = function(name, attributes, text) {
+      return this.node(name, attributes, text);
+    };
+
+    XMLDocumentCB.prototype.t = function(value) {
+      return this.text(value);
+    };
+
+    XMLDocumentCB.prototype.d = function(value) {
+      return this.cdata(value);
+    };
+
+    XMLDocumentCB.prototype.c = function(value) {
+      return this.comment(value);
+    };
+
+    XMLDocumentCB.prototype.r = function(value) {
+      return this.raw(value);
+    };
+
+    XMLDocumentCB.prototype.i = function(target, value) {
+      return this.instruction(target, value);
+    };
+
+    XMLDocumentCB.prototype.att = function() {
+      if (this.currentNode && this.currentNode instanceof XMLDocType) {
+        return this.attList.apply(this, arguments);
+      } else {
+        return this.attribute.apply(this, arguments);
+      }
+    };
+
+    XMLDocumentCB.prototype.a = function() {
+      if (this.currentNode && this.currentNode instanceof XMLDocType) {
+        return this.attList.apply(this, arguments);
+      } else {
+        return this.attribute.apply(this, arguments);
+      }
+    };
+
+    XMLDocumentCB.prototype.ent = function(name, value) {
+      return this.entity(name, value);
+    };
+
+    XMLDocumentCB.prototype.pent = function(name, value) {
+      return this.pEntity(name, value);
+    };
+
+    XMLDocumentCB.prototype.not = function(name, value) {
+      return this.notation(name, value);
+    };
+
+    return XMLDocumentCB;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLElement.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLElement.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLAttribute, XMLElement, XMLNode, isFunction, isObject, ref,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  ref = __webpack_require__(/*! ./Utility */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js"), isObject = ref.isObject, isFunction = ref.isFunction;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  XMLAttribute = __webpack_require__(/*! ./XMLAttribute */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLAttribute.js");
+
+  module.exports = XMLElement = (function(superClass) {
+    extend(XMLElement, superClass);
+
+    function XMLElement(parent, name, attributes) {
+      XMLElement.__super__.constructor.call(this, parent);
+      if (name == null) {
+        throw new Error("Missing element name");
+      }
+      this.name = this.stringify.eleName(name);
+      this.attributes = {};
+      if (attributes != null) {
+        this.attribute(attributes);
+      }
+      if (parent.isDocument) {
+        this.isRoot = true;
+        this.documentObject = parent;
+        parent.rootObject = this;
+      }
+    }
+
+    XMLElement.prototype.clone = function() {
+      var att, attName, clonedSelf, ref1;
+      clonedSelf = Object.create(this);
+      if (clonedSelf.isRoot) {
+        clonedSelf.documentObject = null;
+      }
+      clonedSelf.attributes = {};
+      ref1 = this.attributes;
+      for (attName in ref1) {
+        if (!hasProp.call(ref1, attName)) continue;
+        att = ref1[attName];
+        clonedSelf.attributes[attName] = att.clone();
+      }
+      clonedSelf.children = [];
+      this.children.forEach(function(child) {
+        var clonedChild;
+        clonedChild = child.clone();
+        clonedChild.parent = clonedSelf;
+        return clonedSelf.children.push(clonedChild);
+      });
+      return clonedSelf;
+    };
+
+    XMLElement.prototype.attribute = function(name, value) {
+      var attName, attValue;
+      if (name != null) {
+        name = name.valueOf();
+      }
+      if (isObject(name)) {
+        for (attName in name) {
+          if (!hasProp.call(name, attName)) continue;
+          attValue = name[attName];
+          this.attribute(attName, attValue);
+        }
+      } else {
+        if (isFunction(value)) {
+          value = value.apply();
+        }
+        if (!this.options.skipNullAttributes || (value != null)) {
+          this.attributes[name] = new XMLAttribute(this, name, value);
+        }
+      }
+      return this;
+    };
+
+    XMLElement.prototype.removeAttribute = function(name) {
+      var attName, i, len;
+      if (name == null) {
+        throw new Error("Missing attribute name");
+      }
+      name = name.valueOf();
+      if (Array.isArray(name)) {
+        for (i = 0, len = name.length; i < len; i++) {
+          attName = name[i];
+          delete this.attributes[attName];
+        }
+      } else {
+        delete this.attributes[name];
+      }
+      return this;
+    };
+
+    XMLElement.prototype.toString = function(options) {
+      return this.options.writer.set(options).element(this);
+    };
+
+    XMLElement.prototype.att = function(name, value) {
+      return this.attribute(name, value);
+    };
+
+    XMLElement.prototype.a = function(name, value) {
+      return this.attribute(name, value);
+    };
+
+    return XMLElement;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js":
+/*!*********************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLCData, XMLComment, XMLDeclaration, XMLDocType, XMLElement, XMLNode, XMLProcessingInstruction, XMLRaw, XMLText, isEmpty, isFunction, isObject, ref,
+    hasProp = {}.hasOwnProperty;
+
+  ref = __webpack_require__(/*! ./Utility */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js"), isObject = ref.isObject, isFunction = ref.isFunction, isEmpty = ref.isEmpty;
+
+  XMLElement = null;
+
+  XMLCData = null;
+
+  XMLComment = null;
+
+  XMLDeclaration = null;
+
+  XMLDocType = null;
+
+  XMLRaw = null;
+
+  XMLText = null;
+
+  XMLProcessingInstruction = null;
+
+  module.exports = XMLNode = (function() {
+    function XMLNode(parent) {
+      this.parent = parent;
+      if (this.parent) {
+        this.options = this.parent.options;
+        this.stringify = this.parent.stringify;
+      }
+      this.children = [];
+      if (!XMLElement) {
+        XMLElement = __webpack_require__(/*! ./XMLElement */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLElement.js");
+        XMLCData = __webpack_require__(/*! ./XMLCData */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLCData.js");
+        XMLComment = __webpack_require__(/*! ./XMLComment */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLComment.js");
+        XMLDeclaration = __webpack_require__(/*! ./XMLDeclaration */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDeclaration.js");
+        XMLDocType = __webpack_require__(/*! ./XMLDocType */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocType.js");
+        XMLRaw = __webpack_require__(/*! ./XMLRaw */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLRaw.js");
+        XMLText = __webpack_require__(/*! ./XMLText */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLText.js");
+        XMLProcessingInstruction = __webpack_require__(/*! ./XMLProcessingInstruction */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLProcessingInstruction.js");
+      }
+    }
+
+    XMLNode.prototype.element = function(name, attributes, text) {
+      var childNode, item, j, k, key, lastChild, len, len1, ref1, val;
+      lastChild = null;
+      if (attributes == null) {
+        attributes = {};
+      }
+      attributes = attributes.valueOf();
+      if (!isObject(attributes)) {
+        ref1 = [attributes, text], text = ref1[0], attributes = ref1[1];
+      }
+      if (name != null) {
+        name = name.valueOf();
+      }
+      if (Array.isArray(name)) {
+        for (j = 0, len = name.length; j < len; j++) {
+          item = name[j];
+          lastChild = this.element(item);
+        }
+      } else if (isFunction(name)) {
+        lastChild = this.element(name.apply());
+      } else if (isObject(name)) {
+        for (key in name) {
+          if (!hasProp.call(name, key)) continue;
+          val = name[key];
+          if (isFunction(val)) {
+            val = val.apply();
+          }
+          if ((isObject(val)) && (isEmpty(val))) {
+            val = null;
+          }
+          if (!this.options.ignoreDecorators && this.stringify.convertAttKey && key.indexOf(this.stringify.convertAttKey) === 0) {
+            lastChild = this.attribute(key.substr(this.stringify.convertAttKey.length), val);
+          } else if (!this.options.separateArrayItems && Array.isArray(val)) {
+            for (k = 0, len1 = val.length; k < len1; k++) {
+              item = val[k];
+              childNode = {};
+              childNode[key] = item;
+              lastChild = this.element(childNode);
+            }
+          } else if (isObject(val)) {
+            lastChild = this.element(key);
+            lastChild.element(val);
+          } else {
+            lastChild = this.element(key, val);
+          }
+        }
+      } else {
+        if (!this.options.ignoreDecorators && this.stringify.convertTextKey && name.indexOf(this.stringify.convertTextKey) === 0) {
+          lastChild = this.text(text);
+        } else if (!this.options.ignoreDecorators && this.stringify.convertCDataKey && name.indexOf(this.stringify.convertCDataKey) === 0) {
+          lastChild = this.cdata(text);
+        } else if (!this.options.ignoreDecorators && this.stringify.convertCommentKey && name.indexOf(this.stringify.convertCommentKey) === 0) {
+          lastChild = this.comment(text);
+        } else if (!this.options.ignoreDecorators && this.stringify.convertRawKey && name.indexOf(this.stringify.convertRawKey) === 0) {
+          lastChild = this.raw(text);
+        } else if (!this.options.ignoreDecorators && this.stringify.convertPIKey && name.indexOf(this.stringify.convertPIKey) === 0) {
+          lastChild = this.instruction(name.substr(this.stringify.convertPIKey.length), text);
+        } else {
+          lastChild = this.node(name, attributes, text);
+        }
+      }
+      if (lastChild == null) {
+        throw new Error("Could not create any elements with: " + name);
+      }
+      return lastChild;
+    };
+
+    XMLNode.prototype.insertBefore = function(name, attributes, text) {
+      var child, i, removed;
+      if (this.isRoot) {
+        throw new Error("Cannot insert elements at root level");
+      }
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i);
+      child = this.parent.element(name, attributes, text);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return child;
+    };
+
+    XMLNode.prototype.insertAfter = function(name, attributes, text) {
+      var child, i, removed;
+      if (this.isRoot) {
+        throw new Error("Cannot insert elements at root level");
+      }
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i + 1);
+      child = this.parent.element(name, attributes, text);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return child;
+    };
+
+    XMLNode.prototype.remove = function() {
+      var i, ref1;
+      if (this.isRoot) {
+        throw new Error("Cannot remove the root element");
+      }
+      i = this.parent.children.indexOf(this);
+      [].splice.apply(this.parent.children, [i, i - i + 1].concat(ref1 = [])), ref1;
+      return this.parent;
+    };
+
+    XMLNode.prototype.node = function(name, attributes, text) {
+      var child, ref1;
+      if (name != null) {
+        name = name.valueOf();
+      }
+      attributes || (attributes = {});
+      attributes = attributes.valueOf();
+      if (!isObject(attributes)) {
+        ref1 = [attributes, text], text = ref1[0], attributes = ref1[1];
+      }
+      child = new XMLElement(this, name, attributes);
+      if (text != null) {
+        child.text(text);
+      }
+      this.children.push(child);
+      return child;
+    };
+
+    XMLNode.prototype.text = function(value) {
+      var child;
+      child = new XMLText(this, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLNode.prototype.cdata = function(value) {
+      var child;
+      child = new XMLCData(this, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLNode.prototype.comment = function(value) {
+      var child;
+      child = new XMLComment(this, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLNode.prototype.commentBefore = function(value) {
+      var child, i, removed;
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i);
+      child = this.parent.comment(value);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return this;
+    };
+
+    XMLNode.prototype.commentAfter = function(value) {
+      var child, i, removed;
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i + 1);
+      child = this.parent.comment(value);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return this;
+    };
+
+    XMLNode.prototype.raw = function(value) {
+      var child;
+      child = new XMLRaw(this, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLNode.prototype.instruction = function(target, value) {
+      var insTarget, insValue, instruction, j, len;
+      if (target != null) {
+        target = target.valueOf();
+      }
+      if (value != null) {
+        value = value.valueOf();
+      }
+      if (Array.isArray(target)) {
+        for (j = 0, len = target.length; j < len; j++) {
+          insTarget = target[j];
+          this.instruction(insTarget);
+        }
+      } else if (isObject(target)) {
+        for (insTarget in target) {
+          if (!hasProp.call(target, insTarget)) continue;
+          insValue = target[insTarget];
+          this.instruction(insTarget, insValue);
+        }
+      } else {
+        if (isFunction(value)) {
+          value = value.apply();
+        }
+        instruction = new XMLProcessingInstruction(this, target, value);
+        this.children.push(instruction);
+      }
+      return this;
+    };
+
+    XMLNode.prototype.instructionBefore = function(target, value) {
+      var child, i, removed;
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i);
+      child = this.parent.instruction(target, value);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return this;
+    };
+
+    XMLNode.prototype.instructionAfter = function(target, value) {
+      var child, i, removed;
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i + 1);
+      child = this.parent.instruction(target, value);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return this;
+    };
+
+    XMLNode.prototype.declaration = function(version, encoding, standalone) {
+      var doc, xmldec;
+      doc = this.document();
+      xmldec = new XMLDeclaration(doc, version, encoding, standalone);
+      if (doc.children[0] instanceof XMLDeclaration) {
+        doc.children[0] = xmldec;
+      } else {
+        doc.children.unshift(xmldec);
+      }
+      return doc.root() || doc;
+    };
+
+    XMLNode.prototype.doctype = function(pubID, sysID) {
+      var child, doc, doctype, i, j, k, len, len1, ref1, ref2;
+      doc = this.document();
+      doctype = new XMLDocType(doc, pubID, sysID);
+      ref1 = doc.children;
+      for (i = j = 0, len = ref1.length; j < len; i = ++j) {
+        child = ref1[i];
+        if (child instanceof XMLDocType) {
+          doc.children[i] = doctype;
+          return doctype;
+        }
+      }
+      ref2 = doc.children;
+      for (i = k = 0, len1 = ref2.length; k < len1; i = ++k) {
+        child = ref2[i];
+        if (child.isRoot) {
+          doc.children.splice(i, 0, doctype);
+          return doctype;
+        }
+      }
+      doc.children.push(doctype);
+      return doctype;
+    };
+
+    XMLNode.prototype.up = function() {
+      if (this.isRoot) {
+        throw new Error("The root node has no parent. Use doc() if you need to get the document object.");
+      }
+      return this.parent;
+    };
+
+    XMLNode.prototype.root = function() {
+      var node;
+      node = this;
+      while (node) {
+        if (node.isDocument) {
+          return node.rootObject;
+        } else if (node.isRoot) {
+          return node;
+        } else {
+          node = node.parent;
+        }
+      }
+    };
+
+    XMLNode.prototype.document = function() {
+      var node;
+      node = this;
+      while (node) {
+        if (node.isDocument) {
+          return node;
+        } else {
+          node = node.parent;
+        }
+      }
+    };
+
+    XMLNode.prototype.end = function(options) {
+      return this.document().end(options);
+    };
+
+    XMLNode.prototype.prev = function() {
+      var i;
+      i = this.parent.children.indexOf(this);
+      if (i < 1) {
+        throw new Error("Already at the first node");
+      }
+      return this.parent.children[i - 1];
+    };
+
+    XMLNode.prototype.next = function() {
+      var i;
+      i = this.parent.children.indexOf(this);
+      if (i === -1 || i === this.parent.children.length - 1) {
+        throw new Error("Already at the last node");
+      }
+      return this.parent.children[i + 1];
+    };
+
+    XMLNode.prototype.importDocument = function(doc) {
+      var clonedRoot;
+      clonedRoot = doc.root().clone();
+      clonedRoot.parent = this;
+      clonedRoot.isRoot = false;
+      this.children.push(clonedRoot);
+      return this;
+    };
+
+    XMLNode.prototype.ele = function(name, attributes, text) {
+      return this.element(name, attributes, text);
+    };
+
+    XMLNode.prototype.nod = function(name, attributes, text) {
+      return this.node(name, attributes, text);
+    };
+
+    XMLNode.prototype.txt = function(value) {
+      return this.text(value);
+    };
+
+    XMLNode.prototype.dat = function(value) {
+      return this.cdata(value);
+    };
+
+    XMLNode.prototype.com = function(value) {
+      return this.comment(value);
+    };
+
+    XMLNode.prototype.ins = function(target, value) {
+      return this.instruction(target, value);
+    };
+
+    XMLNode.prototype.doc = function() {
+      return this.document();
+    };
+
+    XMLNode.prototype.dec = function(version, encoding, standalone) {
+      return this.declaration(version, encoding, standalone);
+    };
+
+    XMLNode.prototype.dtd = function(pubID, sysID) {
+      return this.doctype(pubID, sysID);
+    };
+
+    XMLNode.prototype.e = function(name, attributes, text) {
+      return this.element(name, attributes, text);
+    };
+
+    XMLNode.prototype.n = function(name, attributes, text) {
+      return this.node(name, attributes, text);
+    };
+
+    XMLNode.prototype.t = function(value) {
+      return this.text(value);
+    };
+
+    XMLNode.prototype.d = function(value) {
+      return this.cdata(value);
+    };
+
+    XMLNode.prototype.c = function(value) {
+      return this.comment(value);
+    };
+
+    XMLNode.prototype.r = function(value) {
+      return this.raw(value);
+    };
+
+    XMLNode.prototype.i = function(target, value) {
+      return this.instruction(target, value);
+    };
+
+    XMLNode.prototype.u = function() {
+      return this.up();
+    };
+
+    XMLNode.prototype.importXMLBuilder = function(doc) {
+      return this.importDocument(doc);
+    };
+
+    return XMLNode;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLProcessingInstruction.js":
+/*!**************************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLProcessingInstruction.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLNode, XMLProcessingInstruction,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLProcessingInstruction = (function(superClass) {
+    extend(XMLProcessingInstruction, superClass);
+
+    function XMLProcessingInstruction(parent, target, value) {
+      XMLProcessingInstruction.__super__.constructor.call(this, parent);
+      if (target == null) {
+        throw new Error("Missing instruction target");
+      }
+      this.target = this.stringify.insTarget(target);
+      if (value) {
+        this.value = this.stringify.insValue(value);
+      }
+    }
+
+    XMLProcessingInstruction.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLProcessingInstruction.prototype.toString = function(options) {
+      return this.options.writer.set(options).processingInstruction(this);
+    };
+
+    return XMLProcessingInstruction;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLRaw.js":
+/*!********************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLRaw.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLNode, XMLRaw,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLRaw = (function(superClass) {
+    extend(XMLRaw, superClass);
+
+    function XMLRaw(parent, text) {
+      XMLRaw.__super__.constructor.call(this, parent);
+      if (text == null) {
+        throw new Error("Missing raw text");
+      }
+      this.value = this.stringify.raw(text);
+    }
+
+    XMLRaw.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLRaw.prototype.toString = function(options) {
+      return this.options.writer.set(options).raw(this);
+    };
+
+    return XMLRaw;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStreamWriter.js":
+/*!*****************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStreamWriter.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLCData, XMLComment, XMLDTDAttList, XMLDTDElement, XMLDTDEntity, XMLDTDNotation, XMLDeclaration, XMLDocType, XMLElement, XMLProcessingInstruction, XMLRaw, XMLStreamWriter, XMLText, XMLWriterBase,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLDeclaration = __webpack_require__(/*! ./XMLDeclaration */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDeclaration.js");
+
+  XMLDocType = __webpack_require__(/*! ./XMLDocType */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocType.js");
+
+  XMLCData = __webpack_require__(/*! ./XMLCData */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLCData.js");
+
+  XMLComment = __webpack_require__(/*! ./XMLComment */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLComment.js");
+
+  XMLElement = __webpack_require__(/*! ./XMLElement */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLElement.js");
+
+  XMLRaw = __webpack_require__(/*! ./XMLRaw */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLRaw.js");
+
+  XMLText = __webpack_require__(/*! ./XMLText */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLText.js");
+
+  XMLProcessingInstruction = __webpack_require__(/*! ./XMLProcessingInstruction */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLProcessingInstruction.js");
+
+  XMLDTDAttList = __webpack_require__(/*! ./XMLDTDAttList */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDAttList.js");
+
+  XMLDTDElement = __webpack_require__(/*! ./XMLDTDElement */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDElement.js");
+
+  XMLDTDEntity = __webpack_require__(/*! ./XMLDTDEntity */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDEntity.js");
+
+  XMLDTDNotation = __webpack_require__(/*! ./XMLDTDNotation */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDNotation.js");
+
+  XMLWriterBase = __webpack_require__(/*! ./XMLWriterBase */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLWriterBase.js");
+
+  module.exports = XMLStreamWriter = (function(superClass) {
+    extend(XMLStreamWriter, superClass);
+
+    function XMLStreamWriter(stream, options) {
+      XMLStreamWriter.__super__.constructor.call(this, options);
+      this.stream = stream;
+    }
+
+    XMLStreamWriter.prototype.document = function(doc) {
+      var child, i, j, len, len1, ref, ref1, results;
+      ref = doc.children;
+      for (i = 0, len = ref.length; i < len; i++) {
+        child = ref[i];
+        child.isLastRootNode = false;
+      }
+      doc.children[doc.children.length - 1].isLastRootNode = true;
+      ref1 = doc.children;
+      results = [];
+      for (j = 0, len1 = ref1.length; j < len1; j++) {
+        child = ref1[j];
+        switch (false) {
+          case !(child instanceof XMLDeclaration):
+            results.push(this.declaration(child));
+            break;
+          case !(child instanceof XMLDocType):
+            results.push(this.docType(child));
+            break;
+          case !(child instanceof XMLComment):
+            results.push(this.comment(child));
+            break;
+          case !(child instanceof XMLProcessingInstruction):
+            results.push(this.processingInstruction(child));
+            break;
+          default:
+            results.push(this.element(child));
+        }
+      }
+      return results;
+    };
+
+    XMLStreamWriter.prototype.attribute = function(att) {
+      return this.stream.write(' ' + att.name + '="' + att.value + '"');
+    };
+
+    XMLStreamWriter.prototype.cdata = function(node, level) {
+      return this.stream.write(this.space(level) + '<![CDATA[' + node.text + ']]>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.comment = function(node, level) {
+      return this.stream.write(this.space(level) + '<!-- ' + node.text + ' -->' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.declaration = function(node, level) {
+      this.stream.write(this.space(level));
+      this.stream.write('<?xml version="' + node.version + '"');
+      if (node.encoding != null) {
+        this.stream.write(' encoding="' + node.encoding + '"');
+      }
+      if (node.standalone != null) {
+        this.stream.write(' standalone="' + node.standalone + '"');
+      }
+      this.stream.write(this.spacebeforeslash + '?>');
+      return this.stream.write(this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.docType = function(node, level) {
+      var child, i, len, ref;
+      level || (level = 0);
+      this.stream.write(this.space(level));
+      this.stream.write('<!DOCTYPE ' + node.root().name);
+      if (node.pubID && node.sysID) {
+        this.stream.write(' PUBLIC "' + node.pubID + '" "' + node.sysID + '"');
+      } else if (node.sysID) {
+        this.stream.write(' SYSTEM "' + node.sysID + '"');
+      }
+      if (node.children.length > 0) {
+        this.stream.write(' [');
+        this.stream.write(this.endline(node));
+        ref = node.children;
+        for (i = 0, len = ref.length; i < len; i++) {
+          child = ref[i];
+          switch (false) {
+            case !(child instanceof XMLDTDAttList):
+              this.dtdAttList(child, level + 1);
+              break;
+            case !(child instanceof XMLDTDElement):
+              this.dtdElement(child, level + 1);
+              break;
+            case !(child instanceof XMLDTDEntity):
+              this.dtdEntity(child, level + 1);
+              break;
+            case !(child instanceof XMLDTDNotation):
+              this.dtdNotation(child, level + 1);
+              break;
+            case !(child instanceof XMLCData):
+              this.cdata(child, level + 1);
+              break;
+            case !(child instanceof XMLComment):
+              this.comment(child, level + 1);
+              break;
+            case !(child instanceof XMLProcessingInstruction):
+              this.processingInstruction(child, level + 1);
+              break;
+            default:
+              throw new Error("Unknown DTD node type: " + child.constructor.name);
+          }
+        }
+        this.stream.write(']');
+      }
+      this.stream.write(this.spacebeforeslash + '>');
+      return this.stream.write(this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.element = function(node, level) {
+      var att, child, i, len, name, ref, ref1, space;
+      level || (level = 0);
+      space = this.space(level);
+      this.stream.write(space + '<' + node.name);
+      ref = node.attributes;
+      for (name in ref) {
+        if (!hasProp.call(ref, name)) continue;
+        att = ref[name];
+        this.attribute(att);
+      }
+      if (node.children.length === 0 || node.children.every(function(e) {
+        return e.value === '';
+      })) {
+        if (this.allowEmpty) {
+          this.stream.write('></' + node.name + '>');
+        } else {
+          this.stream.write(this.spacebeforeslash + '/>');
+        }
+      } else if (this.pretty && node.children.length === 1 && (node.children[0].value != null)) {
+        this.stream.write('>');
+        this.stream.write(node.children[0].value);
+        this.stream.write('</' + node.name + '>');
+      } else {
+        this.stream.write('>' + this.newline);
+        ref1 = node.children;
+        for (i = 0, len = ref1.length; i < len; i++) {
+          child = ref1[i];
+          switch (false) {
+            case !(child instanceof XMLCData):
+              this.cdata(child, level + 1);
+              break;
+            case !(child instanceof XMLComment):
+              this.comment(child, level + 1);
+              break;
+            case !(child instanceof XMLElement):
+              this.element(child, level + 1);
+              break;
+            case !(child instanceof XMLRaw):
+              this.raw(child, level + 1);
+              break;
+            case !(child instanceof XMLText):
+              this.text(child, level + 1);
+              break;
+            case !(child instanceof XMLProcessingInstruction):
+              this.processingInstruction(child, level + 1);
+              break;
+            default:
+              throw new Error("Unknown XML node type: " + child.constructor.name);
+          }
+        }
+        this.stream.write(space + '</' + node.name + '>');
+      }
+      return this.stream.write(this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.processingInstruction = function(node, level) {
+      this.stream.write(this.space(level) + '<?' + node.target);
+      if (node.value) {
+        this.stream.write(' ' + node.value);
+      }
+      return this.stream.write(this.spacebeforeslash + '?>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.raw = function(node, level) {
+      return this.stream.write(this.space(level) + node.value + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.text = function(node, level) {
+      return this.stream.write(this.space(level) + node.value + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.dtdAttList = function(node, level) {
+      this.stream.write(this.space(level) + '<!ATTLIST ' + node.elementName + ' ' + node.attributeName + ' ' + node.attributeType);
+      if (node.defaultValueType !== '#DEFAULT') {
+        this.stream.write(' ' + node.defaultValueType);
+      }
+      if (node.defaultValue) {
+        this.stream.write(' "' + node.defaultValue + '"');
+      }
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.dtdElement = function(node, level) {
+      this.stream.write(this.space(level) + '<!ELEMENT ' + node.name + ' ' + node.value);
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.dtdEntity = function(node, level) {
+      this.stream.write(this.space(level) + '<!ENTITY');
+      if (node.pe) {
+        this.stream.write(' %');
+      }
+      this.stream.write(' ' + node.name);
+      if (node.value) {
+        this.stream.write(' "' + node.value + '"');
+      } else {
+        if (node.pubID && node.sysID) {
+          this.stream.write(' PUBLIC "' + node.pubID + '" "' + node.sysID + '"');
+        } else if (node.sysID) {
+          this.stream.write(' SYSTEM "' + node.sysID + '"');
+        }
+        if (node.nData) {
+          this.stream.write(' NDATA ' + node.nData);
+        }
+      }
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.dtdNotation = function(node, level) {
+      this.stream.write(this.space(level) + '<!NOTATION ' + node.name);
+      if (node.pubID && node.sysID) {
+        this.stream.write(' PUBLIC "' + node.pubID + '" "' + node.sysID + '"');
+      } else if (node.pubID) {
+        this.stream.write(' PUBLIC "' + node.pubID + '"');
+      } else if (node.sysID) {
+        this.stream.write(' SYSTEM "' + node.sysID + '"');
+      }
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.endline = function(node) {
+      if (!node.isLastRootNode) {
+        return this.newline;
+      } else {
+        return '';
+      }
+    };
+
+    return XMLStreamWriter;
+
+  })(XMLWriterBase);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringWriter.js":
+/*!*****************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringWriter.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLCData, XMLComment, XMLDTDAttList, XMLDTDElement, XMLDTDEntity, XMLDTDNotation, XMLDeclaration, XMLDocType, XMLElement, XMLProcessingInstruction, XMLRaw, XMLStringWriter, XMLText, XMLWriterBase,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLDeclaration = __webpack_require__(/*! ./XMLDeclaration */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDeclaration.js");
+
+  XMLDocType = __webpack_require__(/*! ./XMLDocType */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocType.js");
+
+  XMLCData = __webpack_require__(/*! ./XMLCData */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLCData.js");
+
+  XMLComment = __webpack_require__(/*! ./XMLComment */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLComment.js");
+
+  XMLElement = __webpack_require__(/*! ./XMLElement */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLElement.js");
+
+  XMLRaw = __webpack_require__(/*! ./XMLRaw */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLRaw.js");
+
+  XMLText = __webpack_require__(/*! ./XMLText */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLText.js");
+
+  XMLProcessingInstruction = __webpack_require__(/*! ./XMLProcessingInstruction */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLProcessingInstruction.js");
+
+  XMLDTDAttList = __webpack_require__(/*! ./XMLDTDAttList */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDAttList.js");
+
+  XMLDTDElement = __webpack_require__(/*! ./XMLDTDElement */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDElement.js");
+
+  XMLDTDEntity = __webpack_require__(/*! ./XMLDTDEntity */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDEntity.js");
+
+  XMLDTDNotation = __webpack_require__(/*! ./XMLDTDNotation */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDTDNotation.js");
+
+  XMLWriterBase = __webpack_require__(/*! ./XMLWriterBase */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLWriterBase.js");
+
+  module.exports = XMLStringWriter = (function(superClass) {
+    extend(XMLStringWriter, superClass);
+
+    function XMLStringWriter(options) {
+      XMLStringWriter.__super__.constructor.call(this, options);
+    }
+
+    XMLStringWriter.prototype.document = function(doc) {
+      var child, i, len, r, ref;
+      this.textispresent = false;
+      r = '';
+      ref = doc.children;
+      for (i = 0, len = ref.length; i < len; i++) {
+        child = ref[i];
+        r += (function() {
+          switch (false) {
+            case !(child instanceof XMLDeclaration):
+              return this.declaration(child);
+            case !(child instanceof XMLDocType):
+              return this.docType(child);
+            case !(child instanceof XMLComment):
+              return this.comment(child);
+            case !(child instanceof XMLProcessingInstruction):
+              return this.processingInstruction(child);
+            default:
+              return this.element(child, 0);
+          }
+        }).call(this);
+      }
+      if (this.pretty && r.slice(-this.newline.length) === this.newline) {
+        r = r.slice(0, -this.newline.length);
+      }
+      return r;
+    };
+
+    XMLStringWriter.prototype.attribute = function(att) {
+      return ' ' + att.name + '="' + att.value + '"';
+    };
+
+    XMLStringWriter.prototype.cdata = function(node, level) {
+      return this.space(level) + '<![CDATA[' + node.text + ']]>' + this.newline;
+    };
+
+    XMLStringWriter.prototype.comment = function(node, level) {
+      return this.space(level) + '<!-- ' + node.text + ' -->' + this.newline;
+    };
+
+    XMLStringWriter.prototype.declaration = function(node, level) {
+      var r;
+      r = this.space(level);
+      r += '<?xml version="' + node.version + '"';
+      if (node.encoding != null) {
+        r += ' encoding="' + node.encoding + '"';
+      }
+      if (node.standalone != null) {
+        r += ' standalone="' + node.standalone + '"';
+      }
+      r += this.spacebeforeslash + '?>';
+      r += this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.docType = function(node, level) {
+      var child, i, len, r, ref;
+      level || (level = 0);
+      r = this.space(level);
+      r += '<!DOCTYPE ' + node.root().name;
+      if (node.pubID && node.sysID) {
+        r += ' PUBLIC "' + node.pubID + '" "' + node.sysID + '"';
+      } else if (node.sysID) {
+        r += ' SYSTEM "' + node.sysID + '"';
+      }
+      if (node.children.length > 0) {
+        r += ' [';
+        r += this.newline;
+        ref = node.children;
+        for (i = 0, len = ref.length; i < len; i++) {
+          child = ref[i];
+          r += (function() {
+            switch (false) {
+              case !(child instanceof XMLDTDAttList):
+                return this.dtdAttList(child, level + 1);
+              case !(child instanceof XMLDTDElement):
+                return this.dtdElement(child, level + 1);
+              case !(child instanceof XMLDTDEntity):
+                return this.dtdEntity(child, level + 1);
+              case !(child instanceof XMLDTDNotation):
+                return this.dtdNotation(child, level + 1);
+              case !(child instanceof XMLCData):
+                return this.cdata(child, level + 1);
+              case !(child instanceof XMLComment):
+                return this.comment(child, level + 1);
+              case !(child instanceof XMLProcessingInstruction):
+                return this.processingInstruction(child, level + 1);
+              default:
+                throw new Error("Unknown DTD node type: " + child.constructor.name);
+            }
+          }).call(this);
+        }
+        r += ']';
+      }
+      r += this.spacebeforeslash + '>';
+      r += this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.element = function(node, level) {
+      var att, child, i, j, len, len1, name, r, ref, ref1, ref2, space, textispresentwasset;
+      level || (level = 0);
+      textispresentwasset = false;
+      if (this.textispresent) {
+        this.newline = '';
+        this.pretty = false;
+      } else {
+        this.newline = this.newlinedefault;
+        this.pretty = this.prettydefault;
+      }
+      space = this.space(level);
+      r = '';
+      r += space + '<' + node.name;
+      ref = node.attributes;
+      for (name in ref) {
+        if (!hasProp.call(ref, name)) continue;
+        att = ref[name];
+        r += this.attribute(att);
+      }
+      if (node.children.length === 0 || node.children.every(function(e) {
+        return e.value === '';
+      })) {
+        if (this.allowEmpty) {
+          r += '></' + node.name + '>' + this.newline;
+        } else {
+          r += this.spacebeforeslash + '/>' + this.newline;
+        }
+      } else if (this.pretty && node.children.length === 1 && (node.children[0].value != null)) {
+        r += '>';
+        r += node.children[0].value;
+        r += '</' + node.name + '>' + this.newline;
+      } else {
+        if (this.dontprettytextnodes) {
+          ref1 = node.children;
+          for (i = 0, len = ref1.length; i < len; i++) {
+            child = ref1[i];
+            if (child.value != null) {
+              this.textispresent++;
+              textispresentwasset = true;
+              break;
+            }
+          }
+        }
+        if (this.textispresent) {
+          this.newline = '';
+          this.pretty = false;
+          space = this.space(level);
+        }
+        r += '>' + this.newline;
+        ref2 = node.children;
+        for (j = 0, len1 = ref2.length; j < len1; j++) {
+          child = ref2[j];
+          r += (function() {
+            switch (false) {
+              case !(child instanceof XMLCData):
+                return this.cdata(child, level + 1);
+              case !(child instanceof XMLComment):
+                return this.comment(child, level + 1);
+              case !(child instanceof XMLElement):
+                return this.element(child, level + 1);
+              case !(child instanceof XMLRaw):
+                return this.raw(child, level + 1);
+              case !(child instanceof XMLText):
+                return this.text(child, level + 1);
+              case !(child instanceof XMLProcessingInstruction):
+                return this.processingInstruction(child, level + 1);
+              default:
+                throw new Error("Unknown XML node type: " + child.constructor.name);
+            }
+          }).call(this);
+        }
+        if (textispresentwasset) {
+          this.textispresent--;
+        }
+        if (!this.textispresent) {
+          this.newline = this.newlinedefault;
+          this.pretty = this.prettydefault;
+        }
+        r += space + '</' + node.name + '>' + this.newline;
+      }
+      return r;
+    };
+
+    XMLStringWriter.prototype.processingInstruction = function(node, level) {
+      var r;
+      r = this.space(level) + '<?' + node.target;
+      if (node.value) {
+        r += ' ' + node.value;
+      }
+      r += this.spacebeforeslash + '?>' + this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.raw = function(node, level) {
+      return this.space(level) + node.value + this.newline;
+    };
+
+    XMLStringWriter.prototype.text = function(node, level) {
+      return this.space(level) + node.value + this.newline;
+    };
+
+    XMLStringWriter.prototype.dtdAttList = function(node, level) {
+      var r;
+      r = this.space(level) + '<!ATTLIST ' + node.elementName + ' ' + node.attributeName + ' ' + node.attributeType;
+      if (node.defaultValueType !== '#DEFAULT') {
+        r += ' ' + node.defaultValueType;
+      }
+      if (node.defaultValue) {
+        r += ' "' + node.defaultValue + '"';
+      }
+      r += this.spacebeforeslash + '>' + this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.dtdElement = function(node, level) {
+      return this.space(level) + '<!ELEMENT ' + node.name + ' ' + node.value + this.spacebeforeslash + '>' + this.newline;
+    };
+
+    XMLStringWriter.prototype.dtdEntity = function(node, level) {
+      var r;
+      r = this.space(level) + '<!ENTITY';
+      if (node.pe) {
+        r += ' %';
+      }
+      r += ' ' + node.name;
+      if (node.value) {
+        r += ' "' + node.value + '"';
+      } else {
+        if (node.pubID && node.sysID) {
+          r += ' PUBLIC "' + node.pubID + '" "' + node.sysID + '"';
+        } else if (node.sysID) {
+          r += ' SYSTEM "' + node.sysID + '"';
+        }
+        if (node.nData) {
+          r += ' NDATA ' + node.nData;
+        }
+      }
+      r += this.spacebeforeslash + '>' + this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.dtdNotation = function(node, level) {
+      var r;
+      r = this.space(level) + '<!NOTATION ' + node.name;
+      if (node.pubID && node.sysID) {
+        r += ' PUBLIC "' + node.pubID + '" "' + node.sysID + '"';
+      } else if (node.pubID) {
+        r += ' PUBLIC "' + node.pubID + '"';
+      } else if (node.sysID) {
+        r += ' SYSTEM "' + node.sysID + '"';
+      }
+      r += this.spacebeforeslash + '>' + this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.openNode = function(node, level) {
+      var att, name, r, ref;
+      level || (level = 0);
+      if (node instanceof XMLElement) {
+        r = this.space(level) + '<' + node.name;
+        ref = node.attributes;
+        for (name in ref) {
+          if (!hasProp.call(ref, name)) continue;
+          att = ref[name];
+          r += this.attribute(att);
+        }
+        r += (node.children ? '>' : '/>') + this.newline;
+        return r;
+      } else {
+        r = this.space(level) + '<!DOCTYPE ' + node.rootNodeName;
+        if (node.pubID && node.sysID) {
+          r += ' PUBLIC "' + node.pubID + '" "' + node.sysID + '"';
+        } else if (node.sysID) {
+          r += ' SYSTEM "' + node.sysID + '"';
+        }
+        r += (node.children ? ' [' : '>') + this.newline;
+        return r;
+      }
+    };
+
+    XMLStringWriter.prototype.closeNode = function(node, level) {
+      level || (level = 0);
+      switch (false) {
+        case !(node instanceof XMLElement):
+          return this.space(level) + '</' + node.name + '>' + this.newline;
+        case !(node instanceof XMLDocType):
+          return this.space(level) + ']>' + this.newline;
+      }
+    };
+
+    return XMLStringWriter;
+
+  })(XMLWriterBase);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringifier.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringifier.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLStringifier,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    hasProp = {}.hasOwnProperty;
+
+  module.exports = XMLStringifier = (function() {
+    function XMLStringifier(options) {
+      this.assertLegalChar = bind(this.assertLegalChar, this);
+      var key, ref, value;
+      options || (options = {});
+      this.noDoubleEncoding = options.noDoubleEncoding;
+      ref = options.stringify || {};
+      for (key in ref) {
+        if (!hasProp.call(ref, key)) continue;
+        value = ref[key];
+        this[key] = value;
+      }
+    }
+
+    XMLStringifier.prototype.eleName = function(val) {
+      val = '' + val || '';
+      return this.assertLegalChar(val);
+    };
+
+    XMLStringifier.prototype.eleText = function(val) {
+      val = '' + val || '';
+      return this.assertLegalChar(this.elEscape(val));
+    };
+
+    XMLStringifier.prototype.cdata = function(val) {
+      val = '' + val || '';
+      val = val.replace(']]>', ']]]]><![CDATA[>');
+      return this.assertLegalChar(val);
+    };
+
+    XMLStringifier.prototype.comment = function(val) {
+      val = '' + val || '';
+      if (val.match(/--/)) {
+        throw new Error("Comment text cannot contain double-hypen: " + val);
+      }
+      return this.assertLegalChar(val);
+    };
+
+    XMLStringifier.prototype.raw = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.attName = function(val) {
+      return val = '' + val || '';
+    };
+
+    XMLStringifier.prototype.attValue = function(val) {
+      val = '' + val || '';
+      return this.attEscape(val);
+    };
+
+    XMLStringifier.prototype.insTarget = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.insValue = function(val) {
+      val = '' + val || '';
+      if (val.match(/\?>/)) {
+        throw new Error("Invalid processing instruction value: " + val);
+      }
+      return val;
+    };
+
+    XMLStringifier.prototype.xmlVersion = function(val) {
+      val = '' + val || '';
+      if (!val.match(/1\.[0-9]+/)) {
+        throw new Error("Invalid version number: " + val);
+      }
+      return val;
+    };
+
+    XMLStringifier.prototype.xmlEncoding = function(val) {
+      val = '' + val || '';
+      if (!val.match(/^[A-Za-z](?:[A-Za-z0-9._-])*$/)) {
+        throw new Error("Invalid encoding: " + val);
+      }
+      return val;
+    };
+
+    XMLStringifier.prototype.xmlStandalone = function(val) {
+      if (val) {
+        return "yes";
+      } else {
+        return "no";
+      }
+    };
+
+    XMLStringifier.prototype.dtdPubID = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdSysID = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdElementValue = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdAttType = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdAttDefault = function(val) {
+      if (val != null) {
+        return '' + val || '';
+      } else {
+        return val;
+      }
+    };
+
+    XMLStringifier.prototype.dtdEntityValue = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdNData = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.convertAttKey = '@';
+
+    XMLStringifier.prototype.convertPIKey = '?';
+
+    XMLStringifier.prototype.convertTextKey = '#text';
+
+    XMLStringifier.prototype.convertCDataKey = '#cdata';
+
+    XMLStringifier.prototype.convertCommentKey = '#comment';
+
+    XMLStringifier.prototype.convertRawKey = '#raw';
+
+    XMLStringifier.prototype.assertLegalChar = function(str) {
+      var res;
+      res = str.match(/[\0\uFFFE\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/);
+      if (res) {
+        throw new Error("Invalid character in string: " + str + " at index " + res.index);
+      }
+      return str;
+    };
+
+    XMLStringifier.prototype.elEscape = function(str) {
+      var ampregex;
+      ampregex = this.noDoubleEncoding ? /(?!&\S+;)&/g : /&/g;
+      return str.replace(ampregex, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\r/g, '&#xD;');
+    };
+
+    XMLStringifier.prototype.attEscape = function(str) {
+      var ampregex;
+      ampregex = this.noDoubleEncoding ? /(?!&\S+;)&/g : /&/g;
+      return str.replace(ampregex, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/\t/g, '&#x9;').replace(/\n/g, '&#xA;').replace(/\r/g, '&#xD;');
+    };
+
+    return XMLStringifier;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLText.js":
+/*!*********************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLText.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLNode, XMLText,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLText = (function(superClass) {
+    extend(XMLText, superClass);
+
+    function XMLText(parent, text) {
+      XMLText.__super__.constructor.call(this, parent);
+      if (text == null) {
+        throw new Error("Missing element text");
+      }
+      this.value = this.stringify.eleText(text);
+    }
+
+    XMLText.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLText.prototype.toString = function(options) {
+      return this.options.writer.set(options).text(this);
+    };
+
+    return XMLText;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLWriterBase.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLWriterBase.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLWriterBase,
+    hasProp = {}.hasOwnProperty;
+
+  module.exports = XMLWriterBase = (function() {
+    function XMLWriterBase(options) {
+      var key, ref, ref1, ref2, ref3, ref4, ref5, ref6, value;
+      options || (options = {});
+      this.pretty = options.pretty || false;
+      this.allowEmpty = (ref = options.allowEmpty) != null ? ref : false;
+      if (this.pretty) {
+        this.indent = (ref1 = options.indent) != null ? ref1 : '  ';
+        this.newline = (ref2 = options.newline) != null ? ref2 : '\n';
+        this.offset = (ref3 = options.offset) != null ? ref3 : 0;
+        this.dontprettytextnodes = (ref4 = options.dontprettytextnodes) != null ? ref4 : 0;
+      } else {
+        this.indent = '';
+        this.newline = '';
+        this.offset = 0;
+        this.dontprettytextnodes = 0;
+      }
+      this.spacebeforeslash = (ref5 = options.spacebeforeslash) != null ? ref5 : '';
+      if (this.spacebeforeslash === true) {
+        this.spacebeforeslash = ' ';
+      }
+      this.newlinedefault = this.newline;
+      this.prettydefault = this.pretty;
+      ref6 = options.writer || {};
+      for (key in ref6) {
+        if (!hasProp.call(ref6, key)) continue;
+        value = ref6[key];
+        this[key] = value;
+      }
+    }
+
+    XMLWriterBase.prototype.set = function(options) {
+      var key, ref, value;
+      options || (options = {});
+      if ("pretty" in options) {
+        this.pretty = options.pretty;
+      }
+      if ("allowEmpty" in options) {
+        this.allowEmpty = options.allowEmpty;
+      }
+      if (this.pretty) {
+        this.indent = "indent" in options ? options.indent : '  ';
+        this.newline = "newline" in options ? options.newline : '\n';
+        this.offset = "offset" in options ? options.offset : 0;
+        this.dontprettytextnodes = "dontprettytextnodes" in options ? options.dontprettytextnodes : 0;
+      } else {
+        this.indent = '';
+        this.newline = '';
+        this.offset = 0;
+        this.dontprettytextnodes = 0;
+      }
+      this.spacebeforeslash = "spacebeforeslash" in options ? options.spacebeforeslash : '';
+      if (this.spacebeforeslash === true) {
+        this.spacebeforeslash = ' ';
+      }
+      this.newlinedefault = this.newline;
+      this.prettydefault = this.pretty;
+      ref = options.writer || {};
+      for (key in ref) {
+        if (!hasProp.call(ref, key)) continue;
+        value = ref[key];
+        this[key] = value;
+      }
+      return this;
+    };
+
+    XMLWriterBase.prototype.space = function(level) {
+      var indent;
+      if (this.pretty) {
+        indent = (level || 0) + this.offset + 1;
+        if (indent > 0) {
+          return new Array(indent).join(this.indent);
+        } else {
+          return '';
+        }
+      } else {
+        return '';
+      }
+    };
+
+    return XMLWriterBase;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xml2js/node_modules/xmlbuilder/lib/index.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/xml2js/node_modules/xmlbuilder/lib/index.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDocument, XMLDocumentCB, XMLStreamWriter, XMLStringWriter, assign, isFunction, ref;
+
+  ref = __webpack_require__(/*! ./Utility */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/Utility.js"), assign = ref.assign, isFunction = ref.isFunction;
+
+  XMLDocument = __webpack_require__(/*! ./XMLDocument */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocument.js");
+
+  XMLDocumentCB = __webpack_require__(/*! ./XMLDocumentCB */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLDocumentCB.js");
+
+  XMLStringWriter = __webpack_require__(/*! ./XMLStringWriter */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStringWriter.js");
+
+  XMLStreamWriter = __webpack_require__(/*! ./XMLStreamWriter */ "../node_modules/xml2js/node_modules/xmlbuilder/lib/XMLStreamWriter.js");
+
+  module.exports.create = function(name, xmldec, doctype, options) {
+    var doc, root;
+    if (name == null) {
+      throw new Error("Root element needs a name");
+    }
+    options = assign({}, xmldec, doctype, options);
+    doc = new XMLDocument(options);
+    root = doc.element(name);
+    if (!options.headless) {
+      doc.declaration(options);
+      if ((options.pubID != null) || (options.sysID != null)) {
+        doc.doctype(options);
+      }
+    }
+    return root;
+  };
+
+  module.exports.begin = function(options, onData, onEnd) {
+    var ref1;
+    if (isFunction(options)) {
+      ref1 = [options, onData], onData = ref1[0], onEnd = ref1[1];
+      options = {};
+    }
+    if (onData) {
+      return new XMLDocumentCB(options, onData, onEnd);
+    } else {
+      return new XMLDocument(options);
+    }
+  };
+
+  module.exports.stringWriter = function(options) {
+    return new XMLStringWriter(options);
+  };
+
+  module.exports.streamWriter = function(stream, options) {
+    return new XMLStreamWriter(stream, options);
+  };
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/Utility.js":
+/*!*************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/Utility.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var assign, getValue, isArray, isEmpty, isFunction, isObject, isPlainObject,
+    slice = [].slice,
+    hasProp = {}.hasOwnProperty;
+
+  assign = function() {
+    var i, key, len, source, sources, target;
+    target = arguments[0], sources = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+    if (isFunction(Object.assign)) {
+      Object.assign.apply(null, arguments);
+    } else {
+      for (i = 0, len = sources.length; i < len; i++) {
+        source = sources[i];
+        if (source != null) {
+          for (key in source) {
+            if (!hasProp.call(source, key)) continue;
+            target[key] = source[key];
+          }
+        }
+      }
+    }
+    return target;
+  };
+
+  isFunction = function(val) {
+    return !!val && Object.prototype.toString.call(val) === '[object Function]';
+  };
+
+  isObject = function(val) {
+    var ref;
+    return !!val && ((ref = typeof val) === 'function' || ref === 'object');
+  };
+
+  isArray = function(val) {
+    if (isFunction(Array.isArray)) {
+      return Array.isArray(val);
+    } else {
+      return Object.prototype.toString.call(val) === '[object Array]';
+    }
+  };
+
+  isEmpty = function(val) {
+    var key;
+    if (isArray(val)) {
+      return !val.length;
+    } else {
+      for (key in val) {
+        if (!hasProp.call(val, key)) continue;
+        return false;
+      }
+      return true;
+    }
+  };
+
+  isPlainObject = function(val) {
+    var ctor, proto;
+    return isObject(val) && (proto = Object.getPrototypeOf(val)) && (ctor = proto.constructor) && (typeof ctor === 'function') && (ctor instanceof ctor) && (Function.prototype.toString.call(ctor) === Function.prototype.toString.call(Object));
+  };
+
+  getValue = function(obj) {
+    if (isFunction(obj.valueOf)) {
+      return obj.valueOf();
+    } else {
+      return obj;
+    }
+  };
+
+  module.exports.assign = assign;
+
+  module.exports.isFunction = isFunction;
+
+  module.exports.isObject = isObject;
+
+  module.exports.isArray = isArray;
+
+  module.exports.isEmpty = isEmpty;
+
+  module.exports.isPlainObject = isPlainObject;
+
+  module.exports.getValue = getValue;
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLAttribute.js":
+/*!******************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLAttribute.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLAttribute;
+
+  module.exports = XMLAttribute = (function() {
+    function XMLAttribute(parent, name, value) {
+      this.options = parent.options;
+      this.stringify = parent.stringify;
+      this.parent = parent;
+      if (name == null) {
+        throw new Error("Missing attribute name. " + this.debugInfo(name));
+      }
+      if (value == null) {
+        throw new Error("Missing attribute value. " + this.debugInfo(name));
+      }
+      this.name = this.stringify.attName(name);
+      this.value = this.stringify.attValue(value);
+    }
+
+    XMLAttribute.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLAttribute.prototype.toString = function(options) {
+      return this.options.writer.set(options).attribute(this);
+    };
+
+    XMLAttribute.prototype.debugInfo = function(name) {
+      var ref, ref1;
+      name = name || this.name;
+      if ((name == null) && !((ref = this.parent) != null ? ref.name : void 0)) {
+        return "";
+      } else if (name == null) {
+        return "parent: <" + this.parent.name + ">";
+      } else if (!((ref1 = this.parent) != null ? ref1.name : void 0)) {
+        return "attribute: {" + name + "}";
+      } else {
+        return "attribute: {" + name + "}, parent: <" + this.parent.name + ">";
+      }
+    };
+
+    return XMLAttribute;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLCData.js":
+/*!**************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLCData.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLCData, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLCData = (function(superClass) {
+    extend(XMLCData, superClass);
+
+    function XMLCData(parent, text) {
+      XMLCData.__super__.constructor.call(this, parent);
+      if (text == null) {
+        throw new Error("Missing CDATA text. " + this.debugInfo());
+      }
+      this.text = this.stringify.cdata(text);
+    }
+
+    XMLCData.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLCData.prototype.toString = function(options) {
+      return this.options.writer.set(options).cdata(this);
+    };
+
+    return XMLCData;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLComment.js":
+/*!****************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLComment.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLComment, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLComment = (function(superClass) {
+    extend(XMLComment, superClass);
+
+    function XMLComment(parent, text) {
+      XMLComment.__super__.constructor.call(this, parent);
+      if (text == null) {
+        throw new Error("Missing comment text. " + this.debugInfo());
+      }
+      this.text = this.stringify.comment(text);
+    }
+
+    XMLComment.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLComment.prototype.toString = function(options) {
+      return this.options.writer.set(options).comment(this);
+    };
+
+    return XMLComment;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLDTDAttList.js":
+/*!*******************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLDTDAttList.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDAttList, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDTDAttList = (function(superClass) {
+    extend(XMLDTDAttList, superClass);
+
+    function XMLDTDAttList(parent, elementName, attributeName, attributeType, defaultValueType, defaultValue) {
+      XMLDTDAttList.__super__.constructor.call(this, parent);
+      if (elementName == null) {
+        throw new Error("Missing DTD element name. " + this.debugInfo());
+      }
+      if (attributeName == null) {
+        throw new Error("Missing DTD attribute name. " + this.debugInfo(elementName));
+      }
+      if (!attributeType) {
+        throw new Error("Missing DTD attribute type. " + this.debugInfo(elementName));
+      }
+      if (!defaultValueType) {
+        throw new Error("Missing DTD attribute default. " + this.debugInfo(elementName));
+      }
+      if (defaultValueType.indexOf('#') !== 0) {
+        defaultValueType = '#' + defaultValueType;
+      }
+      if (!defaultValueType.match(/^(#REQUIRED|#IMPLIED|#FIXED|#DEFAULT)$/)) {
+        throw new Error("Invalid default value type; expected: #REQUIRED, #IMPLIED, #FIXED or #DEFAULT. " + this.debugInfo(elementName));
+      }
+      if (defaultValue && !defaultValueType.match(/^(#FIXED|#DEFAULT)$/)) {
+        throw new Error("Default value only applies to #FIXED or #DEFAULT. " + this.debugInfo(elementName));
+      }
+      this.elementName = this.stringify.eleName(elementName);
+      this.attributeName = this.stringify.attName(attributeName);
+      this.attributeType = this.stringify.dtdAttType(attributeType);
+      this.defaultValue = this.stringify.dtdAttDefault(defaultValue);
+      this.defaultValueType = defaultValueType;
+    }
+
+    XMLDTDAttList.prototype.toString = function(options) {
+      return this.options.writer.set(options).dtdAttList(this);
+    };
+
+    return XMLDTDAttList;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLDTDElement.js":
+/*!*******************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLDTDElement.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDElement, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDTDElement = (function(superClass) {
+    extend(XMLDTDElement, superClass);
+
+    function XMLDTDElement(parent, name, value) {
+      XMLDTDElement.__super__.constructor.call(this, parent);
+      if (name == null) {
+        throw new Error("Missing DTD element name. " + this.debugInfo());
+      }
+      if (!value) {
+        value = '(#PCDATA)';
+      }
+      if (Array.isArray(value)) {
+        value = '(' + value.join(',') + ')';
+      }
+      this.name = this.stringify.eleName(name);
+      this.value = this.stringify.dtdElementValue(value);
+    }
+
+    XMLDTDElement.prototype.toString = function(options) {
+      return this.options.writer.set(options).dtdElement(this);
+    };
+
+    return XMLDTDElement;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLDTDEntity.js":
+/*!******************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLDTDEntity.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDEntity, XMLNode, isObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  isObject = __webpack_require__(/*! ./Utility */ "../node_modules/xmlbuilder/lib/Utility.js").isObject;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDTDEntity = (function(superClass) {
+    extend(XMLDTDEntity, superClass);
+
+    function XMLDTDEntity(parent, pe, name, value) {
+      XMLDTDEntity.__super__.constructor.call(this, parent);
+      if (name == null) {
+        throw new Error("Missing DTD entity name. " + this.debugInfo(name));
+      }
+      if (value == null) {
+        throw new Error("Missing DTD entity value. " + this.debugInfo(name));
+      }
+      this.pe = !!pe;
+      this.name = this.stringify.eleName(name);
+      if (!isObject(value)) {
+        this.value = this.stringify.dtdEntityValue(value);
+      } else {
+        if (!value.pubID && !value.sysID) {
+          throw new Error("Public and/or system identifiers are required for an external entity. " + this.debugInfo(name));
+        }
+        if (value.pubID && !value.sysID) {
+          throw new Error("System identifier is required for a public external entity. " + this.debugInfo(name));
+        }
+        if (value.pubID != null) {
+          this.pubID = this.stringify.dtdPubID(value.pubID);
+        }
+        if (value.sysID != null) {
+          this.sysID = this.stringify.dtdSysID(value.sysID);
+        }
+        if (value.nData != null) {
+          this.nData = this.stringify.dtdNData(value.nData);
+        }
+        if (this.pe && this.nData) {
+          throw new Error("Notation declaration is not allowed in a parameter entity. " + this.debugInfo(name));
+        }
+      }
+    }
+
+    XMLDTDEntity.prototype.toString = function(options) {
+      return this.options.writer.set(options).dtdEntity(this);
+    };
+
+    return XMLDTDEntity;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLDTDNotation.js":
+/*!********************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLDTDNotation.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDNotation, XMLNode,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDTDNotation = (function(superClass) {
+    extend(XMLDTDNotation, superClass);
+
+    function XMLDTDNotation(parent, name, value) {
+      XMLDTDNotation.__super__.constructor.call(this, parent);
+      if (name == null) {
+        throw new Error("Missing DTD notation name. " + this.debugInfo(name));
+      }
+      if (!value.pubID && !value.sysID) {
+        throw new Error("Public or system identifiers are required for an external entity. " + this.debugInfo(name));
+      }
+      this.name = this.stringify.eleName(name);
+      if (value.pubID != null) {
+        this.pubID = this.stringify.dtdPubID(value.pubID);
+      }
+      if (value.sysID != null) {
+        this.sysID = this.stringify.dtdSysID(value.sysID);
+      }
+    }
+
+    XMLDTDNotation.prototype.toString = function(options) {
+      return this.options.writer.set(options).dtdNotation(this);
+    };
+
+    return XMLDTDNotation;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLDeclaration.js":
+/*!********************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLDeclaration.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDeclaration, XMLNode, isObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  isObject = __webpack_require__(/*! ./Utility */ "../node_modules/xmlbuilder/lib/Utility.js").isObject;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLDeclaration = (function(superClass) {
+    extend(XMLDeclaration, superClass);
+
+    function XMLDeclaration(parent, version, encoding, standalone) {
+      var ref;
+      XMLDeclaration.__super__.constructor.call(this, parent);
+      if (isObject(version)) {
+        ref = version, version = ref.version, encoding = ref.encoding, standalone = ref.standalone;
+      }
+      if (!version) {
+        version = '1.0';
+      }
+      this.version = this.stringify.xmlVersion(version);
+      if (encoding != null) {
+        this.encoding = this.stringify.xmlEncoding(encoding);
+      }
+      if (standalone != null) {
+        this.standalone = this.stringify.xmlStandalone(standalone);
+      }
+    }
+
+    XMLDeclaration.prototype.toString = function(options) {
+      return this.options.writer.set(options).declaration(this);
+    };
+
+    return XMLDeclaration;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLDocType.js":
+/*!****************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLDocType.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDTDAttList, XMLDTDElement, XMLDTDEntity, XMLDTDNotation, XMLDocType, XMLNode, isObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  isObject = __webpack_require__(/*! ./Utility */ "../node_modules/xmlbuilder/lib/Utility.js").isObject;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  XMLDTDAttList = __webpack_require__(/*! ./XMLDTDAttList */ "../node_modules/xmlbuilder/lib/XMLDTDAttList.js");
+
+  XMLDTDEntity = __webpack_require__(/*! ./XMLDTDEntity */ "../node_modules/xmlbuilder/lib/XMLDTDEntity.js");
+
+  XMLDTDElement = __webpack_require__(/*! ./XMLDTDElement */ "../node_modules/xmlbuilder/lib/XMLDTDElement.js");
+
+  XMLDTDNotation = __webpack_require__(/*! ./XMLDTDNotation */ "../node_modules/xmlbuilder/lib/XMLDTDNotation.js");
+
+  module.exports = XMLDocType = (function(superClass) {
+    extend(XMLDocType, superClass);
+
+    function XMLDocType(parent, pubID, sysID) {
+      var ref, ref1;
+      XMLDocType.__super__.constructor.call(this, parent);
+      this.name = "!DOCTYPE";
+      this.documentObject = parent;
+      if (isObject(pubID)) {
+        ref = pubID, pubID = ref.pubID, sysID = ref.sysID;
+      }
+      if (sysID == null) {
+        ref1 = [pubID, sysID], sysID = ref1[0], pubID = ref1[1];
+      }
+      if (pubID != null) {
+        this.pubID = this.stringify.dtdPubID(pubID);
+      }
+      if (sysID != null) {
+        this.sysID = this.stringify.dtdSysID(sysID);
+      }
+    }
+
+    XMLDocType.prototype.element = function(name, value) {
+      var child;
+      child = new XMLDTDElement(this, name, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.attList = function(elementName, attributeName, attributeType, defaultValueType, defaultValue) {
+      var child;
+      child = new XMLDTDAttList(this, elementName, attributeName, attributeType, defaultValueType, defaultValue);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.entity = function(name, value) {
+      var child;
+      child = new XMLDTDEntity(this, false, name, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.pEntity = function(name, value) {
+      var child;
+      child = new XMLDTDEntity(this, true, name, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.notation = function(name, value) {
+      var child;
+      child = new XMLDTDNotation(this, name, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLDocType.prototype.toString = function(options) {
+      return this.options.writer.set(options).docType(this);
+    };
+
+    XMLDocType.prototype.ele = function(name, value) {
+      return this.element(name, value);
+    };
+
+    XMLDocType.prototype.att = function(elementName, attributeName, attributeType, defaultValueType, defaultValue) {
+      return this.attList(elementName, attributeName, attributeType, defaultValueType, defaultValue);
+    };
+
+    XMLDocType.prototype.ent = function(name, value) {
+      return this.entity(name, value);
+    };
+
+    XMLDocType.prototype.pent = function(name, value) {
+      return this.pEntity(name, value);
+    };
+
+    XMLDocType.prototype.not = function(name, value) {
+      return this.notation(name, value);
+    };
+
+    XMLDocType.prototype.up = function() {
+      return this.root() || this.documentObject;
+    };
+
+    return XMLDocType;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLDocument.js":
+/*!*****************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLDocument.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDocument, XMLNode, XMLStringWriter, XMLStringifier, isPlainObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  isPlainObject = __webpack_require__(/*! ./Utility */ "../node_modules/xmlbuilder/lib/Utility.js").isPlainObject;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  XMLStringifier = __webpack_require__(/*! ./XMLStringifier */ "../node_modules/xmlbuilder/lib/XMLStringifier.js");
+
+  XMLStringWriter = __webpack_require__(/*! ./XMLStringWriter */ "../node_modules/xmlbuilder/lib/XMLStringWriter.js");
+
+  module.exports = XMLDocument = (function(superClass) {
+    extend(XMLDocument, superClass);
+
+    function XMLDocument(options) {
+      XMLDocument.__super__.constructor.call(this, null);
+      this.name = "?xml";
+      options || (options = {});
+      if (!options.writer) {
+        options.writer = new XMLStringWriter();
+      }
+      this.options = options;
+      this.stringify = new XMLStringifier(options);
+      this.isDocument = true;
+    }
+
+    XMLDocument.prototype.end = function(writer) {
+      var writerOptions;
+      if (!writer) {
+        writer = this.options.writer;
+      } else if (isPlainObject(writer)) {
+        writerOptions = writer;
+        writer = this.options.writer.set(writerOptions);
+      }
+      return writer.document(this);
+    };
+
+    XMLDocument.prototype.toString = function(options) {
+      return this.options.writer.set(options).document(this);
+    };
+
+    return XMLDocument;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLDocumentCB.js":
+/*!*******************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLDocumentCB.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLAttribute, XMLCData, XMLComment, XMLDTDAttList, XMLDTDElement, XMLDTDEntity, XMLDTDNotation, XMLDeclaration, XMLDocType, XMLDocumentCB, XMLElement, XMLProcessingInstruction, XMLRaw, XMLStringWriter, XMLStringifier, XMLText, getValue, isFunction, isObject, isPlainObject, ref,
+    hasProp = {}.hasOwnProperty;
+
+  ref = __webpack_require__(/*! ./Utility */ "../node_modules/xmlbuilder/lib/Utility.js"), isObject = ref.isObject, isFunction = ref.isFunction, isPlainObject = ref.isPlainObject, getValue = ref.getValue;
+
+  XMLElement = __webpack_require__(/*! ./XMLElement */ "../node_modules/xmlbuilder/lib/XMLElement.js");
+
+  XMLCData = __webpack_require__(/*! ./XMLCData */ "../node_modules/xmlbuilder/lib/XMLCData.js");
+
+  XMLComment = __webpack_require__(/*! ./XMLComment */ "../node_modules/xmlbuilder/lib/XMLComment.js");
+
+  XMLRaw = __webpack_require__(/*! ./XMLRaw */ "../node_modules/xmlbuilder/lib/XMLRaw.js");
+
+  XMLText = __webpack_require__(/*! ./XMLText */ "../node_modules/xmlbuilder/lib/XMLText.js");
+
+  XMLProcessingInstruction = __webpack_require__(/*! ./XMLProcessingInstruction */ "../node_modules/xmlbuilder/lib/XMLProcessingInstruction.js");
+
+  XMLDeclaration = __webpack_require__(/*! ./XMLDeclaration */ "../node_modules/xmlbuilder/lib/XMLDeclaration.js");
+
+  XMLDocType = __webpack_require__(/*! ./XMLDocType */ "../node_modules/xmlbuilder/lib/XMLDocType.js");
+
+  XMLDTDAttList = __webpack_require__(/*! ./XMLDTDAttList */ "../node_modules/xmlbuilder/lib/XMLDTDAttList.js");
+
+  XMLDTDEntity = __webpack_require__(/*! ./XMLDTDEntity */ "../node_modules/xmlbuilder/lib/XMLDTDEntity.js");
+
+  XMLDTDElement = __webpack_require__(/*! ./XMLDTDElement */ "../node_modules/xmlbuilder/lib/XMLDTDElement.js");
+
+  XMLDTDNotation = __webpack_require__(/*! ./XMLDTDNotation */ "../node_modules/xmlbuilder/lib/XMLDTDNotation.js");
+
+  XMLAttribute = __webpack_require__(/*! ./XMLAttribute */ "../node_modules/xmlbuilder/lib/XMLAttribute.js");
+
+  XMLStringifier = __webpack_require__(/*! ./XMLStringifier */ "../node_modules/xmlbuilder/lib/XMLStringifier.js");
+
+  XMLStringWriter = __webpack_require__(/*! ./XMLStringWriter */ "../node_modules/xmlbuilder/lib/XMLStringWriter.js");
+
+  module.exports = XMLDocumentCB = (function() {
+    function XMLDocumentCB(options, onData, onEnd) {
+      var writerOptions;
+      this.name = "?xml";
+      options || (options = {});
+      if (!options.writer) {
+        options.writer = new XMLStringWriter(options);
+      } else if (isPlainObject(options.writer)) {
+        writerOptions = options.writer;
+        options.writer = new XMLStringWriter(writerOptions);
+      }
+      this.options = options;
+      this.writer = options.writer;
+      this.stringify = new XMLStringifier(options);
+      this.onDataCallback = onData || function() {};
+      this.onEndCallback = onEnd || function() {};
+      this.currentNode = null;
+      this.currentLevel = -1;
+      this.openTags = {};
+      this.documentStarted = false;
+      this.documentCompleted = false;
+      this.root = null;
+    }
+
+    XMLDocumentCB.prototype.node = function(name, attributes, text) {
+      var ref1;
+      if (name == null) {
+        throw new Error("Missing node name.");
+      }
+      if (this.root && this.currentLevel === -1) {
+        throw new Error("Document can only have one root node. " + this.debugInfo(name));
+      }
+      this.openCurrent();
+      name = getValue(name);
+      if (attributes == null) {
+        attributes = {};
+      }
+      attributes = getValue(attributes);
+      if (!isObject(attributes)) {
+        ref1 = [attributes, text], text = ref1[0], attributes = ref1[1];
+      }
+      this.currentNode = new XMLElement(this, name, attributes);
+      this.currentNode.children = false;
+      this.currentLevel++;
+      this.openTags[this.currentLevel] = this.currentNode;
+      if (text != null) {
+        this.text(text);
+      }
+      return this;
+    };
+
+    XMLDocumentCB.prototype.element = function(name, attributes, text) {
+      if (this.currentNode && this.currentNode instanceof XMLDocType) {
+        return this.dtdElement.apply(this, arguments);
+      } else {
+        return this.node(name, attributes, text);
+      }
+    };
+
+    XMLDocumentCB.prototype.attribute = function(name, value) {
+      var attName, attValue;
+      if (!this.currentNode || this.currentNode.children) {
+        throw new Error("att() can only be used immediately after an ele() call in callback mode. " + this.debugInfo(name));
+      }
+      if (name != null) {
+        name = getValue(name);
+      }
+      if (isObject(name)) {
+        for (attName in name) {
+          if (!hasProp.call(name, attName)) continue;
+          attValue = name[attName];
+          this.attribute(attName, attValue);
+        }
+      } else {
+        if (isFunction(value)) {
+          value = value.apply();
+        }
+        if (!this.options.skipNullAttributes || (value != null)) {
+          this.currentNode.attributes[name] = new XMLAttribute(this, name, value);
+        }
+      }
+      return this;
+    };
+
+    XMLDocumentCB.prototype.text = function(value) {
+      var node;
+      this.openCurrent();
+      node = new XMLText(this, value);
+      this.onData(this.writer.text(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.cdata = function(value) {
+      var node;
+      this.openCurrent();
+      node = new XMLCData(this, value);
+      this.onData(this.writer.cdata(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.comment = function(value) {
+      var node;
+      this.openCurrent();
+      node = new XMLComment(this, value);
+      this.onData(this.writer.comment(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.raw = function(value) {
+      var node;
+      this.openCurrent();
+      node = new XMLRaw(this, value);
+      this.onData(this.writer.raw(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.instruction = function(target, value) {
+      var i, insTarget, insValue, len, node;
+      this.openCurrent();
+      if (target != null) {
+        target = getValue(target);
+      }
+      if (value != null) {
+        value = getValue(value);
+      }
+      if (Array.isArray(target)) {
+        for (i = 0, len = target.length; i < len; i++) {
+          insTarget = target[i];
+          this.instruction(insTarget);
+        }
+      } else if (isObject(target)) {
+        for (insTarget in target) {
+          if (!hasProp.call(target, insTarget)) continue;
+          insValue = target[insTarget];
+          this.instruction(insTarget, insValue);
+        }
+      } else {
+        if (isFunction(value)) {
+          value = value.apply();
+        }
+        node = new XMLProcessingInstruction(this, target, value);
+        this.onData(this.writer.processingInstruction(node, this.currentLevel + 1), this.currentLevel + 1);
+      }
+      return this;
+    };
+
+    XMLDocumentCB.prototype.declaration = function(version, encoding, standalone) {
+      var node;
+      this.openCurrent();
+      if (this.documentStarted) {
+        throw new Error("declaration() must be the first node.");
+      }
+      node = new XMLDeclaration(this, version, encoding, standalone);
+      this.onData(this.writer.declaration(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.doctype = function(root, pubID, sysID) {
+      this.openCurrent();
+      if (root == null) {
+        throw new Error("Missing root node name.");
+      }
+      if (this.root) {
+        throw new Error("dtd() must come before the root node.");
+      }
+      this.currentNode = new XMLDocType(this, pubID, sysID);
+      this.currentNode.rootNodeName = root;
+      this.currentNode.children = false;
+      this.currentLevel++;
+      this.openTags[this.currentLevel] = this.currentNode;
+      return this;
+    };
+
+    XMLDocumentCB.prototype.dtdElement = function(name, value) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDElement(this, name, value);
+      this.onData(this.writer.dtdElement(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.attList = function(elementName, attributeName, attributeType, defaultValueType, defaultValue) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDAttList(this, elementName, attributeName, attributeType, defaultValueType, defaultValue);
+      this.onData(this.writer.dtdAttList(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.entity = function(name, value) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDEntity(this, false, name, value);
+      this.onData(this.writer.dtdEntity(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.pEntity = function(name, value) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDEntity(this, true, name, value);
+      this.onData(this.writer.dtdEntity(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.notation = function(name, value) {
+      var node;
+      this.openCurrent();
+      node = new XMLDTDNotation(this, name, value);
+      this.onData(this.writer.dtdNotation(node, this.currentLevel + 1), this.currentLevel + 1);
+      return this;
+    };
+
+    XMLDocumentCB.prototype.up = function() {
+      if (this.currentLevel < 0) {
+        throw new Error("The document node has no parent.");
+      }
+      if (this.currentNode) {
+        if (this.currentNode.children) {
+          this.closeNode(this.currentNode);
+        } else {
+          this.openNode(this.currentNode);
+        }
+        this.currentNode = null;
+      } else {
+        this.closeNode(this.openTags[this.currentLevel]);
+      }
+      delete this.openTags[this.currentLevel];
+      this.currentLevel--;
+      return this;
+    };
+
+    XMLDocumentCB.prototype.end = function() {
+      while (this.currentLevel >= 0) {
+        this.up();
+      }
+      return this.onEnd();
+    };
+
+    XMLDocumentCB.prototype.openCurrent = function() {
+      if (this.currentNode) {
+        this.currentNode.children = true;
+        return this.openNode(this.currentNode);
+      }
+    };
+
+    XMLDocumentCB.prototype.openNode = function(node) {
+      if (!node.isOpen) {
+        if (!this.root && this.currentLevel === 0 && node instanceof XMLElement) {
+          this.root = node;
+        }
+        this.onData(this.writer.openNode(node, this.currentLevel), this.currentLevel);
+        return node.isOpen = true;
+      }
+    };
+
+    XMLDocumentCB.prototype.closeNode = function(node) {
+      if (!node.isClosed) {
+        this.onData(this.writer.closeNode(node, this.currentLevel), this.currentLevel);
+        return node.isClosed = true;
+      }
+    };
+
+    XMLDocumentCB.prototype.onData = function(chunk, level) {
+      this.documentStarted = true;
+      return this.onDataCallback(chunk, level + 1);
+    };
+
+    XMLDocumentCB.prototype.onEnd = function() {
+      this.documentCompleted = true;
+      return this.onEndCallback();
+    };
+
+    XMLDocumentCB.prototype.debugInfo = function(name) {
+      if (name == null) {
+        return "";
+      } else {
+        return "node: <" + name + ">";
+      }
+    };
+
+    XMLDocumentCB.prototype.ele = function() {
+      return this.element.apply(this, arguments);
+    };
+
+    XMLDocumentCB.prototype.nod = function(name, attributes, text) {
+      return this.node(name, attributes, text);
+    };
+
+    XMLDocumentCB.prototype.txt = function(value) {
+      return this.text(value);
+    };
+
+    XMLDocumentCB.prototype.dat = function(value) {
+      return this.cdata(value);
+    };
+
+    XMLDocumentCB.prototype.com = function(value) {
+      return this.comment(value);
+    };
+
+    XMLDocumentCB.prototype.ins = function(target, value) {
+      return this.instruction(target, value);
+    };
+
+    XMLDocumentCB.prototype.dec = function(version, encoding, standalone) {
+      return this.declaration(version, encoding, standalone);
+    };
+
+    XMLDocumentCB.prototype.dtd = function(root, pubID, sysID) {
+      return this.doctype(root, pubID, sysID);
+    };
+
+    XMLDocumentCB.prototype.e = function(name, attributes, text) {
+      return this.element(name, attributes, text);
+    };
+
+    XMLDocumentCB.prototype.n = function(name, attributes, text) {
+      return this.node(name, attributes, text);
+    };
+
+    XMLDocumentCB.prototype.t = function(value) {
+      return this.text(value);
+    };
+
+    XMLDocumentCB.prototype.d = function(value) {
+      return this.cdata(value);
+    };
+
+    XMLDocumentCB.prototype.c = function(value) {
+      return this.comment(value);
+    };
+
+    XMLDocumentCB.prototype.r = function(value) {
+      return this.raw(value);
+    };
+
+    XMLDocumentCB.prototype.i = function(target, value) {
+      return this.instruction(target, value);
+    };
+
+    XMLDocumentCB.prototype.att = function() {
+      if (this.currentNode && this.currentNode instanceof XMLDocType) {
+        return this.attList.apply(this, arguments);
+      } else {
+        return this.attribute.apply(this, arguments);
+      }
+    };
+
+    XMLDocumentCB.prototype.a = function() {
+      if (this.currentNode && this.currentNode instanceof XMLDocType) {
+        return this.attList.apply(this, arguments);
+      } else {
+        return this.attribute.apply(this, arguments);
+      }
+    };
+
+    XMLDocumentCB.prototype.ent = function(name, value) {
+      return this.entity(name, value);
+    };
+
+    XMLDocumentCB.prototype.pent = function(name, value) {
+      return this.pEntity(name, value);
+    };
+
+    XMLDocumentCB.prototype.not = function(name, value) {
+      return this.notation(name, value);
+    };
+
+    return XMLDocumentCB;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLElement.js":
+/*!****************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLElement.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLAttribute, XMLElement, XMLNode, getValue, isFunction, isObject, ref,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  ref = __webpack_require__(/*! ./Utility */ "../node_modules/xmlbuilder/lib/Utility.js"), isObject = ref.isObject, isFunction = ref.isFunction, getValue = ref.getValue;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  XMLAttribute = __webpack_require__(/*! ./XMLAttribute */ "../node_modules/xmlbuilder/lib/XMLAttribute.js");
+
+  module.exports = XMLElement = (function(superClass) {
+    extend(XMLElement, superClass);
+
+    function XMLElement(parent, name, attributes) {
+      XMLElement.__super__.constructor.call(this, parent);
+      if (name == null) {
+        throw new Error("Missing element name. " + this.debugInfo());
+      }
+      this.name = this.stringify.eleName(name);
+      this.attributes = {};
+      if (attributes != null) {
+        this.attribute(attributes);
+      }
+      if (parent.isDocument) {
+        this.isRoot = true;
+        this.documentObject = parent;
+        parent.rootObject = this;
+      }
+    }
+
+    XMLElement.prototype.clone = function() {
+      var att, attName, clonedSelf, ref1;
+      clonedSelf = Object.create(this);
+      if (clonedSelf.isRoot) {
+        clonedSelf.documentObject = null;
+      }
+      clonedSelf.attributes = {};
+      ref1 = this.attributes;
+      for (attName in ref1) {
+        if (!hasProp.call(ref1, attName)) continue;
+        att = ref1[attName];
+        clonedSelf.attributes[attName] = att.clone();
+      }
+      clonedSelf.children = [];
+      this.children.forEach(function(child) {
+        var clonedChild;
+        clonedChild = child.clone();
+        clonedChild.parent = clonedSelf;
+        return clonedSelf.children.push(clonedChild);
+      });
+      return clonedSelf;
+    };
+
+    XMLElement.prototype.attribute = function(name, value) {
+      var attName, attValue;
+      if (name != null) {
+        name = getValue(name);
+      }
+      if (isObject(name)) {
+        for (attName in name) {
+          if (!hasProp.call(name, attName)) continue;
+          attValue = name[attName];
+          this.attribute(attName, attValue);
+        }
+      } else {
+        if (isFunction(value)) {
+          value = value.apply();
+        }
+        if (!this.options.skipNullAttributes || (value != null)) {
+          this.attributes[name] = new XMLAttribute(this, name, value);
+        }
+      }
+      return this;
+    };
+
+    XMLElement.prototype.removeAttribute = function(name) {
+      var attName, i, len;
+      if (name == null) {
+        throw new Error("Missing attribute name. " + this.debugInfo());
+      }
+      name = getValue(name);
+      if (Array.isArray(name)) {
+        for (i = 0, len = name.length; i < len; i++) {
+          attName = name[i];
+          delete this.attributes[attName];
+        }
+      } else {
+        delete this.attributes[name];
+      }
+      return this;
+    };
+
+    XMLElement.prototype.toString = function(options) {
+      return this.options.writer.set(options).element(this);
+    };
+
+    XMLElement.prototype.att = function(name, value) {
+      return this.attribute(name, value);
+    };
+
+    XMLElement.prototype.a = function(name, value) {
+      return this.attribute(name, value);
+    };
+
+    return XMLElement;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLNode.js":
+/*!*************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLNode.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLCData, XMLComment, XMLDeclaration, XMLDocType, XMLElement, XMLNode, XMLProcessingInstruction, XMLRaw, XMLText, getValue, isEmpty, isFunction, isObject, ref,
+    hasProp = {}.hasOwnProperty;
+
+  ref = __webpack_require__(/*! ./Utility */ "../node_modules/xmlbuilder/lib/Utility.js"), isObject = ref.isObject, isFunction = ref.isFunction, isEmpty = ref.isEmpty, getValue = ref.getValue;
+
+  XMLElement = null;
+
+  XMLCData = null;
+
+  XMLComment = null;
+
+  XMLDeclaration = null;
+
+  XMLDocType = null;
+
+  XMLRaw = null;
+
+  XMLText = null;
+
+  XMLProcessingInstruction = null;
+
+  module.exports = XMLNode = (function() {
+    function XMLNode(parent) {
+      this.parent = parent;
+      if (this.parent) {
+        this.options = this.parent.options;
+        this.stringify = this.parent.stringify;
+      }
+      this.children = [];
+      if (!XMLElement) {
+        XMLElement = __webpack_require__(/*! ./XMLElement */ "../node_modules/xmlbuilder/lib/XMLElement.js");
+        XMLCData = __webpack_require__(/*! ./XMLCData */ "../node_modules/xmlbuilder/lib/XMLCData.js");
+        XMLComment = __webpack_require__(/*! ./XMLComment */ "../node_modules/xmlbuilder/lib/XMLComment.js");
+        XMLDeclaration = __webpack_require__(/*! ./XMLDeclaration */ "../node_modules/xmlbuilder/lib/XMLDeclaration.js");
+        XMLDocType = __webpack_require__(/*! ./XMLDocType */ "../node_modules/xmlbuilder/lib/XMLDocType.js");
+        XMLRaw = __webpack_require__(/*! ./XMLRaw */ "../node_modules/xmlbuilder/lib/XMLRaw.js");
+        XMLText = __webpack_require__(/*! ./XMLText */ "../node_modules/xmlbuilder/lib/XMLText.js");
+        XMLProcessingInstruction = __webpack_require__(/*! ./XMLProcessingInstruction */ "../node_modules/xmlbuilder/lib/XMLProcessingInstruction.js");
+      }
+    }
+
+    XMLNode.prototype.element = function(name, attributes, text) {
+      var childNode, item, j, k, key, lastChild, len, len1, ref1, val;
+      lastChild = null;
+      if (attributes == null) {
+        attributes = {};
+      }
+      attributes = getValue(attributes);
+      if (!isObject(attributes)) {
+        ref1 = [attributes, text], text = ref1[0], attributes = ref1[1];
+      }
+      if (name != null) {
+        name = getValue(name);
+      }
+      if (Array.isArray(name)) {
+        for (j = 0, len = name.length; j < len; j++) {
+          item = name[j];
+          lastChild = this.element(item);
+        }
+      } else if (isFunction(name)) {
+        lastChild = this.element(name.apply());
+      } else if (isObject(name)) {
+        for (key in name) {
+          if (!hasProp.call(name, key)) continue;
+          val = name[key];
+          if (isFunction(val)) {
+            val = val.apply();
+          }
+          if ((isObject(val)) && (isEmpty(val))) {
+            val = null;
+          }
+          if (!this.options.ignoreDecorators && this.stringify.convertAttKey && key.indexOf(this.stringify.convertAttKey) === 0) {
+            lastChild = this.attribute(key.substr(this.stringify.convertAttKey.length), val);
+          } else if (!this.options.separateArrayItems && Array.isArray(val)) {
+            for (k = 0, len1 = val.length; k < len1; k++) {
+              item = val[k];
+              childNode = {};
+              childNode[key] = item;
+              lastChild = this.element(childNode);
+            }
+          } else if (isObject(val)) {
+            lastChild = this.element(key);
+            lastChild.element(val);
+          } else {
+            lastChild = this.element(key, val);
+          }
+        }
+      } else {
+        if (!this.options.ignoreDecorators && this.stringify.convertTextKey && name.indexOf(this.stringify.convertTextKey) === 0) {
+          lastChild = this.text(text);
+        } else if (!this.options.ignoreDecorators && this.stringify.convertCDataKey && name.indexOf(this.stringify.convertCDataKey) === 0) {
+          lastChild = this.cdata(text);
+        } else if (!this.options.ignoreDecorators && this.stringify.convertCommentKey && name.indexOf(this.stringify.convertCommentKey) === 0) {
+          lastChild = this.comment(text);
+        } else if (!this.options.ignoreDecorators && this.stringify.convertRawKey && name.indexOf(this.stringify.convertRawKey) === 0) {
+          lastChild = this.raw(text);
+        } else if (!this.options.ignoreDecorators && this.stringify.convertPIKey && name.indexOf(this.stringify.convertPIKey) === 0) {
+          lastChild = this.instruction(name.substr(this.stringify.convertPIKey.length), text);
+        } else {
+          lastChild = this.node(name, attributes, text);
+        }
+      }
+      if (lastChild == null) {
+        throw new Error("Could not create any elements with: " + name + ". " + this.debugInfo());
+      }
+      return lastChild;
+    };
+
+    XMLNode.prototype.insertBefore = function(name, attributes, text) {
+      var child, i, removed;
+      if (this.isRoot) {
+        throw new Error("Cannot insert elements at root level. " + this.debugInfo(name));
+      }
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i);
+      child = this.parent.element(name, attributes, text);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return child;
+    };
+
+    XMLNode.prototype.insertAfter = function(name, attributes, text) {
+      var child, i, removed;
+      if (this.isRoot) {
+        throw new Error("Cannot insert elements at root level. " + this.debugInfo(name));
+      }
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i + 1);
+      child = this.parent.element(name, attributes, text);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return child;
+    };
+
+    XMLNode.prototype.remove = function() {
+      var i, ref1;
+      if (this.isRoot) {
+        throw new Error("Cannot remove the root element. " + this.debugInfo());
+      }
+      i = this.parent.children.indexOf(this);
+      [].splice.apply(this.parent.children, [i, i - i + 1].concat(ref1 = [])), ref1;
+      return this.parent;
+    };
+
+    XMLNode.prototype.node = function(name, attributes, text) {
+      var child, ref1;
+      if (name != null) {
+        name = getValue(name);
+      }
+      attributes || (attributes = {});
+      attributes = getValue(attributes);
+      if (!isObject(attributes)) {
+        ref1 = [attributes, text], text = ref1[0], attributes = ref1[1];
+      }
+      child = new XMLElement(this, name, attributes);
+      if (text != null) {
+        child.text(text);
+      }
+      this.children.push(child);
+      return child;
+    };
+
+    XMLNode.prototype.text = function(value) {
+      var child;
+      child = new XMLText(this, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLNode.prototype.cdata = function(value) {
+      var child;
+      child = new XMLCData(this, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLNode.prototype.comment = function(value) {
+      var child;
+      child = new XMLComment(this, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLNode.prototype.commentBefore = function(value) {
+      var child, i, removed;
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i);
+      child = this.parent.comment(value);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return this;
+    };
+
+    XMLNode.prototype.commentAfter = function(value) {
+      var child, i, removed;
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i + 1);
+      child = this.parent.comment(value);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return this;
+    };
+
+    XMLNode.prototype.raw = function(value) {
+      var child;
+      child = new XMLRaw(this, value);
+      this.children.push(child);
+      return this;
+    };
+
+    XMLNode.prototype.instruction = function(target, value) {
+      var insTarget, insValue, instruction, j, len;
+      if (target != null) {
+        target = getValue(target);
+      }
+      if (value != null) {
+        value = getValue(value);
+      }
+      if (Array.isArray(target)) {
+        for (j = 0, len = target.length; j < len; j++) {
+          insTarget = target[j];
+          this.instruction(insTarget);
+        }
+      } else if (isObject(target)) {
+        for (insTarget in target) {
+          if (!hasProp.call(target, insTarget)) continue;
+          insValue = target[insTarget];
+          this.instruction(insTarget, insValue);
+        }
+      } else {
+        if (isFunction(value)) {
+          value = value.apply();
+        }
+        instruction = new XMLProcessingInstruction(this, target, value);
+        this.children.push(instruction);
+      }
+      return this;
+    };
+
+    XMLNode.prototype.instructionBefore = function(target, value) {
+      var child, i, removed;
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i);
+      child = this.parent.instruction(target, value);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return this;
+    };
+
+    XMLNode.prototype.instructionAfter = function(target, value) {
+      var child, i, removed;
+      i = this.parent.children.indexOf(this);
+      removed = this.parent.children.splice(i + 1);
+      child = this.parent.instruction(target, value);
+      Array.prototype.push.apply(this.parent.children, removed);
+      return this;
+    };
+
+    XMLNode.prototype.declaration = function(version, encoding, standalone) {
+      var doc, xmldec;
+      doc = this.document();
+      xmldec = new XMLDeclaration(doc, version, encoding, standalone);
+      if (doc.children[0] instanceof XMLDeclaration) {
+        doc.children[0] = xmldec;
+      } else {
+        doc.children.unshift(xmldec);
+      }
+      return doc.root() || doc;
+    };
+
+    XMLNode.prototype.doctype = function(pubID, sysID) {
+      var child, doc, doctype, i, j, k, len, len1, ref1, ref2;
+      doc = this.document();
+      doctype = new XMLDocType(doc, pubID, sysID);
+      ref1 = doc.children;
+      for (i = j = 0, len = ref1.length; j < len; i = ++j) {
+        child = ref1[i];
+        if (child instanceof XMLDocType) {
+          doc.children[i] = doctype;
+          return doctype;
+        }
+      }
+      ref2 = doc.children;
+      for (i = k = 0, len1 = ref2.length; k < len1; i = ++k) {
+        child = ref2[i];
+        if (child.isRoot) {
+          doc.children.splice(i, 0, doctype);
+          return doctype;
+        }
+      }
+      doc.children.push(doctype);
+      return doctype;
+    };
+
+    XMLNode.prototype.up = function() {
+      if (this.isRoot) {
+        throw new Error("The root node has no parent. Use doc() if you need to get the document object.");
+      }
+      return this.parent;
+    };
+
+    XMLNode.prototype.root = function() {
+      var node;
+      node = this;
+      while (node) {
+        if (node.isDocument) {
+          return node.rootObject;
+        } else if (node.isRoot) {
+          return node;
+        } else {
+          node = node.parent;
+        }
+      }
+    };
+
+    XMLNode.prototype.document = function() {
+      var node;
+      node = this;
+      while (node) {
+        if (node.isDocument) {
+          return node;
+        } else {
+          node = node.parent;
+        }
+      }
+    };
+
+    XMLNode.prototype.end = function(options) {
+      return this.document().end(options);
+    };
+
+    XMLNode.prototype.prev = function() {
+      var i;
+      i = this.parent.children.indexOf(this);
+      if (i < 1) {
+        throw new Error("Already at the first node. " + this.debugInfo());
+      }
+      return this.parent.children[i - 1];
+    };
+
+    XMLNode.prototype.next = function() {
+      var i;
+      i = this.parent.children.indexOf(this);
+      if (i === -1 || i === this.parent.children.length - 1) {
+        throw new Error("Already at the last node. " + this.debugInfo());
+      }
+      return this.parent.children[i + 1];
+    };
+
+    XMLNode.prototype.importDocument = function(doc) {
+      var clonedRoot;
+      clonedRoot = doc.root().clone();
+      clonedRoot.parent = this;
+      clonedRoot.isRoot = false;
+      this.children.push(clonedRoot);
+      return this;
+    };
+
+    XMLNode.prototype.debugInfo = function(name) {
+      var ref1, ref2;
+      name = name || this.name;
+      if ((name == null) && !((ref1 = this.parent) != null ? ref1.name : void 0)) {
+        return "";
+      } else if (name == null) {
+        return "parent: <" + this.parent.name + ">";
+      } else if (!((ref2 = this.parent) != null ? ref2.name : void 0)) {
+        return "node: <" + name + ">";
+      } else {
+        return "node: <" + name + ">, parent: <" + this.parent.name + ">";
+      }
+    };
+
+    XMLNode.prototype.ele = function(name, attributes, text) {
+      return this.element(name, attributes, text);
+    };
+
+    XMLNode.prototype.nod = function(name, attributes, text) {
+      return this.node(name, attributes, text);
+    };
+
+    XMLNode.prototype.txt = function(value) {
+      return this.text(value);
+    };
+
+    XMLNode.prototype.dat = function(value) {
+      return this.cdata(value);
+    };
+
+    XMLNode.prototype.com = function(value) {
+      return this.comment(value);
+    };
+
+    XMLNode.prototype.ins = function(target, value) {
+      return this.instruction(target, value);
+    };
+
+    XMLNode.prototype.doc = function() {
+      return this.document();
+    };
+
+    XMLNode.prototype.dec = function(version, encoding, standalone) {
+      return this.declaration(version, encoding, standalone);
+    };
+
+    XMLNode.prototype.dtd = function(pubID, sysID) {
+      return this.doctype(pubID, sysID);
+    };
+
+    XMLNode.prototype.e = function(name, attributes, text) {
+      return this.element(name, attributes, text);
+    };
+
+    XMLNode.prototype.n = function(name, attributes, text) {
+      return this.node(name, attributes, text);
+    };
+
+    XMLNode.prototype.t = function(value) {
+      return this.text(value);
+    };
+
+    XMLNode.prototype.d = function(value) {
+      return this.cdata(value);
+    };
+
+    XMLNode.prototype.c = function(value) {
+      return this.comment(value);
+    };
+
+    XMLNode.prototype.r = function(value) {
+      return this.raw(value);
+    };
+
+    XMLNode.prototype.i = function(target, value) {
+      return this.instruction(target, value);
+    };
+
+    XMLNode.prototype.u = function() {
+      return this.up();
+    };
+
+    XMLNode.prototype.importXMLBuilder = function(doc) {
+      return this.importDocument(doc);
+    };
+
+    return XMLNode;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLProcessingInstruction.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLProcessingInstruction.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLNode, XMLProcessingInstruction,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLProcessingInstruction = (function(superClass) {
+    extend(XMLProcessingInstruction, superClass);
+
+    function XMLProcessingInstruction(parent, target, value) {
+      XMLProcessingInstruction.__super__.constructor.call(this, parent);
+      if (target == null) {
+        throw new Error("Missing instruction target. " + this.debugInfo());
+      }
+      this.target = this.stringify.insTarget(target);
+      if (value) {
+        this.value = this.stringify.insValue(value);
+      }
+    }
+
+    XMLProcessingInstruction.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLProcessingInstruction.prototype.toString = function(options) {
+      return this.options.writer.set(options).processingInstruction(this);
+    };
+
+    return XMLProcessingInstruction;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLRaw.js":
+/*!************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLRaw.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLNode, XMLRaw,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLRaw = (function(superClass) {
+    extend(XMLRaw, superClass);
+
+    function XMLRaw(parent, text) {
+      XMLRaw.__super__.constructor.call(this, parent);
+      if (text == null) {
+        throw new Error("Missing raw text. " + this.debugInfo());
+      }
+      this.value = this.stringify.raw(text);
+    }
+
+    XMLRaw.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLRaw.prototype.toString = function(options) {
+      return this.options.writer.set(options).raw(this);
+    };
+
+    return XMLRaw;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLStreamWriter.js":
+/*!*********************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLStreamWriter.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLCData, XMLComment, XMLDTDAttList, XMLDTDElement, XMLDTDEntity, XMLDTDNotation, XMLDeclaration, XMLDocType, XMLElement, XMLProcessingInstruction, XMLRaw, XMLStreamWriter, XMLText, XMLWriterBase,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLDeclaration = __webpack_require__(/*! ./XMLDeclaration */ "../node_modules/xmlbuilder/lib/XMLDeclaration.js");
+
+  XMLDocType = __webpack_require__(/*! ./XMLDocType */ "../node_modules/xmlbuilder/lib/XMLDocType.js");
+
+  XMLCData = __webpack_require__(/*! ./XMLCData */ "../node_modules/xmlbuilder/lib/XMLCData.js");
+
+  XMLComment = __webpack_require__(/*! ./XMLComment */ "../node_modules/xmlbuilder/lib/XMLComment.js");
+
+  XMLElement = __webpack_require__(/*! ./XMLElement */ "../node_modules/xmlbuilder/lib/XMLElement.js");
+
+  XMLRaw = __webpack_require__(/*! ./XMLRaw */ "../node_modules/xmlbuilder/lib/XMLRaw.js");
+
+  XMLText = __webpack_require__(/*! ./XMLText */ "../node_modules/xmlbuilder/lib/XMLText.js");
+
+  XMLProcessingInstruction = __webpack_require__(/*! ./XMLProcessingInstruction */ "../node_modules/xmlbuilder/lib/XMLProcessingInstruction.js");
+
+  XMLDTDAttList = __webpack_require__(/*! ./XMLDTDAttList */ "../node_modules/xmlbuilder/lib/XMLDTDAttList.js");
+
+  XMLDTDElement = __webpack_require__(/*! ./XMLDTDElement */ "../node_modules/xmlbuilder/lib/XMLDTDElement.js");
+
+  XMLDTDEntity = __webpack_require__(/*! ./XMLDTDEntity */ "../node_modules/xmlbuilder/lib/XMLDTDEntity.js");
+
+  XMLDTDNotation = __webpack_require__(/*! ./XMLDTDNotation */ "../node_modules/xmlbuilder/lib/XMLDTDNotation.js");
+
+  XMLWriterBase = __webpack_require__(/*! ./XMLWriterBase */ "../node_modules/xmlbuilder/lib/XMLWriterBase.js");
+
+  module.exports = XMLStreamWriter = (function(superClass) {
+    extend(XMLStreamWriter, superClass);
+
+    function XMLStreamWriter(stream, options) {
+      XMLStreamWriter.__super__.constructor.call(this, options);
+      this.stream = stream;
+    }
+
+    XMLStreamWriter.prototype.document = function(doc) {
+      var child, i, j, len, len1, ref, ref1, results;
+      ref = doc.children;
+      for (i = 0, len = ref.length; i < len; i++) {
+        child = ref[i];
+        child.isLastRootNode = false;
+      }
+      doc.children[doc.children.length - 1].isLastRootNode = true;
+      ref1 = doc.children;
+      results = [];
+      for (j = 0, len1 = ref1.length; j < len1; j++) {
+        child = ref1[j];
+        switch (false) {
+          case !(child instanceof XMLDeclaration):
+            results.push(this.declaration(child));
+            break;
+          case !(child instanceof XMLDocType):
+            results.push(this.docType(child));
+            break;
+          case !(child instanceof XMLComment):
+            results.push(this.comment(child));
+            break;
+          case !(child instanceof XMLProcessingInstruction):
+            results.push(this.processingInstruction(child));
+            break;
+          default:
+            results.push(this.element(child));
+        }
+      }
+      return results;
+    };
+
+    XMLStreamWriter.prototype.attribute = function(att) {
+      return this.stream.write(' ' + att.name + '="' + att.value + '"');
+    };
+
+    XMLStreamWriter.prototype.cdata = function(node, level) {
+      return this.stream.write(this.space(level) + '<![CDATA[' + node.text + ']]>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.comment = function(node, level) {
+      return this.stream.write(this.space(level) + '<!-- ' + node.text + ' -->' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.declaration = function(node, level) {
+      this.stream.write(this.space(level));
+      this.stream.write('<?xml version="' + node.version + '"');
+      if (node.encoding != null) {
+        this.stream.write(' encoding="' + node.encoding + '"');
+      }
+      if (node.standalone != null) {
+        this.stream.write(' standalone="' + node.standalone + '"');
+      }
+      this.stream.write(this.spacebeforeslash + '?>');
+      return this.stream.write(this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.docType = function(node, level) {
+      var child, i, len, ref;
+      level || (level = 0);
+      this.stream.write(this.space(level));
+      this.stream.write('<!DOCTYPE ' + node.root().name);
+      if (node.pubID && node.sysID) {
+        this.stream.write(' PUBLIC "' + node.pubID + '" "' + node.sysID + '"');
+      } else if (node.sysID) {
+        this.stream.write(' SYSTEM "' + node.sysID + '"');
+      }
+      if (node.children.length > 0) {
+        this.stream.write(' [');
+        this.stream.write(this.endline(node));
+        ref = node.children;
+        for (i = 0, len = ref.length; i < len; i++) {
+          child = ref[i];
+          switch (false) {
+            case !(child instanceof XMLDTDAttList):
+              this.dtdAttList(child, level + 1);
+              break;
+            case !(child instanceof XMLDTDElement):
+              this.dtdElement(child, level + 1);
+              break;
+            case !(child instanceof XMLDTDEntity):
+              this.dtdEntity(child, level + 1);
+              break;
+            case !(child instanceof XMLDTDNotation):
+              this.dtdNotation(child, level + 1);
+              break;
+            case !(child instanceof XMLCData):
+              this.cdata(child, level + 1);
+              break;
+            case !(child instanceof XMLComment):
+              this.comment(child, level + 1);
+              break;
+            case !(child instanceof XMLProcessingInstruction):
+              this.processingInstruction(child, level + 1);
+              break;
+            default:
+              throw new Error("Unknown DTD node type: " + child.constructor.name);
+          }
+        }
+        this.stream.write(']');
+      }
+      this.stream.write(this.spacebeforeslash + '>');
+      return this.stream.write(this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.element = function(node, level) {
+      var att, child, i, len, name, ref, ref1, space;
+      level || (level = 0);
+      space = this.space(level);
+      this.stream.write(space + '<' + node.name);
+      ref = node.attributes;
+      for (name in ref) {
+        if (!hasProp.call(ref, name)) continue;
+        att = ref[name];
+        this.attribute(att);
+      }
+      if (node.children.length === 0 || node.children.every(function(e) {
+        return e.value === '';
+      })) {
+        if (this.allowEmpty) {
+          this.stream.write('></' + node.name + '>');
+        } else {
+          this.stream.write(this.spacebeforeslash + '/>');
+        }
+      } else if (this.pretty && node.children.length === 1 && (node.children[0].value != null)) {
+        this.stream.write('>');
+        this.stream.write(node.children[0].value);
+        this.stream.write('</' + node.name + '>');
+      } else {
+        this.stream.write('>' + this.newline);
+        ref1 = node.children;
+        for (i = 0, len = ref1.length; i < len; i++) {
+          child = ref1[i];
+          switch (false) {
+            case !(child instanceof XMLCData):
+              this.cdata(child, level + 1);
+              break;
+            case !(child instanceof XMLComment):
+              this.comment(child, level + 1);
+              break;
+            case !(child instanceof XMLElement):
+              this.element(child, level + 1);
+              break;
+            case !(child instanceof XMLRaw):
+              this.raw(child, level + 1);
+              break;
+            case !(child instanceof XMLText):
+              this.text(child, level + 1);
+              break;
+            case !(child instanceof XMLProcessingInstruction):
+              this.processingInstruction(child, level + 1);
+              break;
+            default:
+              throw new Error("Unknown XML node type: " + child.constructor.name);
+          }
+        }
+        this.stream.write(space + '</' + node.name + '>');
+      }
+      return this.stream.write(this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.processingInstruction = function(node, level) {
+      this.stream.write(this.space(level) + '<?' + node.target);
+      if (node.value) {
+        this.stream.write(' ' + node.value);
+      }
+      return this.stream.write(this.spacebeforeslash + '?>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.raw = function(node, level) {
+      return this.stream.write(this.space(level) + node.value + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.text = function(node, level) {
+      return this.stream.write(this.space(level) + node.value + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.dtdAttList = function(node, level) {
+      this.stream.write(this.space(level) + '<!ATTLIST ' + node.elementName + ' ' + node.attributeName + ' ' + node.attributeType);
+      if (node.defaultValueType !== '#DEFAULT') {
+        this.stream.write(' ' + node.defaultValueType);
+      }
+      if (node.defaultValue) {
+        this.stream.write(' "' + node.defaultValue + '"');
+      }
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.dtdElement = function(node, level) {
+      this.stream.write(this.space(level) + '<!ELEMENT ' + node.name + ' ' + node.value);
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.dtdEntity = function(node, level) {
+      this.stream.write(this.space(level) + '<!ENTITY');
+      if (node.pe) {
+        this.stream.write(' %');
+      }
+      this.stream.write(' ' + node.name);
+      if (node.value) {
+        this.stream.write(' "' + node.value + '"');
+      } else {
+        if (node.pubID && node.sysID) {
+          this.stream.write(' PUBLIC "' + node.pubID + '" "' + node.sysID + '"');
+        } else if (node.sysID) {
+          this.stream.write(' SYSTEM "' + node.sysID + '"');
+        }
+        if (node.nData) {
+          this.stream.write(' NDATA ' + node.nData);
+        }
+      }
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.dtdNotation = function(node, level) {
+      this.stream.write(this.space(level) + '<!NOTATION ' + node.name);
+      if (node.pubID && node.sysID) {
+        this.stream.write(' PUBLIC "' + node.pubID + '" "' + node.sysID + '"');
+      } else if (node.pubID) {
+        this.stream.write(' PUBLIC "' + node.pubID + '"');
+      } else if (node.sysID) {
+        this.stream.write(' SYSTEM "' + node.sysID + '"');
+      }
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
+    };
+
+    XMLStreamWriter.prototype.endline = function(node) {
+      if (!node.isLastRootNode) {
+        return this.newline;
+      } else {
+        return '';
+      }
+    };
+
+    return XMLStreamWriter;
+
+  })(XMLWriterBase);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLStringWriter.js":
+/*!*********************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLStringWriter.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLCData, XMLComment, XMLDTDAttList, XMLDTDElement, XMLDTDEntity, XMLDTDNotation, XMLDeclaration, XMLDocType, XMLElement, XMLProcessingInstruction, XMLRaw, XMLStringWriter, XMLText, XMLWriterBase,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLDeclaration = __webpack_require__(/*! ./XMLDeclaration */ "../node_modules/xmlbuilder/lib/XMLDeclaration.js");
+
+  XMLDocType = __webpack_require__(/*! ./XMLDocType */ "../node_modules/xmlbuilder/lib/XMLDocType.js");
+
+  XMLCData = __webpack_require__(/*! ./XMLCData */ "../node_modules/xmlbuilder/lib/XMLCData.js");
+
+  XMLComment = __webpack_require__(/*! ./XMLComment */ "../node_modules/xmlbuilder/lib/XMLComment.js");
+
+  XMLElement = __webpack_require__(/*! ./XMLElement */ "../node_modules/xmlbuilder/lib/XMLElement.js");
+
+  XMLRaw = __webpack_require__(/*! ./XMLRaw */ "../node_modules/xmlbuilder/lib/XMLRaw.js");
+
+  XMLText = __webpack_require__(/*! ./XMLText */ "../node_modules/xmlbuilder/lib/XMLText.js");
+
+  XMLProcessingInstruction = __webpack_require__(/*! ./XMLProcessingInstruction */ "../node_modules/xmlbuilder/lib/XMLProcessingInstruction.js");
+
+  XMLDTDAttList = __webpack_require__(/*! ./XMLDTDAttList */ "../node_modules/xmlbuilder/lib/XMLDTDAttList.js");
+
+  XMLDTDElement = __webpack_require__(/*! ./XMLDTDElement */ "../node_modules/xmlbuilder/lib/XMLDTDElement.js");
+
+  XMLDTDEntity = __webpack_require__(/*! ./XMLDTDEntity */ "../node_modules/xmlbuilder/lib/XMLDTDEntity.js");
+
+  XMLDTDNotation = __webpack_require__(/*! ./XMLDTDNotation */ "../node_modules/xmlbuilder/lib/XMLDTDNotation.js");
+
+  XMLWriterBase = __webpack_require__(/*! ./XMLWriterBase */ "../node_modules/xmlbuilder/lib/XMLWriterBase.js");
+
+  module.exports = XMLStringWriter = (function(superClass) {
+    extend(XMLStringWriter, superClass);
+
+    function XMLStringWriter(options) {
+      XMLStringWriter.__super__.constructor.call(this, options);
+    }
+
+    XMLStringWriter.prototype.document = function(doc) {
+      var child, i, len, r, ref;
+      this.textispresent = false;
+      r = '';
+      ref = doc.children;
+      for (i = 0, len = ref.length; i < len; i++) {
+        child = ref[i];
+        r += (function() {
+          switch (false) {
+            case !(child instanceof XMLDeclaration):
+              return this.declaration(child);
+            case !(child instanceof XMLDocType):
+              return this.docType(child);
+            case !(child instanceof XMLComment):
+              return this.comment(child);
+            case !(child instanceof XMLProcessingInstruction):
+              return this.processingInstruction(child);
+            default:
+              return this.element(child, 0);
+          }
+        }).call(this);
+      }
+      if (this.pretty && r.slice(-this.newline.length) === this.newline) {
+        r = r.slice(0, -this.newline.length);
+      }
+      return r;
+    };
+
+    XMLStringWriter.prototype.attribute = function(att) {
+      return ' ' + att.name + '="' + att.value + '"';
+    };
+
+    XMLStringWriter.prototype.cdata = function(node, level) {
+      return this.space(level) + '<![CDATA[' + node.text + ']]>' + this.newline;
+    };
+
+    XMLStringWriter.prototype.comment = function(node, level) {
+      return this.space(level) + '<!-- ' + node.text + ' -->' + this.newline;
+    };
+
+    XMLStringWriter.prototype.declaration = function(node, level) {
+      var r;
+      r = this.space(level);
+      r += '<?xml version="' + node.version + '"';
+      if (node.encoding != null) {
+        r += ' encoding="' + node.encoding + '"';
+      }
+      if (node.standalone != null) {
+        r += ' standalone="' + node.standalone + '"';
+      }
+      r += this.spacebeforeslash + '?>';
+      r += this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.docType = function(node, level) {
+      var child, i, len, r, ref;
+      level || (level = 0);
+      r = this.space(level);
+      r += '<!DOCTYPE ' + node.root().name;
+      if (node.pubID && node.sysID) {
+        r += ' PUBLIC "' + node.pubID + '" "' + node.sysID + '"';
+      } else if (node.sysID) {
+        r += ' SYSTEM "' + node.sysID + '"';
+      }
+      if (node.children.length > 0) {
+        r += ' [';
+        r += this.newline;
+        ref = node.children;
+        for (i = 0, len = ref.length; i < len; i++) {
+          child = ref[i];
+          r += (function() {
+            switch (false) {
+              case !(child instanceof XMLDTDAttList):
+                return this.dtdAttList(child, level + 1);
+              case !(child instanceof XMLDTDElement):
+                return this.dtdElement(child, level + 1);
+              case !(child instanceof XMLDTDEntity):
+                return this.dtdEntity(child, level + 1);
+              case !(child instanceof XMLDTDNotation):
+                return this.dtdNotation(child, level + 1);
+              case !(child instanceof XMLCData):
+                return this.cdata(child, level + 1);
+              case !(child instanceof XMLComment):
+                return this.comment(child, level + 1);
+              case !(child instanceof XMLProcessingInstruction):
+                return this.processingInstruction(child, level + 1);
+              default:
+                throw new Error("Unknown DTD node type: " + child.constructor.name);
+            }
+          }).call(this);
+        }
+        r += ']';
+      }
+      r += this.spacebeforeslash + '>';
+      r += this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.element = function(node, level) {
+      var att, child, i, j, len, len1, name, r, ref, ref1, ref2, space, textispresentwasset;
+      level || (level = 0);
+      textispresentwasset = false;
+      if (this.textispresent) {
+        this.newline = '';
+        this.pretty = false;
+      } else {
+        this.newline = this.newlinedefault;
+        this.pretty = this.prettydefault;
+      }
+      space = this.space(level);
+      r = '';
+      r += space + '<' + node.name;
+      ref = node.attributes;
+      for (name in ref) {
+        if (!hasProp.call(ref, name)) continue;
+        att = ref[name];
+        r += this.attribute(att);
+      }
+      if (node.children.length === 0 || node.children.every(function(e) {
+        return e.value === '';
+      })) {
+        if (this.allowEmpty) {
+          r += '></' + node.name + '>' + this.newline;
+        } else {
+          r += this.spacebeforeslash + '/>' + this.newline;
+        }
+      } else if (this.pretty && node.children.length === 1 && (node.children[0].value != null)) {
+        r += '>';
+        r += node.children[0].value;
+        r += '</' + node.name + '>' + this.newline;
+      } else {
+        if (this.dontprettytextnodes) {
+          ref1 = node.children;
+          for (i = 0, len = ref1.length; i < len; i++) {
+            child = ref1[i];
+            if (child.value != null) {
+              this.textispresent++;
+              textispresentwasset = true;
+              break;
+            }
+          }
+        }
+        if (this.textispresent) {
+          this.newline = '';
+          this.pretty = false;
+          space = this.space(level);
+        }
+        r += '>' + this.newline;
+        ref2 = node.children;
+        for (j = 0, len1 = ref2.length; j < len1; j++) {
+          child = ref2[j];
+          r += (function() {
+            switch (false) {
+              case !(child instanceof XMLCData):
+                return this.cdata(child, level + 1);
+              case !(child instanceof XMLComment):
+                return this.comment(child, level + 1);
+              case !(child instanceof XMLElement):
+                return this.element(child, level + 1);
+              case !(child instanceof XMLRaw):
+                return this.raw(child, level + 1);
+              case !(child instanceof XMLText):
+                return this.text(child, level + 1);
+              case !(child instanceof XMLProcessingInstruction):
+                return this.processingInstruction(child, level + 1);
+              default:
+                throw new Error("Unknown XML node type: " + child.constructor.name);
+            }
+          }).call(this);
+        }
+        if (textispresentwasset) {
+          this.textispresent--;
+        }
+        if (!this.textispresent) {
+          this.newline = this.newlinedefault;
+          this.pretty = this.prettydefault;
+        }
+        r += space + '</' + node.name + '>' + this.newline;
+      }
+      return r;
+    };
+
+    XMLStringWriter.prototype.processingInstruction = function(node, level) {
+      var r;
+      r = this.space(level) + '<?' + node.target;
+      if (node.value) {
+        r += ' ' + node.value;
+      }
+      r += this.spacebeforeslash + '?>' + this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.raw = function(node, level) {
+      return this.space(level) + node.value + this.newline;
+    };
+
+    XMLStringWriter.prototype.text = function(node, level) {
+      return this.space(level) + node.value + this.newline;
+    };
+
+    XMLStringWriter.prototype.dtdAttList = function(node, level) {
+      var r;
+      r = this.space(level) + '<!ATTLIST ' + node.elementName + ' ' + node.attributeName + ' ' + node.attributeType;
+      if (node.defaultValueType !== '#DEFAULT') {
+        r += ' ' + node.defaultValueType;
+      }
+      if (node.defaultValue) {
+        r += ' "' + node.defaultValue + '"';
+      }
+      r += this.spacebeforeslash + '>' + this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.dtdElement = function(node, level) {
+      return this.space(level) + '<!ELEMENT ' + node.name + ' ' + node.value + this.spacebeforeslash + '>' + this.newline;
+    };
+
+    XMLStringWriter.prototype.dtdEntity = function(node, level) {
+      var r;
+      r = this.space(level) + '<!ENTITY';
+      if (node.pe) {
+        r += ' %';
+      }
+      r += ' ' + node.name;
+      if (node.value) {
+        r += ' "' + node.value + '"';
+      } else {
+        if (node.pubID && node.sysID) {
+          r += ' PUBLIC "' + node.pubID + '" "' + node.sysID + '"';
+        } else if (node.sysID) {
+          r += ' SYSTEM "' + node.sysID + '"';
+        }
+        if (node.nData) {
+          r += ' NDATA ' + node.nData;
+        }
+      }
+      r += this.spacebeforeslash + '>' + this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.dtdNotation = function(node, level) {
+      var r;
+      r = this.space(level) + '<!NOTATION ' + node.name;
+      if (node.pubID && node.sysID) {
+        r += ' PUBLIC "' + node.pubID + '" "' + node.sysID + '"';
+      } else if (node.pubID) {
+        r += ' PUBLIC "' + node.pubID + '"';
+      } else if (node.sysID) {
+        r += ' SYSTEM "' + node.sysID + '"';
+      }
+      r += this.spacebeforeslash + '>' + this.newline;
+      return r;
+    };
+
+    XMLStringWriter.prototype.openNode = function(node, level) {
+      var att, name, r, ref;
+      level || (level = 0);
+      if (node instanceof XMLElement) {
+        r = this.space(level) + '<' + node.name;
+        ref = node.attributes;
+        for (name in ref) {
+          if (!hasProp.call(ref, name)) continue;
+          att = ref[name];
+          r += this.attribute(att);
+        }
+        r += (node.children ? '>' : '/>') + this.newline;
+        return r;
+      } else {
+        r = this.space(level) + '<!DOCTYPE ' + node.rootNodeName;
+        if (node.pubID && node.sysID) {
+          r += ' PUBLIC "' + node.pubID + '" "' + node.sysID + '"';
+        } else if (node.sysID) {
+          r += ' SYSTEM "' + node.sysID + '"';
+        }
+        r += (node.children ? ' [' : '>') + this.newline;
+        return r;
+      }
+    };
+
+    XMLStringWriter.prototype.closeNode = function(node, level) {
+      level || (level = 0);
+      switch (false) {
+        case !(node instanceof XMLElement):
+          return this.space(level) + '</' + node.name + '>' + this.newline;
+        case !(node instanceof XMLDocType):
+          return this.space(level) + ']>' + this.newline;
+      }
+    };
+
+    return XMLStringWriter;
+
+  })(XMLWriterBase);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLStringifier.js":
+/*!********************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLStringifier.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLStringifier,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    hasProp = {}.hasOwnProperty;
+
+  module.exports = XMLStringifier = (function() {
+    function XMLStringifier(options) {
+      this.assertLegalChar = bind(this.assertLegalChar, this);
+      var key, ref, value;
+      options || (options = {});
+      this.noDoubleEncoding = options.noDoubleEncoding;
+      ref = options.stringify || {};
+      for (key in ref) {
+        if (!hasProp.call(ref, key)) continue;
+        value = ref[key];
+        this[key] = value;
+      }
+    }
+
+    XMLStringifier.prototype.eleName = function(val) {
+      val = '' + val || '';
+      return this.assertLegalChar(val);
+    };
+
+    XMLStringifier.prototype.eleText = function(val) {
+      val = '' + val || '';
+      return this.assertLegalChar(this.elEscape(val));
+    };
+
+    XMLStringifier.prototype.cdata = function(val) {
+      val = '' + val || '';
+      val = val.replace(']]>', ']]]]><![CDATA[>');
+      return this.assertLegalChar(val);
+    };
+
+    XMLStringifier.prototype.comment = function(val) {
+      val = '' + val || '';
+      if (val.match(/--/)) {
+        throw new Error("Comment text cannot contain double-hypen: " + val);
+      }
+      return this.assertLegalChar(val);
+    };
+
+    XMLStringifier.prototype.raw = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.attName = function(val) {
+      return val = '' + val || '';
+    };
+
+    XMLStringifier.prototype.attValue = function(val) {
+      val = '' + val || '';
+      return this.attEscape(val);
+    };
+
+    XMLStringifier.prototype.insTarget = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.insValue = function(val) {
+      val = '' + val || '';
+      if (val.match(/\?>/)) {
+        throw new Error("Invalid processing instruction value: " + val);
+      }
+      return val;
+    };
+
+    XMLStringifier.prototype.xmlVersion = function(val) {
+      val = '' + val || '';
+      if (!val.match(/1\.[0-9]+/)) {
+        throw new Error("Invalid version number: " + val);
+      }
+      return val;
+    };
+
+    XMLStringifier.prototype.xmlEncoding = function(val) {
+      val = '' + val || '';
+      if (!val.match(/^[A-Za-z](?:[A-Za-z0-9._-])*$/)) {
+        throw new Error("Invalid encoding: " + val);
+      }
+      return val;
+    };
+
+    XMLStringifier.prototype.xmlStandalone = function(val) {
+      if (val) {
+        return "yes";
+      } else {
+        return "no";
+      }
+    };
+
+    XMLStringifier.prototype.dtdPubID = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdSysID = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdElementValue = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdAttType = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdAttDefault = function(val) {
+      if (val != null) {
+        return '' + val || '';
+      } else {
+        return val;
+      }
+    };
+
+    XMLStringifier.prototype.dtdEntityValue = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.dtdNData = function(val) {
+      return '' + val || '';
+    };
+
+    XMLStringifier.prototype.convertAttKey = '@';
+
+    XMLStringifier.prototype.convertPIKey = '?';
+
+    XMLStringifier.prototype.convertTextKey = '#text';
+
+    XMLStringifier.prototype.convertCDataKey = '#cdata';
+
+    XMLStringifier.prototype.convertCommentKey = '#comment';
+
+    XMLStringifier.prototype.convertRawKey = '#raw';
+
+    XMLStringifier.prototype.assertLegalChar = function(str) {
+      var res;
+      res = str.match(/[\0\uFFFE\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/);
+      if (res) {
+        throw new Error("Invalid character in string: " + str + " at index " + res.index);
+      }
+      return str;
+    };
+
+    XMLStringifier.prototype.elEscape = function(str) {
+      var ampregex;
+      ampregex = this.noDoubleEncoding ? /(?!&\S+;)&/g : /&/g;
+      return str.replace(ampregex, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\r/g, '&#xD;');
+    };
+
+    XMLStringifier.prototype.attEscape = function(str) {
+      var ampregex;
+      ampregex = this.noDoubleEncoding ? /(?!&\S+;)&/g : /&/g;
+      return str.replace(ampregex, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/\t/g, '&#x9;').replace(/\n/g, '&#xA;').replace(/\r/g, '&#xD;');
+    };
+
+    return XMLStringifier;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLText.js":
+/*!*************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLText.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLNode, XMLText,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  XMLNode = __webpack_require__(/*! ./XMLNode */ "../node_modules/xmlbuilder/lib/XMLNode.js");
+
+  module.exports = XMLText = (function(superClass) {
+    extend(XMLText, superClass);
+
+    function XMLText(parent, text) {
+      XMLText.__super__.constructor.call(this, parent);
+      if (text == null) {
+        throw new Error("Missing element text. " + this.debugInfo());
+      }
+      this.value = this.stringify.eleText(text);
+    }
+
+    XMLText.prototype.clone = function() {
+      return Object.create(this);
+    };
+
+    XMLText.prototype.toString = function(options) {
+      return this.options.writer.set(options).text(this);
+    };
+
+    return XMLText;
+
+  })(XMLNode);
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/XMLWriterBase.js":
+/*!*******************************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/XMLWriterBase.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLWriterBase,
+    hasProp = {}.hasOwnProperty;
+
+  module.exports = XMLWriterBase = (function() {
+    function XMLWriterBase(options) {
+      var key, ref, ref1, ref2, ref3, ref4, ref5, ref6, value;
+      options || (options = {});
+      this.pretty = options.pretty || false;
+      this.allowEmpty = (ref = options.allowEmpty) != null ? ref : false;
+      if (this.pretty) {
+        this.indent = (ref1 = options.indent) != null ? ref1 : '  ';
+        this.newline = (ref2 = options.newline) != null ? ref2 : '\n';
+        this.offset = (ref3 = options.offset) != null ? ref3 : 0;
+        this.dontprettytextnodes = (ref4 = options.dontprettytextnodes) != null ? ref4 : 0;
+      } else {
+        this.indent = '';
+        this.newline = '';
+        this.offset = 0;
+        this.dontprettytextnodes = 0;
+      }
+      this.spacebeforeslash = (ref5 = options.spacebeforeslash) != null ? ref5 : '';
+      if (this.spacebeforeslash === true) {
+        this.spacebeforeslash = ' ';
+      }
+      this.newlinedefault = this.newline;
+      this.prettydefault = this.pretty;
+      ref6 = options.writer || {};
+      for (key in ref6) {
+        if (!hasProp.call(ref6, key)) continue;
+        value = ref6[key];
+        this[key] = value;
+      }
+    }
+
+    XMLWriterBase.prototype.set = function(options) {
+      var key, ref, value;
+      options || (options = {});
+      if ("pretty" in options) {
+        this.pretty = options.pretty;
+      }
+      if ("allowEmpty" in options) {
+        this.allowEmpty = options.allowEmpty;
+      }
+      if (this.pretty) {
+        this.indent = "indent" in options ? options.indent : '  ';
+        this.newline = "newline" in options ? options.newline : '\n';
+        this.offset = "offset" in options ? options.offset : 0;
+        this.dontprettytextnodes = "dontprettytextnodes" in options ? options.dontprettytextnodes : 0;
+      } else {
+        this.indent = '';
+        this.newline = '';
+        this.offset = 0;
+        this.dontprettytextnodes = 0;
+      }
+      this.spacebeforeslash = "spacebeforeslash" in options ? options.spacebeforeslash : '';
+      if (this.spacebeforeslash === true) {
+        this.spacebeforeslash = ' ';
+      }
+      this.newlinedefault = this.newline;
+      this.prettydefault = this.pretty;
+      ref = options.writer || {};
+      for (key in ref) {
+        if (!hasProp.call(ref, key)) continue;
+        value = ref[key];
+        this[key] = value;
+      }
+      return this;
+    };
+
+    XMLWriterBase.prototype.space = function(level) {
+      var indent;
+      if (this.pretty) {
+        indent = (level || 0) + this.offset + 1;
+        if (indent > 0) {
+          return new Array(indent).join(this.indent);
+        } else {
+          return '';
+        }
+      } else {
+        return '';
+      }
+    };
+
+    return XMLWriterBase;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../node_modules/xmlbuilder/lib/index.js":
+/*!***********************************************!*\
+  !*** ../node_modules/xmlbuilder/lib/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Generated by CoffeeScript 1.12.7
+(function() {
+  var XMLDocument, XMLDocumentCB, XMLStreamWriter, XMLStringWriter, assign, isFunction, ref;
+
+  ref = __webpack_require__(/*! ./Utility */ "../node_modules/xmlbuilder/lib/Utility.js"), assign = ref.assign, isFunction = ref.isFunction;
+
+  XMLDocument = __webpack_require__(/*! ./XMLDocument */ "../node_modules/xmlbuilder/lib/XMLDocument.js");
+
+  XMLDocumentCB = __webpack_require__(/*! ./XMLDocumentCB */ "../node_modules/xmlbuilder/lib/XMLDocumentCB.js");
+
+  XMLStringWriter = __webpack_require__(/*! ./XMLStringWriter */ "../node_modules/xmlbuilder/lib/XMLStringWriter.js");
+
+  XMLStreamWriter = __webpack_require__(/*! ./XMLStreamWriter */ "../node_modules/xmlbuilder/lib/XMLStreamWriter.js");
+
+  module.exports.create = function(name, xmldec, doctype, options) {
+    var doc, root;
+    if (name == null) {
+      throw new Error("Root element needs a name.");
+    }
+    options = assign({}, xmldec, doctype, options);
+    doc = new XMLDocument(options);
+    root = doc.element(name);
+    if (!options.headless) {
+      doc.declaration(options);
+      if ((options.pubID != null) || (options.sysID != null)) {
+        doc.doctype(options);
+      }
+    }
+    return root;
+  };
+
+  module.exports.begin = function(options, onData, onEnd) {
+    var ref1;
+    if (isFunction(options)) {
+      ref1 = [options, onData], onData = ref1[0], onEnd = ref1[1];
+      options = {};
+    }
+    if (onData) {
+      return new XMLDocumentCB(options, onData, onEnd);
+    } else {
+      return new XMLDocument(options);
+    }
+  };
+
+  module.exports.stringWriter = function(options) {
+    return new XMLStringWriter(options);
+  };
+
+  module.exports.streamWriter = function(stream, options) {
+    return new XMLStreamWriter(stream, options);
+  };
+
+}).call(this);
+
+
+/***/ }),
+
+/***/ "../utils/spin.js":
+/*!************************!*\
+  !*** ../utils/spin.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * Copyright (c) 2011-2014 Felix Gnass
+ * Licensed under the MIT license
+ * http://spin.js.org/
+ *
+ * Example:
+    const opts = {
+      lines: 12             // The number of lines to draw
+    , length: 7             // The length of each line
+    , width: 5              // The line thickness
+    , radius: 10            // The radius of the inner circle
+    , scale: 1.0            // Scales overall size of the spinner
+    , corners: 1            // Roundness (0..1)
+    , color: '#000'         // #rgb or #rrggbb
+    , opacity: 1/4          // Opacity of the lines
+    , rotate: 0             // Rotation offset
+    , direction: 1          // 1: clockwise, -1: counterclockwise
+    , speed: 1              // Rounds per second
+    , trail: 100            // Afterglow percentage
+    , fps: 20               // Frames per second when using setTimeout()
+    , zIndex: 2e9           // Use a high z-index by default
+    , className: 'spinner'  // CSS class to assign to the element
+    , top: '50%'            // center vertically
+    , left: '50%'           // center horizontally
+    , shadow: false         // Whether to render a shadow
+    , hwaccel: false        // Whether to use hardware acceleration (might be buggy)
+    , position: 'absolute'  // Element positioning
+    }
+    const target = document.getElementById('foo')
+    const spinner = new Spinner(opts).spin(target)
+ */
+;
+
+(function (root, factory) {
+  /* CommonJS */
+  if (( false ? undefined : _typeof(module)) === 'object' && module.exports) module.exports = factory();
+  /* AMD module */
+  else if (true) !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    /* Browser global */
+    else {}
+})(this, function () {
+  "use strict";
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O']
+  /* Vendor prefixes */
+  ,
+      animations = {}
+  /* Animation rules keyed by their name */
+  ,
+      useCssAnimations
+  /* Whether to use CSS animations or setTimeout */
+  ,
+      sheet;
+  /* A stylesheet to hold the @keyframe or VML rules. */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div'),
+        n;
+
+    for (n in prop) {
+      el[n] = prop[n];
+    }
+
+    return el;
+  }
+  /**
+   * Appends children and returns the parent.
+   */
+
+
+  function ins(parent
+  /* child1, child2, ...*/
+  ) {
+    for (var i = 1, n = arguments.length; i < n; i++) {
+      parent.appendChild(arguments[i]);
+    }
+
+    return parent;
+  }
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+
+
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha * 100), i, lines].join('-'),
+        start = 0.01 + i / lines * 100,
+        z = Math.max(1 - (1 - alpha) / trail * (100 - start), alpha),
+        prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase(),
+        pre = prefix && '-' + prefix + '-' || '';
+
+    if (!animations[name]) {
+      sheet.insertRule('@' + pre + 'keyframes ' + name + '{' + '0%{opacity:' + z + '}' + start + '%{opacity:' + alpha + '}' + (start + 0.01) + '%{opacity:1}' + (start + trail) % 100 + '%{opacity:' + alpha + '}' + '100%{opacity:' + z + '}' + '}', sheet.cssRules.length);
+      animations[name] = 1;
+    }
+
+    return name;
+  }
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+
+
+  function vendor(el, prop) {
+    var s = el.style,
+        pp,
+        i;
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1);
+    if (s[prop] !== undefined) return prop;
+
+    for (i = 0; i < prefixes.length; i++) {
+      pp = prefixes[i] + prop;
+      if (s[pp] !== undefined) return pp;
+    }
+  }
+  /**
+   * Sets multiple style properties at once.
+   */
+
+
+  function css(el, prop) {
+    for (var n in prop) {
+      el.style[vendor(el, n) || n] = prop[n];
+    }
+
+    return el;
+  }
+  /**
+   * Fills in default values.
+   */
+
+
+  function merge(obj) {
+    for (var i = 1; i < arguments.length; i++) {
+      var def = arguments[i];
+
+      for (var n in def) {
+        if (obj[n] === undefined) obj[n] = def[n];
+      }
+    }
+
+    return obj;
+  }
+  /**
+   * Returns the line color from the given string or array.
+   */
+
+
+  function getColor(color, idx) {
+    return typeof color === 'string' ? color : color[idx % color.length];
+  } // Built-in defaults
+
+
+  var defaults = {
+    lines: 12 // The number of lines to draw
+    ,
+    length: 7 // The length of each line
+    ,
+    width: 5 // The line thickness
+    ,
+    radius: 10 // The radius of the inner circle
+    ,
+    scale: 1.0 // Scales overall size of the spinner
+    ,
+    corners: 1 // Roundness (0..1)
+    ,
+    color: '#000' // #rgb or #rrggbb
+    ,
+    opacity: 1 / 4 // Opacity of the lines
+    ,
+    rotate: 0 // Rotation offset
+    ,
+    direction: 1 // 1: clockwise, -1: counterclockwise
+    ,
+    speed: 1 // Rounds per second
+    ,
+    trail: 100 // Afterglow percentage
+    ,
+    fps: 20 // Frames per second when using setTimeout()
+    ,
+    zIndex: 2e9 // Use a high z-index by default
+    ,
+    className: 'spinner' // CSS class to assign to the element
+    ,
+    top: '50%' // center vertically
+    ,
+    left: '50%' // center horizontally
+    ,
+    shadow: false // Whether to render a shadow
+    ,
+    hwaccel: false // Whether to use hardware acceleration (might be buggy)
+    ,
+    position: 'absolute' // Element positioning
+
+    /** The constructor */
+
+  };
+
+  function Spinner(o) {
+    this.opts = merge(o || {}, Spinner.defaults, defaults);
+  } // Global defaults that override the built-ins:
+
+
+  Spinner.defaults = {};
+  merge(Spinner.prototype, {
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function spin(target) {
+      this.stop();
+      var self = this,
+          o = self.opts,
+          el = self.el = createEl(null, {
+        className: o.className
+      });
+      css(el, {
+        position: o.position,
+        width: 0,
+        zIndex: o.zIndex,
+        left: o.left,
+        top: o.top
+      });
+
+      if (target) {
+        target.insertBefore(el, target.firstChild || null);
+      }
+
+      el.setAttribute('role', 'progressbar');
+      self.lines(el, self.opts);
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0,
+            start = (o.lines - 1) * (1 - o.direction) / 2,
+            alpha,
+            fps = o.fps,
+            f = fps / o.speed,
+            ostep = (1 - o.opacity) / (f * o.trail / 100),
+            astep = f / o.lines;
+
+        (function anim() {
+          i++;
+
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity);
+            self.opacity(el, j * o.direction + start, alpha, o);
+          }
+
+          self.timeout = self.el && setTimeout(anim, ~~(1000 / fps));
+        })();
+      }
+
+      return self;
+    }
+    /**
+     * Stops and removes the Spinner.
+     */
+    ,
+    stop: function stop() {
+      var el = this.el;
+
+      if (el) {
+        clearTimeout(this.timeout);
+        if (el.parentNode) el.parentNode.removeChild(el);
+        this.el = undefined;
+      }
+
+      return this;
+    }
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    ,
+    lines: function lines(el, o) {
+      var i = 0,
+          start = (o.lines - 1) * (1 - o.direction) / 2,
+          seg;
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: o.scale * (o.length + o.width) + 'px',
+          height: o.scale * o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360 / o.lines * i + o.rotate) + 'deg) translate(' + o.scale * o.radius + 'px' + ',0)',
+          borderRadius: (o.corners * o.scale * o.width >> 1) + 'px'
+        });
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1 + ~(o.scale * o.width / 2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1 / o.speed + 's linear infinite'
+        });
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px #000'), {
+          top: '2px'
+        }));
+        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')));
+      }
+
+      return el;
+    }
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    ,
+    opacity: function opacity(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val;
+    }
+  });
+
+  function initVML() {
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr);
+    } // No CSS transforms but VML support, add a CSS rule for VML elements:
+
+
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)');
+
+    Spinner.prototype.lines = function (el, o) {
+      var r = o.scale * (o.length + o.width),
+          s = o.scale * 2 * r;
+
+      function grp() {
+        return css(vml('group', {
+          coordsize: s + ' ' + s,
+          coordorigin: -r + ' ' + -r
+        }), {
+          width: s,
+          height: s
+        });
+      }
+
+      var margin = -(o.width + o.length) * o.scale * 2 + 'px',
+          g = css(grp(), {
+        position: 'absolute',
+        top: margin,
+        left: margin
+      }),
+          i;
+
+      function seg(i, dx, filter) {
+        ins(g, ins(css(grp(), {
+          rotation: 360 / o.lines * i + 'deg',
+          left: ~~dx
+        }), ins(css(vml('roundrect', {
+          arcsize: o.corners
+        }), {
+          width: r,
+          height: o.scale * o.width,
+          left: o.scale * o.radius,
+          top: -o.scale * o.width >> 1,
+          filter: filter
+        }), vml('fill', {
+          color: getColor(o.color, i),
+          opacity: o.opacity
+        }), vml('stroke', {
+          opacity: 0
+        }) // transparent stroke to fix color bleeding upon opacity change
+        )));
+      }
+
+      if (o.shadow) for (i = 1; i <= o.lines; i++) {
+        seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)');
+      }
+
+      for (i = 1; i <= o.lines; i++) {
+        seg(i);
+      }
+
+      return ins(el, g);
+    };
+
+    Spinner.prototype.opacity = function (el, i, val, o) {
+      var c = el.firstChild;
+      o = o.shadow && o.lines || 0;
+
+      if (c && i + o < c.childNodes.length) {
+        c = (_readOnlyError("c"), c.childNodes[i + o]);
+        c = (_readOnlyError("c"), c && c.firstChild);
+        c = (_readOnlyError("c"), c && c.firstChild);
+        if (c) c.opacity = val;
+      }
+    };
+  }
+
+  if (typeof document !== 'undefined') {
+    sheet = function () {
+      var el = createEl('style', {
+        type: 'text/css'
+      });
+      ins(document.getElementsByTagName('head')[0], el);
+      return el.sheet || el.styleSheet;
+    }();
+
+    var probe = css(createEl('group'), {
+      behavior: 'url(#default#VML)'
+    });
+    if (!vendor(probe, 'transform') && probe.adj) initVML();else useCssAnimations = vendor(probe, 'animation');
+  }
+
+  return Spinner;
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "../node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "../utils/stdutils.js":
+/*!****************************!*\
+  !*** ../utils/stdutils.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * Copy the enumerable properties of p to o, and return o.
+ * If o and p have a property by the same name, o's property is 
+ * overwritten. This function does not handle getters and setters 
+ * or copy attributes.
+ *
+ * @param {object} o
+ * @param {object} p
+ * @returns {object}
+ */
+var extend = function extend(o, p) {
+  for (prop in p) {
+    // For all props in p.
+    o[prop] = p[prop]; // Add the property to o.
+  }
+
+  return o;
+};
+
+module.exports.extend = extend;
+/**
+ * Copy the enumerable properties of p to o, and return o.
+ * If o and p have a property by the same name, o's property is 
+ * left alone. This function does not handle getters and setters 
+ * or copy attributes.
+ *
+ * @param {object} o
+ * @param {object} p
+ * @returns {object}
+ */
+
+var merge = function merge(o, p) {
+  for (prop in p) {
+    // For all props in p.
+    if (o.hasOwnProperty[prop]) continue; // Except those already in o.
+
+    o[prop] = p[prop]; // Add the property to o.
+  }
+
+  return o;
+};
+
+module.exports.merge = merge;
+/**
+ * Remove properties from o if there is not a property with the 
+ * same name in p. Return o.
+ *
+ * @param {object} o
+ * @param {object} p
+ * @returns {object}
+ */
+
+var restrict = function restrict(o, p) {
+  for (prop in o) {
+    // For all props in o
+    if (!(prop in p)) delete o[prop]; // Delete if not in p
+  }
+
+  return o;
+};
+
+module.exports.restrict = restrict;
+/**
+ * For each property of p, delete the property with the same name 
+ * from o. Return o.
+ *
+ * @param {object} o
+ * @param {object} p
+ * @returns {object}
+ */
+
+var subtract = function subtract(o, p) {
+  for (prop in p) {
+    // For all props in p
+    delete o[prop]; // Delete from o (deleting a
+    // nonexistent prop is harmless)
+  }
+
+  return o;
+};
+
+module.exports.subtract = subtract;
+/**
+ * Return a new object that holds the properties of both o and p.
+ * If o and p have properties by the same name, the values 
+ * from o are used.
+ *
+ * @param {object} o
+ * @param {object} p
+ * @returns {object}
+ */
+
+var union = function union(o, p) {
+  return extend(extend({}, o), p);
+};
+
+module.exports.union = union;
+/**
+ * Return a new object that holds only the properties of o that 
+ * also appear in p. This is something like the intersection of o 
+ * and p, but the values of the properties in p are discarded
+ *
+ * @param {object} o
+ * @param {object} p
+ * @returns {object}
+ */
+
+var intersection = function intersection(o, p) {
+  return restrict(extend({}, o), p);
+};
+
+module.exports.intersection = intersection;
+/**
+ * Return an array that holds the names of the enumerable own 
+ * properties of o.
+ *
+ * @param {object} o
+ * @returns {array}
+ */
+
+var keys = function keys(o) {
+  if (_typeof(o) !== "object") throw TypeError(); // Object argument required
+
+  var result = []; // The array we will return
+
+  for (var _prop in o) {
+    // For all enumerable properties
+    if (o.hasOwnProperty(_prop)) // If it is an own property
+      result.push(_prop); // add it to the array.
+  }
+
+  return result; // Return the array.
+};
+
+module.exports.keys = keys;
+/**
+ * and
+ *
+ * @param {array} o
+ * @param {array} p
+ * @returns {array}
+ */
+
+var and = function and(o, p) {
+  if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
+
+  var _o = o.filter(function (x) {
+    return x;
+  });
+
+  var _p = p.filter(function (x) {
+    return x;
+  });
+
+  var result = _o.concat(_p).filter(function (x, i, y) {
+    return y.indexOf(x) !== y.lastIndexOf(x);
+  }).filter(function (x, i, y) {
+    return y.indexOf(x) === i;
+  });
+
+  return result;
+};
+
+module.exports.and = and;
+/**
+ * del
+ *
+ * @param {array} o
+ * @param {array} p
+ * @returns {array}
+ */
+
+var del = function del(o, p) {
+  if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
+
+  var _o = o.filter(function (x) {
+    return x;
+  });
+
+  var _p = p.filter(function (x) {
+    return x;
+  });
+
+  var result = _o.filter(function (x, i, y) {
+    return _p.indexOf(x) === -1;
+  });
+
+  return result;
+};
+
+module.exports.del = del;
+/**
+ * add
+ *
+ * @param {array} o
+ * @param {array} p
+ * @returns {array}
+ */
+
+var add = function add(o, p) {
+  if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
+
+  var _o = o.filter(function (x) {
+    return x;
+  });
+
+  var _p = p.filter(function (x) {
+    return x;
+  });
+
+  var result = _p.filter(function (x, i, y) {
+    return _o.indexOf(x) === -1;
+  });
+
+  return result;
+};
+
+module.exports.add = add;
+/**
+ * dif
+ *
+ * @param {array} o
+ * @param {array} p
+ * @returns {array}
+ */
+
+var dif = function dif(o, p) {
+  if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
+
+  var _o = o.filter(function (x) {
+    return x;
+  });
+
+  var _p = p.filter(function (x) {
+    return x;
+  });
+
+  var result = _o.filter(function (x, i, y) {
+    return _p.indexOf(x) === -1;
+  }).concat(_p.filter(function (x, i, y) {
+    return _o.indexOf(x) === -1;
+  }));
+
+  return result;
+};
+
+module.exports.dif = dif;
+/**
+ * dup
+ *
+ * @param {array} o
+ * @param {array} p
+ * @returns {array}
+ */
+
+var dup = function dup(o, p) {
+  if (!Array.isArray(o) || !Array.isArray(p)) throw TypeError();
+
+  var _o = o.filter(function (x) {
+    return x;
+  });
+
+  var _p = p.filter(function (x) {
+    return x;
+  });
+
+  var result = _o.concat(_p).filter(function (x, i, y) {
+    return y.indexOf(x) === i;
+  });
+
+  return result;
+};
+
+module.exports.dup = dup;
+/**
+ * dst
+ *
+ * @param {array} o
+ * @returns {array}
+ */
+
+var dst = function dst(o) {
+  if (!Array.isArray(o)) throw TypeError();
+
+  var _o = o.filter(function (x) {
+    return x;
+  });
+
+  var _p = _o.sort(function (s, t) {
+    var a = s.toString().toLowerCase();
+    var b = t.toString().toLowerCase();
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  });
+
+  var result = _p.filter(function (x, i, y) {
+    if (i === 0) return true;
+    return x !== y[i - 1];
+  });
+
+  return result;
+};
+
+module.exports.dst = dst;
+/**
+ * getTimeStamp
+ *
+ * @returns {string}
+ */
+
+var getTimeStamp = function getTimeStamp() {
+  var dt = new Date();
+  return dt.toISOString();
+};
+
+module.exports.getTimeStamp = getTimeStamp;
+/**
+ * getLocalTimeStamp
+ *
+ * @param {string} s
+ * @returns {string}
+ */
+
+var getLocalTimeStamp = function getLocalTimeStamp(s) {
+  var dt = new Date(s);
+
+  var _yr = dt.getFullYear();
+
+  var _mo = dt.getMonth() + 1;
+
+  var _dy = dt.getDate();
+
+  var _tm = dt.toTimeString().split(' ')[0];
+  return "".concat(_yr, "-").concat(_mo, "-").concat(_dy, " ").concat(_tm);
+};
+
+module.exports.getLocalTimeStamp = getLocalTimeStamp;
+/**
+ * setTimeStamp
+ *
+ * @param {string} s
+ * @returns {object}
+ */
+
+var setTimeStamp = function setTimeStamp(s) {
+  var matches = /^(\d+)\/(\d+)\/(\d+)$/.exec(s);
+
+  if (!matches) {
+    return false;
+  }
+
+  var y = parseInt(matches[1]);
+  var m = parseInt(matches[2]);
+  var d = parseInt(matches[3]);
+
+  if (m < 1 || m > 12 || d < 1 || d > 31) {
+    return null;
+  }
+
+  var dt = new Date(y, m - 1, d, 0, 0, 0, 0);
+
+  if (dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d) {
+    return null;
+  }
+
+  return dt.toISOString();
+};
+
+module.exports.setTimeStamp = setTimeStamp;
+
+var isValidDate = function isValidDate(s) {
+  var matches = /^(\d+)\/(\d+)\/(\d+)$/.exec(s);
+
+  if (!matches) {
+    return false;
+  }
+
+  var y = parseInt(matches[1]);
+  var m = parseInt(matches[2]);
+  var d = parseInt(matches[3]);
+
+  if (m < 1 || m > 12 || d < 1 || d > 31) {
+    return false;
+  }
+
+  var dt = new Date(y, m - 1, d, 0, 0, 0, 0);
+
+  if (dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d) {
+    return false;
+  }
+
+  return true;
+};
+
+module.exports.isValidDate = isValidDate;
+/**
+ * Schedule an invocation or invovations of fn() in the future.
+ * Note that the call to invoke() does not block: it returns 
+ * right away.
+ *
+ * @param {function} fn - If interval is specified but end is 
+ *                          omited, then never stop invoking fn.
+ *                        If interval and end are omited, then 
+ *                          just invoke fn once after start ms.
+ *                        If only fn is specified, behave as is 
+ *                          start was 0.
+ * @param {number} s -  Wait start milliseconds, then call fn().
+ * @param {number} i -  Call fn() every interval milliseconds.
+ * @param {number} e -  Stopping after a total of start+end 
+ *                      milliseconds.
+ */
+
+var invoke = function invoke(fn, s, i, e) {
+  if (!s) s = 0;
+  setTimeout(fn, s);
+
+  if (arguments.length >= 3) {
+    setTimeout(function () {
+      var h = setInterval(fn, i);
+      if (e) setTimeout(function () {
+        clearInterval(h);
+      }, e);
+    }, s);
+  }
+};
+
+module.exports.invoke = invoke;
+/**
+ * Encode the properties of an object as if they were name/value 
+ * pairs from an HTML form, 
+ * using application/x-www-form-urlencoded format
+ */
+
+exports.encodeFormData = function (data) {
+  if (!data) return "";
+  var pairs = [];
+
+  for (var name in data) {
+    if (!data.hasOwnProperty(name)) continue;
+    if (typeof data[name] === "function") continue;
+    var value = data[name].toString();
+    name = encodeURIComponent(name.replace(" ", "+"));
+    value = encodeURIComponent(value.replace(" ", "+"));
+    pairs.push(name + "=" + value);
+  }
+
+  return pairs.join('&');
+};
+/**
+ * Decode an HTML form as if they were name/value pairs from 
+ * the properties of an object, 
+ * using application/x-www-form-urlencoded format↲
+ */
+
+
+exports.decodeFormData = function (text, sep, eq, isDecode) {
+  text = text || location.search.substr(1);
+  sep = sep || '&';
+  eq = eq || '=';
+  var decode = isDecode ? decodeURIComponent : function (a) {
+    return a;
+  };
+  return text.split(sep).reduce(function (obj, v) {
+    var pair = v.split(eq);
+    obj[pair[0]] = decode(pair[1]);
+    return obj;
+  }, {});
+};
+/**
+ * Generated a randam characters, using 'Math.random()' method.
+ * $length: number of characters to be generated.
+ */
+
+
+exports.makeRandStr = function (length) {
+  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789';
+  var str = '';
+
+  for (var i = 0; i < length; ++i) {
+    str += chars[Math.floor(Math.random() * 62)];
+  }
+
+  return str;
+};
+/**
+ * Generated a randam characters, using 'Math.random()' method.
+ * $length: number of characters to be generated.
+ */
+
+
+exports.makeRandInt = function (length) {
+  var chars = '123456789';
+  var str = '';
+
+  for (var i = 0; i < length; ++i) {
+    str += chars[Math.floor(Math.random() * 9)];
+  }
+
+  return parseInt(str, 10);
+};
+
+/***/ }),
+
+/***/ "../utils/webutils.js":
+/*!****************************!*\
+  !*** ../utils/webutils.js ***!
+  \****************************/
+/*! exports provided: util, M, log, spn, str */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "util", function() { return util; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "M", function() { return M; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "log", function() { return log; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spn", function() { return spn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony import */ var xml2js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! xml2js */ "../node_modules/xml2js/lib/xml2js.js");
+/* harmony import */ var xml2js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xml2js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var xmlbuilder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! xmlbuilder */ "../node_modules/xmlbuilder/lib/index.js");
+/* harmony import */ var xmlbuilder__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(xmlbuilder__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var iso8601_duration__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! iso8601-duration */ "../node_modules/iso8601-duration/lib/index.js");
+/* harmony import */ var iso8601_duration__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(iso8601_duration__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils_spin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/spin */ "../utils/spin.js");
+/* harmony import */ var _utils_spin__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_utils_spin__WEBPACK_IMPORTED_MODULE_3__);
+function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+
+
+
+
+var Logger = null;
+var Spiner = null;
+var target = null;
+var util = {
+  getCSVHeader: function getCSVHeader(obj) {
+    var arr = new Array();
+
+    for (var prop in obj) {
+      arr.push(prop);
+    }
+
+    return arr.join() + '\n';
+  },
+  setCSVHeader: function setCSVHeader(objs) {
+    var arr = new Array();
+
+    for (var prop in objs[0]) {
+      arr.push(prop);
+    }
+
+    obj.unshift(arr);
+    return objs;
+  },
+  toCSV: function toCSV(obj) {
+    var arr = new Array();
+
+    for (var prop in obj) {
+      arr.push(obj[prop]);
+    }
+
+    return arr.join();
+  },
+  toXML: function toXML(req, obj) {
+    var xml = new Object();
+    xml[req] = obj;
+    return xmlbuilder__WEBPACK_IMPORTED_MODULE_1___default.a.create(xml, {
+      encoding: 'utf-8'
+    }).end();
+  },
+  toJSON: function toJSON(str) {
+    return new Promise(function (resolve) {
+      xml2js__WEBPACK_IMPORTED_MODULE_0___default.a.parseString(str, {
+        attrkey: 'root',
+        charkey: 'sub',
+        trim: true,
+        explicitArray: false
+      }, function (err, res) {
+        if (err) log.error(err);
+        resolve(res);
+      });
+    });
+  },
+  toLeftDays: function toLeftDays(date) {
+    var obj = Object(iso8601_duration__WEBPACK_IMPORTED_MODULE_2__["parse"])(date);
+    return "".concat(obj.days, " days") + ' / ' + "".concat(obj.hours, " hours") + ' / ' + "".concat(obj.minutes, " minutes");
+  }
+};
+var M = {
+  fork: function fork(join, func1, func2) {
+    return function (val) {
+      return join(func1(val), func2(val));
+    };
+  }
+};
+var log = {
+  Logger: Logger,
+  config: function config(apd, lyt, flv, nam) {
+    var apds = {
+      'alert': new Log4js.JSAlertAppender(),
+      'console': new Log4js.BrowserConsoleAppender()
+    };
+    var lyts = {
+      'basic': new Log4js.BasicLayout(),
+      'json': new Log4js.JSONLayout(),
+      'xml': new Log4js.XMLLayout()
+    };
+    var flvs = {
+      'OFF': Log4js.Level.OFF,
+      'FATAL': Log4js.Level.FATAL,
+      'ERROR': Log4js.Level.ERROR,
+      'WARN': Log4js.Level.WARN,
+      'INFO': Log4js.Level.INFO,
+      'DEBUG': Log4js.Level.DEBUG,
+      'TRACE': Log4js.Level.TRACE,
+      'ALL': Log4js.Level.ALL
+    };
+    var appender = apds[apd];
+    appender.setLayout(lyts[lyt]);
+    var logger = new Log4js.getLogger(nam);
+    logger.addAppender(appender);
+    this.Logger = logger;
+  },
+  logger: function logger(mlv, msg) {
+    var _msg = msg.map(function (val) {
+      if (_typeof(val) === 'object') {
+        return JSON.stringify(val, null, 4);
+      } else if (val == null) {
+        return '?';
+      } else {
+        return val;
+      }
+    });
+
+    this.Logger.log(mlv, _msg.join(' '), null);
+  },
+  fatal: function fatal(msg) {
+    var args = Array.prototype.slice.call(arguments);
+    this.logger('FATAL', args);
+  },
+  error: function error(msg) {
+    var args = Array.prototype.slice.call(arguments);
+    this.logger('ERROR', args);
+  },
+  warn: function warn(msg) {
+    var args = Array.prototype.slice.call(arguments);
+    this.logger('WARN', args);
+  },
+  info: function info(msg) {
+    var args = Array.prototype.slice.call(arguments);
+    this.logger('INFO', args);
+  },
+  debug: function debug(msg) {
+    var args = Array.prototype.slice.call(arguments);
+    this.logger('DEBUG', args);
+  },
+  trace: function trace(msg) {
+    var args = Array.prototype.slice.call(arguments);
+    this.logger('TRACE', args);
+  }
+};
+var spn = {
+  Spinner: _utils_spin__WEBPACK_IMPORTED_MODULE_3___default.a,
+  target: target,
+  config: function config(target) {
+    var opts = {
+      lines: 13 // The number of lines to draw
+      ,
+      length: 28 // The length of each line
+      ,
+      width: 14 // The line thickness
+      ,
+      radius: 42 // The radius of the inner circle
+      ,
+      scale: 1 // Scales overall size of the spinner
+      ,
+      corners: 1 // Corner roundness (0..1)
+      ,
+      color: '#000' // #rgb or #rrggbb or array of colors
+      ,
+      opacity: 0.25 // Opacity of the lines
+      ,
+      rotate: 0 // The rotation offset
+      ,
+      direction: 1 // 1: clockwise, -1: counterclockwise
+      ,
+      speed: 1 // Rounds per second
+      ,
+      trail: 60 // Afterglow percentage
+      ,
+      fps: 20 // Frames per second when using
+      // setTimeout() as
+      // a fallback for CSS
+      ,
+      zIndex: 2e9 // The z-index (defaults to 2000000000)
+      ,
+      className: 'spinner' // The CSS class to assign to the
+      //  spinner
+      ,
+      top: '49%' // Top position relative to parent
+      ,
+      left: '49%' // Left position relative to parent
+      ,
+      shadow: false // Whether to render a shadow
+      ,
+      hwaccel: false // Whether to use hardware acceleration
+      ,
+      position: 'absolute' // Element positioning
+
+    };
+    this.Spinner = new _utils_spin__WEBPACK_IMPORTED_MODULE_3___default.a(opts);
+    this.target = document.getElementById(target);
+  },
+  spin: function spin() {
+    this.Spinner.spin(this.target);
+  },
+  stop: function stop() {
+    this.Spinner.stop();
+  }
+};
+var str = {
+  /**
+   * setCookies
+   *
+   * @param name
+   * @param value
+   * @param daysToLive
+   */
+  setCookies: function setCookies(name, value, daysToLive) {
+    var cookie = name + "=" + encodeURIComponent(value);
+    if (typeof daysToLive === "number") cookie += "; max-age=" + daysToLive * 60 * 60 * 24;
+    document.cookie = cookie;
+  },
+
+  /**
+   * getCookies
+   * Return the document's cookies as an object of name/value
+   * pairs.Assume that cookie values are encoded with
+   * encodeURIComponent().
+   *
+   * @returns {object} - Store name and value in object.
+   */
+  getCookies: function getCookies() {
+    var cookies = {};
+    var all = document.cookie;
+    if (all === "") return cookies;
+    var list = all.split("; ");
+
+    for (var i = 0; i < list.length; i++) {
+      var cookie = list[i];
+      var p = cookie.indexOf("=");
+      var name = cookie.substring(0, p);
+      var value = cookie.substring(p + 1);
+      value = decodeURIComponent(value);
+      cookies[name] = value;
+    }
+
+    return cookies;
+  },
+
+  /**
+   * CookieStorage
+   * This class implements the Storage API that localStorage and
+   * sessionStorage do, but implements it on top of HTTP Cookies.
+   *
+   * @param maxage {number} - lifetime
+   * @param path {string} - scope
+   */
+  CookieStorage: function CookieStorage(maxage, path) {
+    var cookies = function () {
+      var cookies = {};
+      var all = document.cookie;
+      if (all === "") return cookies;
+      var list = all.split("; ");
+
+      for (var i = 0; i < list.length; i++) {
+        var cookie = list[i];
+        var p = cookie.indexOf("=");
+        var name = cookie.substring(0, p);
+        var value = cookie.substring(p + 1);
+        value = decodeURIComponent(value);
+        cookies[name] = value;
+      }
+
+      return cookies;
+    }();
+
+    var keys = [];
+
+    for (var key in cookies) {
+      keys.push(key);
+    }
+
+    this.length = keys.length;
+
+    this.key = function (n) {
+      if (n < 0 || n >= keys.length) return null;
+      return keys[n];
+    };
+
+    this.getItem = function (name) {
+      return cookies[name] || null;
+    };
+
+    this.setItem = function (key, value) {
+      if (!(key in cookies)) {
+        keys.push(key);
+        this.length++;
+      }
+
+      cookies[key] = value;
+      var cookie = key + "=" + encodeURIComponent(value);
+      if (maxage) cookie += "; max-age=" + maxage;
+      if (path) cookie += "; path=" + path;
+      document.cookie = cookie;
+    };
+
+    this.removeItem = function (key) {
+      if (!(key in cookies)) return;
+      delete cookies[key];
+
+      for (var i = 0; i < keys.length; i++) {
+        if (keys[i] === key) {
+          keys.splice(i, 1);
+          break;
+        }
+      }
+
+      this.length--;
+      document.cookie = key + "=; max-age=0";
+    };
+
+    this.clear = function () {
+      for (var i = 0; i < keys.length; i++) {
+        document.cookie = keys[i] + "=; max-age=0";
+      }
+
+      cookies = (_readOnlyError("cookies"), {});
+      keys = [];
+      this.length = 0;
+    };
+  },
+
+  /**
+   * UserDataStorage
+   * Create a document element and install the special userData
+   * behavior on it so it gets save() and load() methods.
+   *
+   * @param {number} maxage - If maxage is specified, expire the
+   *                  userData in maxage seconds
+   */
+  UserDataStorage: function UserDataStorage(maxage) {
+    var memory = document.createElement("div");
+    memory.style.display = "none";
+    memory.style.behavior = "url('#default#userData')";
+    document.body.appendChild(memory);
+
+    if (maxage) {
+      var now = new Date().getTime();
+      var expires = now + maxage * 1000;
+      memory.expires = new Date(expires).toUTCString();
+    }
+
+    memory.load("UserDataStorage");
+
+    this.getItem = function (key) {
+      return memory.getAttribute(key) || null;
+    };
+
+    this.setItem = function (key, value) {
+      memory.setAttribute(key, value);
+      memory.save("UserDataStorage");
+    };
+
+    this.removeItem = function (key) {
+      memory.removeAttribute(key);
+      memory.save("UserDataStorage");
+    };
+  }
+};
+
+/***/ }),
+
+/***/ "../utils/xhrutils.js":
+/*!****************************!*\
+  !*** ../utils/xhrutils.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * encodeFormData
+ *
+ * @param data {object}
+ * @returns {string}
+ */
+var encodeFormData = function encodeFormData(data) {
+  if (!data) return "";
+  var pairs = [];
+
+  for (var name in data) {
+    if (!data.hasOwnProperty(name)) continue;
+    if (typeof data[name] === "function") continue;
+    var value = data[name].toString();
+    name = encodeURIComponent(name.replace(" ", "+"));
+    value = encodeURIComponent(value.replace(" ", "+"));
+    pairs.push(name + "=" + value);
+  }
+
+  return pairs.join('&');
+};
+/**
+ * get
+ *
+ * @param url {string}
+ * @param data {object}
+ * @param callback {function}
+ */
+
+
+var get = function get(url, data, callback) {
+  var request = new XMLHttpRequest();
+  request.open("GET", url + "?" + encodeFormData(data));
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var type = request.getResponseHeader("Content-Type");
+
+      if (type.indexOf("xml") !== -1 && request.responseXML) {
+        callback(request.responseXML);
+      } else if (type === "application/json; charset=utf-8") {
+        callback(JSON.parse(request.responseText));
+      } else {
+        callback(request.responseText);
+      }
+    }
+  };
+
+  request.send(null);
+};
+
+module.exports.get = get;
+/**
+ * getData
+ *
+ * @param url {string}
+ * @param data {object}
+ * @param callback {function}
+ */
+
+var getData = function getData(url, data, callback) {
+  var request = new XMLHttpRequest();
+  request.open("GET", url + "?" + encodeFormData(data));
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && callback) callback(request);
+  };
+
+  request.send(null);
+};
+
+module.exports.getData = getData;
+/**
+ * postData
+ *
+ * @param url {string}
+ * @param data {object}
+ * @param callback {function}
+ */
+
+var postData = function postData(url, data, callback) {
+  var request = new XMLHttpRequest();
+  request.open("POST", url);
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && callback) callback(request);
+  };
+
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  request.send(encodeFormData(data));
+};
+
+module.exports.postData = postData;
+/**
+ * postXML
+ *
+ * @param url {string}
+ * @param head {object}
+ * @param data {object}
+ * @param callback {function}
+ */
+
+var postXML = function postXML(url, data, callback) {
+  var request = new XMLHttpRequest();
+  request.open("POST", url);
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var type = request.getResponseHeader("Content-Type");
+
+      if (type === "text/xml; charset=utf-8") {
+        callback(request.responseXML);
+      } else if (type === "application/json; charset=utf-8") {
+        callback(JSON.parse(request.responseText));
+      } else {
+        callback(request.responseText);
+      }
+    }
+  };
+
+  request.setRequestHeader("Content-Type", "text/xml; charset=UTF-8");
+
+  for (var key in data.head) {
+    request.setRequestHeader(key, data.head[key]);
+  }
+
+  request.send(data.body);
+};
+
+module.exports.postXML = postXML;
+/**
+ * postJSON
+ *
+ * @param url {string}
+ * @param data {object}
+ * @param callback {function}
+ */
+
+var postJSON = function postJSON(url, data, callback) {
+  var request = new XMLHttpRequest();
+  request.open("POST", url);
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && callback) callback(request);
+  };
+
+  request.setRequestHeader("Content-Type", "application/json");
+  request.send(JSON.stringify(data));
+};
+
+module.exports.postJSON = postJSON;
+
+/***/ }),
+
+/***/ "./FluxContainerConverter.js":
+/*!***********************************!*\
+  !*** ./FluxContainerConverter.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+module.exports = {
+  convert: function convert(containerClass) {
+    var tmp = containerClass;
+
+    containerClass = function containerClass() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _construct(tmp, args);
+    };
+
+    containerClass.prototype = tmp.prototype;
+    containerClass.getStores = tmp.getStores;
+    containerClass.calculateState = tmp.calculateState;
+    return containerClass;
+  }
+};
+
+/***/ }),
+
+/***/ "./actions/AppAction.js":
+/*!******************************!*\
+  !*** ./actions/AppAction.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dispatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dispatcher */ "./dispatcher.js");
+/* harmony import */ var _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/NoteApiClient */ "./services/NoteApiClient.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+
+
+
+var pspid = "AppAction";
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selectedContent: function selectedContent(selected, title) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: content/select');
+    Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+      type: 'content/select',
+      selected: selected,
+      title: title
+    });
+  },
+  fetchConfig: function fetchConfig() {
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].getConfig().then(function (config) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'config/fetch/appid',
+        config: config
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: config/fetch/appid');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].stop();
+    });
+  },
+  writeConfig: function writeConfig(obj) {
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].putConfig(obj).then(function (config) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'config/write/appid',
+        config: config
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: config/write/appid');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].stop();
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./actions/CompleteAction.js":
+/*!***********************************!*\
+  !*** ./actions/CompleteAction.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dispatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dispatcher */ "./dispatcher.js");
+/* harmony import */ var _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/NoteApiClient */ "./services/NoteApiClient.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+
+
+
+var pspid = "CompleteAction";
+/* harmony default export */ __webpack_exports__["default"] = ({
+  increment: function increment(options, page) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].trace("".concat(pspid, ">"), options);
+    page = ++page > 0 ? page : 1;
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].fetchCompleteItems(options, page).then(function (items) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/fetch/complete',
+        items: items,
+        options: options,
+        page: page
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: item/fetch/complete');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].stop();
+    });
+  },
+  decrement: function decrement(options, page) {
+    page = --page > 0 ? page : 1;
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].fetchCompleteItems(options, page).then(function (items) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/fetch/complete',
+        items: items,
+        options: options,
+        page: page
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, "> Response: item/fetch/complete"));
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].stop();
+    });
+  },
+  writeCompleteItems: function writeCompleteItems(options) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].writeCompleteItems(options).map(function (objs) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/write/complete',
+        options: options
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: item/write/complete');
+      return objs;
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./actions/NoteAction.js":
+/*!*******************************!*\
+  !*** ./actions/NoteAction.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dispatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dispatcher */ "./dispatcher.js");
+/* harmony import */ var _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/NoteApiClient */ "./services/NoteApiClient.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+
+
+
+var pspid = "NoteAction";
+/* harmony default export */ __webpack_exports__["default"] = ({
+  increment: function increment(options, page) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].trace("".concat(pspid, ">"), options);
+    page = ++page > 0 ? page : 1;
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].fetchItems(options, page).then(function (items) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/fetch/note',
+        items: items,
+        options: options,
+        page: page
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: item/fetch/note');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].stop();
+    });
+  },
+  decrement: function decrement(options, page) {
+    page = --page > 0 ? page : 1;
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].fetchItems(options, page).then(function (items) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/fetch/note',
+        items: items,
+        options: options,
+        page: page
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, "> Response: item/fetch/note"));
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].stop();
+    });
+  },
+  writeItems: function writeItems(options) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].writeItems(options).map(function (objs) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/write/note',
+        options: options
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: item/write/note');
+      return objs;
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./actions/ProductsAction.js":
+/*!***********************************!*\
+  !*** ./actions/ProductsAction.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dispatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dispatcher */ "./dispatcher.js");
+/* harmony import */ var _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/NoteApiClient */ "./services/NoteApiClient.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+
+
+
+var pspid = "ProductsAction";
+/* harmony default export */ __webpack_exports__["default"] = ({
+  increment: function increment(options, page) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].trace("".concat(pspid, ">"), options);
+    page = ++page > 0 ? page : 1;
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].fetchProductsItems(options, page).then(function (items) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/fetch/products',
+        items: items,
+        options: options,
+        page: page
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: item/fetch/products');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].stop();
+    });
+  },
+  decrement: function decrement(options, page) {
+    page = --page > 0 ? page : 1;
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].fetchProductsItems(options, page).then(function (items) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/fetch/products',
+        items: items,
+        options: options,
+        page: page
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, "> Response: item/fetch/products"));
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].stop();
+    });
+  },
+  writeProductsItems: function writeProductsItems(options) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["spn"].spin();
+    return _services_NoteApiClient__WEBPACK_IMPORTED_MODULE_1__["default"].writeProductsItems(options).map(function (objs) {
+      Object(_dispatcher__WEBPACK_IMPORTED_MODULE_0__["dispatch"])({
+        type: 'item/write/products',
+        options: options
+      });
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Response: item/write/products');
+      return objs;
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./components/AppBody/AppBody.js":
+/*!***************************************!*\
+  !*** ./components/AppBody/AppBody.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AppBody; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_AppSidebar_AppSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/AppSidebar/AppSidebar */ "./components/AppSidebar/AppSidebar.js");
+/* harmony import */ var _components_AppForm_AppForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/AppForm/AppForm */ "./components/AppForm/AppForm.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var pspid = "AppBodyView";
+
+var AppBody =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(AppBody, _React$Component);
+
+  function AppBody() {
+    _classCallCheck(this, AppBody);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(AppBody).apply(this, arguments));
+  }
+
+  _createClass(AppBody, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AppSidebar_AppSidebar__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AppForm_AppForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        config: this.props.config
+      }));
+    }
+  }]);
+
+  return AppBody;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/AppForm/AppForm.js":
+/*!***************************************!*\
+  !*** ./components/AppForm/AppForm.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AppForm; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_AppAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/AppAction */ "./actions/AppAction.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "AppFormView";
+
+var AppForm =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(AppForm, _React$Component);
+
+  function AppForm(props) {
+    var _this;
+
+    _classCallCheck(this, AppForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(AppForm).call(this, props));
+    _this.state = Object.assign({}, props.config);
+    return _this;
+  }
+
+  _createClass(AppForm, [{
+    key: "handleChangeSave",
+    value: function handleChangeSave(e) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, ">"), 'Request: handleChangeSave');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].trace("".concat(pspid, ">"), this.props.config);
+      e.preventDefault();
+      _actions_AppAction__WEBPACK_IMPORTED_MODULE_1__["default"].writeConfig(this.state);
+    }
+  }, {
+    key: "handleChangeText",
+    value: function handleChangeText(name, e) {
+      var newState = {};
+      newState[name] = e.target.value;
+      this.setState(newState);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "padded-less"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Application Key ID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Key ID",
+        value: this.state.appid,
+        onChange: this.handleChangeText.bind(this, 'appid')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "User Token"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "form-control",
+        placeholder: "Token",
+        value: this.state.token,
+        onChange: this.handleChangeText.bind(this, 'token')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Finding API URL"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "URL",
+        value: this.state.findingApi,
+        onChange: this.handleChangeText.bind(this, 'findingApi')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Trading API URL"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "URL",
+        value: this.state.tradingApi,
+        onChange: this.handleChangeText.bind(this, 'tradingApi')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        className: "btn btn-large btn-form btn-primary",
+        onClick: this.handleChangeSave.bind(this)
+      }, "Save"))));
+    }
+  }]);
+
+  return AppForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./components/AppSidebar/AppSidebar.js":
+/*!*********************************************!*\
+  !*** ./components/AppSidebar/AppSidebar.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AppSidebar; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_AppAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/AppAction */ "./actions/AppAction.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "AppSidebarView";
+
+var AppSidebar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(AppSidebar, _React$Component);
+
+  function AppSidebar(props) {
+    var _this;
+
+    _classCallCheck(this, AppSidebar);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(AppSidebar).call(this, props));
+    _this.state = Object.assign({}, props.config);
+    return _this;
+  }
+
+  _createClass(AppSidebar, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane pane-sm sidebar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+        className: "nav-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "My account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-key"
+      }), "Application keyset")));
+    }
+  }]);
+
+  return AppSidebar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/CompleteBody/CompleteBody.js":
+/*!*************************************************!*\
+  !*** ./components/CompleteBody/CompleteBody.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CompleteBody; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_CompleteSidebar_CompleteSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/CompleteSidebar/CompleteSidebar */ "./components/CompleteSidebar/CompleteSidebar.js");
+/* harmony import */ var _components_CompleteTable_CompleteTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/CompleteTable/CompleteTable */ "./components/CompleteTable/CompleteTable.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var pspid = "CompleteBodyView";
+
+var CompleteBody =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CompleteBody, _React$Component);
+
+  function CompleteBody() {
+    _classCallCheck(this, CompleteBody);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CompleteBody).apply(this, arguments));
+  }
+
+  _createClass(CompleteBody, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_CompleteSidebar_CompleteSidebar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        page: this.props.page,
+        items: this.props.items,
+        options: this.props.options
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_CompleteTable_CompleteTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        items: this.props.items,
+        options: this.props.options
+      }));
+    }
+  }]);
+
+  return CompleteBody;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/CompleteSidebar/CompleteSidebar.js":
+/*!*******************************************************!*\
+  !*** ./components/CompleteSidebar/CompleteSidebar.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CompleteSidebar; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_CompleteAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/CompleteAction */ "./actions/CompleteAction.js");
+/* harmony import */ var _components_Radio_Radio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Radio/Radio */ "./components/Radio/Radio.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/stdutils */ "../utils/stdutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_utils_stdutils__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! fs */ "fs");
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! electron */ "electron");
+/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(electron__WEBPACK_IMPORTED_MODULE_6__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+var remote = electron__WEBPACK_IMPORTED_MODULE_6___default.a.remote;
+var dialog = electron__WEBPACK_IMPORTED_MODULE_6___default.a.remote.dialog;
+var pspid = "CompleteSidebarView";
+
+var CompleteSidebar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CompleteSidebar, _React$Component);
+
+  function CompleteSidebar(props) {
+    var _this;
+
+    _classCallCheck(this, CompleteSidebar);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CompleteSidebar).call(this, props));
+    _this.state = Object.assign({}, props.options);
+    return _this;
+  }
+
+  _createClass(CompleteSidebar, [{
+    key: "saveFile",
+    value: function saveFile(filename, obj) {
+      return new Promise(function (resolve, reject) {
+        fs__WEBPACK_IMPORTED_MODULE_5___default.a.appendFile(filename, obj, function (err) {
+          if (err) reject(err);
+          resolve('File has been saved!');
+        });
+      });
+    }
+  }, {
+    key: "touchFile",
+    value: function touchFile(filename) {
+      return new Promise(function (resolve) {
+        fs__WEBPACK_IMPORTED_MODULE_5___default.a.closeSync(fs__WEBPACK_IMPORTED_MODULE_5___default.a.openSync(filename, 'w', 438));
+        resolve('File has been touched!');
+      });
+    }
+  }, {
+    key: "showSaveDialog",
+    value: function showSaveDialog(callback) {
+      var win = remote.getCurrentWindow();
+      var options = {
+        title: 'Save',
+        filters: [{
+          name: 'CSV File',
+          extensions: ['csv']
+        }, {
+          name: 'All Files',
+          extensions: ['*']
+        }]
+      };
+      dialog.showSaveDialog(win, options, callback);
+    }
+  }, {
+    key: "showErrorBox",
+    value: function showErrorBox(str) {
+      dialog.showErrorBox("Error", str);
+    }
+  }, {
+    key: "showSaveMessageBox",
+    value: function showSaveMessageBox() {
+      var win = remote.getCurrentWindow();
+      var options = {
+        type: 'info',
+        buttons: ['OK'],
+        title: 'Save file',
+        message: 'Save file',
+        detail: 'CSV file saved.'
+      };
+      dialog.showMessageBox(win, options);
+    }
+  }, {
+    key: "csvHeader",
+    value: function csvHeader() {
+      return {
+        'Image': '',
+        'Url': '',
+        'Title': '',
+        'StartTime': '',
+        'EndTime': '',
+        'Condition': '',
+        'Seller': '',
+        'ItemID': '',
+        'ProductID(UPC)': '',
+        'ProductID(EAN)': '',
+        'ProductID(ISBN)': '',
+        'Category': '',
+        'Shipping': '',
+        'CurrentPrice': '',
+        'CurrentCurrency': '',
+        'ConvertedPrice': '',
+        'ConvertedCurrency': '',
+        'Status': '',
+        'LeftTime': ''
+      };
+    }
+  }, {
+    key: "handleChangeSave",
+    value: function handleChangeSave() {
+      var _this2 = this;
+
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeSave');
+      if (!Number(this.state.pages)) return this.showErrorBox('Pages is not a number!');
+      this.showSaveDialog(function (filename) {
+        if (!filename) return _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info('File save canceled!');
+        _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), 'Save file:', filename);
+
+        _this2.touchFile(filename).then(function () {
+          return _this2.saveFile(filename, _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["util"].getCSVHeader(_this2.csvHeader()));
+        }).then(function () {
+          _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["spn"].spin();
+          _actions_CompleteAction__WEBPACK_IMPORTED_MODULE_1__["default"].writeCompleteItems(_this2.state).subscribe(function (obj) {
+            return _this2.saveFile(filename, obj);
+          }, function (err) {
+            return _this2.showErrorBox(err.message);
+          }, function () {
+            _this2.showSaveMessageBox();
+
+            _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info('File has been saved!');
+            _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["spn"].stop();
+          });
+        });
+      });
+    }
+  }, {
+    key: "handleChangeHome",
+    value: function handleChangeHome() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeHome');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_CompleteAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.props.options, 0);
+    }
+  }, {
+    key: "handleIncrement",
+    value: function handleIncrement() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleIncrement');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_CompleteAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.props.options, this.props.page);
+    }
+  }, {
+    key: "handleDecrement",
+    value: function handleDecrement() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, "> Request: handleDecrement"));
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_CompleteAction__WEBPACK_IMPORTED_MODULE_1__["default"].decrement(this.props.options, this.props.page);
+    }
+  }, {
+    key: "handleChangeSearch",
+    value: function handleChangeSearch(e) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeSearch');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.state);
+      e.preventDefault();
+      _actions_CompleteAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.state, 0);
+    }
+  }, {
+    key: "handleChangeReset",
+    value: function handleChangeReset() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeReset');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.state);
+      this.setState({
+        highestPrice: '',
+        lowestPrice: '',
+        shipping: [],
+        condition: [],
+        status: [],
+        itemId: [],
+        categoryPath: [],
+        seller: [],
+        startDate: '',
+        endDate: ''
+      });
+    }
+  }, {
+    key: "handleChangeText",
+    value: function handleChangeText(name, e) {
+      var newState = {};
+      newState[name] = e.target.value;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeCheckbox",
+    value: function handleChangeCheckbox(name, e) {
+      var newState = {};
+      newState[name] = e.target.checked;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeRadio",
+    value: function handleChangeRadio(name, e) {
+      var newState = {};
+      newState[name] = e.target.value;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeSelect",
+    value: function handleChangeSelect(name, e) {
+      var newState = {};
+      var options = e.target.options;
+      var values = [];
+
+      for (var i = 0; i < options.length; i++) {
+        if (options[i].selected) values.push(options[i].value);
+      }
+
+      newState[name] = values;
+      this.setState(newState);
+    }
+  }, {
+    key: "renderOption",
+    value: function renderOption(objs, prop1, prop2) {
+      if (!objs) return null;
+      var len = arguments.length;
+      var items = objs.map(function (obj) {
+        return len === 2 ? obj[prop1][0] : obj[prop1][0][prop2][0];
+      });
+      var opts = _utils_stdutils__WEBPACK_IMPORTED_MODULE_4___default.a.dst(items);
+      return opts.map(function (opt, idx) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: "choice-" + idx,
+          value: opt
+        }, opt);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var page = this.props.page;
+      var optPaths = this.renderOption(this.props.items, 'primaryCategory', 'categoryName');
+      var optSelrs = this.renderOption(this.props.items, 'sellerInfo', 'sellerUserName');
+      var optImIDs = this.renderOption(this.props.items, 'itemId');
+      var optShpgs = this.renderOption(this.props.items, 'shippingInfo', 'shipToLocations');
+      var optSttss = this.renderOption(this.props.items, 'sellingStatus', 'sellingState');
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane pane-sm sidebar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+        className: "nav-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Search of items",
+        value: this.state.searchString,
+        onChange: this.handleChangeText.bind(this, 'searchString')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Sold listing"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "checkbox"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        value: "soldItemOnly",
+        checked: this.state.soldItemOnly,
+        onChange: this.handleChangeCheckbox.bind(this, 'soldItemOnly')
+      }), "Sold items only."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "End time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "From Date (yyyy/mm/dd)",
+        value: this.state.startDate,
+        onChange: this.handleChangeText.bind(this, 'startDate')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "To Date (yyyy/mm/dd)",
+        value: this.state.endDate,
+        onChange: this.handleChangeText.bind(this, 'endDate')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-default",
+        onClick: this.handleChangeReset.bind(this)
+      }, "Reset"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-primary",
+        onClick: this.handleChangeSearch.bind(this)
+      }, "Search"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Functions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleChangeHome.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-home"
+      }), "Home (", page, " page)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleIncrement.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-right-bold"
+      }), "Next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleDecrement.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-left-bold"
+      }), "Previous"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Output"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Number of pages",
+        value: this.state.pages,
+        onChange: this.handleChangeText.bind(this, 'pages')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-primary",
+        onClick: this.handleChangeSave.bind(this)
+      }, "Save"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Category"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.categoryPath,
+        onChange: this.handleChangeSelect.bind(this, 'categoryPath')
+      }, optPaths)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Seller"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.seller,
+        onChange: this.handleChangeSelect.bind(this, 'seller')
+      }, optSelrs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "ItemID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.itemId,
+        onChange: this.handleChangeSelect.bind(this, 'itemId')
+      }, optImIDs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Highest price",
+        value: this.state.highestPrice,
+        onChange: this.handleChangeText.bind(this, 'highestPrice')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Lowest price",
+        value: this.state.lowestPrice,
+        onChange: this.handleChangeText.bind(this, 'lowestPrice')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Shipping"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.shipping,
+        onChange: this.handleChangeSelect.bind(this, 'shipping')
+      }, optShpgs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Condition"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.condition,
+        onChange: this.handleChangeSelect.bind(this, 'condition')
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1000"
+      }, "New"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1500"
+      }, "New other (see details)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1750"
+      }, "New with defects"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2000"
+      }, "Manufacturer refurbished"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2500"
+      }, "Seller refurbished"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3000"
+      }, "Used"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4000"
+      }, "Very Good"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5000"
+      }, "Good"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6000"
+      }, "Acceptable"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "7000"
+      }, "For parts or not working"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.status,
+        onChange: this.handleChangeSelect.bind(this, 'status')
+      }, optSttss))));
+    }
+  }]);
+
+  return CompleteSidebar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/CompleteTable/CompleteTable.js":
+/*!***************************************************!*\
+  !*** ./components/CompleteTable/CompleteTable.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CompleteTable; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/stdutils */ "../utils/stdutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_utils_stdutils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "CompleteTableView";
+
+var CompleteTable =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CompleteTable, _React$Component);
+
+  function CompleteTable() {
+    _classCallCheck(this, CompleteTable);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CompleteTable).apply(this, arguments));
+  }
+
+  _createClass(CompleteTable, [{
+    key: "renderStatus",
+    value: function renderStatus(status) {
+      var styles;
+
+      switch (status) {
+        case 0:
+          styles = {
+            fontWeight: 'bold',
+            color: 'blue'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "Now available.");
+
+        case 1:
+          styles = {
+            fontWeight: 'bold',
+            color: 'orange'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "New added.");
+
+        case 2:
+          styles = {
+            fontWeight: 'bold',
+            color: 'red'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "Removed.");
+      }
+    }
+  }, {
+    key: "renderExtension",
+    value: function renderExtension(duration) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "( ", _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["util"].toLeftDays(duration), " )");
+    }
+  }, {
+    key: "renderItem",
+    value: function renderItem(obj, idx) {
+      var item = obj;
+      var Img = item.hasOwnProperty('galleryURL') ? item.galleryURL[0] : '';
+      var Aid = item.itemId[0];
+      var Pid = item.hasOwnProperty('productId') ? item.productId.map(function (obj) {
+        return "".concat(obj.__value__, " ( ").concat(obj['@type'], " )");
+      }) : ['---'];
+      var Sid = item.sellerInfo[0].sellerUserName[0];
+      var Stm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
+      var Etm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
+      var Url = item.viewItemURL[0];
+      var Ttl = item.title[0];
+      var Pc1 = item.sellingStatus[0].currentPrice[0].__value__;
+      var Ci1 = item.sellingStatus[0].currentPrice[0]['@currencyId'];
+      var Pc2 = item.sellingStatus[0].convertedCurrentPrice[0].__value__;
+      var Ci2 = item.sellingStatus[0].convertedCurrentPrice[0]['@currencyId'];
+      var Cdn = item.hasOwnProperty('condition') ? item.condition[0].conditionDisplayName[0] : '---';
+      var Cgp = item.primaryCategory[0].categoryName[0];
+      var Shp = item.shippingInfo[0].shipToLocations[0];
+      var Stt = item.sellingStatus[0].sellingState[0];
+      var Ext = item.sellingStatus[0].hasOwnProperty('timeLeft') ? this.renderExtension(item.sellingStatus[0].timeLeft[0]) : '';
+      var stt = this.renderStatus(0);
+      var Upd = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(Date.now());
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", {
+        key: idx
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: Img,
+        width: "128",
+        height: "128"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: Url,
+        target: "_blank"
+      }, Ttl), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Sell period : ", Stm, " ~ ", Etm, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Condition : ", Cdn, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Seller : ", Sid, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ItemID : ", Aid, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ProductID : ", Pid.join(' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Category : ", Cgp)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, Shp), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Pc1, " ", Ci1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "( ", Pc2, " ", Ci2, " )")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Stt), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Ext)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, stt), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Upd))));
+    }
+  }, {
+    key: "filterItems",
+    value: function filterItems(objs, options) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].trace("".concat(pspid, ">"), options);
+      return objs.filter(function (obj) {
+        var item = obj;
+
+        if (options != null) {
+          if (!options.shipping.some(function (shipping) {
+            return shipping === item.shippingInfo[0].shipToLocations[0];
+          }) && options.shipping.length) return false;
+          if (!options.condition.some(function (condition) {
+            return condition === item.condition[0].conditionId[0];
+          }) && options.condition.length) return false;
+          if (!options.status.some(function (status) {
+            return status === item.sellingStatus[0].sellingState[0];
+          }) && options.status.length) return false;
+          if (!options.categoryPath.some(function (path) {
+            return path === item.primaryCategory[0].categoryName[0];
+          }) && options.categoryPath.length) return false;
+          if (!options.seller.some(function (selr) {
+            return selr === item.sellerInfo[0].sellerUserName[0];
+          }) && options.seller.length) return false;
+          if (!options.itemId.some(function (itemid) {
+            return itemid === item.itemId[0];
+          }) && options.itemId.length) return false;
+          if (!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+          if (Number(options.lowestPrice) > item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.lowestPrice !== '') return false;
+          if (Number(options.highestPrice) < item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.highestPrice !== '') return false;
+        }
+
+        return true;
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var options = this.props.options;
+      var items = this.props.items ? this.filterItems(this.props.items, options).map(function (item, idx) {
+        return _this.renderItem(item, idx);
+      }) : null;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table-striped"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Image"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Detail"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Shipping"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Update"))), items));
+    }
+  }]);
+
+  return CompleteTable;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/Contents/Contents.js":
+/*!*****************************************!*\
+  !*** ./components/Contents/Contents.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var pspid = "ContensView";
+
+var Contents =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Contents, _React$Component);
+
+  function Contents() {
+    _classCallCheck(this, Contents);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Contents).apply(this, arguments));
+  }
+
+  _createClass(Contents, [{
+    key: "render",
+    value: function render() {
+      var contnt = this.props.children[this.props.selected];
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "window-content"
+      }, contnt);
+    }
+  }]);
+
+  return Contents;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Contents);
+
+/***/ }),
+
+/***/ "./components/GlobalFooter/GlobalFooter.js":
+/*!*************************************************!*\
+  !*** ./components/GlobalFooter/GlobalFooter.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GlobalFooter; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! electron */ "electron");
+/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(electron__WEBPACK_IMPORTED_MODULE_2__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var remote = electron__WEBPACK_IMPORTED_MODULE_2___default.a.remote;
+var dialog = electron__WEBPACK_IMPORTED_MODULE_2___default.a.remote.dialog;
+var pspid = "GlobalFooterView";
+
+var GlobalFooter =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(GlobalFooter, _React$Component);
+
+  function GlobalFooter() {
+    _classCallCheck(this, GlobalFooter);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(GlobalFooter).apply(this, arguments));
+  }
+
+  _createClass(GlobalFooter, [{
+    key: "showCloseMessageBox",
+    value: function showCloseMessageBox(callback) {
+      var win = remote.getCurrentWindow();
+      var options = {
+        type: 'info',
+        buttons: ['OK', 'Cancel'],
+        title: 'Quit',
+        message: 'Would you like to close this window?',
+        detail: 'Close this window.'
+      };
+      dialog.showMessageBox(win, options, callback);
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      var win = remote.getCurrentWindow();
+      win.close();
+    }
+  }, {
+    key: "handleClickClose",
+    value: function handleClickClose() {
+      var _this = this;
+
+      this.showCloseMessageBox(function (response) {
+        _utils_webutils__WEBPACK_IMPORTED_MODULE_1__["log"].trace("".concat(pspid, ">"), 'Click button:', response);
+        if (!response) _this.close();
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
+        className: "toolbar toolbar-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "toolbar-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleClickClose.bind(this),
+        className: "btn btn-default"
+      }, "Close")));
+    }
+  }]);
+
+  return GlobalFooter;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/GlobalHeader/GlobalHeader.js":
+/*!*************************************************!*\
+  !*** ./components/GlobalHeader/GlobalHeader.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GlobalHeader; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var pspid = "GlobalHeaderView";
+
+var GlobalHeader =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(GlobalHeader, _React$Component);
+
+  function GlobalHeader() {
+    _classCallCheck(this, GlobalHeader);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(GlobalHeader).apply(this, arguments));
+  }
+
+  _createClass(GlobalHeader, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+        className: "toolbar toolbar-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "title"
+      }, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "toolbar-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-default btn-dropdown pull-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-megaphone"
+      }))));
+    }
+  }]);
+
+  return GlobalHeader;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./components/NoteBody/NoteBody.js":
+/*!*****************************************!*\
+  !*** ./components/NoteBody/NoteBody.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return NoteBody; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_NoteSidebar_NoteSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/NoteSidebar/NoteSidebar */ "./components/NoteSidebar/NoteSidebar.js");
+/* harmony import */ var _components_NoteTable_NoteTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/NoteTable/NoteTable */ "./components/NoteTable/NoteTable.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var pspid = "NoteBodyView";
+
+var NoteBody =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NoteBody, _React$Component);
+
+  function NoteBody() {
+    _classCallCheck(this, NoteBody);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NoteBody).apply(this, arguments));
+  }
+
+  _createClass(NoteBody, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NoteSidebar_NoteSidebar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        page: this.props.page,
+        items: this.props.items,
+        options: this.props.options
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NoteTable_NoteTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        items: this.props.items,
+        options: this.props.options
+      }));
+    }
+  }]);
+
+  return NoteBody;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/NoteSidebar/NoteSidebar.js":
+/*!***********************************************!*\
+  !*** ./components/NoteSidebar/NoteSidebar.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return NoteSidebar; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_NoteAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/NoteAction */ "./actions/NoteAction.js");
+/* harmony import */ var _components_Radio_Radio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Radio/Radio */ "./components/Radio/Radio.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/stdutils */ "../utils/stdutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_utils_stdutils__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! fs */ "fs");
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! electron */ "electron");
+/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(electron__WEBPACK_IMPORTED_MODULE_6__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+var remote = electron__WEBPACK_IMPORTED_MODULE_6___default.a.remote;
+var dialog = electron__WEBPACK_IMPORTED_MODULE_6___default.a.remote.dialog;
+var pspid = "NoteSidebarView";
+
+var NoteSidebar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NoteSidebar, _React$Component);
+
+  function NoteSidebar(props) {
+    var _this;
+
+    _classCallCheck(this, NoteSidebar);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NoteSidebar).call(this, props));
+    _this.state = Object.assign({}, props.options);
+    return _this;
+  }
+
+  _createClass(NoteSidebar, [{
+    key: "saveFile",
+    value: function saveFile(filename, obj) {
+      return new Promise(function (resolve, reject) {
+        fs__WEBPACK_IMPORTED_MODULE_5___default.a.appendFile(filename, obj, function (err) {
+          if (err) reject(err);
+          resolve('File has been saved!');
+        });
+      });
+    }
+  }, {
+    key: "touchFile",
+    value: function touchFile(filename) {
+      return new Promise(function (resolve) {
+        fs__WEBPACK_IMPORTED_MODULE_5___default.a.closeSync(fs__WEBPACK_IMPORTED_MODULE_5___default.a.openSync(filename, 'w', 438));
+        resolve('File has been touched!');
+      });
+    }
+  }, {
+    key: "showSaveDialog",
+    value: function showSaveDialog(callback) {
+      var win = remote.getCurrentWindow();
+      var options = {
+        title: 'Save',
+        filters: [{
+          name: 'CSV File',
+          extensions: ['csv']
+        }, {
+          name: 'All Files',
+          extensions: ['*']
+        }]
+      };
+      dialog.showSaveDialog(win, options, callback);
+    }
+  }, {
+    key: "showErrorBox",
+    value: function showErrorBox(str) {
+      dialog.showErrorBox("Error", str);
+    }
+  }, {
+    key: "showSaveMessageBox",
+    value: function showSaveMessageBox() {
+      var win = remote.getCurrentWindow();
+      var options = {
+        type: 'info',
+        buttons: ['OK'],
+        title: 'Save file',
+        message: 'Save file',
+        detail: 'CSV file saved.'
+      };
+      dialog.showMessageBox(win, options);
+    }
+  }, {
+    key: "csvHeader",
+    value: function csvHeader() {
+      return {
+        'Image': '',
+        'Url': '',
+        'Title': '',
+        'StartTime': '',
+        'EndTime': '',
+        'Condition': '',
+        'Seller': '',
+        'ItemID': '',
+        'ProductID(UPC)': '',
+        'ProductID(EAN)': '',
+        'ProductID(ISBN)': '',
+        'Category': '',
+        'Shipping': '',
+        'CurrentPrice': '',
+        'CurrentCurrency': '',
+        'ConvertedPrice': '',
+        'ConvertedCurrency': '',
+        'Status': '',
+        'LeftTime': ''
+      };
+    }
+  }, {
+    key: "handleChangeSave",
+    value: function handleChangeSave() {
+      var _this2 = this;
+
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeSave');
+      if (!Number(this.state.pages)) return this.showErrorBox('Pages is not a number!');
+      this.showSaveDialog(function (filename) {
+        if (!filename) return _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info('File save canceled!');
+        _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), 'Save file:', filename);
+
+        _this2.touchFile(filename).then(function () {
+          return _this2.saveFile(filename, _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["util"].getCSVHeader(_this2.csvHeader()));
+        }).then(function () {
+          _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["spn"].spin();
+          _actions_NoteAction__WEBPACK_IMPORTED_MODULE_1__["default"].writeItems(_this2.state).subscribe(function (obj) {
+            return _this2.saveFile(filename, obj);
+          }, function (err) {
+            return _this2.showErrorBox(err.message);
+          }, function () {
+            _this2.showSaveMessageBox();
+
+            _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info('File has been saved!');
+            _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["spn"].stop();
+          });
+        });
+      });
+    }
+  }, {
+    key: "handleChangeHome",
+    value: function handleChangeHome() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeHome');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_NoteAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.props.options, 0);
+    }
+  }, {
+    key: "handleIncrement",
+    value: function handleIncrement() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleIncrement');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_NoteAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.props.options, this.props.page);
+    }
+  }, {
+    key: "handleDecrement",
+    value: function handleDecrement() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, "> Request: handleDecrement"));
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_NoteAction__WEBPACK_IMPORTED_MODULE_1__["default"].decrement(this.props.options, this.props.page);
+    }
+  }, {
+    key: "handleChangeSearch",
+    value: function handleChangeSearch(e) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeSearch');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.state);
+      e.preventDefault();
+      _actions_NoteAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.state, 0);
+    }
+  }, {
+    key: "handleChangeReset",
+    value: function handleChangeReset() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeReset');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.state);
+      this.setState({
+        highestPrice: '',
+        lowestPrice: '',
+        shipping: [],
+        condition: [],
+        status: [],
+        itemId: [],
+        categoryPath: [],
+        seller: [],
+        startDate: '',
+        endDate: ''
+      });
+    }
+  }, {
+    key: "handleChangeText",
+    value: function handleChangeText(name, e) {
+      var newState = {};
+      newState[name] = e.target.value;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeCheckbox",
+    value: function handleChangeCheckbox(name, e) {
+      var newState = {};
+      newState[name] = e.target.checked;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeRadio",
+    value: function handleChangeRadio(name, e) {
+      var newState = {};
+      newState[name] = e.target.value;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeSelect",
+    value: function handleChangeSelect(name, e) {
+      var newState = {};
+      var options = e.target.options;
+      var values = [];
+
+      for (var i = 0; i < options.length; i++) {
+        if (options[i].selected) values.push(options[i].value);
+      }
+
+      newState[name] = values;
+      this.setState(newState);
+    }
+  }, {
+    key: "renderOption",
+    value: function renderOption(objs, prop1, prop2) {
+      if (!objs) return null;
+      var len = arguments.length;
+      var items = objs.map(function (obj) {
+        return len === 2 ? obj[prop1][0] : obj[prop1][0][prop2][0];
+      });
+      var opts = _utils_stdutils__WEBPACK_IMPORTED_MODULE_4___default.a.dst(items);
+      return opts.map(function (opt, idx) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: "choice-" + idx,
+          value: opt
+        }, opt);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var page = this.props.page;
+      var optPaths = this.renderOption(this.props.items, 'primaryCategory', 'categoryName');
+      var optSelrs = this.renderOption(this.props.items, 'sellerInfo', 'sellerUserName');
+      var optImIDs = this.renderOption(this.props.items, 'itemId');
+      var optShpgs = this.renderOption(this.props.items, 'shippingInfo', 'shipToLocations');
+      var optSttss = this.renderOption(this.props.items, 'sellingStatus', 'sellingState');
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane pane-sm sidebar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+        className: "nav-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Search of items",
+        value: this.state.searchString,
+        onChange: this.handleChangeText.bind(this, 'searchString')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "End time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "From date (yyyy/mm/dd)",
+        value: this.state.startDate,
+        onChange: this.handleChangeText.bind(this, 'startDate')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "To date (yyyy/mm/dd)",
+        value: this.state.endDate,
+        onChange: this.handleChangeText.bind(this, 'endDate')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-default",
+        onClick: this.handleChangeReset.bind(this)
+      }, "Reset"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-primary",
+        onClick: this.handleChangeSearch.bind(this)
+      }, "Search"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Functions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleChangeHome.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-home"
+      }), "Home (", page, " page)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleIncrement.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-right-bold"
+      }), "Next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleDecrement.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-left-bold"
+      }), "Previous"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Output"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Number of pages",
+        value: this.state.pages,
+        onChange: this.handleChangeText.bind(this, 'pages')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-primary",
+        onClick: this.handleChangeSave.bind(this)
+      }, "Save"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Category"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.categoryPath,
+        onChange: this.handleChangeSelect.bind(this, 'categoryPath')
+      }, optPaths)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Seller"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.seller,
+        onChange: this.handleChangeSelect.bind(this, 'seller')
+      }, optSelrs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "ItemID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.itemId,
+        onChange: this.handleChangeSelect.bind(this, 'itemId')
+      }, optImIDs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Highest price",
+        value: this.state.highestPrice,
+        onChange: this.handleChangeText.bind(this, 'highestPrice')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Lowest price",
+        value: this.state.lowestPrice,
+        onChange: this.handleChangeText.bind(this, 'lowestPrice')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Shipping"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.shipping,
+        onChange: this.handleChangeSelect.bind(this, 'shipping')
+      }, optShpgs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Condition"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.condition,
+        onChange: this.handleChangeSelect.bind(this, 'condition')
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1000"
+      }, "New"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1500"
+      }, "New other (see details)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1750"
+      }, "New with defects"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2000"
+      }, "Manufacturer refurbished"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2500"
+      }, "Seller refurbished"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3000"
+      }, "Used"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4000"
+      }, "Very Good"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5000"
+      }, "Good"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6000"
+      }, "Acceptable"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "7000"
+      }, "For parts or not working"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.status,
+        onChange: this.handleChangeSelect.bind(this, 'status')
+      }, optSttss))));
+    }
+  }]);
+
+  return NoteSidebar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/NoteTable/NoteTable.js":
+/*!*******************************************!*\
+  !*** ./components/NoteTable/NoteTable.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return NoteTable; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/stdutils */ "../utils/stdutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_utils_stdutils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "NoteTableView";
+
+var NoteTable =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NoteTable, _React$Component);
+
+  function NoteTable() {
+    _classCallCheck(this, NoteTable);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NoteTable).apply(this, arguments));
+  }
+
+  _createClass(NoteTable, [{
+    key: "renderStatus",
+    value: function renderStatus(status) {
+      var styles;
+
+      switch (status) {
+        case 0:
+          styles = {
+            fontWeight: 'bold',
+            color: 'blue'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "Now available.");
+
+        case 1:
+          styles = {
+            fontWeight: 'bold',
+            color: 'orange'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "New added.");
+
+        case 2:
+          styles = {
+            fontWeight: 'bold',
+            color: 'red'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "Removed.");
+      }
+    }
+  }, {
+    key: "renderExtension",
+    value: function renderExtension(duration) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "( ", _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["util"].toLeftDays(duration), " )");
+    }
+  }, {
+    key: "renderItem",
+    value: function renderItem(obj, idx) {
+      var item = obj;
+      var Img = item.hasOwnProperty('galleryURL') ? item.galleryURL[0] : '';
+      var Aid = item.itemId[0];
+      var Pid = item.hasOwnProperty('productId') ? item.productId.map(function (obj) {
+        return "".concat(obj.__value__, " ( ").concat(obj['@type'], " )");
+      }) : ['---'];
+      var Sid = item.sellerInfo[0].sellerUserName[0];
+      var Stm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
+      var Etm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
+      var Url = item.viewItemURL[0];
+      var Ttl = item.title[0];
+      var Pc1 = item.sellingStatus[0].currentPrice[0].__value__;
+      var Ci1 = item.sellingStatus[0].currentPrice[0]['@currencyId'];
+      var Pc2 = item.sellingStatus[0].convertedCurrentPrice[0].__value__;
+      var Ci2 = item.sellingStatus[0].convertedCurrentPrice[0]['@currencyId'];
+      var Cdn = item.hasOwnProperty('condition') ? item.condition[0].conditionDisplayName[0] : '---';
+      var Cgp = item.primaryCategory[0].categoryName[0];
+      var Shp = item.shippingInfo[0].shipToLocations[0];
+      var Stt = item.sellingStatus[0].sellingState[0];
+      var Ext = item.sellingStatus[0].hasOwnProperty('timeLeft') ? this.renderExtension(item.sellingStatus[0].timeLeft[0]) : '';
+      var stt = this.renderStatus(0);
+      var Upd = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(Date.now());
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", {
+        key: idx
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: Img,
+        width: "128",
+        height: "128"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: Url,
+        target: "_blank"
+      }, Ttl), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Sell period : ", Stm, " ~ ", Etm, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Condition : ", Cdn, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Seller : ", Sid, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ItemID : ", Aid, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ProductID : ", Pid.join(' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Category : ", Cgp)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, Shp), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Pc1, " ", Ci1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "( ", Pc2, " ", Ci2, " )")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Stt), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Ext)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, stt), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Upd))));
+    }
+  }, {
+    key: "filterItems",
+    value: function filterItems(objs, options) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].trace("".concat(pspid, ">"), options);
+      return objs.filter(function (obj) {
+        var item = obj;
+
+        if (options != null) {
+          if (!options.shipping.some(function (shipping) {
+            return shipping === item.shippingInfo[0].shipToLocations[0];
+          }) && options.shipping.length) return false;
+          if (!options.condition.some(function (condition) {
+            return condition === item.condition[0].conditionId[0];
+          }) && options.condition.length) return false;
+          if (!options.status.some(function (status) {
+            return status === item.sellingStatus[0].sellingState[0];
+          }) && options.status.length) return false;
+          if (!options.categoryPath.some(function (path) {
+            return path === item.primaryCategory[0].categoryName[0];
+          }) && options.categoryPath.length) return false;
+          if (!options.seller.some(function (selr) {
+            return selr === item.sellerInfo[0].sellerUserName[0];
+          }) && options.seller.length) return false;
+          if (!options.itemId.some(function (itemid) {
+            return itemid === item.itemId[0];
+          }) && options.itemId.length) return false;
+          if (!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+          if (Number(options.lowestPrice) > item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.lowestPrice !== '') return false;
+          if (Number(options.highestPrice) < item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.highestPrice !== '') return false;
+        }
+
+        return true;
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var options = this.props.options;
+      var items = this.props.items ? this.filterItems(this.props.items, options).map(function (item, idx) {
+        return _this.renderItem(item, idx);
+      }) : null;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table-striped"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Image"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Detail"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Shipping"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Update"))), items));
+    }
+  }]);
+
+  return NoteTable;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/ProductsBody/ProductsBody.js":
+/*!*************************************************!*\
+  !*** ./components/ProductsBody/ProductsBody.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductsBody; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_ProductsSidebar_ProductsSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/ProductsSidebar/ProductsSidebar */ "./components/ProductsSidebar/ProductsSidebar.js");
+/* harmony import */ var _components_ProductsTable_ProductsTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/ProductsTable/ProductsTable */ "./components/ProductsTable/ProductsTable.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var pspid = "ProductsBodyView";
+
+var ProductsBody =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ProductsBody, _React$Component);
+
+  function ProductsBody() {
+    _classCallCheck(this, ProductsBody);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ProductsBody).apply(this, arguments));
+  }
+
+  _createClass(ProductsBody, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProductsSidebar_ProductsSidebar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        page: this.props.page,
+        items: this.props.items,
+        options: this.props.options
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProductsTable_ProductsTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        items: this.props.items,
+        options: this.props.options
+      }));
+    }
+  }]);
+
+  return ProductsBody;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/ProductsSidebar/ProductsSidebar.js":
+/*!*******************************************************!*\
+  !*** ./components/ProductsSidebar/ProductsSidebar.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductsSidebar; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_ProductsAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/ProductsAction */ "./actions/ProductsAction.js");
+/* harmony import */ var _components_Radio_Radio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Radio/Radio */ "./components/Radio/Radio.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/stdutils */ "../utils/stdutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_utils_stdutils__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! fs */ "fs");
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! electron */ "electron");
+/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(electron__WEBPACK_IMPORTED_MODULE_6__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+var remote = electron__WEBPACK_IMPORTED_MODULE_6___default.a.remote;
+var dialog = electron__WEBPACK_IMPORTED_MODULE_6___default.a.remote.dialog;
+var pspid = "ProductsSidebarView";
+
+var ProductsSidebar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ProductsSidebar, _React$Component);
+
+  function ProductsSidebar(props) {
+    var _this;
+
+    _classCallCheck(this, ProductsSidebar);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ProductsSidebar).call(this, props));
+    _this.state = Object.assign({}, props.options);
+    return _this;
+  }
+
+  _createClass(ProductsSidebar, [{
+    key: "saveFile",
+    value: function saveFile(filename, obj) {
+      return new Promise(function (resolve, reject) {
+        fs__WEBPACK_IMPORTED_MODULE_5___default.a.appendFile(filename, obj, function (err) {
+          if (err) reject(err);
+          resolve('File has been saved!');
+        });
+      });
+    }
+  }, {
+    key: "touchFile",
+    value: function touchFile(filename) {
+      return new Promise(function (resolve) {
+        fs__WEBPACK_IMPORTED_MODULE_5___default.a.closeSync(fs__WEBPACK_IMPORTED_MODULE_5___default.a.openSync(filename, 'w', 438));
+        resolve('File has been touched!');
+      });
+    }
+  }, {
+    key: "showSaveDialog",
+    value: function showSaveDialog(callback) {
+      var win = remote.getCurrentWindow();
+      var options = {
+        title: 'Save',
+        filters: [{
+          name: 'CSV File',
+          extensions: ['csv']
+        }, {
+          name: 'All Files',
+          extensions: ['*']
+        }]
+      };
+      dialog.showSaveDialog(win, options, callback);
+    }
+  }, {
+    key: "showErrorBox",
+    value: function showErrorBox(str) {
+      dialog.showErrorBox("Error", str);
+    }
+  }, {
+    key: "showSaveMessageBox",
+    value: function showSaveMessageBox() {
+      var win = remote.getCurrentWindow();
+      var options = {
+        type: 'info',
+        buttons: ['OK'],
+        title: 'Save file',
+        message: 'Save file',
+        detail: 'CSV file saved.'
+      };
+      dialog.showMessageBox(win, options);
+    }
+  }, {
+    key: "csvHeader",
+    value: function csvHeader() {
+      return {
+        'Image': '',
+        'Url': '',
+        'Title': '',
+        'StartTime': '',
+        'EndTime': '',
+        'Condition': '',
+        'Seller': '',
+        'ItemID': '',
+        'ProductID(UPC)': '',
+        'ProductID(EAN)': '',
+        'ProductID(ISBN)': '',
+        'Category': '',
+        'Shipping': '',
+        'CurrentPrice': '',
+        'CurrentCurrency': '',
+        'ConvertedPrice': '',
+        'ConvertedCurrency': '',
+        'Status': '',
+        'LeftTime': ''
+      };
+    }
+  }, {
+    key: "handleChangeSave",
+    value: function handleChangeSave() {
+      var _this2 = this;
+
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeSave');
+      if (!Number(this.state.pages)) return this.showErrorBox('Pages is not a number!');
+      this.showSaveDialog(function (filename) {
+        if (!filename) return _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info('File save canceled!');
+        _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), 'Save file:', filename);
+
+        _this2.touchFile(filename).then(function () {
+          return _this2.saveFile(filename, _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["util"].getCSVHeader(_this2.csvHeader()));
+        }).then(function () {
+          _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["spn"].spin();
+          _actions_ProductsAction__WEBPACK_IMPORTED_MODULE_1__["default"].writeProductsItems(_this2.state).subscribe(function (obj) {
+            return _this2.saveFile(filename, obj);
+          }, function (err) {
+            return _this2.showErrorBox(err.message);
+          }, function () {
+            _this2.showSaveMessageBox();
+
+            _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info('File has been saved!');
+            _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["spn"].stop();
+          });
+        });
+      });
+    }
+  }, {
+    key: "handleChangeHome",
+    value: function handleChangeHome() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeHome');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_ProductsAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.props.options, 0);
+    }
+  }, {
+    key: "handleIncrement",
+    value: function handleIncrement() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleIncrement');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_ProductsAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.props.options, this.props.page);
+    }
+  }, {
+    key: "handleDecrement",
+    value: function handleDecrement() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, "> Request: handleDecrement"));
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.props.options);
+      _actions_ProductsAction__WEBPACK_IMPORTED_MODULE_1__["default"].decrement(this.props.options, this.props.page);
+    }
+  }, {
+    key: "handleChangeSearch",
+    value: function handleChangeSearch(e) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeSearch');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.state);
+      e.preventDefault();
+      _actions_ProductsAction__WEBPACK_IMPORTED_MODULE_1__["default"].increment(this.state, 0);
+    }
+  }, {
+    key: "handleChangeReset",
+    value: function handleChangeReset() {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].info("".concat(pspid, ">"), 'Request: handleChangeReset');
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_3__["log"].trace("".concat(pspid, ">"), this.state);
+      this.setState({
+        highestPrice: '',
+        lowestPrice: '',
+        shipping: [],
+        condition: [],
+        status: [],
+        itemId: [],
+        categoryPath: [],
+        seller: []
+      });
+    }
+  }, {
+    key: "handleChangeText",
+    value: function handleChangeText(name, e) {
+      var newState = {};
+      newState[name] = e.target.value;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeCheckbox",
+    value: function handleChangeCheckbox(name, e) {
+      var newState = {};
+      newState[name] = e.target.checked;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeRadio",
+    value: function handleChangeRadio(name, e) {
+      var newState = {};
+      newState[name] = e.target.value;
+      this.setState(newState);
+    }
+  }, {
+    key: "handleChangeSelect",
+    value: function handleChangeSelect(name, e) {
+      var newState = {};
+      var options = e.target.options;
+      var values = [];
+
+      for (var i = 0; i < options.length; i++) {
+        if (options[i].selected) values.push(options[i].value);
+      }
+
+      newState[name] = values;
+      this.setState(newState);
+    }
+  }, {
+    key: "renderOption",
+    value: function renderOption(objs, prop1, prop2) {
+      if (!objs) return null;
+      var len = arguments.length;
+      var items = objs.map(function (obj) {
+        return len === 2 ? obj[prop1][0] : obj[prop1][0][prop2][0];
+      });
+      var opts = _utils_stdutils__WEBPACK_IMPORTED_MODULE_4___default.a.dst(items);
+      return opts.map(function (opt, idx) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: "choice-" + idx,
+          value: opt
+        }, opt);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var page = this.props.page;
+      var optPaths = this.renderOption(this.props.items, 'primaryCategory', 'categoryName');
+      var optSelrs = this.renderOption(this.props.items, 'sellerInfo', 'sellerUserName');
+      var optImIDs = this.renderOption(this.props.items, 'itemId');
+      var optShpgs = this.renderOption(this.props.items, 'shippingInfo', 'shipToLocations');
+      var optSttss = this.renderOption(this.props.items, 'sellingStatus', 'sellingState');
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane pane-sm sidebar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+        className: "nav-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "ProductID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Search of items",
+        value: this.state.productId,
+        onChange: this.handleChangeText.bind(this, 'productId')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "ProductType"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Radio_Radio__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        name: "productType",
+        value: this.state.productType,
+        onChange: this.handleChangeRadio.bind(this, 'productType')
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "ReferenceID"
+      }, "ReferenceID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "ISBN"
+      }, "ISBN"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "UPC"
+      }, "UPC"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "EAN"
+      }, "EAN"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-default",
+        onClick: this.handleChangeReset.bind(this)
+      }, "Reset"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-primary",
+        onClick: this.handleChangeSearch.bind(this)
+      }, "Search"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Functions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleChangeHome.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-home"
+      }), "Home (", page, " page)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleIncrement.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-right-bold"
+      }), "Next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item",
+        onClick: this.handleDecrement.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "icon icon-left-bold"
+      }), "Previous"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Output"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Number of pages",
+        value: this.state.pages,
+        onChange: this.handleChangeText.bind(this, 'pages')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-mini btn-primary",
+        onClick: this.handleChangeSave.bind(this)
+      }, "Save"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Category"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.categoryPath,
+        onChange: this.handleChangeSelect.bind(this, 'categoryPath')
+      }, optPaths)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Seller"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.seller,
+        onChange: this.handleChangeSelect.bind(this, 'seller')
+      }, optSelrs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "ItemID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.itemId,
+        onChange: this.handleChangeSelect.bind(this, 'itemId')
+      }, optImIDs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Highest price",
+        value: this.state.highestPrice,
+        onChange: this.handleChangeText.bind(this, 'highestPrice')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        placeholder: "Lowest price",
+        value: this.state.lowestPrice,
+        onChange: this.handleChangeText.bind(this, 'lowestPrice')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Shipping"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.shipping,
+        onChange: this.handleChangeSelect.bind(this, 'shipping')
+      }, optShpgs)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Condition"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.condition,
+        onChange: this.handleChangeSelect.bind(this, 'condition')
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1000"
+      }, "New"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1500"
+      }, "New other (see details)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1750"
+      }, "New with defects"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2000"
+      }, "Manufacturer refurbished"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2500"
+      }, "Seller refurbished"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3000"
+      }, "Used"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4000"
+      }, "Very Good"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5000"
+      }, "Good"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6000"
+      }, "Acceptable"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "7000"
+      }, "For parts or not working"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "nav-group-title"
+      }, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-group-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        multiple: true,
+        value: this.state.status,
+        onChange: this.handleChangeSelect.bind(this, 'status')
+      }, optSttss))));
+    }
+  }]);
+
+  return ProductsSidebar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/ProductsTable/ProductsTable.js":
+/*!***************************************************!*\
+  !*** ./components/ProductsTable/ProductsTable.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductsTable; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/stdutils */ "../utils/stdutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_utils_stdutils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "ProductsTableView";
+
+var ProductsTable =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ProductsTable, _React$Component);
+
+  function ProductsTable() {
+    _classCallCheck(this, ProductsTable);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ProductsTable).apply(this, arguments));
+  }
+
+  _createClass(ProductsTable, [{
+    key: "renderStatus",
+    value: function renderStatus(status) {
+      var styles;
+
+      switch (status) {
+        case 0:
+          styles = {
+            fontWeight: 'bold',
+            color: 'blue'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "Now available.");
+
+        case 1:
+          styles = {
+            fontWeight: 'bold',
+            color: 'orange'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "New added.");
+
+        case 2:
+          styles = {
+            fontWeight: 'bold',
+            color: 'red'
+          };
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: styles
+          }, "Removed.");
+      }
+    }
+  }, {
+    key: "renderExtension",
+    value: function renderExtension(duration) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "( ", _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["util"].toLeftDays(duration), " )");
+    }
+  }, {
+    key: "renderItem",
+    value: function renderItem(obj, idx) {
+      var item = obj;
+      var Img = item.hasOwnProperty('galleryURL') ? item.galleryURL[0] : '';
+      var Aid = item.itemId[0];
+      var Pid = item.hasOwnProperty('productId') ? item.productId.map(function (obj) {
+        return "".concat(obj.__value__, " ( ").concat(obj['@type'], " )");
+      }) : ['---'];
+      var Sid = item.sellerInfo[0].sellerUserName[0];
+      var Stm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
+      var Etm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
+      var Url = item.viewItemURL[0];
+      var Ttl = item.title[0];
+      var Pc1 = item.sellingStatus[0].currentPrice[0].__value__;
+      var Ci1 = item.sellingStatus[0].currentPrice[0]['@currencyId'];
+      var Pc2 = item.sellingStatus[0].convertedCurrentPrice[0].__value__;
+      var Ci2 = item.sellingStatus[0].convertedCurrentPrice[0]['@currencyId'];
+      var Cdn = item.hasOwnProperty('condition') ? item.condition[0].conditionDisplayName[0] : '---';
+      var Cgp = item.primaryCategory[0].categoryName[0];
+      var Shp = item.shippingInfo[0].shipToLocations[0];
+      var Stt = item.sellingStatus[0].sellingState[0];
+      var Ext = item.sellingStatus[0].hasOwnProperty('timeLeft') ? this.renderExtension(item.sellingStatus[0].timeLeft[0]) : '';
+      var stt = this.renderStatus(0);
+      var Upd = _utils_stdutils__WEBPACK_IMPORTED_MODULE_1___default.a.getLocalTimeStamp(Date.now());
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", {
+        key: idx
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: Img,
+        width: "128",
+        height: "128"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: Url,
+        target: "_blank"
+      }, Ttl), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Sell period : ", Stm, " ~ ", Etm, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Condition : ", Cdn, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Seller : ", Sid, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ItemID : ", Aid, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ProductID : ", Pid.join(' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Category : ", Cgp)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, Shp), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Pc1, " ", Ci1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "( ", Pc2, " ", Ci2, " )")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Stt), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Ext)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, stt), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Upd))));
+    }
+  }, {
+    key: "filterItems",
+    value: function filterItems(objs, options) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].trace("".concat(pspid, ">"), options);
+      return objs.filter(function (obj) {
+        var item = obj;
+
+        if (options != null) {
+          if (!options.shipping.some(function (shipping) {
+            return shipping === item.shippingInfo[0].shipToLocations[0];
+          }) && options.shipping.length) return false;
+          if (!options.condition.some(function (condition) {
+            return condition === item.condition[0].conditionId[0];
+          }) && options.condition.length) return false;
+          if (!options.status.some(function (status) {
+            return status === item.sellingStatus[0].sellingState[0];
+          }) && options.status.length) return false;
+          if (!options.categoryPath.some(function (path) {
+            return path === item.primaryCategory[0].categoryName[0];
+          }) && options.categoryPath.length) return false;
+          if (!options.seller.some(function (selr) {
+            return selr === item.sellerInfo[0].sellerUserName[0];
+          }) && options.seller.length) return false;
+          if (!options.itemId.some(function (itemid) {
+            return itemid === item.itemId[0];
+          }) && options.itemId.length) return false;
+          if (!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+          if (Number(options.lowestPrice) > item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.lowestPrice !== '') return false;
+          if (Number(options.highestPrice) < item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.highestPrice !== '') return false;
+        }
+
+        return true;
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var options = this.props.options;
+      var items = this.props.items ? this.filterItems(this.props.items, options).map(function (item, idx) {
+        return _this.renderItem(item, idx);
+      }) : null;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pane"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table-striped"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Image"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Detail"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Shipping"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Update"))), items));
+    }
+  }]);
+
+  return ProductsTable;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/Radio/Radio.js":
+/*!***********************************!*\
+  !*** ./components/Radio/Radio.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Radio; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Radio =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Radio, _React$Component);
+
+  function Radio(props) {
+    var _this;
+
+    _classCallCheck(this, Radio);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Radio).call(this, props));
+    _this.state = {
+      value: props.defaultValue
+    };
+    return _this;
+  }
+
+  _createClass(Radio, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      if (this.props.onChange) {
+        this.props.onChange(event);
+      }
+
+      this.setState({
+        value: event.target.value
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var value = this.props.value || this.state.value;
+      var children = react__WEBPACK_IMPORTED_MODULE_0___default.a.Children.map(this.props.children, function (child, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "radio"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "radio",
+          name: this.props.name,
+          value: child.props.value,
+          checked: child.props.value === value,
+          onChange: this.handleChange.bind(this)
+        }), child.props.children));
+      }.bind(this));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, children);
+    }
+  }]);
+
+  return Radio;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+;
+
+/***/ }),
+
+/***/ "./components/Tabs/Tabs.js":
+/*!*********************************!*\
+  !*** ./components/Tabs/Tabs.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_AppAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/AppAction */ "./actions/AppAction.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "TabsView";
+
+var Tabs =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Tabs, _React$Component);
+
+  function Tabs() {
+    _classCallCheck(this, Tabs);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Tabs).apply(this, arguments));
+  }
+
+  _createClass(Tabs, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      _actions_AppAction__WEBPACK_IMPORTED_MODULE_1__["default"].selectedContent(0, this.props.children[0].props.label);
+    }
+  }, {
+    key: "handleClickTab",
+    value: function handleClickTab(index, title, event) {
+      event.preventDefault();
+      _actions_AppAction__WEBPACK_IMPORTED_MODULE_1__["default"].selectedContent(index, title);
+    }
+  }, {
+    key: "renderTitles",
+    value: function renderTitles(child, index) {
+      var selected = this.props.selected === index ? 'active' : '';
+      var classNames = ['tab-item'];
+      classNames.push(selected);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        key: index,
+        className: classNames.join(' '),
+        onClick: this.handleClickTab.bind(this, index, child.props.label)
+      }, child.props.label);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var titles = this.props.children.map(this.renderTitles.bind(this));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab-group"
+      }, titles);
+    }
+  }]);
+
+  return Tabs;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Tabs);
+
+/***/ }),
+
+/***/ "./dispatcher.js":
+/*!***********************!*\
+  !*** ./dispatcher.js ***!
+  \***********************/
+/*! exports provided: default, dispatch */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dispatch", function() { return dispatch; });
+/* harmony import */ var flux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flux */ "../node_modules/flux/index.js");
+/* harmony import */ var flux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flux__WEBPACK_IMPORTED_MODULE_0__);
+
+var dispatcher = new flux__WEBPACK_IMPORTED_MODULE_0__["Dispatcher"]();
+/* harmony default export */ __webpack_exports__["default"] = (dispatcher);
+var dispatch = dispatcher.dispatch.bind(dispatcher);
+
+/***/ }),
+
+/***/ "./main.js":
+/*!*****************!*\
+  !*** ./main.js ***!
+  \*****************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "../node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _pages_App_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/App/App */ "./pages/App/App.js");
+
+
+
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages_App_App__WEBPACK_IMPORTED_MODULE_2__["default"], null), document.getElementById('app'));
+
+if (true) {
+  module.hot.accept(/*! ./pages/App/App.js */ "./pages/App/App.js", function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _pages_App_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/App/App.js */ "./pages/App/App.js");
+(function () {
+    console.log('Accepting the updated App module!');
+    _pages_App_App__WEBPACK_IMPORTED_MODULE_2__["default"].updated();
+  })(__WEBPACK_OUTDATED_DEPENDENCIES__); });
+}
+
+/***/ }),
+
+/***/ "./pages/App/App.js":
+/*!**************************!*\
+  !*** ./pages/App/App.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flux/utils */ "../node_modules/flux/utils.js");
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flux_utils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../FluxContainerConverter */ "./FluxContainerConverter.js");
+/* harmony import */ var _FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _stores_appStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../stores/appStore */ "./stores/appStore.js");
+/* harmony import */ var _actions_AppAction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/AppAction */ "./actions/AppAction.js");
+/* harmony import */ var _components_AppBody_AppBody__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/AppBody/AppBody */ "./components/AppBody/AppBody.js");
+/* harmony import */ var _pages_Note_Note__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../pages/Note/Note */ "./pages/Note/Note.js");
+/* harmony import */ var _pages_Complete_Complete__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../pages/Complete/Complete */ "./pages/Complete/Complete.js");
+/* harmony import */ var _pages_Products_Products__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../pages/Products/Products */ "./pages/Products/Products.js");
+/* harmony import */ var _components_Tabs_Tabs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/Tabs/Tabs */ "./components/Tabs/Tabs.js");
+/* harmony import */ var _components_Contents_Contents__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/Contents/Contents */ "./components/Contents/Contents.js");
+/* harmony import */ var _components_GlobalHeader_GlobalHeader__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../components/GlobalHeader/GlobalHeader */ "./components/GlobalHeader/GlobalHeader.js");
+/* harmony import */ var _components_GlobalFooter_GlobalFooter__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../components/GlobalFooter/GlobalFooter */ "./components/GlobalFooter/GlobalFooter.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var App =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
+  }
+
+  _createClass(App, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      _actions_AppAction__WEBPACK_IMPORTED_MODULE_4__["default"].fetchConfig();
+    }
+  }, {
+    key: "updated",
+    value: function updated() {
+      console.log('Updating App modules...');
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "window"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_GlobalHeader_GlobalHeader__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        title: this.state.title
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Tabs_Tabs__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        selected: this.state.selected
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        label: "Search of items"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        label: "Search of Completed items"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        label: "Search of Product IDs"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        label: "Preference"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Contents_Contents__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        selected: this.state.selected
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages_Note_Note__WEBPACK_IMPORTED_MODULE_6__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages_Complete_Complete__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages_Products_Products__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AppBody_AppBody__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        config: this.state.config
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_GlobalFooter_GlobalFooter__WEBPACK_IMPORTED_MODULE_12__["default"], null));
+    }
+  }], [{
+    key: "getStores",
+    value: function getStores() {
+      return [_stores_appStore__WEBPACK_IMPORTED_MODULE_3__["default"]];
+    }
+  }, {
+    key: "calculateState",
+    value: function calculateState() {
+      return _stores_appStore__WEBPACK_IMPORTED_MODULE_3__["default"].getState();
+    }
+  }]);
+
+  return App;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (flux_utils__WEBPACK_IMPORTED_MODULE_1__["Container"].create(_FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2___default.a.convert(App)));
+
+/***/ }),
+
+/***/ "./pages/Complete/Complete.js":
+/*!************************************!*\
+  !*** ./pages/Complete/Complete.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flux/utils */ "../node_modules/flux/utils.js");
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flux_utils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../FluxContainerConverter */ "./FluxContainerConverter.js");
+/* harmony import */ var _FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _stores_completeStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../stores/completeStore */ "./stores/completeStore.js");
+/* harmony import */ var _components_CompleteBody_CompleteBody__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/CompleteBody/CompleteBody */ "./components/CompleteBody/CompleteBody.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+var pspid = "CompleteControlerView";
+
+var Complete =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Complete, _React$Component);
+
+  function Complete() {
+    _classCallCheck(this, Complete);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Complete).apply(this, arguments));
+  }
+
+  _createClass(Complete, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_CompleteBody_CompleteBody__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        page: this.state.page,
+        items: this.state.items,
+        options: this.state.options
+      });
+    }
+  }], [{
+    key: "getStores",
+    value: function getStores() {
+      return [_stores_completeStore__WEBPACK_IMPORTED_MODULE_3__["default"]];
+    }
+  }, {
+    key: "calculateState",
+    value: function calculateState() {
+      return _stores_completeStore__WEBPACK_IMPORTED_MODULE_3__["default"].getState();
+    }
+  }]);
+
+  return Complete;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (flux_utils__WEBPACK_IMPORTED_MODULE_1__["Container"].create(_FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2___default.a.convert(Complete)));
+
+/***/ }),
+
+/***/ "./pages/Note/Note.js":
+/*!****************************!*\
+  !*** ./pages/Note/Note.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flux/utils */ "../node_modules/flux/utils.js");
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flux_utils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../FluxContainerConverter */ "./FluxContainerConverter.js");
+/* harmony import */ var _FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _stores_noteStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../stores/noteStore */ "./stores/noteStore.js");
+/* harmony import */ var _components_NoteBody_NoteBody__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/NoteBody/NoteBody */ "./components/NoteBody/NoteBody.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+var pspid = "NoteControlerView";
+
+var Note =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Note, _React$Component);
+
+  function Note() {
+    _classCallCheck(this, Note);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Note).apply(this, arguments));
+  }
+
+  _createClass(Note, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NoteBody_NoteBody__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        page: this.state.page,
+        items: this.state.items,
+        options: this.state.options
+      });
+    }
+  }], [{
+    key: "getStores",
+    value: function getStores() {
+      return [_stores_noteStore__WEBPACK_IMPORTED_MODULE_3__["default"]];
+    }
+  }, {
+    key: "calculateState",
+    value: function calculateState() {
+      return _stores_noteStore__WEBPACK_IMPORTED_MODULE_3__["default"].getState();
+    }
+  }]);
+
+  return Note;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (flux_utils__WEBPACK_IMPORTED_MODULE_1__["Container"].create(_FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2___default.a.convert(Note)));
+
+/***/ }),
+
+/***/ "./pages/Products/Products.js":
+/*!************************************!*\
+  !*** ./pages/Products/Products.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flux/utils */ "../node_modules/flux/utils.js");
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flux_utils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../FluxContainerConverter */ "./FluxContainerConverter.js");
+/* harmony import */ var _FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _stores_productsStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../stores/productsStore */ "./stores/productsStore.js");
+/* harmony import */ var _components_ProductsBody_ProductsBody__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/ProductsBody/ProductsBody */ "./components/ProductsBody/ProductsBody.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+var pspid = "ProductsControlerView";
+
+var Products =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Products, _React$Component);
+
+  function Products() {
+    _classCallCheck(this, Products);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Products).apply(this, arguments));
+  }
+
+  _createClass(Products, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProductsBody_ProductsBody__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        page: this.state.page,
+        items: this.state.items,
+        options: this.state.options
+      });
+    }
+  }], [{
+    key: "getStores",
+    value: function getStores() {
+      return [_stores_productsStore__WEBPACK_IMPORTED_MODULE_3__["default"]];
+    }
+  }, {
+    key: "calculateState",
+    value: function calculateState() {
+      return _stores_productsStore__WEBPACK_IMPORTED_MODULE_3__["default"].getState();
+    }
+  }]);
+
+  return Products;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (flux_utils__WEBPACK_IMPORTED_MODULE_1__["Container"].create(_FluxContainerConverter__WEBPACK_IMPORTED_MODULE_2___default.a.convert(Products)));
+
+/***/ }),
+
+/***/ "./services/NoteApiClient.js":
+/*!***********************************!*\
+  !*** ./services/NoteApiClient.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+/* harmony import */ var _utils_xhrutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/xhrutils */ "../utils/xhrutils.js");
+/* harmony import */ var _utils_xhrutils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_utils_xhrutils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/stdutils */ "../utils/stdutils.js");
+/* harmony import */ var _utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_utils_stdutils__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+_utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].config('console', 'basic', 'ALL', 'note-renderer');
+_utils_webutils__WEBPACK_IMPORTED_MODULE_0__["spn"].config('app');
+var pspid = "eBAPIClient";
+var eBay = new Object();
+/* harmony default export */ __webpack_exports__["default"] = ({
+  request: function request(action, response) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].info("".concat(pspid, ">"), 'Request:', action);
+
+    switch (action) {
+      case 'config/fetch':
+        return new Promise(function (resolve) {
+          var memory = window.localStorage || window.UserDataStorage && new _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["str"].UserDataStorage() || new _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["str"].CookieStorage();
+          eBay = JSON.parse(memory.getItem("eBay_config"));
+          resolve(eBay);
+        });
+
+      case 'config/write':
+        return new Promise(function (resolve) {
+          var memory = window.localStorage || window.UserDataStorage && new _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["str"].UserDataStorage() || new _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["str"].CookieStorage();
+          eBay = response;
+          memory.setItem("eBay_config", JSON.stringify(response));
+          resolve(response);
+        });
+
+      case 'findItemsByKeywords':
+        return new Promise(function (resolve) {
+          JSONP.request(eBay.findingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
+
+      case 'findCompletedItems':
+        return new Promise(function (resolve) {
+          JSONP.request(eBay.findingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
+
+      case 'findItemsByProduct':
+        return new Promise(function (resolve) {
+          JSONP.request(eBay.findingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
+
+      case 'findItemDetails':
+        return new Promise(function (resolve) {
+          _utils_xhrutils__WEBPACK_IMPORTED_MODULE_1___default.a.postXML(eBay.tradingApi, response, function (obj) {
+            resolve(obj);
+          });
+        });
+
+      default:
+        return new Promise(function (resolve) {
+          _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].warn("".concat(pspid, "> Unknown request !!"));
+          resolve(response);
+        });
+    }
+  },
+  getConfig: function getConfig() {
+    return this.request('config/fetch');
+  },
+  getItems: function getItems(options, page) {
+    return this.request('findItemsByKeywords', this.optItems({
+      appid: eBay.appid,
+      page: page,
+      operation: 'findItemsByKeywords'
+    }, options));
+  },
+  getCompleteItems: function getCompleteItems(options, page) {
+    return this.request('findCompletedItems', this.optItems({
+      appid: eBay.appid,
+      page: page,
+      operation: 'findCompletedItems'
+    }, options));
+  },
+  getProductsItems: function getProductsItems(options, page) {
+    return this.request('findItemsByProduct', this.optProducts({
+      appid: eBay.appid,
+      page: page,
+      operation: 'findItemsByProduct'
+    }, options));
+  },
+  getDetail: function getDetail(options) {
+    return this.request('findItemDetails', this.optDetail({
+      token: eBay.token,
+      operation: 'GetItem'
+    }, options));
+  },
+  putConfig: function putConfig(config) {
+    return this.request('config/write', config);
+  },
+  putItems: function putItems(items) {
+    return this.request('writeItemsByKeywords', items);
+  },
+  putCompleteItems: function putCompleteItems(items) {
+    return this.request('writeCompletedItems', items);
+  },
+  putProductsItems: function putProductsItems(items) {
+    return this.request('writeItemsByProduct', items);
+  },
+  fetchItems: function fetchItems(options, page) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'options:', options);
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'page:', page);
+    return this.getItems(options, page).then(this.resItems).then(this.setItems) //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  fetchCompleteItems: function fetchCompleteItems(options, page) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'options:', options);
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'page:', page);
+    return this.getCompleteItems(options, page).then(this.resCompleteItems).then(this.setItems) //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  fetchProductsItems: function fetchProductsItems(options, page) {
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'options:', options);
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'page:', page);
+    return this.getProductsItems(options, page).then(this.resProductsItems).then(this.setItems) //.then(R.tap(this.traceLog.bind(this)))
+    .catch(this.errorLog.bind(this));
+  },
+  writeItems: function writeItems(options) {
+    var _this = this;
+
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'options:', options);
+    var pages = Number(options.pages);
+
+    var streamItems = function streamItems(idx) {
+      return Rx.Observable.fromPromise(_this.getItems(options, idx));
+    };
+
+    var streamDetail = function streamDetail(obj) {
+      return Rx.Observable.fromPromise(_this.getDetail({
+        itemId: obj.itemId
+      }));
+    };
+
+    var forkItems = function forkItems(obj) {
+      return Rx.Observable.forkJoin(_this.forItems(options, obj));
+    };
+
+    var forkJSON = function forkJSON(obj) {
+      return Rx.Observable.forkJoin(_utils_webutils__WEBPACK_IMPORTED_MODULE_0__["util"].toJSON(obj));
+    };
+
+    return streamItems(1).map(this.resItems).flatMap(forkItems).map(R.map(this.resItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(streamDetail).flatMap(forkJSON).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(options))).map(R.map(this.renderDetail.bind(this))).map(R.map(_utils_webutils__WEBPACK_IMPORTED_MODULE_0__["util"].toCSV.bind(this))).map(R.map(function (csv) {
+      return csv + '\n';
+    }));
+  },
+  writeCompleteItems: function writeCompleteItems(options) {
+    var _this2 = this;
+
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'options:', options);
+    var pages = Number(options.pages);
+
+    var streamItems = function streamItems(idx) {
+      return Rx.Observable.fromPromise(_this2.getCompleteItems(options, idx));
+    };
+
+    var streamDetail = function streamDetail(obj) {
+      return Rx.Observable.fromPromise(_this2.getDetail({
+        itemId: obj.itemId
+      }));
+    };
+
+    var forkItems = function forkItems(obj) {
+      return Rx.Observable.forkJoin(_this2.forCompleteItems(options, obj));
+    };
+
+    var forkJSON = function forkJSON(obj) {
+      return Rx.Observable.forkJoin(_utils_webutils__WEBPACK_IMPORTED_MODULE_0__["util"].toJSON(obj));
+    };
+
+    return streamItems(1).map(this.resCompleteItems).flatMap(forkItems).map(R.map(this.resCompleteItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(streamDetail).flatMap(forkJSON).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(options))).map(R.map(this.renderDetail.bind(this))).map(R.map(_utils_webutils__WEBPACK_IMPORTED_MODULE_0__["util"].toCSV.bind(this))).map(R.map(function (csv) {
+      return csv + '\n';
+    }));
+  },
+  writeProductsItems: function writeProductsItems(options) {
+    var _this3 = this;
+
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'options:', options);
+    var pages = Number(options.pages);
+
+    var streamItems = function streamItems(idx) {
+      return Rx.Observable.fromPromise(_this3.getProductsItems(options, idx));
+    };
+
+    var streamDetail = function streamDetail(obj) {
+      return Rx.Observable.fromPromise(_this3.getDetail({
+        itemId: obj.itemId
+      }));
+    };
+
+    var forkItems = function forkItems(obj) {
+      return Rx.Observable.forkJoin(_this3.forProductsItems(options, obj));
+    };
+
+    var forkJSON = function forkJSON(obj) {
+      return Rx.Observable.forkJoin(_utils_webutils__WEBPACK_IMPORTED_MODULE_0__["util"].toJSON(obj));
+    };
+
+    return streamItems(1).map(this.resProductsItems).flatMap(forkItems).map(R.map(this.resProductsItems.bind(this))).map(R.map(this.setItems.bind(this))).map(R.flatten).flatMap(Rx.Observable.from).flatMap(streamDetail).flatMap(forkJSON).map(R.map(this.resDetail.bind(this))).map(R.map(this.setDetail.bind(this))).map(R.filter(R.curry(this.filterDetail.bind(this))(options))).map(R.map(this.renderDetail.bind(this))).map(R.map(_utils_webutils__WEBPACK_IMPORTED_MODULE_0__["util"].toCSV.bind(this))).map(R.map(function (csv) {
+      return csv + '\n';
+    }));
+  },
+  forItems: function forItems(options, res) {
+    var pages = Number(options.pages);
+    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    var newItems = [];
+
+    for (var idx = 1; idx <= page; idx++) {
+      newItems.push(this.getItems(options, idx));
+    }
+
+    return newItems;
+  },
+  forCompleteItems: function forCompleteItems(options, res) {
+    var pages = Number(options.pages);
+    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    var newItems = [];
+
+    for (var idx = 1; idx <= page; idx++) {
+      newItems.push(this.getCompleteItems(options, idx));
+    }
+
+    return newItems;
+  },
+  forProductsItems: function forProductsItems(options, res) {
+    var pages = Number(options.pages);
+    var page = Number(res.paginationOutput[0].totalPages[0]) < pages ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    var newItems = [];
+
+    for (var idx = 1; idx <= page; idx++) {
+      newItems.push(this.getProductsItems(options, idx));
+    }
+
+    return newItems;
+  },
+  resItems: function resItems(obj) {
+    return obj.hasOwnProperty('findItemsByKeywordsResponse') ? obj.findItemsByKeywordsResponse[0] : null;
+  },
+  resCompleteItems: function resCompleteItems(obj) {
+    return obj.hasOwnProperty('findCompletedItemsResponse') ? obj.findCompletedItemsResponse[0] : null;
+  },
+  resProductsItems: function resProductsItems(obj) {
+    return obj.hasOwnProperty('findItemsByProductResponse') ? obj.findItemsByProductResponse[0] : null;
+  },
+  resDetail: function resDetail(obj) {
+    return obj.hasOwnProperty('GetItemResponse') ? obj.GetItemResponse : null;
+  },
+  setItems: function setItems(obj) {
+    return obj && obj.ack[0] === 'Success' ? obj.searchResult[0].item : null;
+  },
+  setDetail: function setDetail(obj) {
+    return obj && obj.Ack === 'Success' ? obj.Item : null;
+  },
+  optItems: function optItems(o, p) {
+    var _o = o;
+
+    var _p = p ? p : {};
+
+    var options = new Object();
+    options['GLOBAL-ID'] = 'EBAY-US';
+    options['MESSAGE-ENCODING'] = 'UTF-8';
+    options['OPERATION-NAME'] = _o.operation;
+    options['REQUEST-DATA-FORMAT'] = 'NV';
+    options['RESPONSE-DATA-FORMAT'] = 'JSON';
+    options['REST-PAYLOAD'] = '';
+    options['SECURITY-APPNAME'] = _o.appid;
+    options['SERVICE-VERSION'] = '1.13.0';
+    options['outputSelector'] = 'SellerInfo';
+    options['paginationInput.entriesPerPage'] = 20;
+    options['paginationInput.pageNumber'] = _o.page;
+
+    if (_p.searchString) {
+      options['keywords'] = _p.searchString;
+    } else {
+      options['keywords'] = '';
+    }
+
+    var n = 0;
+
+    if (_p.seller && _p.seller.length) {
+      options['itemFilter(' + n + ').name'] = 'Seller';
+
+      _p.seller.forEach(function (slr, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = slr;
+      });
+
+      n++;
+    }
+
+    if (_p.highestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MaxPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.highestPrice;
+      n++;
+    }
+
+    if (_p.lowestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MinPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.lowestPrice;
+      n++;
+    }
+
+    if (_p.condition && _p.condition.length) {
+      options['itemFilter(' + n + ').name'] = 'Condition';
+
+      _p.condition.forEach(function (cdn, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = cdn;
+      });
+
+      n++;
+    }
+
+    if (_p.soldItemOnly === true) {
+      options['itemFilter(' + n + ').name'] = 'SoldItemOnly';
+      options['itemFilter(' + n + ').value(0)'] = 'true';
+      n++;
+    }
+
+    if (_utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.isValidDate(_p.startDate)) {
+      options['itemFilter(' + n + ').name'] = 'EndTimeFrom';
+      options['itemFilter(' + n + ').value(0)'] = _utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.setTimeStamp(_p.startDate);
+      n++;
+    }
+
+    if (_utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.isValidDate(_p.endDate)) {
+      options['itemFilter(' + n + ').name'] = 'EndTimeTo';
+      options['itemFilter(' + n + ').value(0)'] = _utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.setTimeStamp(_p.endDate);
+      n++;
+    }
+
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'optItems:', options);
+    return options;
+  },
+  optProducts: function optProducts(o, p) {
+    var _o = o;
+
+    var _p = p ? p : {};
+
+    var options = new Object();
+    options['GLOBAL-ID'] = 'EBAY-US';
+    options['MESSAGE-ENCODING'] = 'UTF-8';
+    options['OPERATION-NAME'] = _o.operation;
+    options['REQUEST-DATA-FORMAT'] = 'NV';
+    options['RESPONSE-DATA-FORMAT'] = 'JSON';
+    options['REST-PAYLOAD'] = '';
+    options['SECURITY-APPNAME'] = _o.appid;
+    options['SERVICE-VERSION'] = '1.13.0';
+    options['outputSelector'] = 'SellerInfo';
+    options['paginationInput.entriesPerPage'] = 20;
+    options['paginationInput.pageNumber'] = _o.page;
+
+    if (_p.productId && _p.productType) {
+      options['productId'] = _p.productId;
+      options['productId.@type'] = _p.productType;
+    } else {
+      options['productId'] = '';
+      options['productId.@type'] = '';
+    }
+
+    var n = 0;
+
+    if (_p.seller && _p.seller.length) {
+      options['itemFilter(' + n + ').name'] = 'Seller';
+
+      _p.seller.forEach(function (slr, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = slr;
+      });
+
+      n++;
+    }
+
+    if (_p.highestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MaxPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.highestPrice;
+      n++;
+    }
+
+    if (_p.lowestPrice) {
+      options['itemFilter(' + n + ').name'] = 'MinPrice';
+      options['itemFilter(' + n + ').value(0)'] = _p.lowestPrice;
+      n++;
+    }
+
+    if (_p.condition && _p.condition.length) {
+      options['itemFilter(' + n + ').name'] = 'Condition';
+
+      _p.condition.forEach(function (cdn, idx) {
+        return options['itemFilter(' + n + ').value(' + idx + ')'] = cdn;
+      });
+
+      n++;
+    }
+
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'optProducts:', options);
+    return options;
+  },
+  optDetail: function optDetail(o, p) {
+    var _o = o;
+
+    var _p = p ? p : {};
+
+    var head = new Object();
+    var body = new Object();
+    head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
+    head['X-EBAY-API-CALL-NAME'] = o.operation;
+    head['X-EBAY-API-SITEID'] = 0;
+    body['@xmlns'] = 'urn:ebay:apis:eBLBaseComponents';
+    body['RequesterCredentials'] = {
+      'eBayAuthToken': _o.token
+    };
+    body['ErrorLanguage'] = 'en_US';
+    body['WarningLevel'] = 'High';
+    body['ItemID'] = _p.itemId;
+    body['DetailLevel'] = 'ReturnAll';
+    _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'optDetail:', head, body);
+    return {
+      head: head,
+      body: _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["util"].toXML(_o.operation, body)
+    };
+  },
+  renderStatus: function renderStatus(status) {
+    switch (status) {
+      case 0:
+        return 'Now available.';
+
+      case 1:
+        return 'New added.';
+
+      case 2:
+        return 'Removed.';
+    }
+  },
+  renderExtension: function renderExtension(duration) {
+    return _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["util"].toLeftDays(duration);
+  },
+  renderItem: function renderItem(item, idx) {
+    var Img = item.hasOwnProperty('galleryURL') ? item.galleryURL[0] : '';
+    var Aid = item.itemId[0];
+    var Pid = item.hasOwnProperty('productId') ? item.productId.map(function (obj) {
+      return "".concat(obj.__value__, " ( ").concat(obj['@type'], " )");
+    }) : ['---'];
+    var Sid = item.sellerInfo[0].sellerUserName[0];
+    var Stm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
+    var Etm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
+    var Url = item.viewItemURL[0];
+    var Ttl = item.title[0];
+    var Pc1 = item.sellingStatus[0].currentPrice[0].__value__;
+    var Ci1 = item.sellingStatus[0].currentPrice[0]['@currencyId'];
+    var Pc2 = item.sellingStatus[0].convertedCurrentPrice[0].__value__;
+    var Ci2 = item.sellingStatus[0].convertedCurrentPrice[0]['@currencyId'];
+    var Cdn = item.hasOwnProperty('condition') ? item.condition[0].conditionDisplayName[0] : '---';
+    var Cgp = item.primaryCategory[0].categoryName[0];
+    var Shp = item.shippingInfo[0].shipToLocations[0];
+    var Stt = item.sellingStatus[0].sellingState[0];
+    var Ext = item.sellingStatus[0].hasOwnProperty('timeLeft') ? this.renderExtension(item.sellingStatus[0].timeLeft[0]) : '';
+    var stt = this.renderStatus(0);
+    var Upd = _utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.getLocalTimeStamp(Date.now());
+    return {
+      'Key': idx,
+      'Image': Img,
+      'Url': Url,
+      'Title': Ttl,
+      'Sell Start': Stm,
+      'Sell Stop': Etm,
+      'Condition': Cdn,
+      'Seller': Sid,
+      'ItemID': Aid,
+      'ProductID': Pid.join('/'),
+      'Category': Cgp,
+      'Shipping': Shp,
+      'Price': Pc1,
+      'Currency': Ci1,
+      'Convert Price': Pc2,
+      'Convert Currency': Ci2,
+      'Status': Stt,
+      'Extention': Ext,
+      'Avail': stt,
+      'Updated': Upd
+    };
+  },
+  renderDetail: function renderDetail(item) {
+    var Img = item.hasOwnProperty('PictureDetails') ? '"' + item.PictureDetails.GalleryURL + '"' : '';
+    var Url = '"' + item.ListingDetails.ViewItemURL + '"';
+    var Ttl = '"' + item.Title + '"';
+    var Aid = item.ItemID;
+    var UPC = '';
+    var EAN = '';
+    var ISBN = '';
+
+    if (item.hasOwnProperty('ProductListingDetails')) {
+      var pdf = item.ProductListingDetails;
+      UPC = pdf.hasOwnProperty('UPC') ? pdf.UPC : '';
+      EAN = pdf.hasOwnProperty('EAN') ? pdf.EAN : '';
+      ISBN = pdf.hasOwnProperty('ISBN') ? pdf.ISBN : '';
+    }
+
+    var Sid = item.Seller.UserID;
+    var Stm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.getLocalTimeStamp(item.ListingDetails.StartTime);
+    var Etm = _utils_stdutils__WEBPACK_IMPORTED_MODULE_2___default.a.getLocalTimeStamp(item.ListingDetails.EndTime);
+    var Pc1 = item.SellingStatus.CurrentPrice.sub;
+    var Ci1 = item.SellingStatus.CurrentPrice.root.currencyID;
+    var Pc2 = item.ListingDetails.ConvertedStartPrice.sub;
+    var Ci2 = item.ListingDetails.ConvertedStartPrice.root.currencyID;
+    var Cdn = item.ConditionDisplayName;
+    var Cgp = '"' + item.PrimaryCategory.CategoryName + '"';
+    var Shp = Array.isArray(item.ShipToLocations) ? item.ShipToLocations : [item.ShipToLocations];
+    var Stt = item.SellingStatus.ListingStatus;
+    var Ext = item.hasOwnProperty('TimeLeft') ? this.renderExtension(item.TimeLeft) : '';
+    return {
+      'Image': Img,
+      'Url': Url,
+      'Title': Ttl,
+      'StartTime': Stm,
+      'EndTime': Etm,
+      'Condition': Cdn,
+      'Seller': Sid,
+      'ItemID': Aid,
+      'ProductID(UPC)': UPC,
+      'ProductID(EAN)': EAN,
+      'ProductID(ISBN)': ISBN,
+      'Category': Cgp,
+      'Shipping': Shp.join('/'),
+      'CurrentPrice': Pc1,
+      'CurrentCurrency': Ci1,
+      'ConvertedPrice': Pc2,
+      'ConvertedCurrency': Ci2,
+      'Status': Stt,
+      'LeftTime': Ext
+    };
+  },
+  filterItem: function filterItem(options, obj) {
+    var item = obj;
+
+    if (options != null) {
+      if (!options.shipping.some(function (shipping) {
+        return shipping === item.shippingInfo[0].shipToLocations[0];
+      }) && options.shipping.length) return false;
+      if (!options.condition.some(function (condition) {
+        return condition === item.condition[0].conditionId[0];
+      }) && options.condition.length) return false;
+      if (!options.status.some(function (status) {
+        return status === item.sellingStatus[0].sellingState[0];
+      }) && options.status.length) return false;
+      if (!options.categoryPath.some(function (path) {
+        return path === item.primaryCategory[0].categoryName[0];
+      }) && options.categoryPath.length) return false;
+      if (!options.seller.some(function (selr) {
+        return selr === item.sellerInfo[0].sellerUserName[0];
+      }) && options.seller.length) return false;
+      if (!options.itemId.some(function (itemid) {
+        return itemid === item.itemId[0];
+      }) && options.itemId.length) return false;
+      if (!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+      if (Number(options.lowestPrice) > item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.lowestPrice !== '') return false;
+      if (Number(options.highestPrice) < item.sellingStatus[0].convertedCurrentPrice[0].__value__ && options.highestPrice !== '') return false;
+    }
+
+    return true;
+  },
+  filterDetail: function filterDetail(options, obj) {
+    var item = obj;
+
+    if (options != null) {
+      if (!options.shipping.some(function (shipping) {
+        return shipping === item.ShipToLocations;
+      }) && options.shipping.length) return false;
+      if (!options.condition.some(function (condition) {
+        return condition === item.ConditionID;
+      }) && options.condition.length) return false;
+      if (!options.status.some(function (status) {
+        return status === item.SellingStatus.ListingStatus;
+      }) && options.status.length) return false;
+      if (!options.categoryPath.some(function (path) {
+        return path === item.PrimaryCategory.CategoryName;
+      }) && options.categoryPath.length) return false;
+      if (!options.seller.some(function (selr) {
+        return selr === item.Seller.UserID;
+      }) && options.seller.length) return false;
+      if (!options.itemId.some(function (itemid) {
+        return itemid === item.ItemID;
+      }) && options.itemId.length) return false;
+      if (!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+      if (Number(options.lowestPrice) > item.SellingStatus.ConvertedCurrentPrice.sub && options.lowestPrice !== '') return false;
+      if (Number(options.highestPrice) < item.SellingStatus.ConvertedCurrentPrice.sub && options.highestPrice !== '') return false;
+    }
+
+    return true;
+  },
+  traceLog: function traceLog(obj) {
+    return _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].trace("".concat(pspid, ">"), 'Trace log:', obj);
+  },
+  errorLog: function errorLog(err) {
+    return _utils_webutils__WEBPACK_IMPORTED_MODULE_0__["log"].error("".concat(pspid, ">"), 'Error occurred:', err);
+  }
+});
+
+/***/ }),
+
+/***/ "./stores/appStore.js":
+/*!****************************!*\
+  !*** ./stores/appStore.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flux/utils */ "../node_modules/flux/utils.js");
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flux_utils__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dispatcher */ "./dispatcher.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "appStore";
+
+var AppStore =
+/*#__PURE__*/
+function (_ReduceStore) {
+  _inherits(AppStore, _ReduceStore);
+
+  function AppStore() {
+    _classCallCheck(this, AppStore);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(AppStore).apply(this, arguments));
+  }
+
+  _createClass(AppStore, [{
+    key: "getInitialState",
+    value: function getInitialState() {
+      return {
+        selected: 0,
+        title: '',
+        config: {
+          selected: '',
+          title: '',
+          appid: '',
+          token: '',
+          findingApi: '',
+          tradingApi: ''
+        }
+      };
+    }
+  }, {
+    key: "reduce",
+    value: function reduce(state, action) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, "> Request: ").concat(action.type));
+
+      switch (action.type) {
+        case 'content/select':
+          return Object.assign({}, state, {
+            selected: action.selected,
+            title: action.title
+          });
+
+        case 'config/fetch/appid':
+          return Object.assign({}, state, {
+            config: action.config
+          });
+
+        case 'config/write/appid':
+          return Object.assign({}, state, {
+            config: action.config
+          });
+
+        default:
+          return state;
+      }
+    }
+  }]);
+
+  return AppStore;
+}(flux_utils__WEBPACK_IMPORTED_MODULE_0__["ReduceStore"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (new AppStore(_dispatcher__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./stores/completeStore.js":
+/*!*********************************!*\
+  !*** ./stores/completeStore.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flux/utils */ "../node_modules/flux/utils.js");
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flux_utils__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dispatcher */ "./dispatcher.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "completeStore";
+
+var CompleteStore =
+/*#__PURE__*/
+function (_ReduceStore) {
+  _inherits(CompleteStore, _ReduceStore);
+
+  function CompleteStore() {
+    _classCallCheck(this, CompleteStore);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CompleteStore).apply(this, arguments));
+  }
+
+  _createClass(CompleteStore, [{
+    key: "getInitialState",
+    value: function getInitialState() {
+      return {
+        page: 0,
+        items: null,
+        options: {
+          searchString: '',
+          pages: '',
+          highestPrice: '',
+          lowestPrice: '',
+          shipping: [],
+          condition: [],
+          status: [],
+          itemId: [],
+          categoryPath: [],
+          seller: [],
+          soldItemOnly: false,
+          startDate: '',
+          endDate: ''
+        }
+      };
+    }
+  }, {
+    key: "reduce",
+    value: function reduce(state, action) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, "> Request: ").concat(action.type));
+
+      switch (action.type) {
+        case 'item/fetch/complete':
+          return Object.assign({}, state, {
+            items: action.items,
+            options: action.options,
+            page: action.page
+          });
+
+        case 'item/write/complete':
+          return Object.assign({}, state, {
+            options: action.options
+          });
+
+        default:
+          return state;
+      }
+    }
+  }]);
+
+  return CompleteStore;
+}(flux_utils__WEBPACK_IMPORTED_MODULE_0__["ReduceStore"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (new CompleteStore(_dispatcher__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./stores/noteStore.js":
+/*!*****************************!*\
+  !*** ./stores/noteStore.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flux/utils */ "../node_modules/flux/utils.js");
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flux_utils__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dispatcher */ "./dispatcher.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "noteStore";
+
+var NoteStore =
+/*#__PURE__*/
+function (_ReduceStore) {
+  _inherits(NoteStore, _ReduceStore);
+
+  function NoteStore() {
+    _classCallCheck(this, NoteStore);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NoteStore).apply(this, arguments));
+  }
+
+  _createClass(NoteStore, [{
+    key: "getInitialState",
+    value: function getInitialState() {
+      return {
+        page: 0,
+        items: null,
+        options: {
+          searchString: '',
+          pages: '',
+          highestPrice: '',
+          lowestPrice: '',
+          shipping: [],
+          condition: [],
+          status: [],
+          itemId: [],
+          categoryPath: [],
+          seller: [],
+          startDate: '',
+          endDate: ''
+        }
+      };
+    }
+  }, {
+    key: "reduce",
+    value: function reduce(state, action) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, "> Request: ").concat(action.type));
+
+      switch (action.type) {
+        case 'item/fetch/note':
+          return Object.assign({}, state, {
+            items: action.items,
+            options: action.options,
+            page: action.page
+          });
+
+        case 'item/write/note':
+          return Object.assign({}, state, {
+            options: action.options
+          });
+
+        default:
+          return state;
+      }
+    }
+  }]);
+
+  return NoteStore;
+}(flux_utils__WEBPACK_IMPORTED_MODULE_0__["ReduceStore"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (new NoteStore(_dispatcher__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./stores/productsStore.js":
+/*!*********************************!*\
+  !*** ./stores/productsStore.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flux/utils */ "../node_modules/flux/utils.js");
+/* harmony import */ var flux_utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flux_utils__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dispatcher */ "./dispatcher.js");
+/* harmony import */ var _utils_webutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/webutils */ "../utils/webutils.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var pspid = "productsStore";
+
+var ProductsStore =
+/*#__PURE__*/
+function (_ReduceStore) {
+  _inherits(ProductsStore, _ReduceStore);
+
+  function ProductsStore() {
+    _classCallCheck(this, ProductsStore);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ProductsStore).apply(this, arguments));
+  }
+
+  _createClass(ProductsStore, [{
+    key: "getInitialState",
+    value: function getInitialState() {
+      return {
+        page: 0,
+        items: null,
+        options: {
+          productId: '',
+          productType: '',
+          pages: '',
+          highestPrice: '',
+          lowestPrice: '',
+          shipping: [],
+          condition: [],
+          status: [],
+          itemId: [],
+          categoryPath: [],
+          seller: []
+        }
+      };
+    }
+  }, {
+    key: "reduce",
+    value: function reduce(state, action) {
+      _utils_webutils__WEBPACK_IMPORTED_MODULE_2__["log"].info("".concat(pspid, "> Request: ").concat(action.type));
+
+      switch (action.type) {
+        case 'item/fetch/products':
+          return Object.assign({}, state, {
+            items: action.items,
+            options: action.options,
+            page: action.page
+          });
+
+        case 'item/write/products':
+          return Object.assign({}, state, {
+            options: action.options
+          });
+
+        default:
+          return state;
+      }
+    }
+  }]);
+
+  return ProductsStore;
+}(flux_utils__WEBPACK_IMPORTED_MODULE_0__["ReduceStore"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (new ProductsStore(_dispatcher__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "electron":
+/*!***************************!*\
+  !*** external "electron" ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("electron");
+
+/***/ }),
+
+/***/ "events":
+/*!*************************!*\
+  !*** external "events" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("events");
+
+/***/ }),
+
+/***/ "fs":
+/*!*********************!*\
+  !*** external "fs" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+
+/***/ "stream":
+/*!*************************!*\
+  !*** external "stream" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("stream");
+
+/***/ }),
+
+/***/ "string_decoder":
+/*!*********************************!*\
+  !*** external "string_decoder" ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("string_decoder");
+
+/***/ }),
+
+/***/ "timers":
+/*!*************************!*\
+  !*** external "timers" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("timers");
+
+/***/ })
+
+/******/ });
 //# sourceMappingURL=app.bundle.js.map

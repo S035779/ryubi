@@ -15,7 +15,7 @@ class Tabs extends React.Component {
   }
 
   renderTitles(child, index) {
-    const selected = this.props.selected == index ? 'active' : '';
+    const selected = this.props.selected === index ? 'active' : '';
     const classNames = ['tab-item'];
     classNames.push(selected);
     return <div key={index}

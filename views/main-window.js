@@ -1,5 +1,4 @@
 const electron = require('electron');
-const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
@@ -10,7 +9,9 @@ module.exports = class MainWindow {
     this.window = null;
     this.start();
   }
+
   start() {
+    const app = electron.app;
     app.on('ready', () => {
       this.createWindow();
     });
@@ -28,17 +29,18 @@ module.exports = class MainWindow {
       this.window.show();
     });
   }
+
   createWindow() {
-    this.window = new BrowserWindow({
-      width: 1152, height: 964
-    });
-    //this.window.openDevTools();
-    this.window.loadURL(url.format({
-      pathname: path.join(`${__dirname}/../public`
-        , 'index.html'),
-      protocol: 'file:',
-      slashes: true
-    }));
+    this.window = new BrowserWindow({ width: 1152, height: 964, nodeIntegration: true });
+    const startUrl = process.env.ELECTRON_START_URL || url.format({
+      pathname: path.join(__dirname, '/../public/index.html')
+    , protocol: 'file:'
+    , slashes: true
+    })
+    this.window.loadURL(startUrl);
+    if(process.env.NODE_ENV === 'development') {
+      this.window.webContents.openDevTools();
+    }
     this.window.on('closed', (event) => {
       this.window = null;
     });
