@@ -1,11 +1,15 @@
+import { remote }                 from 'electron';
+import { from as fromPromise, from, forkJoin, pipe } from 'rxjs';
+import { map, flatMap }           from 'rxjs/operators';
 import { M, log, spn, str, util } from '../../utils/webutils';
-import xhr from '../../utils/xhrutils';
-import std from '../../utils/stdutils';
+import xhr                        from '../../utils/xhrutils';
+import std                        from '../../utils/stdutils';
 
 log.config('console', 'basic', 'ALL', 'note-renderer');
 spn.config('app');
 
 const pspid = `eBAPIClient`;
+const fetch = remote.require('./views/fetch');
 
 let eBay = new Object();
 
@@ -50,7 +54,9 @@ export default {
         });
       case 'findItemDetails':
         return new Promise(resolve => {
-          xhr.postXML(eBay.tradingApi, response, obj => {
+          //xhr.postXML(eBay.tradingApi, response, obj => {
+          fetch.postXML(eBay.tradingApi, response, (err, obj) => {
+            if(err) return reject(err);
             resolve(obj);
           });
         });
@@ -143,97 +149,82 @@ export default {
   writeItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    const streamItems = idx =>
-      Rx.Observable.fromPromise(
-        this.getItems(options, idx));
-    const streamDetail = obj =>
-      Rx.Observable.fromPromise(
-        this.getDetail({ itemId: obj.itemId }));
-    const forkItems = obj =>
-      Rx.Observable.forkJoin(this.forItems(options, obj));
-    const forkJSON = obj =>
-      Rx.Observable.forkJoin(util.toJSON(obj));
+    const streamItems   = idx => fromPromise(this.getItems(options, idx));
+    const streamDetail  = obj => fromPromise(this.getDetail({ itemId: obj.itemId }));
+    const forkItems     = obj => forkJoin(this.forItems(options, obj));
+    const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
-      .map(this.resItems)
-      .flatMap(forkItems)
-      .map(R.map(this.resItems.bind(this)))
-      .map(R.map(this.setItems.bind(this)))
-      .map(R.flatten)
-      .flatMap(Rx.Observable.from)
-      .flatMap(streamDetail)
-      .flatMap(forkJSON)
-      .map(R.map(this.resDetail.bind(this)))
-      .map(R.map(this.setDetail.bind(this)))
-      .map(R.filter(
-        R.curry(this.filterDetail.bind(this))(options)
-      ))
-      .map(R.map(this.renderDetail.bind(this)))
-      .map(R.map(util.toCSV.bind(this)))
-      .map(R.map(csv => csv + '\n'));
+      .pipe(
+        map(this.resItems)
+      , flatMap(forkItems)
+      , map(R.map(this.resItems.bind(this)))
+      , map(R.map(this.setItems.bind(this)))
+      , map(R.flatten)
+      , flatMap(from)
+      , flatMap(streamDetail)
+      , flatMap(forkJSON)
+      , map(R.map(this.resDetail.bind(this)))
+      , map(R.map(this.setDetail.bind(this)))
+      , map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
+      , map(R.map(this.renderDetail.bind(this)))
+      , map(R.map(util.toCSV.bind(this)))
+      , map(R.map(csv => csv + '\n'))
+      )
+    ;
   },
 
   writeCompleteItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    const streamItems = idx =>
-      Rx.Observable.fromPromise(
-        this.getCompleteItems(options, idx));
-    const streamDetail = obj =>
-      Rx.Observable.fromPromise(
-        this.getDetail({ itemId: obj.itemId }));
-    const forkItems = obj =>
-      Rx.Observable.forkJoin(this.forCompleteItems(options, obj));
-    const forkJSON = obj =>
-      Rx.Observable.forkJoin(util.toJSON(obj));
+    const streamItems   = idx => fromPromise(this.getCompleteItems(options, idx));
+    const streamDetail  = obj => fromPromise(this.getDetail({ itemId: obj.itemId }));
+    const forkItems     = obj => forkJoin(this.forCompleteItems(options, obj));
+    const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
-      .map(this.resCompleteItems)
-      .flatMap(forkItems)
-      .map(R.map(this.resCompleteItems.bind(this)))
-      .map(R.map(this.setItems.bind(this)))
-      .map(R.flatten)
-      .flatMap(Rx.Observable.from)
-      .flatMap(streamDetail)
-      .flatMap(forkJSON)
-      .map(R.map(this.resDetail.bind(this)))
-      .map(R.map(this.setDetail.bind(this)))
-      .map(R.filter(
-        R.curry(this.filterDetail.bind(this))(options)
-      ))
-      .map(R.map(this.renderDetail.bind(this)))
-      .map(R.map(util.toCSV.bind(this)))
-      .map(R.map(csv => csv + '\n'));
+      .pipe(
+        map(this.resCompleteItems)
+      , flatMap(forkItems)
+      , map(R.map(this.resCompleteItems.bind(this)))
+      , map(R.map(this.setItems.bind(this)))
+      , map(R.flatten)
+      , flatMap(from)
+      , flatMap(streamDetail)
+      , flatMap(forkJSON)
+      , map(R.map(this.resDetail.bind(this)))
+      , map(R.map(this.setDetail.bind(this)))
+      , map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
+      , map(R.map(this.renderDetail.bind(this)))
+      , map(R.map(util.toCSV.bind(this)))
+      , map(R.map(csv => csv + '\n'))
+      )
+    ;
   },
   
   writeProductsItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    const streamItems = idx =>
-      Rx.Observable.fromPromise(
-        this.getProductsItems(options, idx));
-    const streamDetail = obj =>
-      Rx.Observable.fromPromise(
-        this.getDetail({ itemId: obj.itemId }));
-    const forkItems = obj =>
-      Rx.Observable.forkJoin(this.forProductsItems(options, obj));
-    const forkJSON = obj =>
-      Rx.Observable.forkJoin(util.toJSON(obj));
+    const streamItems   = idx => fromPromise(this.getProductsItems(options, idx));
+    const streamDetail  = obj => fromPromise(this.getDetail({ itemId: obj.itemId }));
+    const forkItems     = obj => forkJoin(this.forProductsItems(options, obj));
+    const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
-      .map(this.resProductsItems)
-      .flatMap(forkItems)
-      .map(R.map(this.resProductsItems.bind(this)))
-      .map(R.map(this.setItems.bind(this)))
-      .map(R.flatten)
-      .flatMap(Rx.Observable.from)
-      .flatMap(streamDetail)
-      .flatMap(forkJSON)
-      .map(R.map(this.resDetail.bind(this)))
-      .map(R.map(this.setDetail.bind(this)))
-      .map(R.filter(
-        R.curry(this.filterDetail.bind(this))(options)
-      ))
-      .map(R.map(this.renderDetail.bind(this)))
-      .map(R.map(util.toCSV.bind(this)))
-      .map(R.map(csv => csv + '\n'));
+      .pipe(
+        map(this.resProductsItems)
+      , flatMap(forkItems)
+      , map(R.map(this.resProductsItems.bind(this)))
+      , map(R.map(this.setItems.bind(this)))
+      , map(R.flatten)
+      , flatMap(from)
+      , flatMap(streamDetail)
+      , flatMap(forkJSON)
+      , map(R.map(this.resDetail.bind(this)))
+      , map(R.map(this.setDetail.bind(this)))
+      , map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
+      , map(R.map(this.renderDetail.bind(this)))
+      , map(R.map(util.toCSV.bind(this)))
+      , map(R.map(csv => csv + '\n'))
+      )
+    ;
   },
   
   forItems(options, res) {

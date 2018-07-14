@@ -8,6 +8,7 @@ class Main {
     this.start();
     this.MainWindow = new MainWindow();
   }
+
   start() {
     app.on('ready', () => {
       AppMenu.setup();

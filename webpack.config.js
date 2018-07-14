@@ -3,6 +3,8 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackTemplate = require('html-webpack-template');
 const mode = 'development';
 
 const config = {
@@ -40,6 +42,23 @@ const config = {
     ])
   , new WebpackManifestPlugin()
   , new webpack.HotModuleReplacementPlugin()
+  , new HtmlWebpackPlugin({
+      inject: false
+    , template: HtmlWebpackTemplate
+    , appMountId: 'app'
+    , lang: 'ja-JP'
+    , links: [
+        { rel:  'stylesheet', href: 'assets/css/photon.min.css' }
+      ]
+    , scripts: [
+        'https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js'
+      , 'assets/js/log4js.min.js'
+      , 'assets/js/jsonp.js'
+      ]
+    , title: 'WatchNote!'
+    , filename: 'index.html'
+    , favicon: 'favicon.ico'
+    })
   ]
 , module: { 
     rules: [ 

@@ -7,7 +7,12 @@ const pspid = `AppFormView`;
 export default class AppForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props.config);
+    this.state = {
+      appid:     props.config.appid
+    , token:      props.config.token
+    , findingApi: props.config.findingApi
+    , tradingApi: props.config.tradingApi
+    };
   }
 
   handleChangeSave(e) {
@@ -18,12 +23,13 @@ export default class AppForm extends React.Component {
   }
 
   handleChangeText(name, e) {
-    let newState = {};
-    newState[name] = e.target.value;
-    this.setState(newState);
+    this.setState({ [name]: e.target.value });
   }
 
   render() {
+    log.trace(AppForm.displayName, 'State', this.state);
+    log.trace(AppForm.displayName, 'Props', this.props);
+    const { appid, token, findingApi, tradingApi } = this.state;
     return <div className="pane">
     <form className="padded-less">
       <div className="form-group">
@@ -31,36 +37,32 @@ export default class AppForm extends React.Component {
       <input type="text"
         className="form-control"
         placeholder="Key ID"
-        value={this.state.appid}
-        onChange={
-          this.handleChangeText.bind(this, 'appid')} />
+        value={appid}
+        onChange={this.handleChangeText.bind(this, 'appid')} />
       </div>
       <div className="form-group">
       <label>User Token</label>
       <textarea
         className="form-control"
         placeholder="Token"
-        value={this.state.token}
-        onChange={
-          this.handleChangeText.bind(this, 'token')} />
+        value={token}
+        onChange={this.handleChangeText.bind(this, 'token')} />
       </div>
       <div className="form-group">
       <label>Finding API URL</label>
       <input type="text"
         className="form-control"
         placeholder="URL"
-        value={this.state.findingApi}
-        onChange={
-          this.handleChangeText.bind(this, 'findingApi')} />
+        value={findingApi}
+        onChange={this.handleChangeText.bind(this, 'findingApi')} />
       </div>
       <div className="form-group">
       <label>Trading API URL</label>
       <input type="text"
         className="form-control"
         placeholder="URL"
-        value={this.state.tradingApi}
-        onChange={
-          this.handleChangeText.bind(this, 'tradingApi')} />
+        value={tradingApi}
+        onChange={this.handleChangeText.bind(this, 'tradingApi')} />
       </div>
       <div className="form-actions">
       <button type="submit" 
@@ -72,4 +74,4 @@ export default class AppForm extends React.Component {
     </div>;
   }
 }
-
+AppForm.displayName = 'AppForm';

@@ -1,6 +1,7 @@
-import { dispatch } from '../dispatcher';
-import NoteApiClient from '../services/NoteApiClient';
-import { spn, log } from '../../utils/webutils';
+import { map }        from 'rxjs/operators';
+import { dispatch }   from '../dispatcher';
+import NoteApiClient  from '../services/NoteApiClient';
+import { spn, log }   from '../../utils/webutils';
 
 const pspid = `NoteAction`;
 
@@ -31,10 +32,13 @@ export default {
   writeItems(options) {
     spn.spin();
     return NoteApiClient.writeItems(options)
-    .map(objs => {
-      dispatch({ type: 'item/write/note', options });
-      log.info(`${pspid}>`, 'Response: item/write/note');
-      return objs;
-    });
+      .pipe(
+        map(objs => {
+          dispatch({ type: 'item/write/note', options });
+          log.info(`${pspid}>`, 'Response: item/write/note');
+          return objs;
+        })
+      )
+    ;
   }
 }
