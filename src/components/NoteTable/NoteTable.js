@@ -1,6 +1,6 @@
-import React from 'react';
-import std from '../../../utils/stdutils';
-import { log, util } from '../../../utils/webutils';
+import React          from 'react';
+import std            from 'Utilities/stdutils';
+import { log, util }  from 'Utilities/webutils';
 
 const pspid = `NoteTableView`;
 

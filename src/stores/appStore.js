@@ -1,8 +1,6 @@
-import { ReduceStore } from 'flux/utils';
-import dispatcher from '../dispatcher';
-import { log } from '../../utils/webutils';
-
-const pspid = `appStore`;
+import { ReduceStore }  from 'flux/utils';
+import dispatcher       from 'Main/dispatcher';
+import { log }          from 'Utilities/webutils';
 
 class AppStore extends ReduceStore {
   getInitialState() {
@@ -10,22 +8,20 @@ class AppStore extends ReduceStore {
       selected: 0
       , title: ''
       , config: {
-        selected: ''
+          selected: ''
         , title: ''
         , appid: ''
         , token: ''
         , findingApi: ''
         , tradingApi: ''
-      }
-    };
+        }
+      };
   }
   
   reduce(state, action) {
-    log.info(`${pspid}> Request: ${action.type}`);
     switch (action.type) {
       case 'content/select':
-        return Object.assign({}, state
-          , { selected: action.selected, title: action.title });
+        return Object.assign({}, state, { selected: action.selected, title: action.title });
       case 'config/fetch/appid':
         return Object.assign({}, state, { config: action.config });
       case 'config/write/appid':
@@ -34,6 +30,5 @@ class AppStore extends ReduceStore {
         return state;
     }
   }
-}
-
+};
 export default new AppStore(dispatcher);

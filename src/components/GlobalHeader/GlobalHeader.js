@@ -1,5 +1,5 @@
-import React from 'react';
-import { log } from '../../../utils/webutils';
+import React    from 'react';
+import { log }  from 'Utilities/webutils';
 
 const pspid = `GlobalHeaderView`;
 

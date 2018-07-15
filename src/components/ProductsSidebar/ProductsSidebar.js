@@ -1,8 +1,8 @@
-import React from 'react';
-import ProductsAction from '../../actions/ProductsAction';
-import Radio from '../../components/Radio/Radio';
-import { log, spn, util } from '../../../utils/webutils';
-import std from '../../../utils/stdutils';
+import React              from 'react';
+import ProductsAction     from 'Actions/ProductsAction';
+import Radio              from 'Components/Radio/Radio';
+import { log, spn, util } from 'Utilities/webutils';
+import std                from 'Utilities/stdutils';
 
 import fs from 'fs';
 import electron from 'electron';

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Container } from 'flux/utils';
-import ContainerConverter from '../../FluxContainerConverter';
-import productsStore from '../../stores/productsStore';
-import ProductsBody from '../../components/ProductsBody/ProductsBody';
-import { log } from '../../../utils/webutils';
+import React              from 'react';
+import { Container }      from 'flux/utils';
+import ContainerConverter from 'Main/FluxContainerConverter';
+import productsStore      from 'Stores/productsStore';
+import ProductsBody       from 'Components/ProductsBody/ProductsBody';
+import { log }            from 'Utilities/webutils';
 
 const pspid = `ProductsControlerView`;
 

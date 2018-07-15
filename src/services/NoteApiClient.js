@@ -1,15 +1,16 @@
 import { remote }                 from 'electron';
-import { from as fromPromise, from, forkJoin, pipe } from 'rxjs';
+import * as R                     from 'ramda';
+import { from, forkJoin, pipe }   from 'rxjs';
 import { map, flatMap }           from 'rxjs/operators';
-import { M, log, spn, str, util } from '../../utils/webutils';
-import xhr                        from '../../utils/xhrutils';
-import std                        from '../../utils/stdutils';
+import { M, log, spn, str, util } from 'Utilities/webutils';
+import xhr                        from 'Utilities/xhrutils';
+import std                        from 'Utilities/stdutils';
 
 log.config('console', 'basic', 'ALL', 'note-renderer');
 spn.config('app');
 
 const pspid = `eBAPIClient`;
-const fetch = remote.require('./views/fetch');
+const fetch = remote.require('./fetch.node.js');
 
 let eBay = new Object();
 
@@ -22,7 +23,8 @@ export default {
           const memory = window.localStorage
           || (window.UserDataStorage && new str.UserDataStorage())
           || new str.CookieStorage();
-          eBay = JSON.parse(memory.getItem("eBay_config"));
+          const config = JSON.parse(memory.getItem("eBay_config"));
+          eBay = config ? config : {};
           resolve(eBay);
         });
       case 'config/write':
@@ -149,8 +151,8 @@ export default {
   writeItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    const streamItems   = idx => fromPromise(this.getItems(options, idx));
-    const streamDetail  = obj => fromPromise(this.getDetail({ itemId: obj.itemId }));
+    const streamItems   = idx => from(this.getItems(options, idx));
+    const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
     const forkItems     = obj => forkJoin(this.forItems(options, obj));
     const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
@@ -176,8 +178,8 @@ export default {
   writeCompleteItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    const streamItems   = idx => fromPromise(this.getCompleteItems(options, idx));
-    const streamDetail  = obj => fromPromise(this.getDetail({ itemId: obj.itemId }));
+    const streamItems   = idx => from(this.getCompleteItems(options, idx));
+    const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
     const forkItems     = obj => forkJoin(this.forCompleteItems(options, obj));
     const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
@@ -203,8 +205,8 @@ export default {
   writeProductsItems(options) {
     log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
-    const streamItems   = idx => fromPromise(this.getProductsItems(options, idx));
-    const streamDetail  = obj => fromPromise(this.getDetail({ itemId: obj.itemId }));
+    const streamItems   = idx => from(this.getProductsItems(options, idx));
+    const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
     const forkItems     = obj => forkJoin(this.forProductsItems(options, obj));
     const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)

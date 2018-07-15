@@ -1,9 +1,9 @@
-import React from 'react';
-import { Container } from 'flux/utils';
-import ContainerConverter from '../../FluxContainerConverter';
-import completeStore from '../../stores/completeStore';
-import CompleteBody from '../../components/CompleteBody/CompleteBody';
-import { log } from '../../../utils/webutils';
+import React              from 'react';
+import { Container }      from 'flux/utils';
+import ContainerConverter from 'Main/FluxContainerConverter';
+import completeStore      from 'Stores/completeStore';
+import CompleteBody       from 'Components/CompleteBody/CompleteBody';
+import { log }            from 'Utilities/webutils';
 
 const pspid = `CompleteControlerView`;
 

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Container } from 'flux/utils';
-import ContainerConverter from '../../FluxContainerConverter';
-import noteStore from '../../stores/noteStore';
-import NoteBody from '../../components/NoteBody/NoteBody';
-import { log } from '../../../utils/webutils';
+import React              from 'react';
+import { Container }      from 'flux/utils';
+import ContainerConverter from 'Main/FluxContainerConverter';
+import noteStore          from 'Stores/noteStore';
+import NoteBody           from 'Components/NoteBody/NoteBody';
+import { log }            from 'Utilities/webutils';
 
 const pspid = `NoteControlerView`;
 

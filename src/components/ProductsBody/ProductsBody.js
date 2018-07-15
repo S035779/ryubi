@@ -1,7 +1,7 @@
-import React from 'react';
-import ProductsSidebar from '../../components/ProductsSidebar/ProductsSidebar';
-import ProductsTable from '../../components/ProductsTable/ProductsTable';
-import { log } from '../../../utils/webutils';
+import React            from 'react';
+import ProductsSidebar  from 'Components/ProductsSidebar/ProductsSidebar';
+import ProductsTable    from 'Components/ProductsTable/ProductsTable';
+import { log }          from 'Utilities/webutils';
 
 const pspid = `ProductsBodyView`;
 

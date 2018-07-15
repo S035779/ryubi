@@ -1,6 +1,6 @@
-import React from 'react';
-import AppAction from '../../actions/AppAction';
-import { log } from '../../../utils/webutils';
+import React      from 'react';
+import AppAction  from 'Actions/AppAction';
+import { log }    from 'Utilities/webutils';
 
 const pspid = `TabsView`;
 

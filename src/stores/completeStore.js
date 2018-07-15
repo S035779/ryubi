@@ -1,6 +1,6 @@
-import { ReduceStore } from 'flux/utils';
-import dispatcher from '../dispatcher';
-import { log } from '../../utils/webutils';
+import { ReduceStore }  from 'flux/utils';
+import dispatcher       from 'Main/dispatcher';
+import { log }          from 'Utilities/webutils';
 
 const pspid = `completeStore`;
 

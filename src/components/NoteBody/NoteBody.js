@@ -1,7 +1,7 @@
-import React from 'react';
-import NoteSidebar from '../../components/NoteSidebar/NoteSidebar';
-import NoteTable from '../../components/NoteTable/NoteTable';
-import { log } from '../../../utils/webutils';
+import React        from 'react';
+import NoteSidebar  from 'Components/NoteSidebar/NoteSidebar';
+import NoteTable    from 'Components/NoteTable/NoteTable';
+import { log }      from 'Utilities/webutils';
 
 const pspid = `NoteBodyView`;
 

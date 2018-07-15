@@ -1,25 +1,28 @@
-import React from 'react';
-import AppAction from '../../actions/AppAction';
-import { log } from '../../../utils/webutils';
+import React        from 'react';
+import PropTypes    from 'prop-types';
+import AppAction    from 'Actions/AppAction';
+import { spn, log } from 'Utilities/webutils';
 
-const pspid = `AppFormView`;
-
-export default class AppForm extends React.Component {
+class AppForm extends React.Component {
   constructor(props) {
     super(props);
+    const config = props.config;
     this.state = {
-      appid:     props.config.appid
-    , token:      props.config.token
-    , findingApi: props.config.findingApi
-    , tradingApi: props.config.tradingApi
+      appid:      config.appid      ? config.appid      : ''
+    , token:      config.token      ? config.token      : ''
+    , findingApi: config.findingApi ? config.findingApi : ''
+    , tradingApi: config.tradingApi ? config.tradingApi : ''
     };
   }
 
   handleChangeSave(e) {
-    log.info(`${pspid}>`, 'Request: handleChangeSave');
-    log.trace(`${pspid}>`, this.props.config);
+    const { config } = this.props;
+    log.info(AppForm.dilplayName, 'Request: handleChangeSave', config);
     e.preventDefault();
-    AppAction.writeConfig(this.state);
+    const newConfig = Object.assign({}, config, this.state);
+    spn.spin();
+    AppAction.writeConfig(newConfig)
+      .then(() => spn.stop());
   }
 
   handleChangeText(name, e) {
@@ -75,3 +78,8 @@ export default class AppForm extends React.Component {
   }
 }
 AppForm.displayName = 'AppForm';
+AppForm.defaultProps = { config: null };
+AppForm.propTypes = {
+  config : PropTypes.object.isRequired
+};
+export default AppForm;

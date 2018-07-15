@@ -1,6 +1,6 @@
-import { dispatch } from '../dispatcher';
-import NoteApiClient from '../services/NoteApiClient';
-import { spn, log } from '../../utils/webutils';
+import { dispatch }   from 'Main/dispatcher';
+import NoteApiClient  from 'Services/NoteApiClient';
+import { spn, log }   from 'Utilities/webutils';
 
 const pspid = `ProductsAction`;
 

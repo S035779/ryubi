@@ -1,15 +1,21 @@
-import React from 'react';
-import AppSidebar from '../../components/AppSidebar/AppSidebar';
-import AppForm from '../../components/AppForm/AppForm';
-import { log } from '../../../utils/webutils';
+import React      from 'react';
+import PropTypes  from 'prop-types';
+import AppSidebar from 'Components/AppSidebar/AppSidebar';
+import AppForm    from 'Components/AppForm/AppForm';
+import { log }    from 'Utilities/webutils';
 
-const pspid = `AppBodyView`;
-
-export default class AppBody extends React.Component {
+class AppBody extends React.Component {
   render() {
+    const { config } = this.props;
     return <div className="pane-group">
       <AppSidebar />
-      <AppForm config={this.props.config}/>
+      <AppForm config={config}/>
     </div>;
   }
 };
+AppBody.displayName = 'AppBody';
+AppBody.defaultProps = { config: null };
+AppBody.propTypes = {
+  config: PropTypes.object.isRequired
+};
+export default AppBody;

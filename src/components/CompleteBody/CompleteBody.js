@@ -1,7 +1,7 @@
-import React from 'react';
-import CompleteSidebar from '../../components/CompleteSidebar/CompleteSidebar';
-import CompleteTable from '../../components/CompleteTable/CompleteTable';
-import { log } from '../../../utils/webutils';
+import React            from 'react';
+import CompleteSidebar  from 'Components/CompleteSidebar/CompleteSidebar';
+import CompleteTable    from 'Components/CompleteTable/CompleteTable';
+import { log }          from 'Utilities/webutils';
 
 const pspid = `CompleteBodyView`;
 

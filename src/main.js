@@ -1,14 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './pages/App/App';
+import React      from 'react';
+import { render } from 'react-dom';
+import App        from 'Pages/App/App';
  
-ReactDOM.render(
-  <App />
-, document.getElementById('app'));
+const rootEl = document.getElementById('app');
+const renderRoot = () => {
+  render(<App />, rootEl);
+};
 
 if (module.hot) {
   module.hot.accept('./pages/App/App.js', () => {
-    console.log('Accepting the updated App module!');
-    App.updated();
+    setImmediate(() => {
+      renderRoot();
+    });
   });
-}
+};
+
+renderRoot();
