@@ -10,7 +10,8 @@
     "build:node": "webpack --config webpack.node.js",
     "start:web": "webpack-dev-server --config webpack.bundle.js",
     "start:node": "cross-env NODE_ENV=development API_URL=http://localhost:3000 electron dist/desktop.node.js",
-    "start:development": "npm-run-all -p start:web start:node"
+    "start:development": "npm-run-all -p start:web start:node watch:node",
+    "watch:node": "webpack --config webpack.node.js --watch"
   },
   "license": "ISC",
   "dependencies": {

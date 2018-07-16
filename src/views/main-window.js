@@ -45,7 +45,7 @@ module.exports = class MainWindow {
     this.window = new BrowserWindow({ 
       width: 1152, height: 964
     , webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: false
       , preload: path.resolve(__dirname, 'preload.node.js')
       }
     });

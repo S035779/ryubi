@@ -29,6 +29,5 @@ const node = {
     , { from: path.resolve(__dirname, 'node_modules/devtron/out/browser-globals.js'), to: 'out/' }
     ], { debug: false })
   ]
-, watch: true
 };
 module.exports = merge(common, node);
