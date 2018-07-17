@@ -1,26 +1,33 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const mode = 'development';
 
 var common = {
   context: path.resolve(__dirname, 'src')
-, module:   { 
-    rules:    [{
-      enforce: 'pre'
-    , test: /\.js$/
-    , exclude: /node_modules/
-    , loader: 'eslint-loader'
-    }, {
-      test: /\.js$/
-    , exclude: /node_modules/
-    , use: { 
-        loader:   'babel-loader'
-      , options:  { presets: [ '@babel/react', [ '@babel/preset-env', { modules: false } ] ] }
+, module: { 
+    rules: [
+      {
+        enforce: 'pre'
+      , test: /\.js$/
+      , exclude: /node_modules/
+      , loader: 'eslint-loader'
       }
-    }, {
-      test: /\.css$/
-    , use: [ MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader' ]
-    }] 
+    , {
+        test: /\.js$/
+      , exclude: /node_modules/
+      , use: { 
+          loader:   'babel-loader'
+        , options:  { presets: [ '@babel/react', [ '@babel/preset-env', { modules: false } ] ] }
+        }
+      }
+    , {
+        test: /\.css$/
+      , use: [ MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader' ]
+      }
+    , {
+        test: /\.(woff|woff2|eot|ttf|otf)$/
+      , use: [ 'file-loader?name=[name].[ext]' ]
+      }
+    ] 
   }
 , resolve: {
     alias: {
@@ -37,7 +44,6 @@ var common = {
     , Tasks:      path.resolve(__dirname, 'src/tasks'     )
     }
   }
-, mode
 , stats: 'normal'
 };
 

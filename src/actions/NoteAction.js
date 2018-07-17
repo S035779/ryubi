@@ -3,18 +3,16 @@ import { dispatch }   from 'Main/dispatcher';
 import NoteApiClient  from 'Services/NoteApiClient';
 import { spn, log }   from 'Utilities/webutils';
 
-const pspid = `NoteAction`;
+const displayName = `NoteAction`;
 
 export default {
   increment(options, page) {
-    log.trace(`${pspid}>`, options);
     page = ++page > 0 ? page : 1;
     spn.spin();
     return NoteApiClient.fetchItems(options, page)
     .then(items => {
       dispatch({ type: 'item/fetch/note'
         , items, options, page });
-      log.info(`${pspid}>`, 'Response: item/fetch/note');
       spn.stop();
     });
   },
@@ -25,7 +23,6 @@ export default {
     .then(items => {
       dispatch({ type: 'item/fetch/note'
         , items, options, page });
-      log.info(`${pspid}> Response: item/fetch/note`);
       spn.stop();
     });
   },
@@ -35,7 +32,6 @@ export default {
       .pipe(
         map(objs => {
           dispatch({ type: 'item/write/note', options });
-          log.info(`${pspid}>`, 'Response: item/write/note');
           return objs;
         })
       )

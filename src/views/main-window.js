@@ -1,5 +1,4 @@
-const electron = require('electron');
-const BrowserWindow = electron.BrowserWindow;
+const { app, BrowserWindow  } = require('electron');
 
 const path = require('path');
 const url = require('url');
@@ -18,8 +17,6 @@ module.exports = class MainWindow {
   }
 
   start() {
-    const app = electron.app;
-
     app.on('ready', () => {
       this.createWindow();
     });
@@ -44,15 +41,23 @@ module.exports = class MainWindow {
   createWindow() {
     this.window = new BrowserWindow({ 
       width: 1152, height: 964
-    , webPreferences: {
-        nodeIntegration: false
-      , preload: path.resolve(__dirname, 'preload.node.js')
-      }
+    , webPreferences: { 
+        nodeIntegration: true
+      , preload: path.resolve(__dirname, './utils/preload.node.js') 
+      } 
     });
+
     this.window.loadURL(startUrl);
+
     if(node_env === 'development') {
       this.window.webContents.openDevTools();
+
+      //const extensions = BrowserWindow.getDevToolsExtensions();
+      //if(!extensions.hasOwnProperty('devtron')) {
+      //  BrowserWindow.addDevToolsExtension(require('devtron').path);
+      //}
     }
+
     this.window.on('closed', event => this.window = null);
   }
 };

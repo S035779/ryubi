@@ -3,19 +3,21 @@ const merge = require('webpack-merge');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const common = require('./webpack.common.js');
 
 const node = {
-  target:   "electron-main"
-, node:     { __dirname: false }
+  mode: 'none'
+, target: "electron-main"
 , entry:    { 
     desktop:    './desktop.js'
-  , preload:    './utils/preload.js'
-  , fetch:      './utils/fetch.js'
   }
 , output:   { 
     filename: '[name].node.js' 
   , path: path.resolve(__dirname, 'dist')
+  }
+, optimization: {
+    nodeEnv: false
   }
 , plugins:  [ 
     new CleanWebpackPlugin([
@@ -28,6 +30,11 @@ const node = {
       { from: path.resolve(__dirname, 'node_modules/devtron/manifest.json') }
     , { from: path.resolve(__dirname, 'node_modules/devtron/out/browser-globals.js'), to: 'out/' }
     ], { debug: false })
+  , new WebpackManifestPlugin()
   ]
+, node: { 
+    __dirname: false 
+  , __filename: false
+  }
 };
 module.exports = merge(common, node);

@@ -9,8 +9,6 @@ import electron from 'electron';
 const remote = electron.remote;
 const dialog = electron.remote.dialog;
 
-const pspid = `NoteSidebarView`;
-
 export default class NoteSidebar extends React.Component {
   constructor(props) {
     super(props);
@@ -85,13 +83,12 @@ export default class NoteSidebar extends React.Component {
   }
 
   handleChangeSave() {
-    log.info(`${pspid}>`, 'Request: handleChangeSave');
+    log.info(NoteSidebar.displayName, 'handleChangeSave');
     if(!Number(this.state.pages))
       return this.showErrorBox('Pages is not a number!');
     this.showSaveDialog(filename => {
       if(!filename) 
         return log.info('File save canceled!');
-      log.trace(`${pspid}>`, 'Save file:', filename);
       this.touchFile(filename)
       .then(() => this.saveFile(filename
           , util.getCSVHeader(this.csvHeader())))
@@ -99,8 +96,8 @@ export default class NoteSidebar extends React.Component {
         spn.spin();
         NoteAction.writeItems(this.state).subscribe(
           obj => this.saveFile(filename, obj)
-          , err => this.showErrorBox(err.message)
-          , () => {
+        , err => this.showErrorBox(err.message)
+        , () => {
             this.showSaveMessageBox();
             log.info('File has been saved!');
             spn.stop();
@@ -111,33 +108,28 @@ export default class NoteSidebar extends React.Component {
   }
   
   handleChangeHome() {
-    log.info(`${pspid}>`, 'Request: handleChangeHome');
-    log.trace(`${pspid}>`, this.props.options);
+    log.info (NoteSidebar.displayName, 'handleChangeHome');
     NoteAction.increment(this.props.options, 0);
   }
 
   handleIncrement() {
-    log.info(`${pspid}>`, 'Request: handleIncrement');
-    log.trace(`${pspid}>`, this.props.options);
+    log.info (NoteSidebar.displayName, 'handleIncrement');
     NoteAction.increment(this.props.options, this.props.page);
   }
 
   handleDecrement() {
-    log.info(`${pspid}> Request: handleDecrement`);
-    log.trace(`${pspid}>`, this.props.options);
+    log.info (NoteSidebar.displayName, 'handleDecrement');
     NoteAction.decrement(this.props.options, this.props.page);
   }
 
-  handleChangeSearch(e) {
-    log.info(`${pspid}>`, 'Request: handleChangeSearch');
-    log.trace(`${pspid}>`, this.state);
-    e.preventDefault();
+  handleChangeSearch(event) {
+    log.info (NoteSidebar.displayName, 'handleChangeSearch');
+    event.preventDefault();
     NoteAction.increment(this.state, 0);
   }
 
   handleChangeReset() {
-    log.info(`${pspid}>`, 'Request: handleChangeReset');
-    log.trace(`${pspid}>`, this.state);
+    log.info (NoteSidebar.displayName, 'handleChangeReset');
     this.setState({
       highestPrice:   ''
       , lowestPrice:  ''
@@ -375,3 +367,4 @@ export default class NoteSidebar extends React.Component {
     </div>;
   }
 };
+NoteSidebar.displayName = `NoteSidebar`;

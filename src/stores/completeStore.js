@@ -2,7 +2,7 @@ import { ReduceStore }  from 'flux/utils';
 import dispatcher       from 'Main/dispatcher';
 import { log }          from 'Utilities/webutils';
 
-const pspid = `completeStore`;
+const displayName = `completeStore`;
 
 class CompleteStore extends ReduceStore {
   getInitialState() {
@@ -28,7 +28,6 @@ class CompleteStore extends ReduceStore {
   }
   
   reduce(state, action) {
-    log.info(`${pspid}> Request: ${action.type}`);
     switch (action.type) {
       case 'item/fetch/complete':
         return Object.assign({}, state

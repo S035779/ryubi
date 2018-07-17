@@ -30,7 +30,7 @@ class App extends React.Component {
   }
 
   render() {
-    log.info(App.displayName, 'State', this.state);
+    //log.info(App.displayName, 'State', this.state);
     const { title, selected, config } = this.state;
     return <div className="window">
         <ErrorBoundary>
@@ -53,7 +53,7 @@ class App extends React.Component {
     ;
   }
 }
-App.displayName = 'App';
+App.displayName = 'AppController';
 App.defaultProps = {};
 App.propTypes = {};
 export default Container.create(ContainerConverter.convert(App));

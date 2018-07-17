@@ -2,7 +2,6 @@ import React      from 'react';
 import AppAction  from 'Actions/AppAction';
 import { log }    from 'Utilities/webutils';
 
-const pspid = `AppSidebarView`;
 
 export default class AppSidebar extends React.Component {
   constructor(props) {
@@ -22,3 +21,4 @@ export default class AppSidebar extends React.Component {
     </div>;
   }
 };
+AppSidebar.displayName = `AppSidebarView`;

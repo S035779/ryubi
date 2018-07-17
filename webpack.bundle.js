@@ -9,9 +9,15 @@ const HtmlWebpackTemplate = require('html-webpack-template');
 const common = require('./webpack.common.js');
 
 const bundle = {
-  target:   "electron-renderer"
-, entry:    { 
-    app:    ['./main.js', './main.css']
+  target: "electron-renderer"
+, entry: { 
+    app: [
+      './main.js'
+    ]
+  , css: [
+      './assets/css/photon.css'
+    , './main.css'
+    ]
   }
 , output:   { 
     filename: '[name].bundle.js' 
@@ -41,6 +47,9 @@ const bundle = {
     , 'public/*.json'
     , 'public/*.ico'
     , 'public/*.html'
+    , 'public/*.eot'
+    , 'public/*.ttf'
+    , 'public/*.woff'
     ])
   , new WebpackManifestPlugin()
   , new webpack.HotModuleReplacementPlugin()
@@ -49,31 +58,12 @@ const bundle = {
     , template: HtmlWebpackTemplate
     , appMountId: 'app'
     , lang: 'ja-JP'
-    , links: [
-        { rel:  'stylesheet', href: 'assets/css/photon.min.css' }
-      ]
-    , scripts: [
-        'assets/js/log4js.min.js'
-      , 'assets/js/jsonp.js'
-      ]
+    , scripts: [ 'assets/log4js.min.js', 'assets/jsonp.js' ]
     , title: 'WatchNote!'
     , filename: 'index.html'
     , favicon: 'favicon.ico'
+    , excludeChunks: 'css.bundle.js'
     })
   ]
-, devServer: {
-    contentBase: path.join(__dirname, 'public')
-  , port: 3000
-  , hot: true
-  }
-, performance: {
-    hints: "warning"
-  , maxAssetSize: 2048000
-  , maxEntrypointSize: 4096000
-  , assetFilter: function(assetFilename) {
-      return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
-    }
-  }
-, devtool: 'source-map'
 };
 module.exports = merge(common, bundle);

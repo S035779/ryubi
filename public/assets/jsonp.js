@@ -4,13 +4,13 @@
  * @param data {object}
  * @returns {string}
  */
-var encodeFormData = function(data) {
+const encodeFormData = function(data) {
   if (!data) return ""
-  var pairs = [];
-  for(var name in data) {
+  let pairs = [];
+  for(let name in data) {
     if (!data.hasOwnProperty(name)) continue;
     if (typeof data[name] === "function") continue;
-    var value = data[name].toString();
+    let value = data[name].toString();
     name = encodeURIComponent(name.replace(" ", "+"));
     value = encodeURIComponent(value.replace(" ", "+"));
     pairs.push(name + "=" + value);
@@ -25,12 +25,12 @@ var encodeFormData = function(data) {
  * @param data {object}
  * @param callback {string}
  */
-var JSONP = {
+const JSONP = {
   index: 0,
   callbacks: {},
   request: function(url, data, callback) {
-    var idx = '_' + JSONP.index++;
-    var elm = document.createElement('script');
+    let idx = '_' + JSONP.index++;
+    let elm = document.createElement('script');
     elm.type = 'text/javascript';
     elm.charset = 'utf-8';
     elm.src = url
@@ -42,5 +42,5 @@ var JSONP = {
       callback(res);
     };
     document.getElementsByTagName('head')[0].appendChild(elm);
-  },
+  }
 };

@@ -1,22 +1,23 @@
-import { remote }                 from 'electron';
+import electron                   from 'electron';
 import * as R                     from 'ramda';
 import { from, forkJoin, pipe }   from 'rxjs';
 import { map, flatMap }           from 'rxjs/operators';
 import { M, log, spn, str, util } from 'Utilities/webutils';
-import xhr                        from 'Utilities/xhrutils';
 import std                        from 'Utilities/stdutils';
 
-log.config('console', 'basic', 'ALL', 'note-renderer');
+log.config('console', 'basic', 'ALL', 'electron-renderer');
 spn.config('app');
 
-const pspid = `eBAPIClient`;
-const fetch = remote.require('./fetch.node.js');
+const displayName = `NoteApiClient`;
+const fetch = electron.remote.require('./utils/fetch.node.js');
+const __str = fetch.ping('pong');
+console.log(__str);
 
 let eBay = new Object();
 
 export default {
   request(action, response) {
-    log.info(`${pspid}>`, 'Request:', action);
+    log.info(displayName, 'request', action);
     switch(action) {
       case 'config/fetch':
         return new Promise(resolve => {
@@ -38,6 +39,7 @@ export default {
         });
       case 'findItemsByKeywords':
         return new Promise(resolve => {
+          console.log(action);
           JSONP.request(eBay.findingApi, response, obj => {
             resolve(obj);
           });
@@ -56,7 +58,6 @@ export default {
         });
       case 'findItemDetails':
         return new Promise(resolve => {
-          //xhr.postXML(eBay.tradingApi, response, obj => {
           fetch.postXML(eBay.tradingApi, response, (err, obj) => {
             if(err) return reject(err);
             resolve(obj);
@@ -64,7 +65,7 @@ export default {
         });
       default:
         return new Promise(resolve => {
-          log.warn(`${pspid}> Unknown request !!`);
+          log.error(displayName, 'request', 'unknown!!');
           resolve(response);
         });
     }
@@ -119,8 +120,8 @@ export default {
   },
   
   fetchItems(options, page) {
-    log.trace(`${pspid}>`,'options:', options);
-    log.trace(`${pspid}>`,'page:', page);
+    //log.trace(`${pspid}>`,'options:', options);
+    //log.trace(`${pspid}>`,'page:', page);
     return this.getItems(options, page)
       .then(this.resItems)
       .then(this.setItems)
@@ -129,8 +130,8 @@ export default {
   },
   
   fetchCompleteItems(options, page) {
-    log.trace(`${pspid}>`,'options:', options);
-    log.trace(`${pspid}>`,'page:', page);
+    //log.trace(`${pspid}>`,'options:', options);
+    //log.trace(`${pspid}>`,'page:', page);
     return this.getCompleteItems(options, page)
       .then(this.resCompleteItems)
       .then(this.setItems)
@@ -139,8 +140,8 @@ export default {
   },
   
   fetchProductsItems(options, page) {
-    log.trace(`${pspid}>`,'options:', options);
-    log.trace(`${pspid}>`,'page:', page);
+    //log.trace(`${pspid}>`,'options:', options);
+    //log.trace(`${pspid}>`,'page:', page);
     return this.getProductsItems(options, page)
       .then(this.resProductsItems)
       .then(this.setItems)
@@ -149,7 +150,7 @@ export default {
   },
   
   writeItems(options) {
-    log.trace(`${pspid}>`,'options:', options);
+    //log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
     const streamItems   = idx => from(this.getItems(options, idx));
     const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
@@ -176,7 +177,7 @@ export default {
   },
 
   writeCompleteItems(options) {
-    log.trace(`${pspid}>`,'options:', options);
+    //log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
     const streamItems   = idx => from(this.getCompleteItems(options, idx));
     const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
@@ -203,7 +204,7 @@ export default {
   },
   
   writeProductsItems(options) {
-    log.trace(`${pspid}>`,'options:', options);
+    //log.trace(`${pspid}>`,'options:', options);
     const pages = Number(options.pages);
     const streamItems   = idx => from(this.getProductsItems(options, idx));
     const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
@@ -365,7 +366,7 @@ export default {
       n++;
     }
     
-    log.trace(`${pspid}>`, 'optItems:', options);
+    //log.trace(`${pspid}>`, 'optItems:', options);
     return options;
   },
 
@@ -421,7 +422,7 @@ export default {
       n++;
     }
 
-    log.trace(`${pspid}>`, 'optProducts:', options);
+    //log.trace(`${pspid}>`, 'optProducts:', options);
     return options;
   },
 
@@ -439,7 +440,7 @@ export default {
     body['WarningLevel'] = 'High';
     body['ItemID'] = _p.itemId;
     body['DetailLevel'] = 'ReturnAll';
-    log.trace(`${pspid}>`, 'optDetail:', head, body);
+    //log.trace(`${pspid}>`, 'optDetail:', head, body);
     return { head, body: util.toXML(_o.operation, body) };
   },
 
@@ -666,10 +667,10 @@ export default {
   },
 
   traceLog(obj) {
-    return log.trace(`${pspid}>`, 'Trace log:', obj);
+    return log.trace(displayName, 'Trace log:', obj);
   },
 
   errorLog(err) {
-    return log.error(`${pspid}>`, 'Error occurred:', err);
+    return log.error(displayName, 'Error occurred:', err);
   }
 }

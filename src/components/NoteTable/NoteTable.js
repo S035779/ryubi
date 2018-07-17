@@ -2,8 +2,6 @@ import React          from 'react';
 import std            from 'Utilities/stdutils';
 import { log, util }  from 'Utilities/webutils';
 
-const pspid = `NoteTableView`;
-
 export default class NoteTable extends React.Component {
   renderStatus(status) {
     let styles;
@@ -82,7 +80,6 @@ export default class NoteTable extends React.Component {
   }
 
   filterItems(objs, options) {
-    log.trace(`${pspid}>`, options);
     return objs.filter(obj => { 
       const item = obj;
       if(options != null) {
@@ -152,4 +149,4 @@ export default class NoteTable extends React.Component {
     </div>;
   }
 };
-
+NoteTable.displayName = `NoteTableView`;
