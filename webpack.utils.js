@@ -9,7 +9,6 @@ var utils = {
 , target: 'node'
 , entry: {
     preload:  ['./utils/preload.js']
-  , fetch:    ['./utils/fetch.js']
   }
 , output:   { 
     filename: '[name].node.js' 

@@ -1,39 +1,28 @@
 import { dispatch }   from 'Main/dispatcher';
 import NoteApiClient  from 'Services/NoteApiClient';
-import { spn, log }   from 'Utilities/webutils';
+import { log }        from 'Utilities/webutils';
 
 const pspid = `ProductsAction`;
 
 export default {
   increment(options, page) {
-    log.trace(`${pspid}>`, options);
     page = ++page > 0 ? page : 1;
-    spn.spin();
     return NoteApiClient.fetchProductsItems(options, page)
     .then(items => {
-      dispatch({ type: 'item/fetch/products'
-        , items, options, page });
-      log.info(`${pspid}>`, 'Response: item/fetch/products');
-      spn.stop();
+      dispatch({ type: 'item/fetch/products', items, options, page });
     });
   },
   decrement(options, page) {
     page = --page > 0 ? page : 1;
-    spn.spin();
     return NoteApiClient.fetchProductsItems(options, page)
     .then(items => {
-      dispatch({ type: 'item/fetch/products'
-        , items, options, page });
-      log.info(`${pspid}> Response: item/fetch/products`);
-      spn.stop();
+      dispatch({ type: 'item/fetch/products', items, options, page });
     });
   },
   writeProductsItems(options) {
-    spn.spin();
     return NoteApiClient.writeProductsItems(options)
     .map(objs => {
       dispatch({ type: 'item/write/products', options });
-      log.info(`${pspid}>`, 'Response: item/write/products');
       return objs;
     });
   }

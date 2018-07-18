@@ -14,7 +14,11 @@ class AppStore extends ReduceStore {
         , token: ''
         , findingApi: ''
         , tradingApi: ''
+        , inventoryApi: ''
+        , marketingApi: ''
+        , analyticsApi: ''
         }
+      , options: null
       };
   }
   
@@ -26,6 +30,8 @@ class AppStore extends ReduceStore {
         return Object.assign({}, state, { config: action.config });
       case 'config/write/appid':
         return Object.assign({}, state, { config: action.config });
+      case 'item/write/inventory':
+        return Object.assign({}, state, { options: action.options });
       default:
         return state;
     }

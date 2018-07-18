@@ -1,64 +1,64 @@
-import electron                   from 'electron';
-import * as R                     from 'ramda';
-import { from, forkJoin, pipe }   from 'rxjs';
-import { map, flatMap }           from 'rxjs/operators';
-import { M, log, spn, str, util } from 'Utilities/webutils';
-import std                        from 'Utilities/stdutils';
+import * as R                       from 'ramda';
+import { from, forkJoin, pipe }     from 'rxjs';
+import { map, flatMap }             from 'rxjs/operators';
+import { M, log, spn, stor, util }  from 'Utilities/webutils';
+import std                          from 'Utilities/stdutils';
+import { fetch }                    from 'Utilities/ipcutils';
 
 log.config('console', 'basic', 'ALL', 'electron-renderer');
 spn.config('app');
 
 const displayName = `NoteApiClient`;
-const fetch = electron.remote.require('./utils/fetch.node.js');
-const __str = fetch.ping('pong');
-console.log(__str);
 
 let eBay = new Object();
-
 export default {
   request(action, response) {
     log.info(displayName, 'request', action);
     switch(action) {
       case 'config/fetch':
-        return new Promise(resolve => {
-          const memory = window.localStorage
-          || (window.UserDataStorage && new str.UserDataStorage())
-          || new str.CookieStorage();
+        return new Promise((resolve, reject) => {
+          const memory = window.localStorage 
+            || (window.UserDataStorage && new stor.UserDataStorage()) || new stor.CookieStorage();
           const config = JSON.parse(memory.getItem("eBay_config"));
           eBay = config ? config : {};
           resolve(eBay);
         });
       case 'config/write':
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
           const memory = window.localStorage
-          || (window.UserDataStorage && new str.UserDataStorage())
-          || new str.CookieStorage();
+            || (window.UserDataStorage && new stor.UserDataStorage()) || new stor.CookieStorage();
           eBay = response;
           memory.setItem("eBay_config", JSON.stringify(response));
           resolve(response);
         });
       case 'findItemsByKeywords':
-        return new Promise(resolve => {
-          console.log(action);
+        return new Promise((resolve, reject) => {
           JSONP.request(eBay.findingApi, response, obj => {
             resolve(obj);
           });
         });
       case 'findCompletedItems':
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
           JSONP.request(eBay.findingApi, response, obj => {
             resolve(obj);
           });
         });
       case 'findItemsByProduct':
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
           JSONP.request(eBay.findingApi, response, obj => {
             resolve(obj);
           });
         });
       case 'findItemDetails':
-        return new Promise(resolve => {
-          fetch.postXML(eBay.tradingApi, response, (err, obj) => {
+        return new Promise((resolve, reject) => {
+          fetch.of(eBay.tradingApi).postXML(response, (err, obj) => {
+            if(err) return reject(err);
+            resolve(obj);
+          });
+        });
+      case 'getInventoryItems':
+        return new Promise((resolve, reject) => {
+          fetch.of(eBay.inventoryApi + response.operation).getJSON(response, (err, obj) => {
             if(err) return reject(err);
             resolve(obj);
           });
@@ -77,30 +77,27 @@ export default {
 
   getItems(options, page) {
     return this.request('findItemsByKeywords'
-      , this.optItems({
-        appid: eBay.appid, page, operation: 'findItemsByKeywords'
-      }, options));
+      , this.optItems({ appid: eBay.appid, page, operation: 'findItemsByKeywords' }, options));
   },
   
   getCompleteItems(options, page) {
     return this.request('findCompletedItems'
-      , this.optItems({
-        appid: eBay.appid, page, operation: 'findCompletedItems'
-      }, options));
+      , this.optItems({ appid: eBay.appid, page, operation: 'findCompletedItems' }, options));
   },
   
   getProductsItems(options, page) {
     return this.request('findItemsByProduct'
-      , this.optProducts({
-        appid: eBay.appid, page, operation: 'findItemsByProduct'
-      }, options));
+      , this.optProducts({ appid: eBay.appid, page, operation: 'findItemsByProduct' }, options));
+  },
+  
+  getInventoryItems(options, page) {
+    return this.request('getInventoryItems'
+      , this.optInventory({ appid: eBay.appid, page, operation: '/inventory_item' }, options));
   },
   
   getDetail(options) {
     return this.request('findItemDetails'
-      , this.optDetail({
-        token: eBay.token, operation: 'GetItem' 
-      }, options));
+      , this.optDetail({ token: eBay.token, operation: 'GetItem' }, options));
   },
 
   putConfig(config) {
@@ -151,7 +148,7 @@ export default {
   
   writeItems(options) {
     //log.trace(`${pspid}>`,'options:', options);
-    const pages = Number(options.pages);
+    //const pages = Number(options.pages);
     const streamItems   = idx => from(this.getItems(options, idx));
     const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
     const forkItems     = obj => forkJoin(this.forItems(options, obj));
@@ -178,7 +175,7 @@ export default {
 
   writeCompleteItems(options) {
     //log.trace(`${pspid}>`,'options:', options);
-    const pages = Number(options.pages);
+    //const pages = Number(options.pages);
     const streamItems   = idx => from(this.getCompleteItems(options, idx));
     const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
     const forkItems     = obj => forkJoin(this.forCompleteItems(options, obj));
@@ -205,7 +202,7 @@ export default {
   
   writeProductsItems(options) {
     //log.trace(`${pspid}>`,'options:', options);
-    const pages = Number(options.pages);
+    //const pages = Number(options.pages);
     const streamItems   = idx => from(this.getProductsItems(options, idx));
     const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
     const forkItems     = obj => forkJoin(this.forProductsItems(options, obj));
@@ -230,10 +227,36 @@ export default {
     ;
   },
   
+  writeInventoryItems(options) {
+    //log.trace(`${pspid}>`,'options:', options);
+    //const pages = Number(options.pages);
+    const streamItems   = idx => from(this.getInventoryItems(options, idx));
+    const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
+    const forkItems     = obj => forkJoin(this.forInventoryItems(options, obj));
+    const forkJSON      = obj => forkJoin(util.toJSON(obj));
+    return streamItems(1)
+      .pipe(
+        map(this.resInventoryItems)
+      , flatMap(forkItems)
+      , map(R.map(this.resInventoryItems.bind(this)))
+      , map(R.map(this.setItems.bind(this)))
+      , map(R.flatten)
+      , flatMap(from)
+      , flatMap(streamDetail)
+      , flatMap(forkJSON)
+      , map(R.map(this.resDetail.bind(this)))
+      , map(R.map(this.setDetail.bind(this)))
+      , map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
+      , map(R.map(this.renderDetail.bind(this)))
+      , map(R.map(util.toCSV.bind(this)))
+      , map(R.map(csv => csv + '\n'))
+      )
+    ;
+  },
+  
   forItems(options, res) {
     const pages = Number(options.pages);
-    const page =
-      Number(res.paginationOutput[0].totalPages[0]) < pages
+    const page = Number(res.paginationOutput[0].totalPages[0]) < pages
       ? Number(res.paginationOutput[0].totalPages[0]) : pages;
     const newItems = [];
     for(let idx=1; idx <= page; idx++) {
@@ -244,8 +267,7 @@ export default {
   
   forCompleteItems(options, res) {
     const pages = Number(options.pages);
-    const page =
-      Number(res.paginationOutput[0].totalPages[0]) < pages
+    const page = Number(res.paginationOutput[0].totalPages[0]) < pages
       ? Number(res.paginationOutput[0].totalPages[0]) : pages;
     const newItems = [];
     for(let idx=1; idx <= page; idx++) {
@@ -256,8 +278,18 @@ export default {
   
   forProductsItems(options, res) {
     const pages = Number(options.pages);
-    const page =
-      Number(res.paginationOutput[0].totalPages[0]) < pages
+    const page = Number(res.paginationOutput[0].totalPages[0]) < pages
+      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
+    const newItems = [];
+    for(let idx=1; idx <= page; idx++) {
+      newItems.push(this.getProductsItems(options, idx));
+    }
+    return newItems;
+  },
+  
+  forInventoryItems(options, res) {
+    const pages = Number(options.pages);
+    const page = Number(res.paginationOutput[0].totalPages[0]) < pages
       ? Number(res.paginationOutput[0].totalPages[0]) : pages;
     const newItems = [];
     for(let idx=1; idx <= page; idx++) {
@@ -279,6 +311,11 @@ export default {
   resProductsItems(obj) {
     return obj.hasOwnProperty('findItemsByProductResponse') 
       ? obj.findItemsByProductResponse[0] : null;
+  },
+  
+  resInventoryItems(obj) {
+    return obj.hasOwnProperty('inventoryItems') 
+      ? obj.inventoryItems : null;
   },
   
   resDetail(obj) {
@@ -309,7 +346,7 @@ export default {
     options['SECURITY-APPNAME'] = _o.appid;
     options['SERVICE-VERSION'] = '1.13.0';
     options['outputSelector'] = 'SellerInfo';
-    options['paginationInput.entriesPerPage'] = 20;
+    options['paginationInput.entriesPerPage'] = 100;
     options['paginationInput.pageNumber'] = _o.page;
 
     if(_p.searchString) {
@@ -383,7 +420,7 @@ export default {
     options['SECURITY-APPNAME'] = _o.appid;
     options['SERVICE-VERSION'] = '1.13.0';
     options['outputSelector'] = 'SellerInfo';
-    options['paginationInput.entriesPerPage'] = 20;
+    options['paginationInput.entriesPerPage'] = 100;
     options['paginationInput.pageNumber'] = _o.page;
 
     if(_p.productId && _p.productType) {
@@ -424,6 +461,21 @@ export default {
 
     //log.trace(`${pspid}>`, 'optProducts:', options);
     return options;
+  },
+
+  optInventory(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const head = new Object();
+    const auth = new Object();
+    const query = new Object();
+    head['Accept-Encoding'] = 'application/gzip';
+    head['Accept-Language'] = 'en-US';
+    head['X-EBAY-C-MARKETPLACE-ID'] = 'EBAY_US';
+    auth['bearer'] = _o.token;
+    query['limit'] = 100;
+    query['offert'] = _o.page;
+    return { head, auth, query, operation: _o.operation };
   },
 
   optDetail(o, p) {

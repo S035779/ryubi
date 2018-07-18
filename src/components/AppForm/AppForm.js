@@ -12,6 +12,9 @@ class AppForm extends React.Component {
     , token:      config.token      ? config.token      : ''
     , findingApi: config.findingApi ? config.findingApi : ''
     , tradingApi: config.tradingApi ? config.tradingApi : ''
+    , inventoryApi: config.inventoryApi ? config.inventoryApi : ''
+    , marketingApi: config.marketingApi ? config.marketingApi : ''
+    , analyticsApi: config.analyticsApi ? config.analyticsApi : ''
     };
   }
 
@@ -32,7 +35,7 @@ class AppForm extends React.Component {
   render() {
     log.trace(AppForm.displayName, 'State', this.state);
     log.trace(AppForm.displayName, 'Props', this.props);
-    const { appid, token, findingApi, tradingApi } = this.state;
+    const { appid, token, findingApi, tradingApi, inventoryApi, marketingApi, analyticsApi } = this.state;
     return <div className="pane">
     <form className="padded-less">
       <div className="form-group">
@@ -66,6 +69,30 @@ class AppForm extends React.Component {
         placeholder="URL"
         value={tradingApi}
         onChange={this.handleChangeText.bind(this, 'tradingApi')} />
+      </div>
+      <div className="form-group">
+      <label>Inventory API URL</label>
+      <input type="text"
+        className="form-control"
+        placeholder="URL"
+        value={inventoryApi}
+        onChange={this.handleChangeText.bind(this, 'inventoryApi')} />
+      </div>
+      <div className="form-group">
+      <label>Marketing API URL</label>
+      <input type="text"
+        className="form-control"
+        placeholder="URL"
+        value={marketingApi}
+        onChange={this.handleChangeText.bind(this, 'marketingApi')} />
+      </div>
+      <div className="form-group">
+      <label>Analytics API URL</label>
+      <input type="text"
+        className="form-control"
+        placeholder="URL"
+        value={analyticsApi}
+        onChange={this.handleChangeText.bind(this, 'analyticsApi')} />
       </div>
       <div className="form-actions">
       <button type="submit" 

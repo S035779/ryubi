@@ -29,12 +29,9 @@ class NoteStore extends ReduceStore {
   reduce(state, action) {
     switch (action.type) {
       case 'item/fetch/note':
-        return Object.assign({}, state
-          , { items: action.items, options: action.options
-            , page: action.page });
+        return Object.assign({}, state, { items: action.items, options: action.options, page: action.page });
       case 'item/write/note':
-        return Object.assign({}, state
-          , { options: action.options });
+        return Object.assign({}, state, { options: action.options });
       default:
         return state;
     }

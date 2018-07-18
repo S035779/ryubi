@@ -19,5 +19,13 @@ export default {
     .then(config => {
       dispatch({ type: 'config/write/appid', config });
     });
+  },
+  writeInventoryItems(options) {
+    return NoteApiClient.writeInventoryItems(options)
+      .map(objs => {
+        dispatch({ type: 'item/write/inventory', options });
+        return objs;
+      })
+    ;
   }
 }

@@ -1,13 +1,13 @@
-import xml from 'xml2js';
-import builder from 'xmlbuilder';
-import { parse } from 'iso8601-duration';
-import Spinner from '../utils/spin';
+import xml        from 'xml2js';
+import builder    from 'xmlbuilder';
+import { parse }  from 'iso8601-duration';
+import Spinner    from 'Utilities/spin';
 
 let Logger = null;
 let Spiner = null;
 let target = null;
 
-export const util = {
+const util = {
   getCSVHeader(obj) {
     let arr = new Array();
     for(let prop in obj) {
@@ -55,13 +55,13 @@ export const util = {
   }
 };
 
-export const M = {
+const M = {
   fork(join, func1, func2) {
     return val => join(func1(val), func2(val));
   }
 };
 
-export const log = {
+const log = {
   Logger,
   config(apd, lyt, flv, nam) {
     const apds = {
@@ -127,7 +127,7 @@ export const log = {
   }
 };
 
-export const spn = {
+const spn = {
   Spinner,
   target,
   config(target) {
@@ -163,7 +163,7 @@ export const spn = {
   stop()  { this.Spinner.stop(); }
 };
 
-export const str = {
+const stor = {
   /**
    * setCookies
    *
@@ -302,3 +302,4 @@ export const str = {
       };
   }
 };
+export { M, log, spn, stor, util };
