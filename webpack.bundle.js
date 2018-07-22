@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackTemplate = require('html-webpack-template');
@@ -58,12 +59,16 @@ const bundle = {
     , template: HtmlWebpackTemplate
     , appMountId: 'app'
     , lang: 'ja-JP'
-    , scripts: [ 'assets/log4js.min.js', 'assets/jsonp.js' ]
+    , scripts: [ 'log4js.min.js', 'jsonp.js' ]
     , title: 'WatchNote!'
     , filename: 'index.html'
     , favicon: 'favicon.ico'
     , excludeChunks: 'css.bundle.js'
     })
+  , new CopyWebpackPlugin([
+      { from: path.resolve(__dirname, 'src/assets/log4js.min.js') }
+    , { from: path.resolve(__dirname, 'src/assets/jsonp.js') }
+    ], { debug: false })
   ]
 };
 module.exports = merge(common, bundle);

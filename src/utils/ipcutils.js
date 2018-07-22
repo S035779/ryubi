@@ -49,10 +49,10 @@ class fetch extends ipc {
     const { url, message } = this.state;
     const { head, body } = request;
     //log.info(fetch.displayName, 'Request', url, request);
-    this.send({ method: 'POST', url, head, body, type: 'XML' }, (err, response) => {
-      if(err) return callback(err);
+    this.send({ method: 'POST', url, head, body, type: 'XML' }, (error, response) => {
+      if(error) return callback(error);
       this.setState({ message: response });
-      //log.trace(fetch.displayName, 'Response', response);
+      //log.trace(fetch.displayName, 'response', response);
       callback(null, response);
     });
   }
@@ -61,10 +61,10 @@ class fetch extends ipc {
     const { url, message } = this.state;
     const { head, query, auth } = request;
     log.info(fetch.displayName, 'Request', url, request);
-    this.send({ method: 'GET', url, auth, head, query, type: 'JSON' }, (err, response) => {
-      if(err) return callback(err);
+    this.send({ method: 'GET', url, auth, head, query, type: 'JSON' }, (error, response) => {
+      if(error) return callback(error);
       this.setState({ message: response });
-      log.trace(fetch.displayName, 'Response', response);
+      //log.trace(fetch.displayName, 'response', response);
       callback(null, response);
     });
   }
@@ -74,7 +74,7 @@ class fetch extends ipc {
     log.info(fetch.displayName, 'Request', url);
     const response = this.sendSync({ method: 'POST', url, head, body, type: 'XML' });
     this.setState({ message: response });
-    log.trace(fetch.displayName, 'Response', response);
+    //log.trace(fetch.displayName, 'response', response);
     return response;
   }
 };

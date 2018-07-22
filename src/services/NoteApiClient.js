@@ -97,7 +97,7 @@ export default {
   
   getDetail(options) {
     return this.request('findItemDetails'
-      , this.optDetail({ token: eBay.token, operation: 'GetItem' }, options));
+      , this.optDetail({ appid:  eBay.appid, token:  eBay.token, operation: 'GetItem' }, options));
   },
 
   putConfig(config) {
@@ -162,6 +162,7 @@ export default {
       , map(R.flatten)
       , flatMap(from)
       , flatMap(streamDetail)
+      , map(R.tap(this.traceLog.bind(this)))
       , flatMap(forkJSON)
       , map(R.map(this.resDetail.bind(this)))
       , map(R.map(this.setDetail.bind(this)))
@@ -484,6 +485,7 @@ export default {
     const head = new Object();
     const body = new Object();
     head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
+    head['X-EBAY-API-APP-NAME'] = _o.appid;
     head['X-EBAY-API-CALL-NAME'] = o.operation;
     head['X-EBAY-API-SITEID'] = 0;
     body['@xmlns'] = 'urn:ebay:apis:eBLBaseComponents';

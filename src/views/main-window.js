@@ -43,16 +43,16 @@ module.exports = class MainWindow {
 
   ipc() {
     ipcMain.on('asynchronous-message', (event, request) => {
-      fetch(request, (err, response) => {
-        if(err) return event.sender.send(err);
-        event.sender.send('asynchronous-reply', { request, response });
+      fetch(request, (error, header, body) => {
+        if(error) return event.sender.send(error);
+        event.sender.send('asynchronous-reply', { request, response: { header, body } });
       });
     });
 
     ipcMain.on('synchronous-message', (event, request) => {
-      fetch(request, (err, response) => {
-        if(err) return event.returnValue(err);
-        event.returnValue = { request, response };
+      fetch(request, (error, header, body) => {
+        if(error) return event.returnValue(error);
+        event.returnValue = { request, response: { header, body } };
       });
     });
   };
