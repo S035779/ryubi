@@ -42,6 +42,7 @@ var common = {
     , Routes:     path.resolve(__dirname, 'src/routes'    )
     , Models:     path.resolve(__dirname, 'src/models'    )
     , Tasks:      path.resolve(__dirname, 'src/tasks'     )
+    , Views:      path.resolve(__dirname, 'src/views'     )
     }
   }
 , stats: 'normal'

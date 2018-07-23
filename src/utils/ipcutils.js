@@ -15,29 +15,34 @@ class ipc {
     return this._props;
   }
 
-  sendSync(request) {
-    ipcRenderer.setMaxListeners(0);
-    return ipcRenderer.sendSync('synchronous-message', request);
-  }
-
   send(request, callback) {
-    ipcRenderer.setMaxListeners(0);
+    //ipcRenderer.setMaxListeners(0);
     ipcRenderer.on('asynchronous-reply', (event, response) => {
-      //log.info(fetch.displayName, 'Event', this.props.event);
+      this.setProps({ event });
       callback(null, response);
     });
     ipcRenderer.send('asynchronous-message', request);
   }
 
+  sendSync(request) {
+    //ipcRenderer.setMaxListeners(0);
+    return ipcRenderer.sendSync('synchronous-message', request);
+  }
+
   setState(state) {
-    this.state = Object.assign({} , this.state, state);
+    this.state = Object.assign({}, this.state, state);
+  }
+
+  setProps(props) {
+    this.props = Object.assign({}, this.props, props);
   }
 };
+ipc.displayName = 'ipc';
 
 class fetch extends ipc {
   constructor(props) {
     super(props);
-    this.state = { url: props.url, message: '' };
+    this.state = { url: props.url, response: '' };
   }
 
   static of(props) {
@@ -45,35 +50,36 @@ class fetch extends ipc {
     return new fetch(props);
   }
 
-  postXML(request, callback) {
-    const { url, message } = this.state;
-    const { head, body } = request;
+  get(request, callback) {
+    const { url } = this.state;
+    const { appid, token, operaion, type, options } = request;
     //log.info(fetch.displayName, 'Request', url, request);
-    this.send({ method: 'POST', url, head, body, type: 'XML' }, (error, response) => {
+    this.send({ url, method: 'GET', appid, token, operation, type, options }, (error, response) => {
       if(error) return callback(error);
-      this.setState({ message: response });
+      this.setState({ response });
       //log.trace(fetch.displayName, 'response', response);
       callback(null, response);
     });
   }
 
-  getJSON(request, callback) {
-    const { url, message } = this.state;
-    const { head, query, auth } = request;
-    log.info(fetch.displayName, 'Request', url, request);
-    this.send({ method: 'GET', url, auth, head, query, type: 'JSON' }, (error, response) => {
+  post(request, callback) {
+    const { url } = this.state;
+    const { appid, token, operation, type, options } = request;
+    //log.info(fetch.displayName, 'Request', url, request);
+    this.send({ url, method: 'POST', appid, token, operation, type, options }, (error, response) => {
       if(error) return callback(error);
-      this.setState({ message: response });
+      this.setState({ response });
       //log.trace(fetch.displayName, 'response', response);
       callback(null, response);
     });
   }
 
-  postSync(request) {
-    const { url, message } = this.state;
-    log.info(fetch.displayName, 'Request', url);
-    const response = this.sendSync({ method: 'POST', url, head, body, type: 'XML' });
-    this.setState({ message: response });
+  _post(request) {
+    const { url } = this.state;
+    const { appid, token, operation, type, options } = request;
+    //log.info(fetch.displayName, 'Request', url);
+    const response = this.sendSync({ url, method: 'POST', appid, token, operation, type, options });
+    this.setState({ response });
     //log.trace(fetch.displayName, 'response', response);
     return response;
   }

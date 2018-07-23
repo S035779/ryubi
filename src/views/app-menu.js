@@ -1,9 +1,6 @@
-const electron = require('electron');
-const app = electron.app;
-const Menu = electron.Menu;
-const MenuItem = electron.MenuItem;
+import { app, Menu, MenuItem } from 'electron';
 
-module.exports = class AppMenu {
+class AppMenu {
   static setup() {
     const template = AppMenu.getBasicTemplate();
     const menu = Menu.buildFromTemplate(template);
@@ -60,3 +57,5 @@ module.exports = class AppMenu {
     return template;
   }
 };
+AppMenu.displayName = 'AppMenu';
+export default AppMenu;

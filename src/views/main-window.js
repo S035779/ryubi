@@ -1,18 +1,17 @@
-const { app, BrowserWindow, ipcMain  } = require('electron');
-const path = require('path');
-const url  = require('url');
-const events = require('events');
-const { fetch } = require('Utilities/netutils'); 
+import { app, BrowserWindow, ipcMain  } 
+                        from 'electron';
+import path             from 'path';
+import url              from 'url';
+import eBay             from 'Utilities/eBay'; 
 
-process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = node_env === 'development' ? true : false;
-const node_env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV;
+
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = env === 'development';
 const startUrl = process.env.API_URL || url.format({ 
   pathname: path.join(__dirname, '../public/index.html'), protocol: 'file:', slashes: true 
 });
-const eventEmitter = new events.EventEmitter();
-eventEmitter.setMaxListeners(0);
 
-module.exports = class MainWindow {
+class MainWindow {
   constructor() {
     this.window = null;
     this.start();
@@ -43,17 +42,19 @@ module.exports = class MainWindow {
 
   ipc() {
     ipcMain.on('asynchronous-message', (event, request) => {
-      fetch(request, (error, header, body) => {
-        if(error) return event.sender.send(error);
-        event.sender.send('asynchronous-reply', { request, response: { header, body } });
-      });
+      eBay.of(request).fetch().subscribe(
+        response  => event.sender.send('asynchronous-reply', { request, response })
+      , error     => std.logError(displayName, error.name. error.message)
+      , ()        => std.logInfo(displayName, 'Complete to request fetch.')
+      );
     });
 
     ipcMain.on('synchronous-message', (event, request) => {
-      fetch(request, (error, header, body) => {
-        if(error) return event.returnValue(error);
-        event.returnValue = { request, response: { header, body } };
-      });
+      eBay.of(request).fetch().subscribe(
+        response  => event.returnValue = { request, response }
+      , error     => std.logError(displayName, error.name. error.message)
+      , ()        => std.logInfo(displayName, 'Complete to request fetch.')
+      );
     });
   };
 
@@ -68,7 +69,7 @@ module.exports = class MainWindow {
 
     this.window.loadURL(startUrl);
 
-    if(node_env === 'development') {
+    if(env === 'development') {
       this.window.webContents.openDevTools();
 
       //const extensions = BrowserWindow.getDevToolsExtensions();
@@ -80,3 +81,5 @@ module.exports = class MainWindow {
     this.window.on('closed', event => this.window = null);
   };
 };
+MainWindow.displayName = 'MainWindow';
+export default MainWindow;

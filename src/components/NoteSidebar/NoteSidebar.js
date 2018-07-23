@@ -83,23 +83,24 @@ export default class NoteSidebar extends React.Component {
   }
 
   handleChangeSave() {
-    log.info(NoteSidebar.displayName, 'handleChangeSave');
-    if(!Number(this.state.pages))
-      return this.showErrorBox('Pages is not a number!');
+    log.info(NoteSidebar.displayName, 'Request', 'handleChangeSave');
+    if(!Number(this.state.pages)) return this.showErrorBox('Pages is not a number!');
     this.showSaveDialog(filename => {
-      if(!filename) 
-        return log.info('File save canceled!');
+      if(!filename) return log.info(NoteSidebar.displayName, 'Response', 'File save canceled!');
       this.touchFile(filename)
-      .then(() => this.saveFile(filename
-          , util.getCSVHeader(this.csvHeader())))
+      .then(() => this.saveFile(filename, util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
         NoteAction.writeItems(this.state).subscribe(
           obj => this.saveFile(filename, obj)
-        , err => this.showErrorBox(err.message)
+        , err => {
+            this.showErrorBox(err.message);
+            log.error(NoteSidebar.displayName, err.name, err.message);
+            spn.stop();
+          }
         , () => {
             this.showSaveMessageBox();
-            log.info('File has been saved!');
+            log.info(NoteSidebar.displayName, 'Response', 'File has been saved!');
             spn.stop();
           }
         );
@@ -108,28 +109,28 @@ export default class NoteSidebar extends React.Component {
   }
   
   handleChangeHome() {
-    log.info (NoteSidebar.displayName, 'handleChangeHome');
+    log.info (NoteSidebar.displayName, 'Request', 'handleChangeHome');
     NoteAction.increment(this.props.options, 0);
   }
 
   handleIncrement() {
-    log.info (NoteSidebar.displayName, 'handleIncrement');
+    log.info (NoteSidebar.displayName, 'Request', 'handleIncrement');
     NoteAction.increment(this.props.options, this.props.page);
   }
 
   handleDecrement() {
-    log.info (NoteSidebar.displayName, 'handleDecrement');
+    log.info (NoteSidebar.displayName, 'Request', 'handleDecrement');
     NoteAction.decrement(this.props.options, this.props.page);
   }
 
   handleChangeSearch(event) {
-    log.info (NoteSidebar.displayName, 'handleChangeSearch');
+    log.info (NoteSidebar.displayName, 'Request', 'handleChangeSearch');
     event.preventDefault();
     NoteAction.increment(this.state, 0);
   }
 
   handleChangeReset() {
-    log.info (NoteSidebar.displayName, 'handleChangeReset');
+    log.info (NoteSidebar.displayName, 'Request', 'handleChangeReset');
     this.setState({
       highestPrice:   ''
       , lowestPrice:  ''

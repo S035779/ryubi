@@ -2,7 +2,7 @@ import querystring from 'querystring';
 import crypto from 'crypto';
 import { URL, URLSearchParams } from 'url';
 
-const env = process.env.PLATFORM;
+const env = process.env.PLATFORM || 'local';
 const isNode = env === 'local';
 const color_code = {
   Reset:      isNode ? "\x1b[0m" : ''

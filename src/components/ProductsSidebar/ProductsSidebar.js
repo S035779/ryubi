@@ -9,8 +9,6 @@ import electron from 'electron';
 const remote = electron.remote;
 const dialog = electron.remote.dialog;
 
-const pspid = `ProductsSidebarView`;
-
 export default class ProductsSidebar extends React.Component {
   constructor(props) {
     super(props);
@@ -85,59 +83,55 @@ export default class ProductsSidebar extends React.Component {
   }
 
   handleChangeSave() {
-    log.info(`${pspid}>`, 'Request: handleChangeSave');
-    if(!Number(this.state.pages))
-      return this.showErrorBox('Pages is not a number!');
+    log.info(ProductsSidebar.displayName, 'Request', 'handleChangeSave');
+    if(!Number(this.state.pages)) return this.showErrorBox('Pages is not a number!');
     this.showSaveDialog((filename) => {
-      if(!filename) 
-        return log.info('File save canceled!');
-      log.trace(`${pspid}>`, 'Save file:', filename);
+      if(!filename) return log.info(ProductsSidebar.displayName, 'Response', 'File save canceled!');
+      log.info(ProductsSidebar.displayName, 'filename', filename);
       this.touchFile(filename)
-      .then(() => this.saveFile(filename
-          , util.getCSVHeader(this.csvHeader())))
+      .then(() => this.saveFile(filename, util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
         ProductsAction.writeProductsItems(this.state).subscribe(
           obj => this.saveFile(filename, obj)
-          , err => this.showErrorBox(err.message)
-          , () => {
-            this.showSaveMessageBox();
-            log.info('File has been saved!');
+        , err => {
+            log.error(ProductsSidebar.displayName, err.name, err.message);
+            this.showErrorBox(err.message);
             spn.stop();
           }
-        )
+        , () => {
+            log.info(ProductsSidebar.displayName, 'Response', 'File has been saved!');
+            this.showSaveMessageBox();
+            spn.stop();
+          }
+        );
       });
     });
   }
 
   handleChangeHome() {
-    log.info(`${pspid}>`, 'Request: handleChangeHome');
-    log.trace(`${pspid}>`, this.props.options);
+    log.info(ProductsSidebar.displayName, 'Request', 'handleChangeHome');
     ProductsAction.increment(this.props.options, 0);
   }
 
   handleIncrement() {
-    log.info(`${pspid}>`, 'Request: handleIncrement');
-    log.trace(`${pspid}>`, this.props.options);
+    log.info(ProductsSidebar.displayName, 'Request', 'handleIncrement');
     ProductsAction.increment(this.props.options, this.props.page);
   }
 
   handleDecrement() {
-    log.info(`${pspid}> Request: handleDecrement`);
-    log.trace(`${pspid}>`, this.props.options);
+    log.info(ProductsSidebar.displayName, 'Request', 'handleDecrement');
     ProductsAction.decrement(this.props.options, this.props.page);
   }
 
   handleChangeSearch(e) {
-    log.info(`${pspid}>`, 'Request: handleChangeSearch');
-    log.trace(`${pspid}>`, this.state);
+    log.info(ProductsSidebar.displayName, 'Request', 'handleChangeSearch');
     e.preventDefault();
     ProductsAction.increment(this.state, 0);
   }
 
   handleChangeReset() {
-    log.info(`${pspid}>`, 'Request: handleChangeReset');
-    log.trace(`${pspid}>`, this.state);
+    log.info(ProductsSidebar.displayName, 'Request', 'handleChangeReset');
     this.setState({
       highestPrice:   ''
       , lowestPrice:  ''
@@ -366,3 +360,4 @@ export default class ProductsSidebar extends React.Component {
     </div>;
   }
 };
+ProductsSidebar.displayName = 'ProductsSidebar';
