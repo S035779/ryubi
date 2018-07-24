@@ -1,5 +1,5 @@
-import querystring from 'querystring';
-import crypto from 'crypto';
+import querystring              from 'querystring';
+import crypto                   from 'crypto';
 import { URL, URLSearchParams } from 'url';
 
 const env = process.env.PLATFORM || 'local';
@@ -32,7 +32,7 @@ const color_code = {
 , BgWhite:    isNode ? "\x1b[47m" : ''
 }
 
-export default {
+const std = {
   toRGBa(str, a) {
     const r = parseInt(str.substr(1,2), 16);
     const g = parseInt(str.substr(3,2), 16);
@@ -830,6 +830,7 @@ export default {
   }
 
 };
+export default std;
 
 const numFormat = {
   fmt: {

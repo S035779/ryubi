@@ -115,4 +115,4 @@ const fetch = function({ method, url, search, auth, head, body, type }, callback
   req.write(body);
   req.end();
 };
-export { fetch };
+export default fetch;

@@ -1,16 +1,16 @@
 import { app }            from 'electron';
 import MainWindow         from 'Views/main-window';
 import AppMenu            from 'Views/app-menu';
-//import { logs as log }    from 'Utilities/logutils';
+import log                from 'Utilities/logutils';
 
 const env = process.env.NODE_ENV;
 
 if (env === 'development') {
-//  log.config('console', 'color',  'electron-main', 'TRACE');
+  log.config('console', 'color',  'electron-main', 'TRACE');
 } else if (env === 'staging') {
-//  log.config('file',    'basic',  'electron-main', 'DEBUG');
+  log.config('file',    'basic',  'electron-main', 'DEBUG');
 } else if (env === 'production') {
-//  log.config('file',    'json',   'electron-main', 'INFO');
+  log.config('file',    'json',   'electron-main', 'INFO');
 }
 
 class Main {
@@ -21,6 +21,7 @@ class Main {
 
   start() {
     app.on('ready', () => {
+      log.info(Main.displayName, 'start', 'application');
       AppMenu.setup();
     });
   }

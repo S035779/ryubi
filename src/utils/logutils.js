@@ -1,19 +1,11 @@
-const stdout = require('log4js/lib/appenders/stdout');
-import * as Configuration from 'log4js/lib/configuration';
 import log4js from 'log4js';
-
-Configuration.prototype.loadAppenderModule = function(type) {
-  return stdout;
-};
-
 import std    from 'Utilities/stdutils';
-
 
 /**
  * Log4js functions Object.
  *
  */
-export const logs = {
+const logs = {
   app: '',
   cache: {},
   config: function(apd, lyt, nam, flv) {
@@ -82,6 +74,7 @@ export const logs = {
     log(this.app, 'DEBUG', cpu + ', ' + mem);
   }
 };
+export default logs;
 
 const lvls = { 
   'ALL':      'all'

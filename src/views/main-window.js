@@ -1,8 +1,8 @@
-import { app, BrowserWindow, ipcMain  } 
-                        from 'electron';
-import path             from 'path';
-import url              from 'url';
-import eBay             from 'Utilities/eBay'; 
+import { app, BrowserWindow, ipcMain  } from 'electron';
+import path from 'path';
+import url  from 'url';
+import eBay from 'Utilities/eBay'; 
+import log  from 'Utilities/logutils';
 
 const env = process.env.NODE_ENV;
 
@@ -44,16 +44,16 @@ class MainWindow {
     ipcMain.on('asynchronous-message', (event, request) => {
       eBay.of(request).fetch().subscribe(
         response  => event.sender.send('asynchronous-reply', { request, response })
-      , error     => std.logError(displayName, error.name. error.message)
-      , ()        => std.logInfo(displayName, 'Complete to request fetch.')
+      , error     => event.sender.send('asynchronous-reply', { request, error })
+      , ()        => log.info(MainWindow.displayName, 'Complete to request fetch.')
       );
     });
 
     ipcMain.on('synchronous-message', (event, request) => {
       eBay.of(request).fetch().subscribe(
         response  => event.returnValue = { request, response }
-      , error     => std.logError(displayName, error.name. error.message)
-      , ()        => std.logInfo(displayName, 'Complete to request fetch.')
+      , error     => event.returnValue = { request, error }
+      , ()        => log.info(MainWindow.displayName, 'Complete to request fetch.')
       );
     });
   };

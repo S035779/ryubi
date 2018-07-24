@@ -1,9 +1,9 @@
-import * as R                       from 'ramda';
-import { from, forkJoin, pipe }     from 'rxjs';
-import { map, flatMap }             from 'rxjs/operators';
-import { M, log, spn, stor, util }  from 'Utilities/webutils';
-import std                          from 'Utilities/stdutils';
-import { fetch }                    from 'Utilities/ipcutils';
+import * as R                   from 'ramda';
+import { from, forkJoin, pipe } from 'rxjs';
+import { map, flatMap }         from 'rxjs/operators';
+import { M, log, spn, stor }    from 'Utilities/webutils';
+import std                      from 'Utilities/stdutils';
+import { fetch }                from 'Utilities/ipcutils';
 
 log.config('console', 'basic', 'ALL', 'electron-renderer');
 spn.config('app');
@@ -33,6 +33,7 @@ export default {
         });
       case 'findItemsByKeywords':
         return new Promise((resolve, reject) => {
+          log.trace(displayName, 'findItemsByKeywords', eBay.findingApi, options);
           JSONP.request(eBay.findingApi, options, obj => {
             resolve(obj);
           });
@@ -49,7 +50,7 @@ export default {
             resolve(obj);
           });
         });
-      case 'findItemDetails':
+      case 'GetItem':
         return new Promise((resolve, reject) => {
           fetch.of(eBay.tradingApi).post(options, (err, obj) => {
             if(err) return reject(err);
@@ -95,8 +96,8 @@ export default {
       , { appid: eBay.appid, page, operation: 'getInventoryItems', type: 'JSON', options });
   },
   
-  getDetail(options) {
-    return this.request('findItemDetails'
+  getItemDetails(options) {
+    return this.request('GetItem'
       , { appid:  eBay.appid, token: eBay.token, operation: 'GetItem', type: 'XML', options });
   },
 
@@ -117,41 +118,41 @@ export default {
   },
   
   fetchItems(options, page) {
-    //log.trace(`${pspid}>`,'options:', options);
-    //log.trace(`${pspid}>`,'page:', page);
+    //log.trace(displayName,'options:', options);
+    //log.trace(displayName,'page:', page);
     return this.getItems(options, page)
       .then(this.resItems)
       .then(this.setItems)
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
+      //.then(R.tap(this.logTrace.bind(this)))
+      .catch(this.logError.bind(this));
   },
   
   fetchCompleteItems(options, page) {
-    //log.trace(`${pspid}>`,'options:', options);
-    //log.trace(`${pspid}>`,'page:', page);
+    //log.trace(displayName,'options:', options);
+    //log.trace(displayName,'page:', page);
     return this.getCompleteItems(options, page)
       .then(this.resCompleteItems)
       .then(this.setItems)
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
+      //.then(R.tap(this.logTrace.bind(this)))
+      .catch(this.logError.bind(this));
   },
 
   fetchProductsItems(options, page) {
-    //log.trace(`${pspid}>`,'options:', options);
-    //log.trace(`${pspid}>`,'page:', page);
+    //log.trace(displayName,'options:', options);
+    //log.trace(displayName,'page:', page);
     return this.getProductsItems(options, page)
       .then(this.resProductsItems)
       .then(this.setItems)
-      //.then(R.tap(this.traceLog.bind(this)))
-      .catch(this.errorLog.bind(this));
+      //.then(R.tap(this.logTrace.bind(this)))
+      .catch(this.logError.bind(this));
   },
   
   writeItems(options) {
-    //log.trace(`${pspid}>`,'options:', options);
+    //log.trace(displayName,'options:', options);
     //const pages = Number(options.pages);
-    const streamItems   = idx => from(this.getItems(options, idx));
-    const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
-    const forkItems     = obj => forkJoin(this.forItems(options, obj));
+    const streamItems   = idx   => from(this.getItems(options, idx));
+    const streamDetail  = objs  => from(this.getItemDetails(objs));
+    const forkItems     = obj   => forkJoin(this.forItems(options, obj));
     //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
       .pipe(
@@ -160,7 +161,7 @@ export default {
       , map(R.map(this.resItems.bind(this)))
       , map(R.map(this.setItems.bind(this)))
       , map(R.flatten)
-      //, map(R.tap(this.traceLog.bind(this)))
+      //, map(R.tap(this.logTrace.bind(this)))
       //, flatMap(from)
       , flatMap(streamDetail)
       //, map(obj => obj.response.body)
@@ -176,11 +177,11 @@ export default {
   },
 
   writeCompleteItems(options) {
-    //log.trace(`${pspid}>`,'options:', options);
+    //log.trace(displayName,'options:', options);
     //const pages = Number(options.pages);
-    const streamItems   = idx => from(this.getCompleteItems(options, idx));
-    const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
-    const forkItems     = obj => forkJoin(this.forCompleteItems(options, obj));
+    const streamItems   = idx   => from(this.getCompleteItems(options, idx));
+    const streamDetail  = objs  => from(this.getItemDetails(objs));
+    const forkItems     = obj   => forkJoin(this.forCompleteItems(options, obj));
     //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
       .pipe(
@@ -189,7 +190,7 @@ export default {
       , map(R.map(this.resCompleteItems.bind(this)))
       , map(R.map(this.setItems.bind(this)))
       , map(R.flatten)
-      //, map(R.tap(this.traceLog.bind(this)))
+      //, map(R.tap(this.logTrace.bind(this)))
       //, flatMap(from)
       , flatMap(streamDetail)
       //, flatMap(forkJSON)
@@ -204,11 +205,11 @@ export default {
   },
   
   writeProductsItems(options) {
-    //log.trace(`${pspid}>`,'options:', options);
+    //log.trace(displayName,'options:', options);
     //const pages = Number(options.pages);
-    const streamItems   = idx => from(this.getProductsItems(options, idx));
-    const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
-    const forkItems     = obj => forkJoin(this.forProductsItems(options, obj));
+    const streamItems   = idx   => from(this.getProductsItems(options, idx));
+    const streamDetail  = objs  => from(this.getItemDetails(objs));
+    const forkItems     = obj   => forkJoin(this.forProductsItems(options, obj));
     //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
       .pipe(
@@ -217,7 +218,7 @@ export default {
       , map(R.map(this.resProductsItems.bind(this)))
       , map(R.map(this.setItems.bind(this)))
       , map(R.flatten)
-      //, map(R.tap(this.traceLog.bind(this)))
+      //, map(R.tap(this.logTrace.bind(this)))
       //, flatMap(from)
       , flatMap(streamDetail)
       //, flatMap(forkJSON)
@@ -232,10 +233,10 @@ export default {
   },
   
   //writeInventoryItems(options) {
-  //  const streamItems   = idx => from(this.getInventoryItems(options, idx));
-  //  const streamDetail  = obj => from(this.getDetail({ itemId: obj.itemId }));
-  //  const forkItems     = obj => forkJoin(this.forInventoryItems(options, obj));
-  //  const forkJSON      = obj => forkJoin(util.toJSON(obj));
+  //  const streamItems   = idx   => from(this.getInventoryItems(options, idx));
+  //  const streamDetail  = objs  => from(this.getItemDetails(objs));
+  //  const forkItems     = obj   => forkJoin(this.forInventoryItems(options, obj));
+  //  const forkJSON      = obj   => forkJoin(util.toJSON(obj));
   //  return streamItems(1)
   //    .pipe(
   //      map(this.resInventoryItems)
@@ -405,7 +406,7 @@ export default {
       n++;
     }
     
-    //log.trace(`${pspid}>`, 'optItems:', options);
+    //log.trace(displayName, 'optItems:', options);
     return options;
   },
 
@@ -461,7 +462,7 @@ export default {
       n++;
     }
 
-    //log.trace(`${pspid}>`, 'optProducts:', options);
+    //log.trace(displayName, 'optProducts:', options);
     return options;
   },
 
@@ -495,7 +496,7 @@ export default {
   //  body['WarningLevel'] = 'High';
   //  body['ItemID'] = _p.itemId;
   //  body['DetailLevel'] = 'ReturnAll';
-  //  //log.trace(`${pspid}>`, 'optDetail:', head, body);
+  //  //log.trace(displayName, 'optDetail:', head, body);
   //  return { head, body: util.toXML(_o.operation, body) };
   //},
 
@@ -721,11 +722,11 @@ export default {
   //  return true;
   //},
 
-  traceLog(obj) {
+  logTrace(obj) {
     return log.trace(displayName, 'Trace log:', obj);
   },
 
-  errorLog(err) {
+  logError(err) {
     return log.error(displayName, 'Error occurred:', err);
   }
 }

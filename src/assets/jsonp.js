@@ -33,9 +33,7 @@ const JSONP = {
     let elm = document.createElement('script');
     elm.type = 'text/javascript';
     elm.charset = 'utf-8';
-    elm.src = url
-      + "?" + (data ? encodeFormData(data) + '&' : '')
-      + 'callback=JSONP.callbacks.' + idx;
+    elm.src = url + "?" + (data ? encodeFormData(data) + '&' : '') + 'callback=JSONP.callbacks.' + idx;
     JSONP.callbacks[idx] = function(res) {
       elm.parentNode.removeChild(elm);
       delete JSONP.callbacks[idx];

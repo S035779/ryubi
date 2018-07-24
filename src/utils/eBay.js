@@ -2,9 +2,11 @@ import * as R                   from 'ramda';
 import { from, forkJoin, pipe } from 'rxjs';
 import { map, flatMap }         from 'rxjs/operators';
 import xml2js                   from 'xml2js';
+import builder                  from 'xmlbuilder';
+import { parse }                from 'iso8601-duration';
 import std                      from 'Utilities/stdutils';
-import { fetch }                from 'Utilities/netutils';
-//import { logs as log }          from 'Utilities/logutils';
+import net                      from 'Utilities/netutils';
+import log                      from 'Utilities/logutils';
 
 /** 
  * eBay Api Client class.
@@ -15,7 +17,7 @@ import { fetch }                from 'Utilities/netutils';
  */
 class eBay {
   constructor(props) {
-    if(!props) return this.errorLog({ name: 'Error', message: 'Request failed.' });
+    if(!props) return log.error(eBay.displayName, 'Error', 'Request failed.');
     const { url, method, appid, token, page, operation, type, options } = props;
     this.props = {
       url:        url       ? url               : ''
@@ -34,24 +36,28 @@ class eBay {
   }
 
   request(operation, options) {
+    log.info(eBay.displayName, 'Request', operation);
+    log.trace(eBay.displayName, 'Options', options);
     switch(operation) {
       case 'GetItem':
         return new Promise((resolve, reject) => {
-          fetch(options, (error, header, body) => {
+          net.fetch(options, (error, header, body) => {
             if(error) return reject(error);
+            log.trace(eBay.displayName, 'GetItem', body);
             resolve(body);
           });
         });
       case 'getInventoryItems':
         return new Promise((resolve, reject) => {
-          fetch(options, (error, header, body) => {
+          net.fetch(options, (error, header, body) => {
             if(error) return reject(error);
+            log.trace(eBay.displayName, 'getInventoryItems', body);
             resolve(body);
           });
         });
       default:
-        this.errorLog({ name: 'Error', message: 'Unknown operation.' });
-        break;
+        log.error(eBay.displayName, 'Error', 'Unknown operation.');
+        return null;
     }
   }
 
@@ -61,43 +67,44 @@ class eBay {
       , this.optInventory({ appid, page, operation, type, url }, options));
   }
   
-  getItemDetails(options) {
+  getItemDetail(options) {
+    log.trace(eBay.displayName, 'getItemDetail', options);
     const { appid, token, operation, type, url } = this.props;
-    return this.request('findItemDetails'
-      , this.optDetails({ appid, token, operation, type, url }, options));
+    return this.request('GetItem', this.optDetail({ appid, token, operation, type, url }, options));
+  }
+
+  fetchItemDetails(options) {
+    const Items        = objs => from(options);
+    const streamDetail = obj  => this.getItemDetail({ itemId: obj.itemId[0] });
+    const forkJSON     = obj  => forkJoin(this.toJSON(obj));
+    return Items(options)
+      .pipe(
+        flatMap(streamDetail)
+      , map(R.tap(this.logTrace.bind(this)))
+      , flatMap(forkJSON)
+      , map(R.map(this.resDetail.bind(this)))
+      , map(R.map(this.setDetail.bind(this)))
+      , map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
+      , map(R.map(this.renderDetail.bind(this)))
+      , map(R.map(this.toCSV.bind(this)))
+      , map(R.map(csv => csv + '\n'))
+      )
+    ;
   }
 
   fetch() {
     const { operation, options, page } = this.props;
-    this.traceLog({ name: 'Props', message: this.props });
+    log.info(eBay.displayName, 'Fetch', operation);
+    //log.trace(eBay.displayName, 'Props', this.props);
     switch(operation) {
       case 'GetItem':
         return this.fetchItemDetails(options);
       case 'getInventoryItems':
         return this.fetchInventoryItems(options, page);
       default:
-        this.errorLog({ name: 'Error', message: 'Unknown operation.' });
-        return null
+        log.error(eBay.displayName, 'Error', 'Unknown operation.');
+        return null;
     }
-  }
-
-  fetchItemDetails(options) {
-    const Items        = objs => from(options);
-    const streamDetail = obj  => this.getItemDetails({ itemId: obj.itemId });
-    const forkJSON     = obj  => forkJoin(util.toJSON(obj));
-    return Items(options)
-      .pipe(
-        flatMap(streamDetail)
-      , flatMap(forkJSON)
-      , map(R.tap(this.traceLog.bind(this)))
-      , map(R.map(this.resDetail.bind(this)))
-      , map(R.map(this.setDetail.bind(this)))
-      , map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
-      , map(R.map(this.renderDetail.bind(this)))
-      , map(R.map(util.toCSV.bind(this)))
-      , map(R.map(csv => csv + '\n'))
-      )
-    ;
   }
 
   forInventoryItems(options, res) {
@@ -141,7 +148,7 @@ class eBay {
     return { head, auth, query, operation: _o.operation };
   }
 
-  optDetails(o) {
+  optDetail(o, p) {
     const _o = o;
     const _p = p ? p : {};
     const head = new Object();
@@ -156,8 +163,8 @@ class eBay {
     body['WarningLevel'] = 'High';
     body['ItemID'] = _p.itemId;
     body['DetailLevel'] = 'ReturnAll';
-    //log.trace(`${pspid}>`, 'optDetails:', head, body);
-    return { head, body: util.toXML(_o.operation, body) };
+    log.trace(eBay.displayName, 'optDetail:', head, body);
+    return { head, body: this.toXML(_o.operation, body) };
   }
 
   renderStatus(status) {
@@ -172,42 +179,31 @@ class eBay {
   }
 
   renderExtension(duration) {
-    return util.toLeftDays(duration);
+    return this.toLeftDays(duration);
   }
 
   renderItem(item, idx) {
-    const Img = item.hasOwnProperty('galleryURL')
-      ? item.galleryURL[0] : '';
+    const Img = item.hasOwnProperty('galleryURL') ? item.galleryURL[0] : '';
     const Aid = item.itemId[0];
     const Pid = item.hasOwnProperty('productId')
-      ? item.productId.map(obj =>
-        `${obj.__value__} ( ${obj['@type']} )`) : ['---'];
+      ? item.productId.map(obj => `${obj.__value__} ( ${obj['@type']} )`) : ['---'];
     const Sid = item.sellerInfo[0].sellerUserName[0];
-    const Stm
-      = std.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
-    const Etm
-      = std.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
+    const Stm = std.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
+    const Etm = std.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
     const Url = item.viewItemURL[0];
     const Ttl = item.title[0];
-    const Pc1 = item.sellingStatus[0]
-      .currentPrice[0].__value__;
-    const Ci1 = item.sellingStatus[0]
-      .currentPrice[0]['@currencyId'];
-    const Pc2 = item.sellingStatus[0]
-      .convertedCurrentPrice[0].__value__;
-    const Ci2 = item.sellingStatus[0]
-      .convertedCurrentPrice[0]['@currencyId'];
-    const Cdn = item.hasOwnProperty('condition') 
-      ? item.condition[0].conditionDisplayName[0] : '---';
+    const Pc1 = item.sellingStatus[0].currentPrice[0].__value__;
+    const Ci1 = item.sellingStatus[0].currentPrice[0]['@currencyId'];
+    const Pc2 = item.sellingStatus[0].convertedCurrentPrice[0].__value__;
+    const Ci2 = item.sellingStatus[0].convertedCurrentPrice[0]['@currencyId'];
+    const Cdn = item.hasOwnProperty('condition') ? item.condition[0].conditionDisplayName[0] : '---';
     const Cgp = item.primaryCategory[0].categoryName[0];
     const Shp = item.shippingInfo[0].shipToLocations[0];
     const Stt = item.sellingStatus[0].sellingState[0];
     const Ext = item.sellingStatus[0].hasOwnProperty('timeLeft')
-      ? this.renderExtension(item.sellingStatus[0].timeLeft[0])
-      : '';
+      ? this.renderExtension(item.sellingStatus[0].timeLeft[0]) : '';
     const stt = this.renderStatus(0);
     const Upd = std.getLocalTimeStamp(Date.now());
-
     return {
       'Key':                idx
       , 'Image':            Img
@@ -233,8 +229,7 @@ class eBay {
   }
 
   renderDetail(item) {
-    const Img = item.hasOwnProperty('PictureDetails')
-      ? '"' + item.PictureDetails.GalleryURL + '"' : '';
+    const Img = item.hasOwnProperty('PictureDetails') ? '"' + item.PictureDetails.GalleryURL + '"' : '';
     const Url = '"' + item.ListingDetails.ViewItemURL + '"';
     const Ttl = '"' + item.Title + '"';
     const Aid = item.ItemID;
@@ -248,25 +243,17 @@ class eBay {
       ISBN = pdf.hasOwnProperty('ISBN') ? pdf.ISBN : '';
     }
     const Sid = item.Seller.UserID;
-    const Stm
-      = std.getLocalTimeStamp(item.ListingDetails.StartTime);
-    const Etm
-      = std.getLocalTimeStamp(item.ListingDetails.EndTime);
-    const Pc1 = item.SellingStatus
-      .CurrentPrice.sub;
-    const Ci1 = item.SellingStatus
-      .CurrentPrice.root.currencyID;
-    const Pc2 = item.ListingDetails
-      .ConvertedStartPrice.sub;
-    const Ci2 = item.ListingDetails
-      .ConvertedStartPrice.root.currencyID;
+    const Stm = std.getLocalTimeStamp(item.ListingDetails.StartTime);
+    const Etm = std.getLocalTimeStamp(item.ListingDetails.EndTime);
+    const Pc1 = item.SellingStatus.CurrentPrice.sub;
+    const Ci1 = item.SellingStatus.CurrentPrice.root.currencyID;
+    const Pc2 = item.ListingDetails.ConvertedStartPrice.sub;
+    const Ci2 = item.ListingDetails.ConvertedStartPrice.root.currencyID;
     const Cdn = item.ConditionDisplayName;
     const Cgp = '"' + item.PrimaryCategory.CategoryName + '"';
-    const Shp = Array.isArray(item.ShipToLocations)
-      ? item.ShipToLocations : [ item.ShipToLocations ];
+    const Shp = Array.isArray(item.ShipToLocations) ? item.ShipToLocations : [ item.ShipToLocations ];
     const Stt = item.SellingStatus.ListingStatus;
-    const Ext = item.hasOwnProperty('TimeLeft')
-      ? this.renderExtension(item.TimeLeft) : '';
+    const Ext = item.hasOwnProperty('TimeLeft') ? this.renderExtension(item.TimeLeft) : '';
     return {
       'Image':                Img
       , 'Url':                Url
@@ -293,46 +280,22 @@ class eBay {
   filterItem(options, obj) {
     const item = obj;
     if(options != null) {
-      if(!options.shipping.some(shipping =>
-        shipping === item.shippingInfo[0]
-        .shipToLocations[0])
-        && options.shipping.length)
-        return false;
-      if(!options.condition.some(condition => 
-        condition === item.condition[0]
-        .conditionId[0])
-        && options.condition.length)
-        return false;
-      if(!options.status.some(status =>
-        status === item.sellingStatus[0]
-        .sellingState[0])
-        && options.status.length)
-        return false;
-      if(!options.categoryPath.some(path =>
-        path === item.primaryCategory[0]
-        .categoryName[0])
-        && options.categoryPath.length)
-        return false;
-      if(!options.seller.some(selr => 
-        selr === item.sellerInfo[0]
-        .sellerUserName[0])
-        && options.seller.length)
-        return false;
-      if(!options.itemId.some(itemid => 
-        itemid === item.itemId[0])
-        && options.itemId.length)
-        return false;
-      if(!isFinite(options.lowestPrice) 
-        || !isFinite(options.highestPrice))
-        return false;
-      if(Number(options.lowestPrice) > item.sellingStatus[0]
-        .convertedCurrentPrice[0].__value__ 
-        && options.lowestPrice !== '')
-        return false;
-      if(Number(options.highestPrice) < item.sellingStatus[0]
-        .convertedCurrentPrice[0].__value__ 
-        && options.highestPrice !== '')
-        return false;
+      if(!options.shipping.some(shipping => shipping === item.shippingInfo[0].shipToLocations[0])
+        && options.shipping.length) return false;
+      if(!options.condition.some(condition => condition === item.condition[0].conditionId[0])
+        && options.condition.length) return false;
+      if(!options.status.some(status => status === item.sellingStatus[0].sellingState[0])
+        && options.status.length) return false;
+      if(!options.categoryPath.some(path => path === item.primaryCategory[0].categoryName[0])
+        && options.categoryPath.length) return false;
+      if(!options.seller.some(selr => selr === item.sellerInfo[0].sellerUserName[0])
+        && options.seller.length) return false;
+      if(!options.itemId.some(itemid => itemid === item.itemId[0]) && options.itemId.length) return false;
+      if(!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+      if(Number(options.lowestPrice) > item.sellingStatus[0].convertedCurrentPrice[0].__value__ 
+        && options.lowestPrice !== '') return false;
+      if(Number(options.highestPrice) < item.sellingStatus[0].convertedCurrentPrice[0].__value__ 
+        && options.highestPrice !== '') return false;
     }
     return true;
   }
@@ -340,54 +303,58 @@ class eBay {
   filterDetail(options, obj) {
     const item = obj;
     if(options != null) {
-      if(!options.shipping.some(shipping =>
-        shipping === item.ShipToLocations)
-        && options.shipping.length)
+      if(!options.shipping.some(shipping => shipping === item.ShipToLocations) && options.shipping.length) 
         return false;
-      if(!options.condition.some(condition => 
-        condition === item.ConditionID)
-        && options.condition.length)
+      if(!options.condition.some(condition => condition === item.ConditionID) && options.condition.length)
         return false;
-      if(!options.status.some(status =>
-        status === item.SellingStatus
-        .ListingStatus)
-        && options.status.length)
+      if(!options.status.some(status => status === item.SellingStatus.ListingStatus) && options.status.length)
         return false;
-      if(!options.categoryPath.some(path =>
-        path === item.PrimaryCategory
-        .CategoryName)
-        && options.categoryPath.length)
-        return false;
-      if(!options.seller.some(selr => 
-        selr === item.Seller
-        .UserID)
-        && options.seller.length)
-        return false;
-      if(!options.itemId.some(itemid => 
-        itemid === item.ItemID)
-        && options.itemId.length)
-        return false;
-      if(!isFinite(options.lowestPrice) 
-        || !isFinite(options.highestPrice))
-        return false;
-      if(Number(options.lowestPrice) > item.SellingStatus
-        .ConvertedCurrentPrice.sub
-        && options.lowestPrice !== '')
-        return false;
-      if(Number(options.highestPrice) < item.SellingStatus
-        .ConvertedCurrentPrice.sub
-        && options.highestPrice !== '')
-        return false;
+      if(!options.categoryPath.some(path => path === item.PrimaryCategory.CategoryName)
+        && options.categoryPath.length) return false;
+      if(!options.seller.some(selr => selr === item.Seller.UserID) && options.seller.length) return false;
+      if(!options.itemId.some(itemid => itemid === item.ItemID) && options.itemId.length) return false;
+      if(!isFinite(options.lowestPrice) || !isFinite(options.highestPrice)) return false;
+      if(Number(options.lowestPrice) > item.SellingStatus.ConvertedCurrentPrice.sub 
+        && options.lowestPrice !== '') return false;
+      if(Number(options.highestPrice) < item.SellingStatus.ConvertedCurrentPrice.sub 
+        && options.highestPrice !== '') return false;
     }
     return true;
   }
 
-  traceLog(obj) {
-    return std.logTrace(eBay.displayName, 'Trace log:', obj);
+  toCSV(obj) {
+    let arr = new Array();
+    for(let prop in obj) arr.push(obj[prop]);
+    return arr.join();
   }
 
-  errorLog(err) {
-    return std.logError(eBay.displayName, err.name, err.message);
+  toXML(req, obj) {
+    let xml = new Object();
+    xml[req] = obj;
+    return builder.create(xml, { encoding: 'utf-8' }).end();
+  }
+
+  toJSON(str) {
+    return new Promise(resolve => {
+      xml2js.parseString(str, { attrkey: 'root', charkey: 'sub', trim: true, explicitArray: false }
+      , (err, res) => {
+        if(err) return this.logError(err);
+        resolve(res)
+      });
+    });
+  }
+
+  toLeftDays(date) {
+    const obj = parse(date);
+    return (`${obj.days} days / ${obj.hours} hours / ${obj.minutes} minutes`);
+  }
+
+  logTrace(obj) {
+    return log.trace(eBay.displayName, 'Trace', obj);
+  }
+
+  logError(err) {
+    return log.error(eBay.displayName, err.name, err.message);
   }
 };
 eBay.displayName = 'ebay-api';
