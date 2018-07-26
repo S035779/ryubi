@@ -43,16 +43,16 @@ class MainWindow {
   ipc() {
     ipcMain.on('asynchronous-message', (event, request) => {
       eBay.of(request).fetch().subscribe(
-        response  => event.sender.send('asynchronous-reply', { request, response })
-      , error     => event.sender.send('asynchronous-reply', { request, error })
+        response  => event.sender.send('asynchronous-reply', response)
+      , error     => event.sender.send('asynchronous-reply', error)
       , ()        => log.info(MainWindow.displayName, 'Complete to request fetch.')
       );
     });
 
     ipcMain.on('synchronous-message', (event, request) => {
       eBay.of(request).fetch().subscribe(
-        response  => event.returnValue = { request, response }
-      , error     => event.returnValue = { request, error }
+        response  => event.returnValue = response
+      , error     => event.returnValue = error
       , ()        => log.info(MainWindow.displayName, 'Complete to request fetch.')
       );
     });

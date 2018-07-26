@@ -1,3 +1,4 @@
+import { map }        from 'rxjs/operators';
 import { dispatch }   from 'Main/dispatcher';
 import NoteApiClient  from 'Services/NoteApiClient';
 import { log }        from 'Utilities/webutils';
@@ -20,10 +21,10 @@ export default {
     });
   },
   writeProductsItems(options) {
-    return NoteApiClient.writeProductsItems(options)
-    .map(objs => {
-      dispatch({ type: 'item/write/products', options });
-      return objs;
-    });
+    return NoteApiClient.writeProductsItems(options).pipe(
+      map(objs => {
+        dispatch({ type: 'item/write/products', options });
+        return objs;
+      }));
   }
 }

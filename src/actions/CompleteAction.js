@@ -1,3 +1,4 @@
+import { map }        from 'rxjs/operators';
 import { dispatch }   from 'Main/dispatcher';
 import NoteApiClient  from 'Services/NoteApiClient';
 import { spn, log }   from 'Utilities/webutils';
@@ -30,11 +31,11 @@ export default {
   },
   writeCompleteItems(options) {
     spn.spin();
-    return NoteApiClient.writeCompleteItems(options)
-    .map(objs => {
-      dispatch({ type: 'item/write/complete', options });
-      log.info(`${pspid}>`, 'Response: item/write/complete');
-      return objs;
-    });
+    return NoteApiClient.writeCompleteItems(options).pipe(
+      map(objs => {
+        dispatch({ type: 'item/write/complete', options });
+        log.info(`${pspid}>`, 'Response: item/write/complete');
+        return objs;
+      }));
   }
 }

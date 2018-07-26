@@ -9,7 +9,7 @@ const dialog = electron.remote.dialog;
 
 const pspid = `GlobalFooterView`;
 
-export default class GlobalFooter extends React.Component {
+class GlobalFooter extends React.Component {
   saveFile(filename, obj) {
     return new Promise((resolve, reject) => {
       fs.appendFile(filename, obj, err => {
@@ -59,20 +59,25 @@ export default class GlobalFooter extends React.Component {
   }
 
   handleChangeSave() {
-    log.info(`${pspid}>`, 'Request: handleChangeSave');
+    log.info(GlobalFooter.displayName, 'Request: handleChangeSave');
     this.showSaveDialog((filename) => {
-      if(!filename) return log.info('File save canceled!');
-      log.trace(`${pspid}>`, 'Save file:', filename);
+      if(!filename) return log.error(GloblFooter.displayName, 'Error', 'File save canceled!');
+      //log.trace(GlobalFooter.displayName, 'Save file:', filename);
       this.touchFile(filename)
+      .then(() => this.saveFile(filename, Buffer.from([0xEF, 0xBB, 0xBF])))
       .then(() => this.saveFile(filename, util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
         AppAction.writeInventoryItems(this.state).subscribe(
           obj => this.saveFile(filename, obj)
-        , err => this.showErrorBox(err.message)
+        , err => {
+            log.error(GlobalFooter.displayName, err.name, err.message);
+            this.showErrorBox(err.message)
+            spn.stop();
+          }
         , () => {
+            log.info(GlobalFooter.displayName, 'handleChangeSave', 'File has been saved!');
             this.showSaveMessageBox();
-            log.info('File has been saved!');
             spn.stop();
           }
         )
@@ -99,7 +104,7 @@ export default class GlobalFooter extends React.Component {
 
   handleChangeClose() {
     this.showCloseMessageBox((response) => {
-      log.trace(`${pspid}>`, 'Click button:', response);
+      log.trace(GlobalFooter.displayName, 'Click button:', response);
       if(!response) this.close();
     });
   }
@@ -113,3 +118,5 @@ export default class GlobalFooter extends React.Component {
     </footer>;
   }
 };
+GlobalFooter.displayName = 'GlobalFooter';
+export default GlobalFooter;

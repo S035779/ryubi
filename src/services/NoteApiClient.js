@@ -1,9 +1,9 @@
 import * as R                   from 'ramda';
 import { from, forkJoin, pipe } from 'rxjs';
 import { map, flatMap }         from 'rxjs/operators';
-import { M, log, spn, stor }    from 'Utilities/webutils';
+import { log, spn, stor }       from 'Utilities/webutils';
 import std                      from 'Utilities/stdutils';
-import { fetch }                from 'Utilities/ipcutils';
+import ipc                      from 'Utilities/ipcutils';
 
 log.config('console', 'basic', 'ALL', 'electron-renderer');
 spn.config('app');
@@ -33,7 +33,6 @@ export default {
         });
       case 'findItemsByKeywords':
         return new Promise((resolve, reject) => {
-          log.trace(displayName, 'findItemsByKeywords', eBay.findingApi, options);
           JSONP.request(eBay.findingApi, options, obj => {
             resolve(obj);
           });
@@ -52,14 +51,14 @@ export default {
         });
       case 'GetItem':
         return new Promise((resolve, reject) => {
-          fetch.of(eBay.tradingApi).post(options, (err, obj) => {
+          ipc.fetch.of(eBay.tradingApi).post(options, (err, obj) => {
             if(err) return reject(err);
             resolve(obj);
           });
         });
-      case 'getInventoryItems':
+      case '/inventory_item':
         return new Promise((resolve, reject) => {
-          fetch.of(eBay.inventoryApi).get(options, (err, obj) => {
+          ipc.fetch.of(eBay.inventoryApi + operation).get(options, (err, obj) => {
             if(err) return reject(err);
             resolve(obj);
           });
@@ -91,16 +90,16 @@ export default {
       , this.optProducts({ appid: eBay.appid, page, operation: 'findItemsByProduct' }, options));
   },
   
-  getInventoryItems(options, page) {
-    return this.request('getInventoryItems'
-      , { appid: eBay.appid, page, operation: 'getInventoryItems', type: 'JSON', options });
-  },
-  
-  getItemDetails(options) {
+  getItemDetails(options, items) {
     return this.request('GetItem'
-      , { appid:  eBay.appid, token: eBay.token, operation: 'GetItem', type: 'XML', options });
+      , { appid: eBay.appid, token: eBay.token, operation: 'GetItem',         type: 'XML', options, items });
   },
 
+  getInventoryItems(options, offset) {
+    return this.request('/inventory_item'
+      , { appid: eBay.appid, token: eBay.token, operation: '/inventory_item', type: 'JSON', options, offset });
+  },
+  
   putConfig(config) {
     return this.request('config/write', config);
   },
@@ -151,7 +150,7 @@ export default {
     //log.trace(displayName,'options:', options);
     //const pages = Number(options.pages);
     const streamItems   = idx   => from(this.getItems(options, idx));
-    const streamDetail  = objs  => from(this.getItemDetails(objs));
+    const streamDetail  = objs  => from(this.getItemDetails(options, objs));
     const forkItems     = obj   => forkJoin(this.forItems(options, obj));
     //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
@@ -164,7 +163,6 @@ export default {
       //, map(R.tap(this.logTrace.bind(this)))
       //, flatMap(from)
       , flatMap(streamDetail)
-      //, map(obj => obj.response.body)
       //, flatMap(forkJSON)
       //, map(R.map(this.resDetail.bind(this)))
       //, map(R.map(this.setDetail.bind(this)))
@@ -180,7 +178,7 @@ export default {
     //log.trace(displayName,'options:', options);
     //const pages = Number(options.pages);
     const streamItems   = idx   => from(this.getCompleteItems(options, idx));
-    const streamDetail  = objs  => from(this.getItemDetails(objs));
+    const streamDetail  = objs  => from(this.getItemDetails(options, objs));
     const forkItems     = obj   => forkJoin(this.forCompleteItems(options, obj));
     //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
@@ -208,7 +206,7 @@ export default {
     //log.trace(displayName,'options:', options);
     //const pages = Number(options.pages);
     const streamItems   = idx   => from(this.getProductsItems(options, idx));
-    const streamDetail  = objs  => from(this.getItemDetails(objs));
+    const streamDetail  = objs  => from(this.getItemDetails(options, objs));
     const forkItems     = obj   => forkJoin(this.forProductsItems(options, obj));
     //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
@@ -232,12 +230,12 @@ export default {
     ;
   },
   
-  //writeInventoryItems(options) {
-  //  const streamItems   = idx   => from(this.getInventoryItems(options, idx));
+  writeInventoryItems(options, idx) {
+    const streamItems   = idx   => from(this.getInventoryItems(options, idx));
   //  const streamDetail  = objs  => from(this.getItemDetails(objs));
   //  const forkItems     = obj   => forkJoin(this.forInventoryItems(options, obj));
   //  const forkJSON      = obj   => forkJoin(util.toJSON(obj));
-  //  return streamItems(1)
+    return streamItems(1)
   //    .pipe(
   //      map(this.resInventoryItems)
   //    , flatMap(forkItems)
@@ -253,9 +251,9 @@ export default {
   //    , map(R.map(this.renderDetail.bind(this)))
   //    , map(R.map(util.toCSV.bind(this)))
   //    , map(R.map(csv => csv + '\n'))
-  //    )
-  //  ;
-  //},
+  //  )
+    ;
+  },
   
   forItems(options, res) {
     const pages = Number(options.pages);
@@ -349,7 +347,7 @@ export default {
     options['SECURITY-APPNAME'] = _o.appid;
     options['SERVICE-VERSION'] = '1.13.0';
     options['outputSelector'] = 'SellerInfo';
-    options['paginationInput.entriesPerPage'] = 100;
+    options['paginationInput.entriesPerPage'] = 10;
     options['paginationInput.pageNumber'] = _o.page;
 
     if(_p.searchString) {
@@ -423,7 +421,7 @@ export default {
     options['SECURITY-APPNAME'] = _o.appid;
     options['SERVICE-VERSION'] = '1.13.0';
     options['outputSelector'] = 'SellerInfo';
-    options['paginationInput.entriesPerPage'] = 100;
+    options['paginationInput.entriesPerPage'] = 10;
     options['paginationInput.pageNumber'] = _o.page;
 
     if(_p.productId && _p.productType) {
@@ -476,7 +474,7 @@ export default {
   //  head['Accept-Language'] = 'en-US';
   //  head['X-EBAY-C-MARKETPLACE-ID'] = 'EBAY_US';
   //  auth['bearer'] = _o.token;
-  //  query['limit'] = 100;
+  //  query['limit'] = 10;
   //  query['offert'] = _o.page;
   //  return { head, auth, query, operation: _o.operation };
   //},

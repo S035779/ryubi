@@ -18,6 +18,7 @@ class ipc {
   send(request, callback) {
     //ipcRenderer.setMaxListeners(0);
     ipcRenderer.on('asynchronous-reply', (event, response) => {
+      if(response.error) return callback(response.error);
       this.setProps({ event });
       callback(null, response);
     });
@@ -26,7 +27,9 @@ class ipc {
 
   sendSync(request) {
     //ipcRenderer.setMaxListeners(0);
-    return ipcRenderer.sendSync('synchronous-message', request);
+    const response = ipcRenderer.sendSync('synchronous-message', request);
+    if(response.error) return response.error;
+    return response;
   }
 
   setState(state) {
@@ -52,9 +55,9 @@ class fetch extends ipc {
 
   get(request, callback) {
     const { url } = this.state;
-    const { appid, token, operaion, type, options } = request;
+    const { appid, token, operation, type, options, offset } = request;
     //log.info(fetch.displayName, 'Request', url, request);
-    this.send({ url, method: 'GET', appid, token, operation, type, options }, (error, response) => {
+    this.send({ url, method: 'GET', appid, token, operation, type, options, offset }, (error, response) => {
       if(error) return callback(error);
       this.setState({ response });
       //log.trace(fetch.displayName, 'response', response);
@@ -64,9 +67,9 @@ class fetch extends ipc {
 
   post(request, callback) {
     const { url } = this.state;
-    const { appid, token, operation, type, options } = request;
+    const { appid, token, operation, type, options, items } = request;
     //log.info(fetch.displayName, 'Request', url, request);
-    this.send({ url, method: 'POST', appid, token, operation, type, options }, (error, response) => {
+    this.send({ url, method: 'POST', appid, token, operation, type, options, items }, (error, response) => {
       if(error) return callback(error);
       this.setState({ response });
       //log.trace(fetch.displayName, 'response', response);
@@ -76,13 +79,13 @@ class fetch extends ipc {
 
   _post(request) {
     const { url } = this.state;
-    const { appid, token, operation, type, options } = request;
+    const { appid, token, operation, type, options, items } = request;
     //log.info(fetch.displayName, 'Request', url);
-    const response = this.sendSync({ url, method: 'POST', appid, token, operation, type, options });
+    const response = this.sendSync({ url, method: 'POST', appid, token, operation, type, options, items });
     this.setState({ response });
     //log.trace(fetch.displayName, 'response', response);
     return response;
   }
 };
 fetch.displayName = 'fetch';
-export { fetch };
+export default { fetch };

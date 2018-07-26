@@ -9,13 +9,14 @@ import electron from 'electron';
 const remote = electron.remote;
 const dialog = electron.remote.dialog;
 
-export default class NoteSidebar extends React.Component {
+class NoteSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props.options);
   }
 
   saveFile(filename, obj) {
+    //log.info(NoteSidebar.displayName, 'saveFile', obj);
     return new Promise((resolve, reject) => {
       fs.appendFile(filename, obj, err => {
         if(err) reject(err);
@@ -88,19 +89,20 @@ export default class NoteSidebar extends React.Component {
     this.showSaveDialog(filename => {
       if(!filename) return log.info(NoteSidebar.displayName, 'Response', 'File save canceled!');
       this.touchFile(filename)
+      .then(() => this.saveFile(filename, Buffer.from([0xEF, 0xBB, 0xBF])))
       .then(() => this.saveFile(filename, util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();
         NoteAction.writeItems(this.state).subscribe(
           obj => this.saveFile(filename, obj)
         , err => {
-            this.showErrorBox(err.message);
             log.error(NoteSidebar.displayName, err.name, err.message);
+            this.showErrorBox(err.message);
             spn.stop();
           }
         , () => {
+            log.info(NoteSidebar.displayName, 'handleChangeSave', 'File has been saved!');
             this.showSaveMessageBox();
-            log.info(NoteSidebar.displayName, 'Response', 'File has been saved!');
             spn.stop();
           }
         );
@@ -369,3 +371,4 @@ export default class NoteSidebar extends React.Component {
   }
 };
 NoteSidebar.displayName = `NoteSidebar`;
+export default NoteSidebar;

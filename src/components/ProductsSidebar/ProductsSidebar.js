@@ -89,6 +89,7 @@ export default class ProductsSidebar extends React.Component {
       if(!filename) return log.info(ProductsSidebar.displayName, 'Response', 'File save canceled!');
       log.info(ProductsSidebar.displayName, 'filename', filename);
       this.touchFile(filename)
+      .then(() => this.saveFile(filename, Buffer.from([0xEF, 0xBB, 0xBF])))
       .then(() => this.saveFile(filename, util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();

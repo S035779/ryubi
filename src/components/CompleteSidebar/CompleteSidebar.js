@@ -91,6 +91,7 @@ export default class CompleteSidebar extends React.Component {
       if(!filename) return log.info(CompleteSidebar.displayName, 'Response', 'File save canceled!');
       log.info(CompleteSidebar.displayName, 'filename', filename);
       this.touchFile(filename)
+      .then(() => this.saveFile(filename, Buffer.from([0xEF, 0xBB, 0xBF])))
       .then(() => this.saveFile(filename, util.getCSVHeader(this.csvHeader())))
       .then(() => {
         spn.spin();

@@ -1,3 +1,4 @@
+import { map }        from 'rxjs/operators';
 import { dispatch }   from 'Main/dispatcher';
 import NoteApiClient  from 'Services/NoteApiClient';
 import { log }   from 'Utilities/webutils';
@@ -9,23 +10,22 @@ export default {
     dispatch({ type: 'content/select', selected, title });
   },
   fetchConfig() {
-    return NoteApiClient.getConfig()
-    .then(config => {
-      dispatch({ type: 'config/fetch/appid', config });
-    });
+    return NoteApiClient.getConfig().then(
+      config => {
+        dispatch({ type: 'config/fetch/appid', config });
+      });
   },
   writeConfig(obj) {
-    return NoteApiClient.putConfig(obj)
-    .then(config => {
-      dispatch({ type: 'config/write/appid', config });
-    });
+    return NoteApiClient.putConfig(obj).then(
+      config => {
+        dispatch({ type: 'config/write/appid', config });
+      });
   },
   writeInventoryItems(options) {
-    return NoteApiClient.writeInventoryItems(options)
-      .map(objs => {
+    return NoteApiClient.writeInventoryItems(options).pipe(
+      map(objs => {
         dispatch({ type: 'item/write/inventory', options });
         return objs;
-      })
-    ;
+      }));
   }
 }
