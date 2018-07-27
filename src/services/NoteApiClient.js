@@ -49,6 +49,20 @@ export default {
             resolve(obj);
           });
         });
+      case 'code':
+        return new Promise((resolve, reject) => {
+          ipc.fetch.of(eBay.authorizeApi).auth(options, (err, obj) => {
+            if(err) return reject(err);
+            resolve(obj);
+          });
+        });
+      case 'client_credentials':
+        return new Promise((resolve, reject) => {
+          ipc.fetch.of(eBay.oauth2Api).post(options, (err, obj) => {
+            if(err) return reject(err);
+            resolve(obj);
+          });
+        });
       case 'GetItem':
         return new Promise((resolve, reject) => {
           ipc.fetch.of(eBay.tradingApi).post(options, (err, obj) => {
@@ -56,9 +70,9 @@ export default {
             resolve(obj);
           });
         });
-      case '/inventory_item':
+      case 'inventory_item':
         return new Promise((resolve, reject) => {
-          ipc.fetch.of(eBay.inventoryApi + operation).get(options, (err, obj) => {
+          ipc.fetch.of(eBay.inventoryApi + '/' + operation).get(options, (err, obj) => {
             if(err) return reject(err);
             resolve(obj);
           });
@@ -76,28 +90,37 @@ export default {
   },
 
   getItems(options, page) {
-    return this.request('findItemsByKeywords'
-      , this.optItems({ appid: eBay.appid, page, operation: 'findItemsByKeywords' }, options));
+    return this.request('findItemsByKeywords', this.optItems({ appid: eBay.appid, page
+      , operation: 'findItemsByKeywords' }, options));
   },
   
   getCompleteItems(options, page) {
-    return this.request('findCompletedItems'
-      , this.optItems({ appid: eBay.appid, page, operation: 'findCompletedItems' }, options));
+    return this.request('findCompletedItems', this.optItems({ appid: eBay.appid, page
+      , operation: 'findCompletedItems' }, options));
   },
   
   getProductsItems(options, page) {
-    return this.request('findItemsByProduct'
-      , this.optProducts({ appid: eBay.appid, page, operation: 'findItemsByProduct' }, options));
+    return this.request('findItemsByProduct', this.optProducts({ appid: eBay.appid, page
+      , operation: 'findItemsByProduct' }, options));
   },
   
-  getItemDetails(options, items) {
-    return this.request('GetItem'
-      , { appid: eBay.appid, token: eBay.token, operation: 'GetItem',         type: 'XML', options, items });
+  getCode() {
+    return this.request('code', this.optCode({ appid: eBay.appid, runame: eBay.runame, operation: 'code' }))
   },
 
-  getInventoryItems(options, offset) {
-    return this.request('/inventory_item'
-      , { appid: eBay.appid, token: eBay.token, operation: '/inventory_item', type: 'JSON', options, offset });
+  getToken() {
+    return this.request('client_credentials', { appid: eBay.appid, certid: eBay.certid, runame: eBay.runame
+      , operation: 'client_credentials', type: 'NV' });
+  },
+
+  getItemDetails(options, items) {
+    return this.request('GetItem', { appid: eBay.appid, token: eBay.token
+      , operation: 'GetItem', type: 'XML', options, items });
+  },
+
+  getInventoryItems(options, token) {
+    return this.request('inventory_item', { appid: eBay.appid, token
+      , operation: 'inventory_item', type: 'JSON', options, offset: 0 });
   },
   
   putConfig(config) {
@@ -142,17 +165,14 @@ export default {
     return this.getProductsItems(options, page)
       .then(this.resProductsItems)
       .then(this.setItems)
-      //.then(R.tap(this.logTrace.bind(this)))
       .catch(this.logError.bind(this));
   },
   
   writeItems(options) {
     //log.trace(displayName,'options:', options);
-    //const pages = Number(options.pages);
     const streamItems   = idx   => from(this.getItems(options, idx));
     const streamDetail  = objs  => from(this.getItemDetails(options, objs));
     const forkItems     = obj   => forkJoin(this.forItems(options, obj));
-    //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
       .pipe(
         map(this.resItems)
@@ -160,27 +180,16 @@ export default {
       , map(R.map(this.resItems.bind(this)))
       , map(R.map(this.setItems.bind(this)))
       , map(R.flatten)
-      //, map(R.tap(this.logTrace.bind(this)))
-      //, flatMap(from)
       , flatMap(streamDetail)
-      //, flatMap(forkJSON)
-      //, map(R.map(this.resDetail.bind(this)))
-      //, map(R.map(this.setDetail.bind(this)))
-      //, map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
-      //, map(R.map(this.renderDetail.bind(this)))
-      //, map(R.map(util.toCSV.bind(this)))
-      //, map(R.map(csv => csv + '\n'))
       )
     ;
   },
 
   writeCompleteItems(options) {
     //log.trace(displayName,'options:', options);
-    //const pages = Number(options.pages);
     const streamItems   = idx   => from(this.getCompleteItems(options, idx));
     const streamDetail  = objs  => from(this.getItemDetails(options, objs));
     const forkItems     = obj   => forkJoin(this.forCompleteItems(options, obj));
-    //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
       .pipe(
         map(this.resCompleteItems)
@@ -188,27 +197,16 @@ export default {
       , map(R.map(this.resCompleteItems.bind(this)))
       , map(R.map(this.setItems.bind(this)))
       , map(R.flatten)
-      //, map(R.tap(this.logTrace.bind(this)))
-      //, flatMap(from)
       , flatMap(streamDetail)
-      //, flatMap(forkJSON)
-      //, map(R.map(this.resDetail.bind(this)))
-      //, map(R.map(this.setDetail.bind(this)))
-      //, map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
-      //, map(R.map(this.renderDetail.bind(this)))
-      //, map(R.map(util.toCSV.bind(this)))
-      //, map(R.map(csv => csv + '\n'))
       )
     ;
   },
   
   writeProductsItems(options) {
     //log.trace(displayName,'options:', options);
-    //const pages = Number(options.pages);
     const streamItems   = idx   => from(this.getProductsItems(options, idx));
     const streamDetail  = objs  => from(this.getItemDetails(options, objs));
     const forkItems     = obj   => forkJoin(this.forProductsItems(options, obj));
-    //const forkJSON      = obj => forkJoin(util.toJSON(obj));
     return streamItems(1)
       .pipe(
         map(this.resProductsItems)
@@ -216,27 +214,23 @@ export default {
       , map(R.map(this.resProductsItems.bind(this)))
       , map(R.map(this.setItems.bind(this)))
       , map(R.flatten)
-      //, map(R.tap(this.logTrace.bind(this)))
-      //, flatMap(from)
       , flatMap(streamDetail)
-      //, flatMap(forkJSON)
-      //, map(R.map(this.resDetail.bind(this)))
-      //, map(R.map(this.setDetail.bind(this)))
-      //, map(R.filter(R.curry(this.filterDetail.bind(this))(options)))
-      //, map(R.map(this.renderDetail.bind(this)))
-      //, map(R.map(util.toCSV.bind(this)))
-      //, map(R.map(csv => csv + '\n'))
       )
     ;
   },
   
   writeInventoryItems(options, idx) {
-    const streamItems   = idx   => from(this.getInventoryItems(options, idx));
+    const requestCode   = ()  => from(this.getCode());
+    const streamItems   = obj => from(this.getInventoryItems(options, obj));
+    const setCode       = obj => obj.code;
   //  const streamDetail  = objs  => from(this.getItemDetails(objs));
   //  const forkItems     = obj   => forkJoin(this.forInventoryItems(options, obj));
   //  const forkJSON      = obj   => forkJoin(util.toJSON(obj));
-    return streamItems(1)
-  //    .pipe(
+    return requestCode()
+      .pipe(
+        //  map(setCode)
+          map(R.tap(this.logTrace.bind(this)))
+        //, flatMap(streamItems)
   //      map(this.resInventoryItems)
   //    , flatMap(forkItems)
   //    , map(R.map(this.resInventoryItems.bind(this)))
@@ -251,7 +245,7 @@ export default {
   //    , map(R.map(this.renderDetail.bind(this)))
   //    , map(R.map(util.toCSV.bind(this)))
   //    , map(R.map(csv => csv + '\n'))
-  //  )
+    )
     ;
   },
   
@@ -333,6 +327,22 @@ export default {
   //  return obj && obj.Ack === 'Success'
   //    ? obj.Item : null;
   //},
+
+  optCode(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const search = new Object();
+    const scope = [
+      'https://api.ebay.com/oauth/api_scope/sell.account'
+    , 'https://api.ebay.com/oauth/api_scope/sell.inventory'
+    ];
+    search['client_id'] = _o.appid;
+    search['redirect_uri'] = _o.runame;
+    search['response_type'] = _o.operation;
+    search['scope'] = R.join('%20', scope);
+    search['state'] = Date.now();
+    return { search, operation: _o.operation };
+  },
 
   optItems(o, p) {
     const _o = o;

@@ -18,17 +18,19 @@ import log                      from 'Utilities/logutils';
 class eBay {
   constructor(props) {
     if(!props) return log.error(eBay.displayName, 'Error', 'Request failed.');
-    const { url, method, appid, token, offset, operation, type, options, items } = props;
+    const { method, type, url, appid, certid, operation, token, runame, options, items, offset } = props;
     this.props = {
-      url:        url       ? url               : ''
-    , method:     method    ? R.toUpper(method) : 'GET'
-    , appid:      appid     ? appid             : ''
-    , token:      token     ? token             : null
-    , offset:     offset    ? offset            : 0
-    , operation:  operation ? operation         : ''
+      method:     method    ? R.toUpper(method) : 'GET'
     , type:       type      ? R.toUpper(type)   : 'JSON'
+    , url:        url       ? url               : ''
+    , appid:      appid     ? appid             : ''
+    , certid:     certid    ? certid            : ''
+    , operation:  operation ? operation         : ''
+    , token:      token     ? token             : null
+    , runame:     runame    ? runame            : null
     , options:    options   ? options           : null
     , items:      items     ? items             : null
+    , offset:     offset    ? offset            : 0
     };
   }
 
@@ -36,25 +38,65 @@ class eBay {
     return new eBay(props);
   }
 
-  getInventoryItems(items, offset) {
-    //log.trace(eBay.displayName, 'getInventoryItems', options);
-    const { appid, token, operation, method, type, url } = this.props;
-    const request = R.merge({ method, type, url }, this.optInventory({ appid, token, operation, offset }, items));
-    return net.fetch(request);
+  fetch() {
+    //log.trace(eBay.displayName, 'Props', this.props);
+    const { operation, options, items } = this.props;
+    log.info(eBay.displayName, 'Fetch', operation);
+    switch(operation) {
+      case 'GetItem':
+        return this.fetchItemDetails(options, items);
+      case 'inventory_item':
+        return this.fetchInventoryItems(options);
+      case 'client_credentials':
+        return this.fetchToken(options);
+      case 'code':
+        return this.fetchCode(options);
+      default:
+        log.error(eBay.displayName, 'Error', 'Unknown operation.');
+        return null;
+    }
   }
-  
-  getItemDetail(items) {
-    //log.trace(eBay.displayName, 'getItemDetail', options);
-    const { appid, token, operation, method, type, url } = this.props;
-    const request = R.merge({ method, type, url }, this.optDetail({ appid, token, operation }, items));
+
+  getCode() {
+    const { method, type, url, appid, operation, runame } = this.props;
+    const request = R.merge({ method, type, url }, this.optCode({ appid, operation, runame }));
     return net.fetch(request);
   }
 
-  fetchInventoryItems(options, offset) {
-    //log.trace(eBay.displayName, 'fetchInventoryItems', options);
-    const observable = from(this.getInventoryItems({}, offset));
-    return observable.pipe(
+  getToken() {
+    //log.trace(eBay.displayName, 'getClientCredentialsGrant', options);
+    const { method, type, url, appid, certid, operation, runame } = this.props;
+    const request = R.merge({ method, type, url }, this.optToken({ appid, certid, operation, runame }));
+    return net.fetch(request);
+  }
+
+  getItemDetail(item) {
+    //log.trace(eBay.displayName, 'getItemDetail', options);
+    const { method, type, url, appid, operation, token } = this.props;
+    const request = R.merge({ method, type, url }, this.optDetail({ appid, operation, token }, item));
+    return net.fetch(request);
+  }
+
+  getInventoryItems() {
+    //log.trace(eBay.displayName, 'getInventoryItems', options);
+    const { method, type, url, appid, operation, token, offset } = this.props;
+    const request = R.merge({ method, type, url }, this.optInventory({ appid, operation, token, offset }));
+    return net.fetch(request);
+  }
+  
+  fetchCode(options) {
+    const requestCode = from(this.getCode());
+    return requestCode.pipe(
       map(R.tap(this.logTrace.bind(this)))
+    , map(this.parseJSON)
+    );
+  }
+
+  fetchToken(options) {
+    const requestToken  = from(this.getToken());
+    return requestToken.pipe(
+      map(R.tap(this.logTrace.bind(this)))
+    , map(this.parseJSON)
     );
   }
 
@@ -76,45 +118,27 @@ class eBay {
     );
   }
 
-  fetch() {
-    //log.trace(eBay.displayName, 'Props', this.props);
-    const { operation, options, items, offset } = this.props;
-    log.info(eBay.displayName, 'Fetch', operation);
-    switch(operation) {
-      case 'GetItem':
-        return this.fetchItemDetails(options, items);
-      case '/inventory_item':
-        return this.fetchInventoryItems(options, offset);
-      default:
-        log.error(eBay.displayName, 'Error', 'Unknown operation.');
-        return null;
-    }
+  fetchInventoryItems(options) {
+    //log.trace(eBay.displayName, 'fetchInventoryItems', options);
+    const observable = from(this.getInventoryItems());
+    return observable.pipe(
+      map(R.tap(this.logTrace.bind(this)))
+    );
   }
 
-  forInventoryItems(options, res) {
-    const pages = Number(options.pages);
-    const page = Number(res.paginationOutput[0].totalPages[0]) < pages
-      ? Number(res.paginationOutput[0].totalPages[0]) : pages;
-    const newItems = [];
-    for(let idx=1; idx <= page; idx++) {
-      newItems.push(this.getProductsItems(options, idx));
-    }
-    return newItems;
-  }
-  
-  resInventoryItems(obj) {
-    return obj.hasOwnProperty('inventoryItems') 
-      ? obj.inventoryItems : null;
-  }
-  
-  resDetail(obj) {
-    return obj.hasOwnProperty('GetItemResponse') 
-      ? obj.GetItemResponse : null;
-  }
-  
-  setDetail(obj) {
-    return obj && obj.Ack === 'Success'
-      ? obj.Item : null;
+  optToken(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const head = new Object();
+    const auth = new Object();
+    const search = new Object();
+    head['Accept-Language'] = 'en-US';
+    auth['user'] = _o.appid;
+    auth['pass'] = _o.certid;
+    search['grant_type'] = _o.operation;
+    search['redirect_uri'] = _o.runame;
+    search['scope'] = 'https://api.ebay.com/oauth/api_scope';
+    return { head, auth, search, operation: _o.operation };
   }
 
   optInventory(o, p) {
@@ -150,6 +174,16 @@ class eBay {
     body['DetailLevel'] = 'ReturnAll';
     //log.trace(eBay.displayName, 'optDetail:', head, body);
     return { head, body: this.toXML(_o.operation, body) };
+  }
+
+  resDetail(obj) {
+    return obj.hasOwnProperty('GetItemResponse') 
+      ? obj.GetItemResponse : null;
+  }
+  
+  setDetail(obj) {
+    return obj && obj.Ack === 'Success'
+      ? obj.Item : null;
   }
 
   renderStatus(status) {
@@ -332,6 +366,10 @@ class eBay {
   toLeftDays(date) {
     const obj = parse(date);
     return (`${obj.days} days / ${obj.hours} hours / ${obj.minutes} minutes`);
+  }
+
+  parseJSON(str) {
+    return JSON.parse(str);
   }
 
   logTrace(message) {

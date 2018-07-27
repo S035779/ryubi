@@ -18,7 +18,6 @@ const fetch = function(options) {
   return new Promise((resolve, reject) => {
     request(options, (err, head, body) => {
       if(err) return reject(err);
-      log.trace(displayName, { request: options, head, body }); 
       resolve(body);
     });
   });
@@ -60,14 +59,16 @@ const request = function({ method, url, search, auth, head, body, type }, callba
   } else if (typeof body === 'object' && type === 'JSON') {
     body = JSON.stringify(body); 
     type = 'application/json';
-  } else if (typeof body === 'object' && type === 'NV') {
+  } else if (typeof body === 'string' && type === 'NV') {
     body = std.urlencode(body);  
+    type = 'application/x-www-form-urlencoded';
+  } else if (type === 'NV') {
+    body = '';
     type = 'application/x-www-form-urlencoded';
   } else {
     body = '';
     type = 'text/plain; charset=utf-8';
   }
- 
 
   const headers = Object.assign({}, {
     'Accept': 'application/json'
@@ -86,7 +87,7 @@ const request = function({ method, url, search, auth, head, body, type }, callba
   }
 
   log.trace(displayName, 'headers', headers);
-  log.trace(displayName, 'Protocol', protocol);
+  //log.trace(displayName, 'Protocol', protocol);
 
   const client = protocol === 'http:' ? http : https;
   const req = client.request({

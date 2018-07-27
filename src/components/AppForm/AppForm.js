@@ -9,9 +9,13 @@ class AppForm extends React.Component {
     const config = props.config;
     this.state = {
       appid:      config.appid      ? config.appid      : ''
+    , certid:     config.certid     ? config.certid     : ''
     , token:      config.token      ? config.token      : ''
-    , findingApi: config.findingApi ? config.findingApi : ''
-    , tradingApi: config.tradingApi ? config.tradingApi : ''
+    , runame:     config.runame     ? config.runame     : ''
+    , authorizeApi: config.authorizeApi ? config.authorizeApi : ''
+    , oauth2Api:    config.oauth2Api    ? config.oauth2Api    : ''
+    , findingApi:   config.findingApi   ? config.findingApi   : ''
+    , tradingApi:   config.tradingApi   ? config.tradingApi   : ''
     , inventoryApi: config.inventoryApi ? config.inventoryApi : ''
     , marketingApi: config.marketingApi ? config.marketingApi : ''
     , analyticsApi: config.analyticsApi ? config.analyticsApi : ''
@@ -35,16 +39,26 @@ class AppForm extends React.Component {
   render() {
     log.trace(AppForm.displayName, 'State', this.state);
     log.trace(AppForm.displayName, 'Props', this.props);
-    const { appid, token, findingApi, tradingApi, inventoryApi, marketingApi, analyticsApi } = this.state;
+    const { appid, certid, token, runame
+      , authorizeApi, oauth2Api, findingApi, tradingApi, inventoryApi, marketingApi, analyticsApi }
+      = this.state;
     return <div className="pane">
     <form className="padded-less">
       <div className="form-group">
-      <label>Application Key ID</label>
+      <label>App ID</label>
       <input type="text"
         className="form-control"
-        placeholder="Key ID"
+        placeholder="Client ID"
         value={appid}
         onChange={this.handleChangeText.bind(this, 'appid')} />
+      </div>
+      <div className="form-group">
+      <label>Cert ID</label>
+      <input type="text"
+        className="form-control"
+        placeholder="Client Secret"
+        value={certid}
+        onChange={this.handleChangeText.bind(this, 'certid')} />
       </div>
       <div className="form-group">
       <label>User Token</label>
@@ -53,6 +67,30 @@ class AppForm extends React.Component {
         placeholder="Token"
         value={token}
         onChange={this.handleChangeText.bind(this, 'token')} />
+      </div>
+      <div className="form-group">
+      <label>RuName</label>
+      <input type="text"
+        className="form-control"
+        placeholder="eBay Redirect URL name"
+        value={runame}
+        onChange={this.handleChangeText.bind(this, 'runame')} />
+      </div>
+      <div className="form-group">
+      <label>Authorize API URL</label>
+      <input type="text"
+        className="form-control"
+        placeholder="URL"
+        value={authorizeApi}
+        onChange={this.handleChangeText.bind(this, 'authorizeApi')} />
+      </div>
+      <div className="form-group">
+      <label>OAuth2 API URL</label>
+      <input type="text"
+        className="form-control"
+        placeholder="URL"
+        value={oauth2Api}
+        onChange={this.handleChangeText.bind(this, 'oauth2Api')} />
       </div>
       <div className="form-group">
       <label>Finding API URL</label>
