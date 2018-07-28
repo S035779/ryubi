@@ -72,7 +72,6 @@ class fetch extends ipc {
       const code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
       const state = (raw_state && raw_state.length > 1) ? raw_state[1] : null;
       const expires_in = (raw_expire && raw_expire.length > 1) ? raw_expire[1] : null;
-      log.debug(fetch.displayName, 'state', `[${state}], [${request.state}]`, state === request.state);
       if (code && state && expires_in) {
         authWindow.destroy();
         if (Number(state) === request.state) callback(null, { code, state, expires_in });
@@ -128,10 +127,17 @@ const win = {
     remote.dialog.showSaveDialog(current, options, callback);
   },
 
-  showErrorBox(str) {
-    const title = 'Error';
-    log.info(win.displayName, 'showErrorBox', title)
-    remote.dialog.showErrorBox(title, str);
+  showErrorBox({ name, message }) {
+    if(message.errors) {
+      name     = message.errors[0].message;
+      message  = message.errors[0].longMessage;
+    } else 
+    if(message.error) {
+      name     = message.error;
+      message  = message.error_description;
+    }
+    log.info(win.displayName, 'showErrorBox', name)
+    remote.dialog.showErrorBox(name, message);
   },
 
   showCloseMessageBox(callback) {

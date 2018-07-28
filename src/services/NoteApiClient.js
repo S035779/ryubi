@@ -265,7 +265,7 @@ export default {
 
   fetchRefreshToken(state, scope) {
     const requestToken  = obj => from(this.getRefreshToken(obj));
-    const setToken      = obj => R.merge(eBay, { usertoken: obj, userstate: state });
+    const setToken      = obj => R.merge(eBay, { usertoken: R.merge(eBay.usertoken, obj), userstate: state });
     const writeConfig   = obj => from(this.putConfig(obj));
     const getToken      = obj => obj.usertoken.access_token;
     return requestToken(scope).pipe(
@@ -275,11 +275,14 @@ export default {
       );
   },
 
-  fetchToken(state, scope) {
-    const isToken       = !!eBay.usertoken;
+  fetchToken(scope) {
+    const state         = Date.now();
+    const isUsrToken    = !!eBay.usertoken.access_token;
+    const isRefToken    = !!eBay.usertoken.refresh_token;
     const isUsrExpire   = num => eBay.usertoken.expires_in < num - eBay.userstate;
     const isRefExpire   = num => eBay.usertoken.refresh_token_expires_in < num - eBay.refreshstate;
-    return isToken 
+    log.info(displayName, 'fetchToken', isUsrToken, isRefToken, isUsrExpire(state), isRefExpire(state));
+    return isUsrToken && isRefToken 
       ? isUsrExpire(state) 
         ? isRefExpire(state) 
           ? this.fetchUserToken(state, scope) 
@@ -289,7 +292,6 @@ export default {
   },
 
   writeInventoryItems(options) {
-    const state = Date.now();
     const scope = [
       'https://api.ebay.com/oauth/api_scope/sell.inventory.readonly'
     , 'https://api.ebay.com/oauth/api_scope/sell.inventory'
@@ -298,7 +300,7 @@ export default {
   //  const streamDetail  = objs  => from(this.getItemDetails(objs));
   //  const forkItems     = obj   => forkJoin(this.forInventoryItems(options, obj));
   //  const forkJSON      = obj   => forkJoin(util.toJSON(obj));
-    return this.fetchToken(state, scope).pipe(
+    return this.fetchToken(scope).pipe(
           flatMap(streamItems)
         , map(R.tap(this.logTrace.bind(this)))
   //      map(this.resInventoryItems)

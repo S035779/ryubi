@@ -24,7 +24,7 @@ class GlobalFooter extends React.Component {
           obj => ipc.sys.saveFile(filename, obj)
         , err => {
             log.error(GlobalFooter.displayName, err.name, err.message);
-            ipc.win.showErrorBox(err.message)
+            ipc.win.showErrorBox(err);
             spn.stop();
           }
         , () => {

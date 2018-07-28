@@ -50,7 +50,7 @@ export default class ProductsSidebar extends React.Component {
           obj => ipc.sys.saveFile(filename, obj)
         , err => {
             log.error(ProductsSidebar.displayName, err.name, err.message);
-            ipc.win.showErrorBox(err.message);
+            ipc.win.showErrorBox(err);
             spn.stop();
           }
         , () => {

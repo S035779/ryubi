@@ -52,7 +52,7 @@ export default class CompleteSidebar extends React.Component {
           obj => ipc.sys.saveFile(filename, obj)
         , err => {
             log.error(CompleteSidebar.displayName, err.name, err.message);
-            ipc.win.showErrorBox(err.message);
+            ipc.win.showErrorBox(err);
             spn.stop();
           }
         , () => {

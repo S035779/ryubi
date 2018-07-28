@@ -165,14 +165,14 @@ class eBay {
     const _p = p ? p : {};
     const head = new Object();
     const auth = new Object();
-    const search = new Object();
+    const body = new Object();
     head['Accept-Language'] = 'en-US';
     auth['user'] = _o.appid;
     auth['pass'] = _o.certid;
-    search['grant_type'] = _o.operation;
-    search['refresh_token'] = _o.token;
-    search['scope'] = R.join('%20', _o.scope);
-    return { head, auth, search, operation: _o.operation };
+    body['grant_type'] = _o.operation;
+    body['refresh_token'] = _o.token;
+    body['scope'] = R.join('%20', _o.scope);
+    return { head, auth, body, operation: _o.operation };
   }
 
   optAppToken(o, p) {
@@ -199,6 +199,7 @@ class eBay {
     //head['Accept-Encoding'] = 'application/gzip';
     head['Accept-Language'] = 'en-US';
     head['X-EBAY-C-MARKETPLACE-ID'] = 'EBAY_US';
+    head['X-EBAY-C-ENDUSERCTX'] = 'contextualLocation=country=JP,zip=134-0083'
     auth['bearer'] = _o.token;
     search['limit'] = 100;
     search['offset'] = _o.offset;
