@@ -21,6 +21,8 @@ class AppStore extends ReduceStore {
         , inventoryApi: ''
         , marketingApi: ''
         , analyticsApi: ''
+        , authcode: null
+        , usertoken: null
         }
       , options: null
       };

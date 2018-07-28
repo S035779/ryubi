@@ -18,7 +18,8 @@ import log                      from 'Utilities/logutils';
 class eBay {
   constructor(props) {
     if(!props) return log.error(eBay.displayName, 'Error', 'Request failed.');
-    const { method, type, url, appid, certid, operation, token, runame, options, items, offset } = props;
+    const { method, type, url, appid, certid, operation, scope, code, token, runame, options, items, offset } 
+      = props;
     this.props = {
       method:     method    ? R.toUpper(method) : 'GET'
     , type:       type      ? R.toUpper(type)   : 'JSON'
@@ -26,6 +27,8 @@ class eBay {
     , appid:      appid     ? appid             : ''
     , certid:     certid    ? certid            : ''
     , operation:  operation ? operation         : ''
+    , scope:      scope     ? scope             : []
+    , code:       code      ? code              : null
     , token:      token     ? token             : null
     , runame:     runame    ? runame            : null
     , options:    options   ? options           : null
@@ -39,69 +42,86 @@ class eBay {
   }
 
   fetch() {
-    //log.trace(eBay.displayName, 'Props', this.props);
+    log.trace(eBay.displayName, 'Props', this.props);
     const { operation, options, items } = this.props;
     log.info(eBay.displayName, 'Fetch', operation);
     switch(operation) {
       case 'GetItem':
         return this.fetchItemDetails(options, items);
       case 'inventory_item':
-        return this.fetchInventoryItems(options);
+        return this.fetchInventoryItems();
       case 'client_credentials':
-        return this.fetchToken(options);
-      case 'code':
-        return this.fetchCode(options);
+        return this.fetchAppToken();
+      case 'authorization_code':
+        return this.fetchUserToken();
+      case 'refresh_token':
+        return this.fetchRefreshToken();
       default:
         log.error(eBay.displayName, 'Error', 'Unknown operation.');
         return null;
     }
   }
 
-  getCode() {
-    const { method, type, url, appid, operation, runame } = this.props;
-    const request = R.merge({ method, type, url }, this.optCode({ appid, operation, runame }));
+  getUserToken() {
+    const { method, type, url, appid, certid, operation, runame, code } = this.props;
+    const request 
+      = R.merge({ method, type, url }, this.optUserToken({ appid, certid, operation, runame, code }));
     return net.fetch(request);
   }
 
-  getToken() {
-    //log.trace(eBay.displayName, 'getClientCredentialsGrant', options);
-    const { method, type, url, appid, certid, operation, runame } = this.props;
-    const request = R.merge({ method, type, url }, this.optToken({ appid, certid, operation, runame }));
+  getRefreshToken() {
+    const { method, type, url, appid, certid, operation, token, scope } = this.props;
+    const request
+      = R.merge({ method, type, url }, this.optRefreshToken({ appid, certid, operation, token, scope }));
+    return net.fetch(request);
+  }
+
+  getAppToken() {
+    const { method, type, url, appid, certid, operation, runame, scope } = this.props;
+    const request 
+      = R.merge({ method, type, url }, this.optAppToken({ appid, certid, operation, runame, scope }));
     return net.fetch(request);
   }
 
   getItemDetail(item) {
-    //log.trace(eBay.displayName, 'getItemDetail', options);
     const { method, type, url, appid, operation, token } = this.props;
-    const request = R.merge({ method, type, url }, this.optDetail({ appid, operation, token }, item));
+    const request 
+      = R.merge({ method, type, url }, this.optDetail({ appid, operation, token }, item));
     return net.fetch(request);
   }
 
   getInventoryItems() {
-    //log.trace(eBay.displayName, 'getInventoryItems', options);
     const { method, type, url, appid, operation, token, offset } = this.props;
-    const request = R.merge({ method, type, url }, this.optInventory({ appid, operation, token, offset }));
+    const request 
+      = R.merge({ method, type, url }, this.optInventory({ appid, operation, token, offset }));
     return net.fetch(request);
   }
   
-  fetchCode(options) {
-    const requestCode = from(this.getCode());
-    return requestCode.pipe(
-      map(R.tap(this.logTrace.bind(this)))
-    , map(this.parseJSON)
+  fetchUserToken() {
+    const requestUserToken = from(this.getUserToken());
+    return requestUserToken.pipe(
+      map(this.parseJSON)
+    //, map(R.tap(this.logTrace.bind(this)))
     );
   }
 
-  fetchToken(options) {
-    const requestToken  = from(this.getToken());
-    return requestToken.pipe(
-      map(R.tap(this.logTrace.bind(this)))
-    , map(this.parseJSON)
+  fetchRefreshToken() {
+    const requestRefreshToken = from(this.getRefreshToken());
+    return requestRefreshToken.pipe(
+      map(this.parseJSON)
+    //, map(R.tap(this.logTrace.bind(this)))
+    );
+  }
+
+  fetchAppToken() {
+    const requestAppToken  = from(this.getAppToken());
+    return requestAppToken.pipe(
+      map(this.parseJSON)
+    //, map(R.tap(this.logTrace.bind(this)))
     );
   }
 
   fetchItemDetails(options, items) {
-    //log.trace(eBay.displayName, 'fetchItemDetails', options, items);
     const promDetail  = R.map(obj => this.getItemDetail({ itemId: obj.itemId[0] }));
     const forkDetail  = objs => forkJoin(promDetail(objs));
     const promJSON    = R.map(obj => this.toJSON(obj));
@@ -118,15 +138,14 @@ class eBay {
     );
   }
 
-  fetchInventoryItems(options) {
-    //log.trace(eBay.displayName, 'fetchInventoryItems', options);
+  fetchInventoryItems() {
     const observable = from(this.getInventoryItems());
     return observable.pipe(
       map(R.tap(this.logTrace.bind(this)))
     );
   }
 
-  optToken(o, p) {
+  optUserToken(o, p) {
     const _o = o;
     const _p = p ? p : {};
     const head = new Object();
@@ -137,7 +156,37 @@ class eBay {
     auth['pass'] = _o.certid;
     search['grant_type'] = _o.operation;
     search['redirect_uri'] = _o.runame;
-    search['scope'] = 'https://api.ebay.com/oauth/api_scope';
+    search['code'] = _o.code;
+    return { head, auth, search, operation: _o.operation };
+  }
+
+  optRefreshToken(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const head = new Object();
+    const auth = new Object();
+    const search = new Object();
+    head['Accept-Language'] = 'en-US';
+    auth['user'] = _o.appid;
+    auth['pass'] = _o.certid;
+    search['grant_type'] = _o.operation;
+    search['refresh_token'] = _o.token;
+    search['scope'] = R.join('%20', _o.scope);
+    return { head, auth, search, operation: _o.operation };
+  }
+
+  optAppToken(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const head = new Object();
+    const auth = new Object();
+    const search = new Object();
+    head['Accept-Language'] = 'en-US';
+    auth['user'] = _o.appid;
+    auth['pass'] = _o.certid;
+    search['grant_type'] = _o.operation;
+    search['redirect_uri'] = _o.runame;
+    search['scope'] = R.join('%20', _o.scope);
     return { head, auth, search, operation: _o.operation };
   }
 

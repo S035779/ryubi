@@ -60,61 +60,53 @@ class fetch extends ipc {
     const { search } = request;
     const authUrl = search ? url + '?' + std.urlencode(search) : url;
     log.info(fetch.displayName, 'authUrl', authUrl);
-    const authWindow = new remote.BrowserWindow({ 
-      width: 800, height: 600, show: false
+    const BrowserWindow = remote.BrowserWindow;
+    const authWindow = new BrowserWindow({ width: 800, height: 600, show: false
     , webPreferences: { nodeIntegration: false, webSecurity: false } 
     });
     const handleChangeUrl = newUrl => {
       log.info(fetch.displayName, 'newUrl', newUrl);
       const raw_code  = /code=([^&]*)/.exec(newUrl) || null;
       const raw_state = /state=([^&]*)/.exec(newUrl) || null;
+      const raw_expire = /expires_in=([^&]*)/.exec(newUrl) || null;
       const code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
       const state = (raw_state && raw_state.length > 1) ? raw_state[1] : null;
-      if (!code) return callback({ name: 'Error', message: 'Authorization Code was not found!!'});
-      authWindow.destroy();
-      callback(null, { code, state });
+      const expires_in = (raw_expire && raw_expire.length > 1) ? raw_expire[1] : null;
+      log.debug(fetch.displayName, 'state', `[${state}], [${request.state}]`, state === request.state);
+      if (code && state && expires_in) {
+        authWindow.destroy();
+        if (Number(state) === request.state) callback(null, { code, state, expires_in });
+        callback({ name: 'Error', message: 'This redirect page was not the expected status.' });
+      }
     };
-    authWindow.webContents.on('will-navigate', (event, newUrl) => handleChangeUrl(newUrl));
-    authWindow.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl) => handleChangeUrl(newUrl));
+    authWindow.webContents.on('did-finish-load', () => handleChangeUrl(authWindow.webContents.getURL()));
     authWindow.once('ready-to-show', () => authWindow.show());
-    authWindow.on('closed', () => authWindow = null);
+    authWindow.on('close', () => authWindow = null);
     authWindow.loadURL(authUrl);
   }
 
   get(request, callback) {
     const { url } = this.state;
-    const { appid, runame, token, operation, type, options, offset } = request;
-    //log.info(fetch.displayName, 'Request', url, request);
-    this.send({ url, method: 'GET', appid, runame, token, operation, type, options, offset }
-    , (error, response) => {
+    this.send(R.merge({ url, method: 'GET' }, request), (error, response) => {
       if(error) return callback(error);
       this.setState({ response });
-      //log.trace(fetch.displayName, 'response', response);
       callback(null, response);
     });
   }
 
   post(request, callback) {
     const { url } = this.state;
-    const { appid, certid, runame, token, operation, type, options, items } = request;
-    log.info(fetch.displayName, 'Request', url, request);
-    this.send({ url, method: 'POST', appid, certid, runame, token, operation, type, options, items }
-    , (error, response) => {
+    this.send(R.merge({ url, method: 'POST' }, request), (error, response) => {
       if(error) return callback(error);
       this.setState({ response });
-      //log.trace(fetch.displayName, 'response', response);
       callback(null, response);
     });
   }
 
   _post(request) {
     const { url } = this.state;
-    const { appid, certid, runame, token, operation, type, options, items } = request;
-    //log.info(fetch.displayName, 'Request', url);
-    const response 
-      = this.sendSync({ url, method: 'POST', appid, certid, runame, token, operation, type, options, items });
+    const response = this.sendSync(R.merge({ url, method: 'POST' }, request));
     this.setState({ response });
-    //log.trace(fetch.displayName, 'response', response);
     return response;
   }
 };

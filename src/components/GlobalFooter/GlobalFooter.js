@@ -14,7 +14,7 @@ class GlobalFooter extends React.Component {
   handleChangeSave() {
     log.info(GlobalFooter.displayName, 'Request: handleChangeSave');
     ipc.win.showSaveDialog((filename) => {
-      if(!filename) return log.error(GloblFooter.displayName, 'Error', 'File save canceled!');
+      if(!filename) return log.error(GlobalFooter.displayName, 'Error', 'File save canceled!');
       spn.spin();
       ipc.sys.touchFile(filename)
       .then(() => ipc.sys.addbomFile(filename))

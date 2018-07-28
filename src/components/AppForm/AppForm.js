@@ -22,14 +22,40 @@ class AppForm extends React.Component {
     };
   }
 
+  handleChangeReset(e) {
+    const newState = {
+      appid:         ''
+    , certid:        ''
+    , token:         ''
+    , runame:        ''
+    , authorizeApi:  ''
+    , oauth2Api:     ''
+    , findingApi:    ''
+    , tradingApi:    ''
+    , inventoryApi:  ''
+    , marketingApi:  ''
+    , analyticsApi:  ''
+    };
+    this.setState(newState);
+  }
+
   handleChangeSave(e) {
-    const { config } = this.props;
-    log.info(AppForm.dilplayName, 'Request: handleChangeSave', config);
     e.preventDefault();
+    const { config } = this.props;
+    log.info(AppForm.displayName, 'handleChangeSave', config);
     const newConfig = Object.assign({}, config, this.state);
     spn.spin();
-    AppAction.writeConfig(newConfig)
-      .then(() => spn.stop());
+    if(newConfig) {
+      AppAction.writeConfig(newConfig)
+        .then(() => {
+          log.info(AppForm.displayName, 'handleChangeSave', 'Success.');
+          spn.stop();
+        })
+        .catch(err => {
+          log.error(AppForm.displayName, err.name, err.message);
+          spn.stop();
+        });
+    }
   }
 
   handleChangeText(name, e) {
@@ -61,7 +87,7 @@ class AppForm extends React.Component {
         onChange={this.handleChangeText.bind(this, 'certid')} />
       </div>
       <div className="form-group">
-      <label>User Token</label>
+      <label>Application Token</label>
       <textarea
         className="form-control"
         placeholder="Token"
@@ -133,9 +159,13 @@ class AppForm extends React.Component {
         onChange={this.handleChangeText.bind(this, 'analyticsApi')} />
       </div>
       <div className="form-actions">
-      <button type="submit" 
-        className="btn btn-large btn-form btn-primary"
-        onClick={this.handleChangeSave.bind(this)}>Save
+      <button type="reset" className="btn btn-large btn-form btn-default"
+        onClick={this.handleChangeReset.bind(this)}>
+        Reset
+      </button>
+      <button type="submit" className="btn btn-large btn-form btn-primary"
+        onClick={this.handleChangeSave.bind(this)}>
+        Save
       </button>
       </div>
     </form>
