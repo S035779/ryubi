@@ -1,5 +1,3 @@
-//import xml        from 'xml2js';
-//import builder    from 'xmlbuilder';
 import { parse }  from 'iso8601-duration';
 import Spinner    from 'Utilities/spin';
 
@@ -23,29 +21,6 @@ const util = {
     obj.unshift(arr);
     return objs;
   },
-  //toCSV(obj) {
-  //  let arr = new Array();
-  //  for(let prop in obj) {
-  //    arr.push(obj[prop]);
-  //  }
-  //  return arr.join();
-  //},
-  //toXML(req, obj) {
-  //  let xml = new Object();
-  //  xml[req] = obj;
-  //  return builder.create(xml, { encoding: 'utf-8' }).end();
-  //},
-  //toJSON(str) {
-  //  return new Promise(resolve => {
-  //    xml.parseString(str, {
-  //      attrkey: 'root', charkey: 'sub'
-  //      , trim: true, explicitArray: false }
-  //    , (err, res) => {
-  //      if(err) log.error(err);
-  //      resolve(res)
-  //    });
-  //  });
-  //},
   toLeftDays(date) {
     const obj = parse(date);
     return (

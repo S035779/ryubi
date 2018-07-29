@@ -674,6 +674,27 @@ const std = {
    * @return {string}
    */
   urlencode(obj) {
+    if (!obj) return "";
+    let pairs = [];
+    for(let name in obj) {
+      if (!obj.hasOwnProperty(name)) continue;
+      if (typeof obj[name] === "function") continue;
+      let value = obj[name].toString();
+      name = encodeURIComponent(name);
+      value = encodeURIComponent(value);
+      pairs.push(name + "=" + value);
+    }
+    return pairs.join('&');
+  },
+
+  /**
+   * Function that return a character string encode 
+   * from Associative array object.
+   * 
+   * @param {objct} obj - query parameter object.
+   * @return {string}
+   */
+  urlencode_fake(obj) {
     const keys = [];
     for(let key in obj) {
       if(obj.hasOwnProperty(key)) keys.push(key);

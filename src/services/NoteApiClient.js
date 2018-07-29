@@ -49,16 +49,16 @@ export default {
             resolve(obj);
           });
         });
-      case 'code':
+      case 'client_credentials':
         return new Promise((resolve, reject) => {
-          ipc.fetch.of(eBay.authorizeApi).auth(options, (err, obj) => {
+          ipc.fetch.of(eBay.oauth2Api).post(options, (err, obj) => {
             if(err) return reject(err);
             resolve(obj);
           });
         });
-      case 'client_credentials':
+      case 'code':
         return new Promise((resolve, reject) => {
-          ipc.fetch.of(eBay.oauth2Api).post(options, (err, obj) => {
+          ipc.fetch.of(eBay.authorizeApi).auth(options, (err, obj) => {
             if(err) return reject(err);
             resolve(obj);
           });
@@ -132,8 +132,8 @@ export default {
 
   getUserToken(code) {
     return this.request('authorization_code', { 
-      appid: eBay.appid, certid: eBay.certid, runame: eBay.runame
-    , operation: 'authorization_code', type: 'NV', code 
+      appid: eBay.appid, certid: eBay.certid, runame: eBay.runame, code
+    , operation: 'authorization_code', type: 'NV' 
     });
   },
 
@@ -146,15 +146,13 @@ export default {
 
   getItemDetails(options, items) {
     return this.request('GetItem', { 
-      appid: eBay.appid, token: eBay.token
-    , operation: 'GetItem', type: 'XML', options, items 
+      appid: eBay.appid, token: eBay.token, items, options, operation: 'GetItem', type: 'XML' 
     });
   },
 
   getInventoryItems(options, token) {
     return this.request('inventory_item', { 
-      appid: eBay.appid, token
-    , operation: 'inventory_item', type: 'JSON', options, offset: 0 
+      appid: eBay.appid, token, options, offset: 0, operation: 'inventory_item', type: 'JSON' 
     });
   },
   
@@ -249,7 +247,8 @@ export default {
   fetchUserToken(state, scope) {
     const requestCode   = obj => from(this.getCode({ state }, obj));
     const requestToken  = obj => from(this.getUserToken(obj.authcode.code));
-    const setCode       = obj => R.merge(eBay, { authcode: obj });
+    const convCode      = obj => R.merge(obj, { code: decodeURIComponent(obj.code) });
+    const setCode       = obj => R.merge(eBay, { authcode: convCode(obj) });
     const setToken      = obj => R.merge(eBay, { usertoken: obj, userstate: state, refreshstate: state });
     const writeConfig   = obj => from(this.putConfig(obj));
     const getToken      = obj => obj.usertoken.access_token;
@@ -276,33 +275,49 @@ export default {
   },
 
   fetchToken(scope) {
-    const state         = Date.now();
-    const isUsrToken    = !!eBay.usertoken.access_token;
-    const isRefToken    = !!eBay.usertoken.refresh_token;
-    const isUsrExpire   = num => eBay.usertoken.expires_in < num - eBay.userstate;
-    const isRefExpire   = num => eBay.usertoken.refresh_token_expires_in < num - eBay.refreshstate;
-    log.info(displayName, 'fetchToken', isUsrToken, isRefToken, isUsrExpire(state), isRefExpire(state));
-    return isUsrToken && isRefToken 
-      ? isUsrExpire(state) 
-        ? isRefExpire(state) 
-          ? this.fetchUserToken(state, scope) 
-          : this.fetchRefreshToken(state, scope) 
-        : from([ eBay.usertoken.access_token ])
-      : this.fetchUserToken(state, scope);
+    const state           = Date.now();
+    const duUsrToken      = eBay.usertoken.expires_in * 1000 + eBay.userstate;
+    const duRefToken      = eBay.usertoken.refresh_token_expires_in * 1000 + eBay.refreshstate;
+    const isUsrToken      = !!eBay.usertoken.access_token;
+    const isRefToken      = !!eBay.usertoken.refresh_token;
+    const isUsrAvailable  = duUsrToken - state > 0;
+    const isRefAvailable  = duRefToken - state > 0;
+    log.info(displayName, 'User Token (existence/validity/duration/modified):'
+      , isUsrToken, isUsrAvailable
+      , std.getLocalTimeStamp(duUsrToken), std.getLocalTimeStamp(eBay.userstate));
+    log.info(displayName, 'Refresh Token (existence/validity/duration/modified):'
+      , isRefToken, isRefAvailable
+      , std.getLocalTimeStamp(duRefToken), std.getLocalTimeStamp(eBay.refreshstate));
+    return !isUsrToken && isRefToken 
+      ? isUsrAvailable
+        ? from([ eBay.usertoken.access_token ])
+        : isRefAvailable
+          ? this.fetchRefreshToken(state, scope) 
+          : this.fetchUserToken(state, scope)
+      : this.fetchUserToken(state, scope)
+    ; 
   },
 
   writeInventoryItems(options) {
-    const scope = [
-      'https://api.ebay.com/oauth/api_scope/sell.inventory.readonly'
+    const scope = [ 
+      'https://api.ebay.com/oauth/api_scope'
+    , 'https://api.ebay.com/oauth/api_scope/sell.marketing.readonly'
+    , 'https://api.ebay.com/oauth/api_scope/sell.marketing'
+    , 'https://api.ebay.com/oauth/api_scope/sell.inventory.readonly'
     , 'https://api.ebay.com/oauth/api_scope/sell.inventory'
+    , 'https://api.ebay.com/oauth/api_scope/sell.account.readonly'
+    , 'https://api.ebay.com/oauth/api_scope/sell.account'
+    , 'https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly'
+    , 'https://api.ebay.com/oauth/api_scope/sell.fulfillment'
+    , 'https://api.ebay.com/oauth/api_scope/sell.analytics.readonly'
     ];
     const streamItems   = obj => from(this.getInventoryItems(options, obj));
   //  const streamDetail  = objs  => from(this.getItemDetails(objs));
   //  const forkItems     = obj   => forkJoin(this.forInventoryItems(options, obj));
   //  const forkJSON      = obj   => forkJoin(util.toJSON(obj));
     return this.fetchToken(scope).pipe(
-          flatMap(streamItems)
-        , map(R.tap(this.logTrace.bind(this)))
+        flatMap(streamItems)
+      , map(R.tap(this.logTrace.bind(this)))
   //      map(this.resInventoryItems)
   //    , flatMap(forkItems)
   //    , map(R.map(this.resInventoryItems.bind(this)))
@@ -354,17 +369,6 @@ export default {
     return newItems;
   },
   
-  //forInventoryItems(options, res) {
-  //  const pages = Number(options.pages);
-  //  const page = Number(res.paginationOutput[0].totalPages[0]) < pages
-  //    ? Number(res.paginationOutput[0].totalPages[0]) : pages;
-  //  const newItems = [];
-  //  for(let idx=1; idx <= page; idx++) {
-  //    newItems.push(this.getProductsItems(options, idx));
-  //  }
-  //  return newItems;
-  //},
-  
   resItems(obj) {
     return obj.hasOwnProperty('findItemsByKeywordsResponse') 
       ? obj.findItemsByKeywordsResponse[0] : null;
@@ -380,25 +384,10 @@ export default {
       ? obj.findItemsByProductResponse[0] : null;
   },
   
-  //resInventoryItems(obj) {
-  //  return obj.hasOwnProperty('inventoryItems') 
-  //    ? obj.inventoryItems : null;
-  //},
-  
-  //resDetail(obj) {
-  //  return obj.hasOwnProperty('GetItemResponse') 
-  //    ? obj.GetItemResponse : null;
-  //},
-  
   setItems(obj) {
     return  obj && obj.ack[0] === 'Success'
       ? obj.searchResult[0].item : null;
   },
-
-  //setDetail(obj) {
-  //  return obj && obj.Ack === 'Success'
-  //    ? obj.Item : null;
-  //},
 
   optCode(o, p) {
     const _o = o;
@@ -407,7 +396,7 @@ export default {
     search['client_id'] = _o.appid;
     search['redirect_uri'] = _o.runame;
     search['response_type'] = _o.operation;
-    search['scope'] = R.join('%20', _o.scope);
+    search['scope'] = R.join(' ', _o.scope);
     search['state'] = _p.state;
     return { search, operation: _o.operation, state: _p.state };
   },
@@ -425,7 +414,7 @@ export default {
     options['SECURITY-APPNAME'] = _o.appid;
     options['SERVICE-VERSION'] = '1.13.0';
     options['outputSelector'] = 'SellerInfo';
-    options['paginationInput.entriesPerPage'] = 10;
+    options['paginationInput.entriesPerPage'] = 100;
     options['paginationInput.pageNumber'] = _o.page;
 
     if(_p.searchString) {
@@ -541,262 +530,6 @@ export default {
     //log.trace(displayName, 'optProducts:', options);
     return options;
   },
-
-  //optInventory(o, p) {
-  //  const _o = o;
-  //  const _p = p ? p : {};
-  //  const head = new Object();
-  //  const auth = new Object();
-  //  const query = new Object();
-  //  head['Accept-Encoding'] = 'application/gzip';
-  //  head['Accept-Language'] = 'en-US';
-  //  head['X-EBAY-C-MARKETPLACE-ID'] = 'EBAY_US';
-  //  auth['bearer'] = _o.token;
-  //  query['limit'] = 10;
-  //  query['offert'] = _o.page;
-  //  return { head, auth, query, operation: _o.operation };
-  //},
-
-  //optDetail(o, p) {
-  //  const _o = o;
-  //  const _p = p ? p : {};
-  //  const head = new Object();
-  //  const body = new Object();
-  //  head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
-  //  head['X-EBAY-API-APP-NAME'] = _o.appid;
-  //  head['X-EBAY-API-CALL-NAME'] = o.operation;
-  //  head['X-EBAY-API-SITEID'] = 0;
-  //  body['@xmlns'] = 'urn:ebay:apis:eBLBaseComponents';
-  //  body['RequesterCredentials'] = { 'eBayAuthToken': _o.token };
-  //  body['ErrorLanguage'] = 'en_US';
-  //  body['WarningLevel'] = 'High';
-  //  body['ItemID'] = _p.itemId;
-  //  body['DetailLevel'] = 'ReturnAll';
-  //  //log.trace(displayName, 'optDetail:', head, body);
-  //  return { head, body: util.toXML(_o.operation, body) };
-  //},
-
-  //renderStatus(status) {
-  //  switch(status) {
-  //    case 0:
-  //      return 'Now available.';
-  //    case 1:
-  //      return 'New added.';
-  //    case 2:
-  //      return 'Removed.';
-  //  }
-  //},
-
-  //renderExtension(duration) {
-  //  return util.toLeftDays(duration);
-  //},
-
-  //renderItem(item, idx) {
-  //  const Img = item.hasOwnProperty('galleryURL')
-  //    ? item.galleryURL[0] : '';
-  //  const Aid = item.itemId[0];
-  //  const Pid = item.hasOwnProperty('productId')
-  //    ? item.productId.map(obj =>
-  //      `${obj.__value__} ( ${obj['@type']} )`) : ['---'];
-  //  const Sid = item.sellerInfo[0].sellerUserName[0];
-  //  const Stm
-  //    = std.getLocalTimeStamp(item.listingInfo[0].startTime[0]);
-  //  const Etm
-  //    = std.getLocalTimeStamp(item.listingInfo[0].endTime[0]);
-  //  const Url = item.viewItemURL[0];
-  //  const Ttl = item.title[0];
-  //  const Pc1 = item.sellingStatus[0]
-  //    .currentPrice[0].__value__;
-  //  const Ci1 = item.sellingStatus[0]
-  //    .currentPrice[0]['@currencyId'];
-  //  const Pc2 = item.sellingStatus[0]
-  //    .convertedCurrentPrice[0].__value__;
-  //  const Ci2 = item.sellingStatus[0]
-  //    .convertedCurrentPrice[0]['@currencyId'];
-  //  const Cdn = item.hasOwnProperty('condition') 
-  //    ? item.condition[0].conditionDisplayName[0] : '---';
-  //  const Cgp = item.primaryCategory[0].categoryName[0];
-  //  const Shp = item.shippingInfo[0].shipToLocations[0];
-  //  const Stt = item.sellingStatus[0].sellingState[0];
-  //  const Ext = item.sellingStatus[0].hasOwnProperty('timeLeft')
-  //    ? this.renderExtension(item.sellingStatus[0].timeLeft[0])
-  //    : '';
-  //  const stt = this.renderStatus(0);
-  //  const Upd = std.getLocalTimeStamp(Date.now());
-  //
-  //  return {
-  //    'Key':                idx
-  //    , 'Image':            Img
-  //    , 'Url':              Url
-  //    , 'Title':            Ttl
-  //    , 'Sell Start':       Stm
-  //    , 'Sell Stop':        Etm
-  //    , 'Condition':        Cdn
-  //    , 'Seller':           Sid
-  //    , 'ItemID':           Aid
-  //    , 'ProductID':        Pid.join('/')
-  //    , 'Category':         Cgp
-  //    , 'Shipping':         Shp
-  //    , 'Price':            Pc1
-  //    , 'Currency':         Ci1
-  //    , 'Convert Price':    Pc2
-  //    , 'Convert Currency': Ci2
-  //    , 'Status':           Stt
-  //    , 'Extention':        Ext
-  //    , 'Avail':            stt
-  //    , 'Updated':          Upd
-  //  };
-  //},
-
-  //renderDetail(item) {
-  //  const Img = item.hasOwnProperty('PictureDetails')
-  //    ? '"' + item.PictureDetails.GalleryURL + '"' : '';
-  //  const Url = '"' + item.ListingDetails.ViewItemURL + '"';
-  //  const Ttl = '"' + item.Title + '"';
-  //  const Aid = item.ItemID;
-  //  let UPC   = '';
-  //  let EAN   = '';
-  //  let ISBN  = '';
-  //  if(item.hasOwnProperty('ProductListingDetails')) {
-  //    const pdf = item.ProductListingDetails;
-  //    UPC  = pdf.hasOwnProperty('UPC')  ? pdf.UPC  : '';
-  //    EAN  = pdf.hasOwnProperty('EAN')  ? pdf.EAN  : '';
-  //    ISBN = pdf.hasOwnProperty('ISBN') ? pdf.ISBN : '';
-  //  }
-  //  const Sid = item.Seller.UserID;
-  //  const Stm
-  //    = std.getLocalTimeStamp(item.ListingDetails.StartTime);
-  //  const Etm
-  //    = std.getLocalTimeStamp(item.ListingDetails.EndTime);
-  //  const Pc1 = item.SellingStatus
-  //    .CurrentPrice.sub;
-  //  const Ci1 = item.SellingStatus
-  //    .CurrentPrice.root.currencyID;
-  //  const Pc2 = item.ListingDetails
-  //    .ConvertedStartPrice.sub;
-  //  const Ci2 = item.ListingDetails
-  //    .ConvertedStartPrice.root.currencyID;
-  //  const Cdn = item.ConditionDisplayName;
-  //  const Cgp = '"' + item.PrimaryCategory.CategoryName + '"';
-  //  const Shp = Array.isArray(item.ShipToLocations)
-  //    ? item.ShipToLocations : [ item.ShipToLocations ];
-  //  const Stt = item.SellingStatus.ListingStatus;
-  //  const Ext = item.hasOwnProperty('TimeLeft')
-  //    ? this.renderExtension(item.TimeLeft) : '';
-  //  return {
-  //    'Image':                Img
-  //    , 'Url':                Url
-  //    , 'Title':              Ttl
-  //    , 'StartTime':          Stm
-  //    , 'EndTime':            Etm
-  //    , 'Condition':          Cdn
-  //    , 'Seller':             Sid
-  //    , 'ItemID':             Aid
-  //    , 'ProductID(UPC)':     UPC
-  //    , 'ProductID(EAN)':     EAN
-  //    , 'ProductID(ISBN)':    ISBN
-  //    , 'Category':           Cgp
-  //    , 'Shipping':           Shp.join('/')
-  //    , 'CurrentPrice':       Pc1
-  //    , 'CurrentCurrency':    Ci1
-  //    , 'ConvertedPrice':     Pc2
-  //    , 'ConvertedCurrency':  Ci2
-  //    , 'Status':             Stt
-  //    , 'LeftTime':           Ext
-  //  };
-  //},
-
-  //filterItem(options, obj) {
-  //  const item = obj;
-  //  if(options != null) {
-  //    if(!options.shipping.some(shipping =>
-  //      shipping === item.shippingInfo[0]
-  //      .shipToLocations[0])
-  //      && options.shipping.length)
-  //      return false;
-  //    if(!options.condition.some(condition => 
-  //      condition === item.condition[0]
-  //      .conditionId[0])
-  //      && options.condition.length)
-  //      return false;
-  //    if(!options.status.some(status =>
-  //      status === item.sellingStatus[0]
-  //      .sellingState[0])
-  //      && options.status.length)
-  //      return false;
-  //    if(!options.categoryPath.some(path =>
-  //      path === item.primaryCategory[0]
-  //      .categoryName[0])
-  //      && options.categoryPath.length)
-  //      return false;
-  //    if(!options.seller.some(selr => 
-  //      selr === item.sellerInfo[0]
-  //      .sellerUserName[0])
-  //      && options.seller.length)
-  //      return false;
-  //    if(!options.itemId.some(itemid => 
-  //      itemid === item.itemId[0])
-  //      && options.itemId.length)
-  //      return false;
-  //    if(!isFinite(options.lowestPrice) 
-  //      || !isFinite(options.highestPrice))
-  //      return false;
-  //    if(Number(options.lowestPrice) > item.sellingStatus[0]
-  //      .convertedCurrentPrice[0].__value__ 
-  //      && options.lowestPrice !== '')
-  //      return false;
-  //    if(Number(options.highestPrice) < item.sellingStatus[0]
-  //      .convertedCurrentPrice[0].__value__ 
-  //      && options.highestPrice !== '')
-  //      return false;
-  //  }
-  //  return true;
-  //},
-
-  //filterDetail(options, obj) {
-  //  const item = obj;
-  //  if(options != null) {
-  //    if(!options.shipping.some(shipping =>
-  //      shipping === item.ShipToLocations)
-  //      && options.shipping.length)
-  //      return false;
-  //    if(!options.condition.some(condition => 
-  //      condition === item.ConditionID)
-  //      && options.condition.length)
-  //      return false;
-  //    if(!options.status.some(status =>
-  //      status === item.SellingStatus
-  //      .ListingStatus)
-  //      && options.status.length)
-  //      return false;
-  //    if(!options.categoryPath.some(path =>
-  //      path === item.PrimaryCategory
-  //      .CategoryName)
-  //      && options.categoryPath.length)
-  //      return false;
-  //    if(!options.seller.some(selr => 
-  //      selr === item.Seller
-  //      .UserID)
-  //      && options.seller.length)
-  //      return false;
-  //    if(!options.itemId.some(itemid => 
-  //      itemid === item.ItemID)
-  //      && options.itemId.length)
-  //      return false;
-  //    if(!isFinite(options.lowestPrice) 
-  //      || !isFinite(options.highestPrice))
-  //      return false;
-  //    if(Number(options.lowestPrice) > item.SellingStatus
-  //      .ConvertedCurrentPrice.sub
-  //      && options.lowestPrice !== '')
-  //      return false;
-  //    if(Number(options.highestPrice) < item.SellingStatus
-  //      .ConvertedCurrentPrice.sub
-  //      && options.highestPrice !== '')
-  //      return false;
-  //  }
-  //  return true;
-  //},
 
   logTrace(obj) {
     return log.trace(displayName, 'Trace log:', obj);

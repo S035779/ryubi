@@ -17,17 +17,18 @@ import log                      from 'Utilities/logutils';
  */
 class eBay {
   constructor(props) {
+    //log.trace(eBay.displayName, 'Props', props);
     if(!props) return log.error(eBay.displayName, 'Error', 'Request failed.');
     const { method, type, url, appid, certid, operation, scope, code, token, runame, options, items, offset } 
       = props;
     this.props = {
       method:     method    ? R.toUpper(method) : 'GET'
     , type:       type      ? R.toUpper(type)   : 'JSON'
-    , url:        url       ? url               : ''
-    , appid:      appid     ? appid             : ''
-    , certid:     certid    ? certid            : ''
-    , operation:  operation ? operation         : ''
-    , scope:      scope     ? scope             : []
+    , url:        url       ? url               : null
+    , appid:      appid     ? appid             : null
+    , certid:     certid    ? certid            : null
+    , operation:  operation ? operation         : null
+    , scope:      scope     ? scope             : null
     , code:       code      ? code              : null
     , token:      token     ? token             : null
     , runame:     runame    ? runame            : null
@@ -42,7 +43,6 @@ class eBay {
   }
 
   fetch() {
-    log.trace(eBay.displayName, 'Props', this.props);
     const { operation, options, items } = this.props;
     log.info(eBay.displayName, 'Fetch', operation);
     switch(operation) {
@@ -85,23 +85,27 @@ class eBay {
 
   getItemDetail(item) {
     const { method, type, url, appid, operation, token } = this.props;
-    const request 
-      = R.merge({ method, type, url }, this.optDetail({ appid, operation, token }, item));
+    const request = R.merge({ method, type, url }, this.optDetail({ appid, operation, token }, item));
     return net.fetch(request);
   }
 
   getInventoryItems() {
     const { method, type, url, appid, operation, token, offset } = this.props;
-    const request 
-      = R.merge({ method, type, url }, this.optInventory({ appid, operation, token, offset }));
+    const request = R.merge({ method, type, url }, this.optInventory({ appid, operation, token, offset }));
     return net.fetch(request);
   }
   
+  fetchAppToken() {
+    const requestAppToken  = from(this.getAppToken());
+    return requestAppToken.pipe(
+      map(this.parseJSON)
+    );
+  }
+
   fetchUserToken() {
     const requestUserToken = from(this.getUserToken());
     return requestUserToken.pipe(
       map(this.parseJSON)
-    //, map(R.tap(this.logTrace.bind(this)))
     );
   }
 
@@ -109,15 +113,6 @@ class eBay {
     const requestRefreshToken = from(this.getRefreshToken());
     return requestRefreshToken.pipe(
       map(this.parseJSON)
-    //, map(R.tap(this.logTrace.bind(this)))
-    );
-  }
-
-  fetchAppToken() {
-    const requestAppToken  = from(this.getAppToken());
-    return requestAppToken.pipe(
-      map(this.parseJSON)
-    //, map(R.tap(this.logTrace.bind(this)))
     );
   }
 
@@ -142,7 +137,23 @@ class eBay {
     const observable = from(this.getInventoryItems());
     return observable.pipe(
       map(R.tap(this.logTrace.bind(this)))
+    //, map(R.tap(this.logTrace.bind(this)))
     );
+  }
+
+  optAppToken(o, p) {
+    const _o = o;
+    const _p = p ? p : {};
+    const head = new Object();
+    const auth = new Object();
+    const body = new Object();
+    head['Accept-Language'] = 'en-US';
+    auth['user'] = _o.appid;
+    auth['pass'] = _o.certid;
+    body['grant_type'] = _o.operation;
+    body['redirect_uri'] = _o.runame;
+    body['scope'] = R.join(' ', _o.scope);
+    return { head, auth, body, operation: _o.operation };
   }
 
   optUserToken(o, p) {
@@ -150,14 +161,14 @@ class eBay {
     const _p = p ? p : {};
     const head = new Object();
     const auth = new Object();
-    const search = new Object();
+    const body = new Object();
     head['Accept-Language'] = 'en-US';
     auth['user'] = _o.appid;
     auth['pass'] = _o.certid;
-    search['grant_type'] = _o.operation;
-    search['redirect_uri'] = _o.runame;
-    search['code'] = _o.code;
-    return { head, auth, search, operation: _o.operation };
+    body['grant_type'] = _o.operation;
+    body['redirect_uri'] = _o.runame;
+    body['code'] = _o.code;
+    return { head, auth, body, operation: _o.operation };
   }
 
   optRefreshToken(o, p) {
@@ -171,23 +182,8 @@ class eBay {
     auth['pass'] = _o.certid;
     body['grant_type'] = _o.operation;
     body['refresh_token'] = _o.token;
-    body['scope'] = R.join('%20', _o.scope);
+    body['scope'] = R.join(' ', _o.scope);
     return { head, auth, body, operation: _o.operation };
-  }
-
-  optAppToken(o, p) {
-    const _o = o;
-    const _p = p ? p : {};
-    const head = new Object();
-    const auth = new Object();
-    const search = new Object();
-    head['Accept-Language'] = 'en-US';
-    auth['user'] = _o.appid;
-    auth['pass'] = _o.certid;
-    search['grant_type'] = _o.operation;
-    search['redirect_uri'] = _o.runame;
-    search['scope'] = R.join('%20', _o.scope);
-    return { head, auth, search, operation: _o.operation };
   }
 
   optInventory(o, p) {

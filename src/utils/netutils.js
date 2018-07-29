@@ -44,7 +44,7 @@ const request = function({ method, url, search, auth, head, body, type }, callba
     , query     = url.query
     , protocol  = url.protocol;
   if (query)  path += '?' + query;
-  if (search) path += '?' + std.urlencode(search);
+  if (search) path += '?' + std.urlencode_rfc3986(search);
   if (body instanceof Buffer) {
     type = 'application/octet-stream';
   } else if (typeof body === 'string' && type === 'XML') {
@@ -55,10 +55,7 @@ const request = function({ method, url, search, auth, head, body, type }, callba
     body = JSON.stringify(body); 
     type = 'application/json';
   } else if (typeof body === 'object' && type === 'NV') {
-    body = std.urlencode(body);  
-    type = 'application/x-www-form-urlencoded';
-  } else if (type === 'NV') {
-    body = '';
+    body = std.urlencode_rfc3986(body);  
     type = 'application/x-www-form-urlencoded';
   } else {
     body = '';
@@ -76,42 +73,43 @@ const request = function({ method, url, search, auth, head, body, type }, callba
   } else if (auth && auth.bearer) {
     headers['Authorization'] = 'Bearer ' + auth.bearer;
   }
-  log.info(displayName, 'request', method, url, path);
-  log.trace(displayName, 'headers', headers);
+  log.info(displayName, 'Request', method, url, path);
+  log.trace(displayName, 'Header', headers);
+  log.trace(displayName, 'Body', body);
   const client = protocol === 'http:' ? http : https;
   const req = client.request({ hostname, port, path, method, headers }, res => {
     const stat = res.statusCode;
     const head = res.headers;
     res.setEncoding('utf8');
-    let _body = '';
-    res.on('data', chunk => _body += chunk);
+    let body = '';
+    res.on('data', chunk => body += chunk);
     res.on('end', () => {
       switch (stat) {
         case 101: case 102: case 103: case 104: case 105: case 106:
           log.error(displayName, `HTTP/HTTPS Request Failed. Status Code: ${stat} at ${hostname}`);
-          callback({ error:  { name: stat, message: JSON.parse(_body) }});
+          callback({ error: { name: `Status Code: ${stat}`, message: JSON.parse(body) }});
           break; 
         case 200: case 201: case 202: case 204:
           process.stdout.write('-');
-          callback(null, head, _body);
+          callback(null, head, body);
           break;
         case 301: case 302:
           log.error(displayName, `HTTP/HTTPS Request Failed. Status Code: ${stat} at ${hostname}`);
-          callback({ error: { name: stat, message: JSON.parse(_body) }});
+          callback({ error: { name: `Status Code: ${stat}`, message: JSON.parse(body) }});
           break; 
         case 400: case 401: case 402: case 403: case 404:
           log.error(displayName, `HTTP/HTTPS Request Failed. Status Code: ${stat} at ${hostname}`);
-          callback({error: { name: stat, message: JSON.parse(_body) }});
+          callback({ error: { name: `Status Code: ${stat}`, message: JSON.parse(body) }});
           return; 
         case 500: case 501: case 502: case 503: case 504: case 505:
           process.stdout.write('x');
           log.error(displayName, `HTTP/HTTPS Request Failed. Status Code: ${stat} at ${hostname}`);
-          callback({ error: { name: stat, message: JSON.parse(_body) }});
+          callback({ error: { name: `Status Code: ${stat}`, message: JSON.parse(body) }});
           break;
         default:
           process.stdout.write('?');
           log.warn(displayName, `HTTP/HTTPS Request Failed. Status Code: ${stat} at ${hostname}`);
-          callback({ error: { name: stat, message: JSON.parse(_body) }});
+          callback({ error: { name: `Status Code: ${stat}`, message: JSON.parse(body) }});
           break;
       }
     });
