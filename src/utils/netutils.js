@@ -18,7 +18,7 @@ const fetch = function(options) {
   return new Promise((resolve, reject) => {
     request(options, (err, head, body) => {
       if(err) return reject(err);
-      //log.trace(displayName, 'header', header);
+      log.trace(displayName, 'head', head);
       resolve(body);
     });
   });
