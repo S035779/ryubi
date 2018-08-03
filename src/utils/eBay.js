@@ -137,89 +137,88 @@ class eBay {
     const observable = from(this.getInventoryItems());
     return observable.pipe(
       map(R.tap(this.logTrace.bind(this)))
-    //, map(R.tap(this.logTrace.bind(this)))
     );
   }
 
   optAppToken(o, p) {
     const _o = o;
     const _p = p ? p : {};
-    const head = new Object();
+    const header = new Object();
     const auth = new Object();
     const body = new Object();
-    head['Accept-Language'] = 'en-US';
+    header['Accept-Language'] = 'en-US';
     auth['user'] = _o.appid;
     auth['pass'] = _o.certid;
     body['grant_type'] = _o.operation;
     body['redirect_uri'] = _o.runame;
     body['scope'] = R.join(' ', _o.scope);
-    return { head, auth, body, operation: _o.operation };
+    return { header, auth, body, operation: _o.operation };
   }
 
   optUserToken(o, p) {
     const _o = o;
     const _p = p ? p : {};
-    const head = new Object();
+    const header = new Object();
     const auth = new Object();
     const body = new Object();
-    head['Accept-Language'] = 'en-US';
+    header['Accept-Language'] = 'en-US';
     auth['user'] = _o.appid;
     auth['pass'] = _o.certid;
     body['grant_type'] = _o.operation;
     body['redirect_uri'] = _o.runame;
     body['code'] = _o.code;
-    return { head, auth, body, operation: _o.operation };
+    return { header, auth, body, operation: _o.operation };
   }
 
   optRefreshToken(o, p) {
     const _o = o;
     const _p = p ? p : {};
-    const head = new Object();
+    const header = new Object();
     const auth = new Object();
     const body = new Object();
-    head['Accept-Language'] = 'en-US';
+    header['Accept-Language'] = 'en-US';
     auth['user'] = _o.appid;
     auth['pass'] = _o.certid;
     body['grant_type'] = _o.operation;
     body['refresh_token'] = _o.token;
     body['scope'] = R.join(' ', _o.scope);
-    return { head, auth, body, operation: _o.operation };
+    return { header, auth, body, operation: _o.operation };
   }
 
   optInventory(o, p) {
     const _o = o;
     const _p = p ? p : {};
-    const head = new Object();
+    const header = new Object();
     const auth = new Object();
     const search = new Object();
-    //head['Accept-Encoding'] = 'application/gzip';
-    head['Accept-Language'] = 'en-US';
-    head['X-EBAY-C-MARKETPLACE-ID'] = 'EBAY_US';
-    head['X-EBAY-C-ENDUSERCTX'] = 'contextualLocation=country=JP,zip=134-0083'
+    //header['Accept-Encoding'] = 'application/gzip';
+    header['Accept-Language'] = 'en-US';
+    header['X-EBAY-C-MARKETPLACE-ID'] = 'EBAY_US';
+    header['X-EBAY-C-ENDUSERCTX'] = 'contextualLocation=country=JP,zip=134-0083'
     auth['bearer'] = _o.token;
     search['limit'] = 100;
     search['offset'] = _o.offset;
-    return { head, auth, search, operation: _o.operation };
+    return { header, auth, search, operation: _o.operation };
   }
 
   optDetail(o, p) {
     const _o = o;
     const _p = p ? p : {};
-    const head = new Object();
+    const header = new Object();
     const body = new Object();
-    head['Accept-Language'] = 'en-US';
-    head['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
-    head['X-EBAY-API-APP-NAME'] = _o.appid;
-    head['X-EBAY-API-CALL-NAME'] = o.operation;
-    head['X-EBAY-API-SITEID'] = 0;
+    header['Accept-Language'] = 'en-US';
+    header['X-EBAY-API-COMPATIBILITY-LEVEL'] = '967';
+    header['X-EBAY-API-APP-NAME'] = _o.appid;
+    header['X-EBAY-API-CALL-NAME'] = o.operation;
+    header['X-EBAY-API-SITEID'] = 0;
     body['@xmlns'] = 'urn:ebay:apis:eBLBaseComponents';
     body['RequesterCredentials'] = { 'eBayAuthToken': _o.token };
     body['ErrorLanguage'] = 'en_US';
     body['WarningLevel'] = 'High';
     body['ItemID'] = _p.itemId;
     body['DetailLevel'] = 'ReturnAll';
-    //log.trace(eBay.displayName, 'optDetail:', head, body);
-    return { head, body: this.toXML(_o.operation, body) };
+    //log.trace(eBay.displayName, 'optDetail:', header, body);
+    return { header, body: this.toXML(_o.operation, body) };
   }
 
   resDetail(obj) {

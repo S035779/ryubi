@@ -23,7 +23,7 @@ class GlobalFooter extends React.Component {
         AppAction.writeInventoryItems(this.state).subscribe(
           obj => ipc.sys.saveFile(filename, obj)
         , err => {
-            log.error(GlobalFooter.displayName, err.name, err.message);
+            log.error(GlobalFooter.displayName, err.name, err.message, err.stack);
             ipc.win.showErrorBox(err);
             spn.stop();
           }

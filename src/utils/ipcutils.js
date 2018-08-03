@@ -1,6 +1,6 @@
-import { ipcRenderer, remote } from 'electron';
-import fs      from 'fs';
 import * as R  from 'ramda';
+import fs      from 'fs';
+import { ipcRenderer, remote } from 'electron';
 import std     from 'Utilities/stdutils';
 import { log } from 'Utilities/webutils';
 
@@ -18,9 +18,8 @@ class ipc {
   }
 
   send(request, callback) {
-    //ipcRenderer.setMaxListeners(0);
-    ipcRenderer.on('asynchronous-reply', (event, response) => {
-      if(response.error) return callback(response.error);
+    ipcRenderer.on('asynchronous-reply', (event, { error, response }) => {
+      if(error) return callback(error);
       this.setProps({ event });
       callback(null, response);
     });
@@ -28,18 +27,17 @@ class ipc {
   }
 
   sendSync(request) {
-    //ipcRenderer.setMaxListeners(0);
-    const response = ipcRenderer.sendSync('synchronous-message', request);
-    if(response.error) return response.error;
+    const { error, response } = ipcRenderer.sendSync('synchronous-message', request);
+    if(error) return error;
     return response;
   }
 
   setState(state) {
-    this.state = Object.assign({}, this.state, state);
+    this.state = R.merge(this.state, state);
   }
 
   setProps(props) {
-    this.props = Object.assign({}, this.props, props);
+    this.props = R.merge(this.props, props);
   }
 };
 ipc.displayName = 'ipc';
@@ -59,13 +57,13 @@ class fetch extends ipc {
     const { url } = this.state;
     const { search } = request;
     const authUrl = search ? url + '?' + std.urlencode(search) : url;
-    log.info(fetch.displayName, 'authUrl', authUrl);
+    //log.info(fetch.displayName, 'authUrl', authUrl);
     const BrowserWindow = remote.BrowserWindow;
     const authWindow = new BrowserWindow({ width: 800, height: 600, show: false
     , webPreferences: { nodeIntegration: false, webSecurity: false } 
     });
     const handleChangeUrl = newUrl => {
-      log.info(fetch.displayName, 'newUrl', newUrl);
+      //log.info(fetch.displayName, 'newUrl', newUrl);
       const raw_code  = /code=([^&]*)/.exec(newUrl) || null;
       const raw_state = /state=([^&]*)/.exec(newUrl) || null;
       const raw_expire = /expires_in=([^&]*)/.exec(newUrl) || null;
