@@ -80,7 +80,10 @@ class fetch extends ipc {
     };
     authWindow.webContents.on('did-finish-load', () => handleChangeUrl(authWindow.webContents.getURL()));
     authWindow.once('ready-to-show', () => authWindow.show());
-    authWindow.on('close', () => authWindow = null);
+    authWindow.on('close', () => {
+      authWindow.hide();
+      callback({ name: 'Canceled', message: 'Content was incomplete. Please check the contents once again.' });
+    });
     authWindow.loadURL(authUrl);
   }
 
