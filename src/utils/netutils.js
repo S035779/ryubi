@@ -1,76 +1,83 @@
-import * as R from 'ramda';
-import http   from 'http';
-import https  from 'https';
-import std    from 'Utilities/stdutils';
+import * as R           from 'ramda';
+import PromiseThrottle  from 'promise-throttle';
+import http             from 'http';
+import https            from 'https';
+import std              from 'Utilities/stdutils';
 
-const env = process.env.NODE_ENV || 'development';
-const min = 2000;
-const max = 5000;
-const throttle = () => Math.floor(Math.random() * (max + 1 - min) + min);
+const displayName = 'netutils';
 
-/*
- * HTTPS/HTTP request
- *
- * @param {object} options - 
- */
+const promiseThrottle = new PromiseThrottle({
+  requestsPerSecond: 1
+, promiseImplementation: Promise
+});
+
 const fetch = function(options) {
   return new Promise((resolve, reject) => {
     request(options, (error, response) => {
       if(error) return reject(error);
+      std.logDebug(displayName, 'FETCH', 'promise done.');
       resolve(response);
     });
   });
 };
 
-/*
- * HTTPS/HTTP request
- *
- * @param {string} method - 
- * @param {string} url - 
- * @param {object} auth -
- * @param {object} head - 
- * @param {object} body -
- * @param {string} type - 
- * @param {string} search - 
- * @param {function} callback -
- */
-const request = function({ method, url, search, auth, header, body, type }, callback) {
-  const api      = std.parse_url(url);
-  const hostname = api.hostname;
-  const protocol = api.protocol;
-  const port     = api.port || (protocol === 'https:' ? 443 : 80);
-  const query    = api.query;
-  let   path     = api.pathname;
+const throttle = options => {
+  return promiseThrottle.add(fetch.bind(this, options));
+};
+
+const request = ({ url, method, header, search, auth, body, type, accept, parser }, callback) => {
+  const api           = std.parse_url(url);
+  const hostname      = api.hostname;
+  const protocol      = api.protocol;
+  const port          = api.port || (protocol === 'https:' ? 443 : 80);
+  const query         = api.search;
+  let   path          = api.pathname;
+  let   postData      = null;
+  let   postType      = null;
+  let   postLen       = null;
+  let   acceptType    = null;
   if (query)  { 
-    path += '?' + query; 
+    path += query; 
   } else if (search) { 
     path += '?' + std.urlencode_rfc3986(search); 
   }
-  let postData = null, postType = null;
   if (body && body instanceof Buffer) {
     postType = 'application/octet-stream';
     postData = body;
+    postLen  = Buffer.byteLength(postData);
   } else if (body && typeof body === 'string' && type === 'XML') {
     postType = 'application/xml; charset="UTF-8"';
     postData = body;
+    postLen  = Buffer.byteLength(postData);
   } else if (body && typeof body === 'string') {
     postType = 'text/plain; charset="UTF-8"';
     postData = body;
+    postLen  = Buffer.byteLength(postData);
   } else if (body && typeof body === 'object' && type === 'JSON') {
     postType = 'application/json';
     postData = JSON.stringify(body); 
+    postLen  = Buffer.byteLength(postData);
   } else if (body && typeof body === 'object' && type === 'NV') {
     postType = 'application/x-www-form-urlencoded';
     postData = std.urlencode_rfc3986(body);  
+    postLen  = Buffer.byteLength(postData);
   } else {
     postType = 'text/plain; charset="UTF-8"';
     postData = '';
+    postLen  = 0;
+  }
+  if(accept && accept === 'JSON') {
+    acceptType = 'application/json';
+    parser = JSON.parser;
+  } else if(accept && accept === 'XML') {
+    acceptType = 'application/xml; charset="UTF-8"';
+  } else {
+    acceptType = 'text/plain; charset="UTF-8"';
   }
   const headers = R.merge({
-    'Accept':           'application/json'
-  , 'Accept-Charset':   'utf-8'
+    'Accept':           acceptType
   , 'Accept-Language':  'ja-JP'
-  , 'Content-Length':   postData ? Buffer.byteLength(postData) : 0
+  , 'Content-Length':   postLen
   , 'Content-Type':     postType
   }, header);
   if(auth && auth.bearer) {
@@ -81,17 +88,19 @@ const request = function({ method, url, search, auth, header, body, type }, call
   const client = protocol === 'https:' ? https : http;
   const params = { hostname, port, path, method, headers };
   const req = client.request(params, res => {
-    let data = '';
+    let request = '';
     res.setEncoding('utf8');
-    res.on('data', chunk => data += chunk);
+    res.on('data', chunk => request += chunk);
     res.on('end', () => {
-      const status = { name: `Status Code: ${res.statusCode}`, message: JSON.parse(data), stack: res.headers };
+      request = parser ? parser(response) : response;
+      const status 
+        = { name: `Status Code: ${res.statusCode} / Request URL: ${url}`, message: response, stack: res.headers };
       switch (res.statusCode) {
         case 101: case 102: case 103: case 104: case 105: case 106:
           callback(status);
           break; 
         case 200: case 201: case 202: case 204:
-          callback(null, data);
+          callback(null, response);
           break;
         case 301: case 302:
           callback(status);

@@ -1,0 +1,13 @@
+{
+  "app.js": "app.bundle.js",
+  "common.js": "common.bundle.js",
+  "css.css": "styles.css",
+  "css.js": "css.bundle.js",
+  "photon-entypo.eot": "photon-entypo.eot",
+  "photon-entypo.woff": "photon-entypo.woff",
+  "photon-entypo.ttf": "photon-entypo.ttf",
+  "favicon.ico": "favicon.ico",
+  "index.html": "index.html",
+  "jsonp.js": "jsonp.js",
+  "log4js.min.js": "log4js.min.js"
+}
