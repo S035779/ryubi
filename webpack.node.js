@@ -8,6 +8,7 @@ const common = require('./webpack.common.js');
 
 const node = {
   mode: 'none'
+, devtool: 'inline-source-map'
 , target: "electron-main"
 , entry:    { 
     desktop:    './desktop.js'

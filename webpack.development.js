@@ -9,6 +9,7 @@ const development = {
     contentBase: path.join(__dirname, 'public')
   , port: 3000
   , hot: true
+  , stats: { colors: true }
   }
 };
 module.exports = merge(bundle, development);

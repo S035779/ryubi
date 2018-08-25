@@ -56,73 +56,62 @@ class eBay {
         return this.fetchUserToken();
       case 'refresh_token':
         return this.fetchRefreshToken();
-      default:
-        log.error(eBay.displayName, 'Error', 'Unknown operation.');
-        return null;
     }
   }
 
   getUserToken() {
     const { method, type, url, appid, certid, operation, runame, code } = this.props;
-    const request 
-      = R.merge({ method, type, url }, this.optUserToken({ appid, certid, operation, runame, code }));
-    return net.fetch(request);
+    const params = this.optUserToken({ appid, certid, operation, runame, code });
+    const option = R.merge({ method, type, accept: 'JSON' }, params);
+    return net.fetch(url, option);
   }
 
   getRefreshToken() {
     const { method, type, url, appid, certid, operation, token, scope } = this.props;
-    const request
-      = R.merge({ method, type, url }, this.optRefreshToken({ appid, certid, operation, token, scope }));
-    return net.fetch(request);
+    const params = this.optRefreshToken({ appid, certid, operation, token, scope });
+    const option = R.merge({ method, type, accept: 'JSON' }, params);
+    return net.fetch(url, option);
   }
 
   getAppToken() {
     const { method, type, url, appid, certid, operation, runame, scope } = this.props;
-    const request 
-      = R.merge({ method, type, url }, this.optAppToken({ appid, certid, operation, runame, scope }));
-    return net.fetch(request);
+    const params = this.optAppToken({ appid, certid, operation, runame, scope });
+    const option = R.merge({ method, type, accept: 'JSON' }, params);
+    return net.fetch(url, option);
   }
 
   getItemDetail(item) {
     const { method, type, url, appid, operation, token } = this.props;
-    const request = R.merge({ method, type, url }, this.optDetail({ appid, operation, token }, item));
-    return net.fetch(request);
+    const params = this.optDetail({ appid, operation, token }, item);
+    const option = R.merge({ method, type, accept: 'XML' }, params);
+    return net.fetch(url, option);
   }
 
   getInventoryItems() {
     const { method, type, url, appid, operation, token, offset } = this.props;
-    const request = R.merge({ method, type, url }, this.optInventory({ appid, operation, token, offset }));
-    return net.fetch(request);
+    const params = this.optInventory({ appid, operation, token, offset });
+    const option = R.merge({ method, type, accept: 'JSON' }, params);
+    return net.fetch(url, option);
   }
   
   fetchAppToken() {
-    const requestAppToken  = from(this.getAppToken());
-    return requestAppToken.pipe(
-      map(this.parseJSON)
-    );
+    return from(this.getAppToken());
   }
 
   fetchUserToken() {
-    const requestUserToken = from(this.getUserToken());
-    return requestUserToken.pipe(
-      map(this.parseJSON)
-    );
+    return from(this.getUserToken());
   }
 
   fetchRefreshToken() {
-    const requestRefreshToken = from(this.getRefreshToken());
-    return requestRefreshToken.pipe(
-      map(this.parseJSON)
-    );
+    return from(this.getRefreshToken());
   }
 
   fetchItemDetails(options, items) {
-    const promDetail  = R.map(obj => this.getItemDetail({ itemId: obj.itemId[0] }));
-    const forkDetail  = objs => forkJoin(promDetail(objs));
     const promJSON    = R.map(obj => this.toJSON(obj));
     const forkJSON    = objs => forkJoin(promJSON(objs));
     const isDetail    = R.curry(this.filterDetail)(options);
-    return forkDetail(items).pipe(
+    const promDetail  = R.map(obj => this.getItemDetail({ itemId: obj.itemId[0] }));
+    return forkJoin(promDetail(items)).pipe(
       flatMap(forkJSON)
     , map(R.map(this.resDetail.bind(this)))
     , map(R.map(this.setDetail.bind(this)))
@@ -134,8 +123,7 @@ class eBay {
   }
 
   fetchInventoryItems() {
-    const observable = from(this.getInventoryItems());
-    return observable.pipe(
+    return from(this.getInventoryItems()).pipe(
       map(R.tap(this.logTrace.bind(this)))
     );
   }
@@ -411,10 +399,6 @@ class eBay {
   toLeftDays(date) {
     const obj = parse(date);
     return (`${obj.days} days / ${obj.hours} hours / ${obj.minutes} minutes`);
-  }
-
-  parseJSON(str) {
-    return JSON.parse(str);
   }
 
   logTrace(message) {

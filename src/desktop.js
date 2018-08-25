@@ -1,7 +1,9 @@
+import sourceMapSupport    from 'source-map-support';
 import { app }            from 'electron';
 import MainWindow         from 'Views/main-window';
 import AppMenu            from 'Views/app-menu';
 import log                from 'Utilities/logutils';
+sourceMapSupport.install();
 
 const env = process.env.NODE_ENV;
 

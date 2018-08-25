@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 var common = {
   context: path.resolve(__dirname, 'src')
+, cache: true
 , module: { 
     rules: [
       {

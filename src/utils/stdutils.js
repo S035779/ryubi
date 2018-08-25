@@ -673,18 +673,24 @@ const std = {
    * @param {objct} obj - query parameter object.
    * @return {string}
    */
-  urlencode(obj) {
-    if (!obj) return "";
-    let pairs = [];
-    for(let name in obj) {
-      if (!obj.hasOwnProperty(name)) continue;
-      if (typeof obj[name] === "function") continue;
-      let value = obj[name].toString();
-      name = encodeURIComponent(name);
-      value = encodeURIComponent(value);
-      pairs.push(name + "=" + value);
-    }
-    return pairs.join('&');
+  urlencode(data) {
+    const encode = obj => encodeURIComponent(obj);
+    let results = '';
+    if (data && typeof data === 'string') {
+      results = encode(data);
+    } else if(data && typeof data === 'object') {
+      let pairs = [];
+      for(let name in data) {
+        if (!data.hasOwnProperty(name)) continue;
+        if (typeof data[name] === "function") continue;
+        let value = data[name].toString();
+        name = encode(name);
+        value = encode(value);
+        pairs.push(name + "=" + value);
+      }
+      results = pairs.join('&');
+    } 
+    return results;
   },
 
   /**
@@ -694,12 +700,12 @@ const std = {
    * @param {objct} obj - query parameter object.
    * @return {string}
    */
-  urlencode_fake(obj) {
+  urlencode_fake(data) {
     const keys = [];
-    for(let key in obj) {
-      if(obj.hasOwnProperty(key)) keys.push(key);
+    for(let key in data) {
+      if(data.hasOwnProperty(key)) keys.push(key);
     }
-    return keys.map((key, idx) => `${key}=${obj[key]}`)
+    return keys.map((key, idx) => `${key}=${data[key]}`)
       .map(pair => pair.replace(" ", "+"))
       .join('&');
   },
@@ -711,8 +717,25 @@ const std = {
    * @param {objct} obj - query parameter object.
    * @return {string}
    */
-  urlencode_rfc3986(obj) {
-    return querystring.stringify(obj);
+  urlencode_rfc3986(data) {
+    const encode = obj => encodeURIComponent(obj)
+      .replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+    let results = '';
+    if (data && typeof data === 'string') {
+      results = encode(data);
+    } else if(data && typeof data === 'object') {
+      let pairs = [];
+      for(let name in data) {
+        if (!data.hasOwnProperty(name)) continue;
+        if (typeof data[name] === "function") continue;
+        let value = data[name].toString();
+        name = encode(name);
+        value = encode(value);
+        pairs.push(name + "=" + value);
+      }
+      results = pairs.join('&');
+    } 
+    return results;
   },
 
   /**

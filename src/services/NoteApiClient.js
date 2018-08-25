@@ -316,8 +316,8 @@ export default {
   //  const forkItems     = obj   => forkJoin(this.forInventoryItems(options, obj));
   //  const forkJSON      = obj   => forkJoin(util.toJSON(obj));
     return this.fetchToken(scope).pipe(
-        flatMap(streamItems)
-      , map(R.tap(this.logTrace.bind(this)))
+        map(R.tap(this.logTrace.bind(this)))
+      , flatMap(streamItems)
   //      map(this.resInventoryItems)
   //    , flatMap(forkItems)
   //    , map(R.map(this.resInventoryItems.bind(this)))
@@ -332,7 +332,7 @@ export default {
   //    , map(R.map(this.renderDetail.bind(this)))
   //    , map(R.map(util.toCSV.bind(this)))
   //    , map(R.map(csv => csv + '\n'))
-    )
+      )
     ;
   },
   
